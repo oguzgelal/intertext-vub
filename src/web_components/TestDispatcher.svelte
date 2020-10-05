@@ -1,18 +1,26 @@
+<script context="module" lang="ts">
+  export type DispatcherEvent = {
+    json: [object]
+  }
+</script>
+
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import Button from './../core_components/Button.svelte'
+  import Button from '../core_components/Button/Button.svelte'
   const dispatch = createEventDispatcher();
 
-  let json: object;
+  let json: [object];
   let jsonText: string;
   let invalid: boolean;
 
+  // evaluate json input
   $: if (!jsonText) { invalid = false; }
   $: if(!!jsonText) {
     try {
       // use eval instead of json.parsing for
       // flexible js object-style syntax
-      eval(`json = ${jsonText};`)
+      eval(`json = ${jsonText};`);
+      if (!Array.isArray(json)) json = [json];
       invalid = false;
     }
     catch(e) {
@@ -20,8 +28,11 @@
     }
   }
 
+  // dispatch custom event
   const handleDispatch = (): void => {
-    dispatch('dispatch', { json });
+    console.log("event");
+    const eventObj: DispatcherEvent = { json };
+    dispatch('dispatch', eventObj);
   }
 </script>
 
@@ -52,7 +63,7 @@
 
 <form
   class="test-dispatcher--wrapper"
-  on:submit={handleDispatch}
+  on:submit|preventDefault={handleDispatch}
 >
   <div class="test-dispatcher--textarea-container">
     <textarea

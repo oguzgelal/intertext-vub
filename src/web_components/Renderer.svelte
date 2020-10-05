@@ -1,17 +1,23 @@
 <script lang="ts">
   import { fly } from "svelte/transition";
   import TestDispatcher from "./TestDispatcher.svelte";
+  import type { DispatcherEvent } from "./TestDispatcher.svelte";
   
   let showingTestDispatcher: boolean;
 
-  const toggleDispatcher = () => {
+  const toggleDispatcher = (): void => {
     showingTestDispatcher = !showingTestDispatcher
   };
 
-  const hotkeyHandler = e => {
+  const hotkeyHandler = (e: KeyboardEvent): void => {
     if (e.key === 'd') {
       toggleDispatcher()
     }
+  }
+
+  const receiveDispatch = (e: CustomEvent) => {
+    const args: DispatcherEvent = e.detail;
+    const { json } = args;
   }
 </script>
 
@@ -43,6 +49,7 @@
   }
 </style>
 
+<!-- dispatcher warning -->
 <div class="renderer--dispatcher-notice">
   Press `d` for Dispatcher
 </div>
@@ -58,6 +65,6 @@
     on:click={toggleDispatcher}
   />
   <div class="renderer--dispatcher-wrapper" transition:fly={{ y: -200 }}>
-    <TestDispatcher />    
+    <TestDispatcher on:dispatch={receiveDispatch} />    
   </div>
 {/if}
