@@ -1,24 +1,37 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { fly } from "svelte/transition";
-  import TestDispatcher from "./TestDispatcher.svelte";
-  import type { DispatcherEvent } from "./TestDispatcher.svelte";
+  import type { DispatcherEvent } from "./PackageDispatcher.svelte";
+  import PackageDispatcher from "./PackageDispatcher.svelte";
+  import RegistryManager from './../registry/RegistryManager';
   
-  let showingTestDispatcher: boolean;
+  let registry: RegistryManager;
+  let showingPackageDispatcher: boolean;
 
+  // initialize registry on mount
+  onMount(() => {
+    registry = new RegistryManager();
+  });
+
+  // show / hide dispatcher
   const toggleDispatcher = (): void => {
-    showingTestDispatcher = !showingTestDispatcher
+    showingPackageDispatcher = !showingPackageDispatcher
   };
 
+  // handle keydown event
   const hotkeyHandler = (e: KeyboardEvent): void => {
     if (e.key === 'd') {
       toggleDispatcher()
     }
   }
 
+  // code to receive a package
   const receiveDispatch = (e: CustomEvent) => {
     const args: DispatcherEvent = e.detail;
-    const { json } = args;
+    const { packages } = args;
+    registry.insertPackages(packages);
   }
+
 </script>
 
 <style>
@@ -49,22 +62,28 @@
   }
 </style>
 
-<!-- dispatcher warning -->
-<div class="renderer--dispatcher-notice">
-  Press `d` for Dispatcher
-</div>
-
 <!-- register hotkey -->
 <svelte:window on:keydown={hotkeyHandler} />
 
-<!-- display dispatcher -->
-{#if showingTestDispatcher}
+{#if showingPackageDispatcher}
+  
+  <!-- display dispatcher -->
   <div
     role="button"
     class="renderer--dispatcher-backdrop"
     on:click={toggleDispatcher}
   />
   <div class="renderer--dispatcher-wrapper" transition:fly={{ y: -200 }}>
-    <TestDispatcher on:dispatch={receiveDispatch} />    
+    <PackageDispatcher 
+      on:dispatch={receiveDispatch}
+    />    
   </div>
+
+{:else}
+  
+  <!-- dispatcher warning -->
+  <div class="renderer--dispatcher-notice">
+    Press `d` for Dispatcher
+  </div>
+
 {/if}

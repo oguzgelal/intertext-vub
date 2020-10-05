@@ -1,0 +1,121 @@
+<script context="module" lang="ts">
+  export type DispatcherEvent = {
+    packages: [IPackage]
+  }
+</script>
+
+<script lang="ts">
+  import { createEventDispatcher } from 'svelte';
+  import Button from '../core_components/Button.svelte';
+  import { ComponentTypes } from './../universal/Component';
+  import { CommandTypes } from './../universal/Command';
+  import type { IPackage } from './../universal/Package';
+  const dispatch = createEventDispatcher();
+
+  let packages: [IPackage];
+  let jsonText: string;
+  let invalid: boolean;
+  let textarea: HTMLTextAreaElement;
+
+  // evaluate json input
+  $: if (!jsonText) { invalid = false; }
+  $: if(!!jsonText) {
+    try {
+      // use eval instead of json.parsing for
+      // flexible js object-style syntax
+      eval(`packages = ${jsonText};`);
+      if (!Array.isArray(packages)) packages = [packages];
+      invalid = false;
+    }
+    catch(e) {
+      invalid = true;
+    }
+  }
+
+  // dispatch custom event
+  const handleDispatch = (): void => {
+    const eventObj: DispatcherEvent = { packages };
+    dispatch('dispatch', eventObj);
+    jsonText = ""
+  }
+
+  // insert string at cursor location
+  const insertAtCursor = (str: string) => (e: MouseEvent): void => {
+    e.preventDefault();
+
+    if (!jsonText) {
+      jsonText = `${str}`;
+      return;
+    }
+  
+    if (textarea.selectionStart || textarea.selectionStart == 0) {
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      jsonText = `${jsonText.substring(0, start)}${str}${jsonText.substring(end, jsonText.length)}`
+    } else {
+      jsonText += str;
+    }
+  }
+
+  const insertCTA = () => {
+    return insertAtCursor(`{ id: "", type: "${ComponentTypes.CTA}" }`)
+  }
+
+  const insertAlert = () => {
+    return insertAtCursor(`{ id: "", type: "${CommandTypes.Alert}", message: "" }`)
+  }
+
+</script>
+
+<style>
+  .test-dispatcher--wrapper {
+    display: flex;
+    height: 100%;
+  }
+
+  .test-dispatcher--textarea-container {
+    flex-grow: 1;
+  }
+
+  textarea {
+    width: 100%;
+    height: 100%;
+    padding: 22px;
+    font-family: monospace;
+  }
+
+  .test-dispatcher--textarea-invalid {
+    background-color: lightpink;
+  }
+
+  .test-dispatcher--button-container {
+    margin-left: 12px;
+    display: flex;
+    flex-flow: column;
+  }
+</style>
+
+<div class="test-dispatcher--wrapper">
+  <div class="test-dispatcher--textarea-container">
+    <textarea
+     on:keydown|stopPropagation
+     bind:this={textarea}
+     bind:value={jsonText}
+     placeholder="Enter JSON ..."
+     class:test-dispatcher--textarea-invalid={invalid}
+    />
+  </div>
+  <div class="test-dispatcher--button-container">    
+    <Button
+      type="submit"
+      style="margin-bottom: 22px"
+      disabled={!jsonText || invalid}
+      on:click={handleDispatch}
+    >
+      Dispatch
+    </Button>
+  
+    <Button on:click={insertCTA()}>+ CTA</Button>
+    <Button on:click={insertAlert()}>+ Alert</Button>
+  </div>
+</div>
