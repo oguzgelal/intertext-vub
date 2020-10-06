@@ -5,6 +5,7 @@ import type { CommandID } from "../Command";
 
 export interface ICTA extends IComponent {
   type: ComponentTypes.CTA
+  text: string
   [Events.onPrimaryInteraction]: CommandID
   [Events.onSecondaryInteraction]?: CommandID
 }

@@ -3,7 +3,7 @@ import type { IPackage } from "./Package";
 export type CommandID = string;
 
 export enum CommandTypes {
-  Alert = 'alert'
+  ALERT = 'ALERT'
 }
 
 export interface ICommand extends IPackage {

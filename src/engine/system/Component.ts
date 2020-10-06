@@ -3,7 +3,7 @@ import type { IPackage } from "./Package";
 export type ComponentID = string;
 
 export enum ComponentTypes {
-  CTA = 'cta',
+  CTA = 'CTA',
 }
 
 export interface IComponent extends IPackage {

@@ -13,6 +13,7 @@
   const dispatch = createEventDispatcher();
 
   let packages: [IPackage];
+  let pid: number = 0;
   let jsonText: string;
   let invalid: boolean;
   let textarea: HTMLTextAreaElement;
@@ -23,9 +24,10 @@
     try {
       // use eval instead of json.parsing for
       // flexible js object-style syntax
-      eval(`packages = ${jsonText};`);
-      if (!Array.isArray(packages)) packages = [packages];
+      eval(`packages = [${jsonText}];`);
       invalid = false;
+      pid = packages.length;
+      console.log(packages)
     }
     catch(e) {
       invalid = true;
@@ -51,19 +53,35 @@
     if (textarea.selectionStart || textarea.selectionStart == 0) {
       const start = textarea.selectionStart;
       const end = textarea.selectionEnd;
-      jsonText = `${jsonText.substring(0, start)}${str}${jsonText.substring(end, jsonText.length)}`
+      const left = jsonText.substring(0, start);
+      const right = jsonText.substring(end, jsonText.length);
+      let leftPrefix = left ? ',\n' : '';
+      if (left && left.trim().substr(-1) === ',') leftPrefix = '';
+      jsonText = `${left}${leftPrefix}${str}${right}`;
     } else {
       jsonText += str;
     }
   }
 
-  const insertCTA = () => {
-    return insertAtCursor(`{ id: "", type: "${ComponentTypes.CTA}" }`)
-  }
+  $: insertCTA = () => (
+    insertAtCursor(
+      '{ ' +
+      `id: "test_${pid}", ` +
+      `type: "${ComponentTypes.CTA}", ` +
+      `text: "CTA${pid} "` +
+      '}'
+    )
+  )
 
-  const insertAlert = () => {
-    return insertAtCursor(`{ id: "", type: "${CommandTypes.Alert}", message: "" }`)
-  }
+  $: insertAlert = () => (
+    insertAtCursor(
+      '{ ' +
+      `id: "test_${pid}", ` +
+      `type: "${CommandTypes.ALERT}", ` +
+      `message: "Alert${pid} "` +
+      '}'
+    )
+  )
 
 </script>
 
