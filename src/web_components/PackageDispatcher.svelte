@@ -7,9 +7,9 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import Button from '../core_components/Button.svelte';
-  import { ComponentTypes } from './../universal/Component';
-  import { CommandTypes } from './../universal/Command';
-  import type { IPackage } from './../universal/Package';
+  import { ComponentTypes } from '../engine/system/Component';
+  import { CommandTypes } from '../engine/system/Command';
+  import type { IPackage } from '../engine/system/Package';
   const dispatch = createEventDispatcher();
 
   let packages: [IPackage];
@@ -101,7 +101,7 @@
      on:keydown|stopPropagation
      bind:this={textarea}
      bind:value={jsonText}
-     placeholder="Enter JSON ..."
+     placeholder="Enter Packages ..."
      class:test-dispatcher--textarea-invalid={invalid}
     />
   </div>

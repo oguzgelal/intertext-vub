@@ -3,7 +3,7 @@
   import { fly } from "svelte/transition";
   import type { DispatcherEvent } from "./PackageDispatcher.svelte";
   import PackageDispatcher from "./PackageDispatcher.svelte";
-  import RegistryManager from './../registry/RegistryManager';
+  import RegistryManager from '../engine/RegistryManager';
   
   let registry: RegistryManager;
   let showingPackageDispatcher: boolean;

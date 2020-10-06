@@ -1,5 +1,5 @@
-import type { IPackage } from './../universal/Package';
-import type { IComponent } from './../universal/Component';
+import type { IPackage } from './system/Package'
+import type { IComponent } from './system/Component'
 
 // Dictionary of all available packages
 type Registry = {
