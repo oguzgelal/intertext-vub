@@ -5,7 +5,8 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv public",
-    "validate": "svelte-check"
+    "validate": "svelte-check",
+    "push": "git remote | xargs -L1 -I R git push R master"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^14.0.0",
