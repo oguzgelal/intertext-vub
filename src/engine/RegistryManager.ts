@@ -75,6 +75,7 @@ class RegistryManager {
    */
   private insertRegistryItem = (pack: IPackage, item?: RegistryItem): void => {
     if (this.isInRegistry(pack)) {
+      // TODO: replace package in this case
       console.warn(`Skipping duplicate entry "${pack.id}"`);
       return;
     }
