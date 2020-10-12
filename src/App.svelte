@@ -1,3 +1,7 @@
+<svelte:head>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+</svelte:head>
+
 <script lang="ts">
   import Renderer from "./web_components/Renderer.svelte";
 </script>
@@ -27,6 +31,7 @@
       font-size: 100%;
       font: inherit;
       vertical-align: baseline;
+      font-family: 'Open Sans', sans-serif;
   }
 
   :global(article, aside, details, figcaption, figure, 

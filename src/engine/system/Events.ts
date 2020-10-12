@@ -1,3 +1,6 @@
+/**
+ * @enum {string}
+ */
 enum Events {
   onPrimaryInteraction,
   onSecondaryInteraction,

@@ -3,7 +3,7 @@
   import { fly } from "svelte/transition";
   import type { DispatcherEvent } from "./PackageDispatcher.svelte";
   import PackageDispatcher from "./PackageDispatcher.svelte";
-  import RegistryManager from '../engine/RegistryManager';
+  import RegistryManager from '../engine/registry/RegistryManager';
   import type { IComponent } from '../engine/system/Component';
   import { ComponentTypes } from '../engine/system/Component'
   import Button from './../core_components/Button.svelte';
