@@ -5,25 +5,35 @@ import type {
   Stage,
   IStageCtrl,
   RegistryProps,
+  IRegistryManager,
 } from './types';
 
 class StageCtrl implements IStageCtrl {
 
+  private rm: IRegistryManager;
   private stage: Stage = [];
-  private props: RegistryProps;
 
   /**
-   * @param props 
+   * @param {IRegistryManager} rm 
    */
-  constructor(props?: RegistryProps) {
-    this.props = props;
+  constructor(rm: IRegistryManager) {
+    this.rm = rm;
+  }
+
+  /**
+   * Updates the subscriber functions on stage change
+   */
+  private handleStageChange = () => {
+    if (this.rm.props && typeof this.rm.props.onStageUpdate === 'function') {
+      this.rm.props.onStageUpdate(this.stage);
+    }
   }
 
   /**
    * Stages a component
    * @param {IComponent} component 
    */
-  stageComponent = (component: IComponent): void => {
+  private stageComponent = (component: IComponent): void => {
     this.stage = [ ...this.stage, component ];
     this.handleStageChange();
   }
@@ -32,21 +42,16 @@ class StageCtrl implements IStageCtrl {
    * Removes a component from stage
    * @param {IComponent} component 
    */
-  unstageComponent = (component: IComponent): void => {
+  private unstageComponent = (component: IComponent): void => {
     this.stage = this.stage.filter((c: IComponent) => c.id !== component.id).slice();
     this.handleStageChange();
   }
 
   /**
-   * Updates the subscriber functions on stage change
+   * Stage packages that needs to be staged
+   * @param {IPackage[]} packages 
    */
-  private handleStageChange = () => {
-    if (typeof this.props.onStageUpdate === 'function') {
-      this.props.onStageUpdate(this.stage);
-    }
-  }
-
-
+  apply = (packages: IPackage[]) => {}
 }
 
 export default StageCtrl;

@@ -2,8 +2,8 @@
  * @enum {string}
  */
 enum Events {
-  onPrimaryInteraction,
-  onSecondaryInteraction,
+  onPrimaryInteraction = 'onPrimaryInteraction',
+  onSecondaryInteraction = 'onSecondaryInteraction',
 }
 
 export default Events;

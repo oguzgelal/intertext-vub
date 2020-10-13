@@ -1,12 +1,3 @@
-import type { IPackage } from '../system/Package'
-import type { IComponent } from '../system/Component'
-
-import type {
-  Stage,
-  IEvalCtrl,
-  RegistryProps,
-} from './types';
-
 /**
  * Evaluation queue is a mechanism to ensure packages
  * cross referencing each other can interact with each
@@ -39,10 +30,10 @@ import type {
  *         eval_queue()
  *         BREAK
  *   VOID handle(package)
- *     // * do whatever needs to be done with the package
- *     // * update registry presence if necessary
- *     // * if no further eval needed, remove from queue
- *     // * if package needs further evaluation, leave in the queue
+ *     // do whatever needs to be done with the package
+ *     // update registry presence if necessary
+ *     // if no further eval needed, remove from queue
+ *     // if package needs further evaluation, leave in the queue
  *       
  * @example <caption>Step-by-step example of how it works</caption>
  *   Say the eval order is C, B, D, A
@@ -68,10 +59,35 @@ import type {
  *   4. Stage: [A], Registry: {A[B],B,C[D],D}, Queue: [C] // evaluate queue -> C -> hit -> (recurse)
  *   5. Stage: [A], Registry: {A[B,C],B,C[D],D}, Queue: [] // queue empty -> done
  */
+
+import type { IPackage } from '../system/Package';
+
+import type {
+  IEvalCtrl,
+  EvalQueue,
+  EvalIsHitFn,
+  EvalHandleFn,
+} from './types';
+
+
 class EvalCtrl implements IEvalCtrl {
 
-  private queue: evalQueue = [];
-  private props: RegistryProps;
+  isHit: EvalIsHitFn;
+  handle: EvalHandleFn;
+  private queue: EvalQueue = [];
+
+  /**
+   * @param {EvalIsHitFn} isHit
+   * @param {EvalHandleFn} handle 
+   */
+  constructor(isHit: EvalIsHitFn, handle: EvalHandleFn) {
+    this.isHit = isHit;
+    this.handle = handle;
+  }
+
+  private evalQueue = () => {}
+  
+  apply = (packages: IPackage[]) => {}
 
 }
 

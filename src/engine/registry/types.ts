@@ -1,4 +1,4 @@
-import type { IPackage } from '../system/Package'
+import type { IPackage, PackageID } from '../system/Package'
 import type { IComponent } from '../system/Component'
 
 /**
@@ -18,6 +18,11 @@ export type Registry = {
 }
 
 /**
+ * @type {PackageID} RegistryItemID
+ */
+export type RegistryItemID = PackageID;
+
+/**
  * Arguments received by RegistiryManager
  * @type {object} RegistryProps
  * @param {(newRegistry: Registry) => void} onRegistryUpdate Subscribe to registry updates
@@ -30,17 +35,28 @@ export type RegistryProps = {
   debug?: boolean
 }
 
+export interface IRegistryManager {
+  props: RegistryProps
+}
 
 /**
  * Components visible on the current screen that should be rendered
  * @type {array} Stage
  */
 export type Stage = IComponent[]
-
+export interface IStageCtrl {
+  apply: (packages: IPackage[]) => void
+}
 
 export type EvalQueue = IPackage[]
+export type EvalIsHitFn = (pack: IPackage) => boolean;
+export type EvalHandleFn = (pack: IPackage) => void;
+export interface IEvalCtrl {
+  isHit: EvalIsHitFn,
+  handle: EvalHandleFn,
+  apply: (packages: IPackage[]) => void
+}
 
-
-export interface IRegistryManager {}
-export interface IStageCtrl {}
-export interface IEvalCtrl {}
+export interface IEvalComponentCtrl {
+  apply: (packages: IPackage[]) => void
+}

@@ -1,15 +1,17 @@
-import type { IPackage } from '../system/Package'
-import type { IComponent } from '../system/Component'
-import { ComponentTypes } from '../system/Component'
+import type { IPackage, PackageID } from '../system/Package';
 import StageCtrl from './StageCtrl';
+import EvalComponentCtrl from './EvalComponentCtrl';
 
 import type {
   Registry,
   RegistryItem,
+  RegistryItemID,
   RegistryProps,
   IRegistryManager,
   IStageCtrl,
+  IEvalComponentCtrl,
 } from './types';
+import type { ICommand } from '../system/Command';
 
 /**
  * Populate window variable on debug mode
@@ -25,9 +27,10 @@ declare global {
 
 class RegistryManager implements IRegistryManager {
 
-  private stage: IStageCtrl;
+  public props: RegistryProps = {};
+  private stageCtrl: IStageCtrl;
+  private evalComponentCtrl: IEvalComponentCtrl;
   private registry: Registry = {};
-  private props: RegistryProps;
 
   /**
    * @param props 
@@ -37,18 +40,18 @@ class RegistryManager implements IRegistryManager {
     if (props && props.debug) window.rm = this;
 
     // init stage
-    this.stage = new StageCtrl(props);
+    this.stageCtrl = new StageCtrl(this);
+    this.evalComponentCtrl = new EvalComponentCtrl(this);
   }
 
   /**
    * Adds a package into registry
-   * @param {IPackage} pack Package to add to the registry
+   * @param {PackageID} id
    */
-  private upsertRegistryItem = (pack: IPackage, options: { silent?: boolean } = {}): void => {
-    const { silent } = options;
-    const newItem: RegistryItem = { package: pack };
-    this.registry = { ...this.registry, [pack.id]: newItem };
-    if (!silent) this.handleRegistryChange();
+  private upsertRegistryItem = (id: PackageID, item: RegistryItem): void => {
+    const existingItem: RegistryItem = this.registry[id];
+    const newItem: RegistryItem = Object.assign({}, existingItem, item);
+    this.registry = Object.assign({}, this.registry, { [id]: newItem });
   }
 
   /**
@@ -56,39 +59,27 @@ class RegistryManager implements IRegistryManager {
    * @param {IPackage} pack 
    * @returns {RegistryItem} 
    */
-  private getRegistryItem = (pack: IPackage): RegistryItem => {
-    return this.registry[pack.id];
+  private getRegistryItem = (id: RegistryItemID): RegistryItem => {
+    return this.registry[id];
   }
 
   /**
    * Remove the registry item for this package
    * @param {IPackage} pack
    */
-  private deleteRegistryItem = (pack: IPackage, options: { silent?: boolean } = {}): void => {
-    const { silent } = options;
-    delete this.registry[pack.id];
-    if (!silent) this.handleRegistryChange();
+  private deleteRegistryItem = (id: RegistryItemID): void => {
+    delete this.registry[id];
   }
 
   /**
-   * Updates the subscriber functions on registry change
+   * Updates the subscriber functions on registry change. Must be called
+   * manually to trigger updates only when necessary
    */
   private handleRegistryChange = () => {
     if (typeof this.props.onRegistryUpdate === 'function') {
       this.props.onRegistryUpdate(this.registry);
     }
   }
-
-  /**
-   * Determines if a given package is a component
-   * @param {IPackage} pack 
-   * @return {boolean} True if a package is a component
-   
-  private isComponent = (pack: IPackage): boolean => {
-    if (!this.validatePackage(pack)) return false;
-    return pack.type in ComponentTypes;
-  }
-  */
 
   /**
    * Checks if a given package is valid
@@ -103,28 +94,29 @@ class RegistryManager implements IRegistryManager {
   }
 
     /**
-   * Inserts multiple packages into registry manager
-   * @param {IPackage[]} packages 
+   * Inserts one or many packages into registry manager
+   * @param {IPackage | IPackage[]} pack 
    */
-  insertPackages = (packages: [IPackage]): void => {
-    packages.map(pack => this.insertPackage(pack, { batch: true }));
-    this.handleRegistryChange();
-  }
+  insert = (pack: IPackage | [IPackage]): void => {
 
-  /**
-   * Inserts package into registry manager
-   * @param {IPackage} pack 
-   */
-  insertPackage = (pack: IPackage, options: { batch?: boolean }): void => {
-    const { batch } = options;
+    const packages: IPackage[] = Array.isArray(pack) ? pack : [pack];
+
+    // first validate set of packages
+    packages.forEach(pack => this.validatePackage(pack, { throw: true }))
+
+    // insert packages into registry
+    packages.forEach(pack => {
+      const item: RegistryItem = { package: pack };
+      this.upsertRegistryItem(pack.id, item)
+    });
+
+    this.stageCtrl
+
+    // evaluate components
+    this.evalComponentCtrl.apply(packages);
     
-    // Evaluate if this package is valid, do not proceed if not. 
-    this.validatePackage(pack, { throw: true });
-
-    // Insert this package into registry
-    this.upsertRegistryItem(pack, { silent: batch });
-
-    // Evaluate this package
+    // trigger registry change
+    this.handleRegistryChange();
   }
 }
 

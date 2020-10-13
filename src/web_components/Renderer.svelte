@@ -1,11 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { fly } from "svelte/transition";
+  import type { IComponent } from '../engine';
+  import { RegistryManager, ComponentTypes } from '../engine'
+  
   import type { DispatcherEvent } from "./PackageDispatcher.svelte";
   import PackageDispatcher from "./PackageDispatcher.svelte";
-  import RegistryManager from '../engine/registry/RegistryManager';
-  import type { IComponent } from '../engine/system/Component';
-  import { ComponentTypes } from '../engine/system/Component'
   import Button from './../core_components/Button.svelte';
   
   let registry: RegistryManager;

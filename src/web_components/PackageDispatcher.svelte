@@ -7,9 +7,9 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import Button from '../core_components/Button.svelte';
-  import { ComponentTypes } from '../engine/system/Component';
-  import { CommandTypes } from '../engine/system/Command';
-  import type { IPackage } from '../engine/system/Package';
+  import { CommandTypes, ComponentTypes } from '../engine';
+  import type { IPackage } from '../engine';
+  
   const dispatch = createEventDispatcher();
 
   let packages: [IPackage];
