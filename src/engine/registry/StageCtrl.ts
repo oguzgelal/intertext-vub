@@ -1,17 +1,16 @@
 import type { IPackage } from '../system/Package'
-import type { IComponent } from '../system/Component'
+import type { IComponent, ComponentID } from '../system/Component'
+import { isComponent } from '../system/Component'
 
 import type {
-  Stage,
   IStageCtrl,
-  RegistryProps,
   IRegistryManager,
 } from './types';
 
 class StageCtrl implements IStageCtrl {
 
   private rm: IRegistryManager;
-  private stage: Stage = [];
+  private stage: ComponentID[] = [];
 
   /**
    * @param {IRegistryManager} rm 
@@ -33,8 +32,9 @@ class StageCtrl implements IStageCtrl {
    * Stages a component
    * @param {IComponent} component 
    */
-  private stageComponent = (component: IComponent): void => {
-    this.stage = [ ...this.stage, component ];
+  private stageComponent = (id: ComponentID): void => {
+    this.stage = [ ...this.stage, id ];
+    this.rm.update(id, item => ({ ...item, staged: true }));
     this.handleStageChange();
   }
 
@@ -42,16 +42,47 @@ class StageCtrl implements IStageCtrl {
    * Removes a component from stage
    * @param {IComponent} component 
    */
-  private unstageComponent = (component: IComponent): void => {
-    this.stage = this.stage.filter((c: IComponent) => c.id !== component.id).slice();
+  private unstageComponent = (id: ComponentID): void => {
+    this.stage = this.stage.filter((id: ComponentID) => id !== id).slice();
+    this.rm.update(id, item => ({ ...item, staged: false }));
     this.handleStageChange();
+  }
+
+  /**
+   * Should this item be staged
+   * @param {IPackage} pack Package to be staged or not
+   */
+  private shouldPackageBeStaged = (pack: IPackage): boolean => {
+    // get registry item first
+    const item = this.rm.get(pack.id);
+    // if this item is not in the registry, this is a mistake
+    if (!item) throw new Error('Trying to stage an item that is not in registry');
+    // if this item is already staged, skip
+    if (item.staged) return;
+    // only components can be staged
+    if (!isComponent(pack)) return false;
+    // typecast
+    const component = <IComponent>pack;
+    // only top-level components can be staged. if a component
+    // is is the child of another component, it should be added
+    // under that component in the registry, but not staged
+    if (component.parent) return false;
+
+    return true;
   }
 
   /**
    * Stage packages that needs to be staged
    * @param {IPackage[]} packages 
    */
-  apply = (packages: IPackage[]) => {}
+  apply = (packages: IPackage[]) => {
+    packages.forEach((pack: IPackage) => {
+      // if this item should not be staged, return
+      if (!this.shouldPackageBeStaged(pack)) return;
+      // stage item
+      this.stageComponent((<IComponent>pack).id);
+    })
+  }
 }
 
 export default StageCtrl;

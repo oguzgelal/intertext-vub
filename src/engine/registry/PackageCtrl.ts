@@ -1,49 +1,35 @@
 /**
- * This class implements Eval methanism specifically for
- * components. It implements isHit and handle methods with
- * regards to the registry.
+ * This class implements the generic Eval Queue methanism
+ * for packages managed by the registry manager
  */
 
 import type { IPackage } from '../system/Package';
 import type { IComponent } from '../system/Component';
-import { ComponentTypes } from '../system/Component';
-import EvalCtrl from './EvalCtrl';
+import { isComponent } from '../system/Component';
+import EvalQueue from './EvalQueue';
 
 import type {
-  EvalIsHitFn,
-  EvalHandleFn,
-  IEvalCtrl,
+  IPackageCtrl,
   IRegistryManager,
-  IEvalComponentCtrl,
 } from './types';
 
+class PackageCtrl implements IPackageCtrl {
 
-class EvalComponentCtrl implements IEvalComponentCtrl {
-
-  private eval: IEvalCtrl;
   private rm: IRegistryManager;
-
-  /**
-   * Determines if a given package is a component
-   * @param {IPackage} pack 
-   * @return {boolean} True if a package is a component
-   */
-  private isComponent = (pack: IPackage): boolean => {
-    return pack.type in ComponentTypes;
-  }
+  private packageQueue: EvalQueue;
 
   /**
    * @param {IRegistryManager} rm 
    */
   constructor(rm: IRegistryManager) {
     this.rm = rm;
-    this.eval = new EvalCtrl(
-      this.isComponentHit,
-      this.handleComponent
+    this.packageQueue = new EvalQueue(
+      this.isPackageHit,
+      this.handlePackage
     );
   }
 
-  private isComponentHit: EvalIsHitFn = (component: IComponent) => {
+  private isPackageHit = (pack: IPackage) => {
     // TODO:
     // check the component
     // check its parent
@@ -51,10 +37,10 @@ class EvalComponentCtrl implements IEvalComponentCtrl {
     // if it has a parent
     //   if parent in registry, hit
     //   if parent not in registry, miss
-    return true
+    return true;
   };
 
-  private handleComponent: EvalHandleFn = () => {
+  private handlePackage = () => {
     // TODO:
     // check component
     // if it has no parent, stage
@@ -63,7 +49,11 @@ class EvalComponentCtrl implements IEvalComponentCtrl {
     //   append component under parent
     //   update registry item
     //   do not mutate registry item package data
+    return true;
   }
+
+  private handleCommand = () => {}
+  private handleComponent = () => {}
 
   apply = (packages: IPackage[]) => {
     // TODO:
@@ -72,4 +62,4 @@ class EvalComponentCtrl implements IEvalComponentCtrl {
   }
 }
 
-export default EvalComponentCtrl;
+export default PackageCtrl;

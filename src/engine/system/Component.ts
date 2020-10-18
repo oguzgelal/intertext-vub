@@ -27,7 +27,6 @@ export enum ComponentTypes {
 export type ComponentParent = {
   id: ComponentID
   slot?: string | null | undefined 
-
 }
 
 /**
@@ -37,10 +36,20 @@ export type ComponentParent = {
  * @param {ComponentID} id
  * @param {ComponentTypes} type Type of this component
  * @param {ComponentParent} parent The parent of this component, nil for top level
- * 
  */
 export interface IComponent extends IPackage {
   id: ComponentID
   type: ComponentTypes
   parent?: ComponentParent
+}
+
+/**
+ * Determines if a package is a component or not
+ * @function
+ * @param {IPackage} pack
+ * @returns {boolean}
+ */
+export const isComponent = (pack: IPackage): boolean => {
+  if (!pack) return false;
+  return pack.type in ComponentTypes;
 }

@@ -35,7 +35,7 @@
  *     // if no further eval needed, remove from queue
  *     // if package needs further evaluation, leave in the queue
  *       
- * @example <caption>Step-by-step example of how it works</caption>
+ * @example <caption>Step-by-step example</caption>
  *   Say the eval order is C, B, D, A
  *   --
  *   1. Stage: [], Registry: {}, Queue: [] // receive C
@@ -47,7 +47,7 @@
  *   3. Stage: [], Registry: {B,C}, Queue: [B,C] // evaluate queue -> C -> miss
  *   4. Stage: [], Registry: {B,C}, Queue: [B,C] // queue empty -> done
  *   --
- *   1. Stage: [], Registry: {B,C,D}, Queue: [D,B,C] // receive D
+ *   1. Stage: [], Registry: {B,C}, Queue: [B,C] // receive D
  *   2. Stage: [], Registry: {B,C,D}, Queue: [D,B,C] // evaluate queue -> D -> hit -> (recurse)
  *   3. Stage: [], Registry: {B,C[D],D}, Queue: [B,C] // evaluate queue -> B -> miss
  *   4. Stage: [], Registry: {B,C[D],D}, Queue: [B,C] // evaluate queue -> C -> miss
@@ -60,35 +60,80 @@
  *   5. Stage: [A], Registry: {A[B,C],B,C[D],D}, Queue: [] // queue empty -> done
  */
 
-import type { IPackage } from '../system/Package';
+ /**
+  * Dictates is an item should be considered a hit
+  * @function
+  * @param item
+  * @returns {boolean}
+  */
+type EvalIsHitFn = (item: any) => boolean;
 
-import type {
-  IEvalCtrl,
-  EvalQueue,
-  EvalIsHitFn,
-  EvalHandleFn,
-} from './types';
+/**
+  * How should the item be handled ? Should it be removed
+  * from the queue after being handled ?
+  * @function
+  * @param item
+  * @returns {boolean} True if item should be removed from the queue
+  */
+type EvalHandleFn = (item: any) => boolean;
 
+interface IEvalQueue {
+  isHit: EvalIsHitFn,
+  handle: EvalHandleFn,
+  evaluate: (items: any[]) => void
+}
 
-class EvalCtrl implements IEvalCtrl {
+class EvalQueue implements IEvalQueue {
 
   isHit: EvalIsHitFn;
   handle: EvalHandleFn;
-  private queue: EvalQueue = [];
+  private queue: any[];
 
   /**
    * @param {EvalIsHitFn} isHit
    * @param {EvalHandleFn} handle 
    */
   constructor(isHit: EvalIsHitFn, handle: EvalHandleFn) {
+
+    // these are required
+    if (typeof isHit !== 'function' || typeof handle !== 'function') {
+      throw new Error('Invalid parameters given to EvalQueue')
+    }
+
     this.isHit = isHit;
     this.handle = handle;
   }
 
-  private evalQueue = () => {}
+  /**
+   * recursive eval queue function
+   */
+  private evalQueue = () => {
+    for (let i = 0; i < this.queue.length; i++) {
+      // get the item
+      const queueItem = this.queue[i];
+      // this item was a hit
+      if (this.isHit(queueItem)) {
+        const shouldRemove = this.handle(queueItem);
+        // recurse and start over only if the item is removed
+        // from the queue to prevent infinite loops
+        if (shouldRemove) {
+          // remove item from the queue
+          this.queue = this.queue.slice().splice(i, 1);
+          // recursively start evaluation again
+          this.evalQueue();
+          // break the loop here
+          break;
+        }
+      }
+    }
+  }
   
-  apply = (packages: IPackage[]) => {}
+  // evaluate items
+  evaluate = (items: any[]) => {
+    this.queue = [ ...items, ...this.queue ];
+    this.evalQueue();
+  }
 
 }
 
-export default EvalCtrl;
+export default EvalQueue;
