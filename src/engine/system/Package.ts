@@ -1,14 +1,6 @@
-/**
- * @typedef {string} PackageType
- */
-type PackageType = string;
+import type { PackageID, PackageType } from './types';
 
 /**
- * @typedef {string} PackageID
- */
-export type PackageID = string;
-
-/**S
  * Base for all packages
  * 
  * @interface IPackage
@@ -19,4 +11,7 @@ export type PackageID = string;
 export interface IPackage {
   id: PackageID
   type: PackageType
+  isComponent: boolean
+  isCommand: boolean
+  isListener: boolean
 }

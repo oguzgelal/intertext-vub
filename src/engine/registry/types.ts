@@ -1,5 +1,5 @@
-import type { IPackage, PackageID } from '../system/Package'
-import type { IComponent } from '../system/Component'
+import type { PackageID } from '../system/types';
+import type { IPackage } from '../system/Package';
 
 /**
  * @type {PackageID} RegistryItemID
@@ -51,7 +51,7 @@ export interface IRegistryManager {
  * Components visible on the current screen that should be rendered
  * @type {array} Stage
  */
-export interface IStageCtrl {
+export interface IStageManager {
   apply: (packages: IPackage[]) => void
 }
 
@@ -59,6 +59,6 @@ export interface IStageCtrl {
  * Package controller
  */
 
-export interface IPackageCtrl {
+export interface IPackageManager {
   apply: (packages: IPackage[]) => void
 }

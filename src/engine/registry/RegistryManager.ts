@@ -1,6 +1,7 @@
-import type { IPackage, PackageID } from '../system/Package';
-import StageCtrl from './StageCtrl';
-import PackageCtrl from './PackageCtrl';
+import type { IPackage} from '../system/Package';
+import StageManager from './StageManager';
+import PackageManager from './PackageManager';
+import { ListenersLookupTable } from '../system/Listener';
 
 import type {
   Registry,
@@ -8,8 +9,8 @@ import type {
   RegistryItemID,
   RegistryProps,
   IRegistryManager,
-  IStageCtrl,
-  IPackageCtrl,
+  IStageManager,
+  IPackageManager,
 } from './types';
 
 /**
@@ -28,8 +29,9 @@ class RegistryManager implements IRegistryManager {
 
   private registry: Registry = {};
   public props: RegistryProps = {};
-  private stageCtrl: IStageCtrl;
-  private packageCtrl: IPackageCtrl;
+  private stageManager: IStageManager;
+  private packageManager: IPackageManager;
+  private listenersLookup: ListenersLookupTable;
 
   /**
    * @param props 
@@ -39,8 +41,8 @@ class RegistryManager implements IRegistryManager {
     if (props && props.debug) window.rm = this;
 
     // init stage
-    this.stageCtrl = new StageCtrl(this);
-    this.packageCtrl = new PackageCtrl(this);
+    this.stageManager = new StageManager(this);
+    this.packageManager = new PackageManager(this);
   }
 
   /**
@@ -88,6 +90,14 @@ class RegistryManager implements IRegistryManager {
   }
 
   /**
+   * Inserts or updates multiple packages
+   */
+  private upsertPackages = (packages: IPackage[]) => {
+    // insert packages into registry
+    packages.forEach(pack => this.upsert(pack.id, { id: pack.id, package: pack }));
+  }
+
+  /**
    * Updates the subscriber functions on registry change. Must be called
    * manually to trigger updates only when necessary
    */
@@ -102,14 +112,17 @@ class RegistryManager implements IRegistryManager {
    * @param {IPackage} pack
    * @param {boolean} options.throw Throws an error if invalid
    */
-  private validatePackage = (pack: IPackage, options: { throw?: boolean } = {}): boolean => {
+  private validatePackages = (packages: IPackage[], options: { throw?: boolean } = {}): boolean => {
     let err: string = null;
-    if (!pack.id) err = "Package has no id"
-    if (options.throw && err) throw new Error(err);
+    packages.forEach(pack => {
+      if (!pack.id) err = `Package "${JSON.stringify(pack)}" has no id`;
+      if (options.throw && err) throw new Error(err);
+    })
     return !err;
   }
 
   /**
+   * TODO: Move this to the API
    * Inserts one or many packages into registry manager
    * @param {IPackage | IPackage[]} pack 
    */
@@ -117,13 +130,13 @@ class RegistryManager implements IRegistryManager {
     // convert single packages into an array
     const packages: IPackage[] = Array.isArray(pack) ? pack : [pack];
     // first validate set of packages
-    packages.forEach(pack => this.validatePackage(pack, { throw: true }))
-    // insert packages into registry
-    packages.forEach(pack => this.upsert(pack.id, { id: pack.id, package: pack }));
+    this.validatePackages(packages, { throw: true })
+    // insert all packages
+    this.upsertPackages(packages);
     // evaluate and process packages
-    this.packageCtrl.apply(packages);
+    this.packageManager.apply(packages);
     // handle staging packages
-    this.stageCtrl.apply(packages);
+    this.stageManager.apply(packages);
     // trigger registry change
     this.handleChange();
   }

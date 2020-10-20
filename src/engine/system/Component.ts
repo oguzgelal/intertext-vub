@@ -1,9 +1,5 @@
 import type { IPackage } from "./Package";
-
-/**
- * @typedef {string} ComponentID
- */
-export type ComponentID = string;
+import type { ComponentID } from './types';
 
 /**
  * @enum {string}
@@ -38,18 +34,8 @@ export type ComponentParent = {
  * @param {ComponentParent} parent The parent of this component, nil for top level
  */
 export interface IComponent extends IPackage {
+  isComponent: true
   id: ComponentID
   type: ComponentTypes
   parent?: ComponentParent
-}
-
-/**
- * Determines if a package is a component or not
- * @function
- * @param {IPackage} pack
- * @returns {boolean}
- */
-export const isComponent = (pack: IPackage): boolean => {
-  if (!pack) return false;
-  return pack.type in ComponentTypes;
 }

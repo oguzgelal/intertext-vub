@@ -1,13 +1,13 @@
-import type { IPackage } from '../system/Package'
-import type { IComponent, ComponentID } from '../system/Component'
-import { isComponent } from '../system/Component'
+import type { IPackage } from '../system/Package';
+import type { ComponentID } from '../system/types';
+import type { IComponent } from '../system/Component';
 
 import type {
-  IStageCtrl,
+  IStageManager,
   IRegistryManager,
 } from './types';
 
-class StageCtrl implements IStageCtrl {
+class StageManager implements IStageManager {
 
   private rm: IRegistryManager;
   private stage: ComponentID[] = [];
@@ -60,14 +60,14 @@ class StageCtrl implements IStageCtrl {
     // if this item is already staged, skip
     if (item.staged) return;
     // only components can be staged
-    if (!isComponent(pack)) return false;
+    if (!pack.isComponent) return false;
     // typecast
     const component = <IComponent>pack;
     // only top-level components can be staged. if a component
     // is is the child of another component, it should be added
     // under that component in the registry, but not staged
     if (component.parent) return false;
-
+    // otherwise stage this item
     return true;
   }
 
@@ -85,4 +85,4 @@ class StageCtrl implements IStageCtrl {
   }
 }
 
-export default StageCtrl;
+export default StageManager;

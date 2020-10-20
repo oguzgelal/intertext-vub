@@ -1,9 +1,10 @@
 /**
  * @enum {string}
  */
-enum Events {
+export const enum EventTypes {
+
+  onAfterCommand = 'onAfterCommand',
+
   onPrimaryInteraction = 'onPrimaryInteraction',
   onSecondaryInteraction = 'onSecondaryInteraction',
 }
-
-export default Events;
