@@ -1,7 +1,6 @@
 import type { ComponentID, CommandID } from '../types';
 import type { IComponent } from "../Component";
 import type { ComponentTypes } from "../Component";
-import type { EventTypes } from "../Events";
 
 /**
  * A Call To Action component

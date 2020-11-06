@@ -1,7 +1,7 @@
 import type { IPackage} from '../system/Package';
+import type { BindingsLookupTable } from '../system/Binding';
 import StageManager from './StageManager';
 import PackageManager from './PackageManager';
-import { ListenersLookupTable } from '../system/Listener';
 
 import type {
   Registry,
@@ -31,7 +31,7 @@ class RegistryManager implements IRegistryManager {
   public props: RegistryProps = {};
   private stageManager: IStageManager;
   private packageManager: IPackageManager;
-  private listenersLookup: ListenersLookupTable;
+  private bindingsLookup: BindingsLookupTable;
 
   /**
    * @param props 

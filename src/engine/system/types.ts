@@ -9,6 +9,3 @@ export type ComponentID = string;
 
 /** @typedef {string} CommandID */
 export type CommandID = string;
-
-/** @typedef {string} ListenerID */
-export type ListenerID = string;

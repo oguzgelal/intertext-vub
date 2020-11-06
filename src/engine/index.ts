@@ -22,5 +22,3 @@ export { CommandTypes } from './system/Command';
 export type { ICommand } from './system/Command';
 export type { IAlert } from './system/commands/Alert';
 
-// events
-export { EventTypes } from './system/Events';

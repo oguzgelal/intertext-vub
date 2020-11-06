@@ -37,5 +37,6 @@ export interface IComponent extends IPackage {
   isComponent: true
   id: ComponentID
   type: ComponentTypes
+  // TODO: children ?
   parent?: ComponentParent
 }

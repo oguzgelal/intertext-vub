@@ -51,12 +51,6 @@ class PackageManager implements IPackageManager {
       return true;
     }
     
-    // listener ---
-    else if (pack.isListener) {
-      // for now listeners are declarative
-      return true;
-    }
-    
     // if above conditions does not hold,
     // this is a miss
     return false;
@@ -74,9 +68,9 @@ class PackageManager implements IPackageManager {
       // TODO
     }
     
-    // listener ---
-    if (pack.isListener) {
-      // TODO: build listeners lookup table
+    // binding ---
+    if (pack.isBinding) {
+      // TODO: build bindings lookup table
     }
 
     // remove package from the queue

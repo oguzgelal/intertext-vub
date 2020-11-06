@@ -6,12 +6,11 @@ import type { PackageID, PackageType } from './types';
  * @interface IPackage
  * @param {PackageID} id
  * @param {PackageType} type
- * 
  */
 export interface IPackage {
-  id: PackageID
+  id?: PackageID
   type: PackageType
   isComponent: boolean
   isCommand: boolean
-  isListener: boolean
+  isBinding: boolean
 }
