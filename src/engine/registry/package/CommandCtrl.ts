@@ -2,23 +2,18 @@ import type { IPackage } from '../../system/Package';
 import type { IComponent } from '../../system/Component';
 import type { ICommand } from '../../system/Command';
 
-import type {
-  IPackageManager,
-  IRegistryManager,
-} from '../types';
+import type { IRegistryManager } from '../types';
 
 class CommandCtrl {
 
   private registry: IRegistryManager;
-  private packageManager: IPackageManager;
 
   /**
    * @param {IRegistryManager} registry
    * @param {IPackageManager} packageManager
    */
-  constructor(registry: IRegistryManager, packageManager: IPackageManager) {
+  constructor(registry: IRegistryManager) {
     this.registry = registry;
-    this.packageManager = packageManager;
   }
 
   isCommand = (pack: IPackage) => {

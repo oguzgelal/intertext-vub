@@ -4,23 +4,18 @@ import type { IComponent } from '../../system/Component';
 import type { ICommand } from '../../system/Command';
 import type { IRelation } from '../../system/Relation';
 import { LITERAL_KEY } from './../../system/Relation';
-import type {
-  IPackageManager,
-  IRegistryManager,
-} from '../types';
+import type { IRegistryManager } from '../types';
 
 class RelationCtrl {
 
   private registry: IRegistryManager;
-  private packageManager: IPackageManager;
 
   /**
    * @param {IRegistryManager} registry
    * @param {IPackageManager} packageManager
    */
-  constructor(registry: IRegistryManager, packageManager: IPackageManager) {
+  constructor(registry: IRegistryManager) {
     this.registry = registry;
-    this.packageManager = packageManager;
   }
 
   isRelation = (pack: IPackage) => {

@@ -6,17 +6,17 @@
 import type { IPackage } from '../../system/Package';
 import type { IComponent } from '../../system/Component';
 import type { ICommand } from '../../system/Command';
-import EvalQueue from '../utils/EvalQueue';
-
+import type { IRelation } from '../../system/Relation';
 import ComponentCtrl from './ComponentCtrl';
 import CommandCtrl from './CommandCtrl';
 import RelationCtrl from './RelationCtrl';
+import EvalQueue from '../utils/EvalQueue';
 
 import type {
   IPackageManager,
   IRegistryManager,
 } from '../types';
-import type { IRelation } from '../../system/Relation';
+
 
 class PackageManager implements IPackageManager {
 
@@ -31,9 +31,9 @@ class PackageManager implements IPackageManager {
    */
   constructor(registry: IRegistryManager) {
     this.registry = registry;
-    this.componentCtrl = new ComponentCtrl(this.registry, this);
-    this.commandCtrl = new CommandCtrl(this.registry, this);
-    this.relationCtrl = new RelationCtrl(this.registry, this);
+    this.componentCtrl = new ComponentCtrl(this.registry);
+    this.commandCtrl = new CommandCtrl(this.registry);
+    this.relationCtrl = new RelationCtrl(this.registry);
 
     this.packageQueue = new EvalQueue(
       this.isPackageHit,
