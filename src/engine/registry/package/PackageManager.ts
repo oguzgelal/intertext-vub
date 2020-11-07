@@ -37,8 +37,31 @@ class PackageManager implements IPackageManager {
 
     this.packageQueue = new EvalQueue(
       this.isPackageHit,
-      this.handlePackage
+      this.handlePackage,
+      this.invalidatePackage,
     );
+  }
+
+  private invalidatePackage = (pack: IPackage) => {
+
+    // component
+    if (this.componentCtrl.isComponent(pack)) {
+      return this.componentCtrl.invalidate(<IComponent>pack);
+    }
+    
+    // command
+    if (this.commandCtrl.isCommand(pack)) {
+      return this.commandCtrl.invalidate(<ICommand>pack);
+    }
+    
+    // relation
+    if (this.relationCtrl.isRelation(pack)) {
+      return this.relationCtrl.invalidate(<IRelation>pack)
+    }
+    
+    // if a package is neither of these,
+    // its not valid
+    return true;
   }
 
   private isPackageHit = (pack: IPackage) => {

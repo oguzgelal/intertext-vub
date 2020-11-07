@@ -60,13 +60,23 @@
  *   5. Stage: [A], Registry: {A[B,C],B,C[D],D}, Queue: [] // queue empty -> done
  */
 
+
+ /**
+  * Retur true if item invalid and should be removed from
+  * the queue without further evaluation
+  * @function
+  * @param item
+  * @returns {boolean}
+  */
+type EvalFnInvalidate = (item: any) => boolean;
+
  /**
   * Dictates is an item should be considered a hit
   * @function
   * @param item
   * @returns {boolean}
   */
-type EvalIsHitFn = (item: any) => boolean;
+type EvalFnIsHit = (item: any) => boolean;
 
 /**
   * How should the item be handled ? Should it be removed
@@ -75,25 +85,31 @@ type EvalIsHitFn = (item: any) => boolean;
   * @param item
   * @returns {boolean} True if item should be removed from the queue
   */
-type EvalHandleFn = (item: any) => boolean;
+type EvalFnHandle = (item: any) => boolean;
 
 interface IEvalQueue {
-  isHit: EvalIsHitFn,
-  handle: EvalHandleFn,
+  invalidate: EvalFnInvalidate,
+  isHit: EvalFnIsHit,
+  handle: EvalFnHandle,
   evaluate: (items: any[]) => void
 }
 
 class EvalQueue implements IEvalQueue {
 
-  isHit: EvalIsHitFn;
-  handle: EvalHandleFn;
+  isHit: EvalFnIsHit;
+  handle: EvalFnHandle;
+  invalidate: EvalFnInvalidate;
   private queue: any[];
 
   /**
-   * @param {EvalIsHitFn} isHit
-   * @param {EvalHandleFn} handle 
+   * @param {EvalFnIsHit} isHit
+   * @param {EvalFnHandle} handle 
    */
-  constructor(isHit: EvalIsHitFn, handle: EvalHandleFn) {
+  constructor(
+    isHit: EvalFnIsHit,
+    handle: EvalFnHandle,
+    invalidate?: EvalFnInvalidate,
+  ) {
 
     // these are required
     if (typeof isHit !== 'function' || typeof handle !== 'function') {
@@ -102,15 +118,31 @@ class EvalQueue implements IEvalQueue {
 
     this.isHit = isHit;
     this.handle = handle;
+    this.invalidate = invalidate;
   }
 
   /**
-   * recursive eval queue function
+   * Remove an item from the queue
+   */
+  private removeFromQueue = (index) => {
+    this.queue = this.queue.slice().splice(index, 1);
+  }
+
+  /**
+   * Recursive eval queue function
    */
   private evalQueue = () => {
     for (let i = 0; i < this.queue.length; i++) {
       // get the item
       const queueItem = this.queue[i];
+      // if the item is not valid, remove it from the queue
+      // do not evaluate, continue with the next item
+      if (typeof this.invalidate === 'function') {
+        if (this.invalidate(queueItem)) {
+          this.removeFromQueue(i);
+          continue;
+        }
+      }
       // this item was a hit
       if (this.isHit(queueItem)) {
         const shouldRemove = this.handle(queueItem);
@@ -118,7 +150,7 @@ class EvalQueue implements IEvalQueue {
         // from the queue to prevent infinite loops
         if (shouldRemove) {
           // remove item from the queue
-          this.queue = this.queue.slice().splice(i, 1);
+          this.removeFromQueue(i);
           // recursively start evaluation again
           this.evalQueue();
           // break the loop here

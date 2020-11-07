@@ -1,5 +1,6 @@
 import type { PackageID } from '../system/types';
 import type { IPackage } from '../system/Package';
+import type { RelationsLookupTable } from '../system/Relation';
 
 /**
  * @type {PackageID} RegistryItemID
@@ -42,7 +43,9 @@ export type RegistryProps = {
 
 export interface IRegistryManager {
   props: RegistryProps
+  relations: RelationsLookupTable
   get: (id: RegistryItemID) => RegistryItem | null
+  exists: (id: RegistryItemID) => boolean
   update: (id: RegistryItemID, updateFn: (item: RegistryItem) => RegistryItem) => void
   delete: (id: RegistryItemID) => void
 }

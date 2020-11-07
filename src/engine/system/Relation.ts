@@ -72,22 +72,27 @@ import type { PackageID } from './types';
 export interface IRelation extends IPackage {
   isRelation: true
   from: PackageID
-  to: PackageID | Literals
-  rel: string
+  to?: PackageID
+  rel: Relations
+  value?: unknown
 }
+
+export const LITERAL_KEY = '__literal';
 
 /**
  * A lookup table for relations for easy access
  */
 export type RelationsLookupTable = {
-  [key: string]: /* from PackageID */ {
-    [key: string]: /* to PackageID */ {
+  // from (package id)
+  [key: string]: {
+    // to (package id)
+    [key: string]: {
       [rel: string]: IRelation
     }
   }
 }
 
 /** @enum {string} */
-export enum Literals {
+export enum Relations {
   STAGED = 'staged'
 }

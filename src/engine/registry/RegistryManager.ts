@@ -28,10 +28,10 @@ declare global {
 class RegistryManager implements IRegistryManager {
 
   private registry: Registry = {};
-  public props: RegistryProps = {};
   private stageManager: IStageManager;
   private packageManager: IPackageManager;
-  private relations: RelationsLookupTable;
+  public relations: RelationsLookupTable;
+  public props: RegistryProps = {};
 
   /**
    * @param props 
@@ -43,6 +43,7 @@ class RegistryManager implements IRegistryManager {
     // init stage
     this.stageManager = new StageManager(this);
     this.packageManager = new PackageManager(this);
+    this.relations = {};
   }
 
   /**
@@ -68,6 +69,15 @@ class RegistryManager implements IRegistryManager {
    */
   get = (id: RegistryItemID): RegistryItem => {
     return this.registry[id];
+  }
+
+  /**
+   * Check if an item exists in the registry
+   * @param {IPackage} pack 
+   * @returns {RegistryItem} 
+   */
+  exists = (id: RegistryItemID): boolean => {
+    return !!this.get(id);
   }
 
   /**

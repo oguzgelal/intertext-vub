@@ -25,6 +25,10 @@ class ComponentCtrl {
     return pack.isComponent;
   }
 
+  invalidate = (component: IComponent) => {
+    return false;
+  }
+
   isHit = (component: IComponent) => {
     /**
      * // typecast

@@ -25,6 +25,10 @@ class CommandCtrl {
     return pack.isCommand;
   }
 
+  invalidate = (command: ICommand) => {
+    return false;
+  }
+
   isHit = (command: ICommand) => {
     return false;
   };
