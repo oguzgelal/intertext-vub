@@ -116,6 +116,7 @@ class EvalQueue implements IEvalQueue {
       throw new Error('Invalid parameters given to EvalQueue')
     }
 
+    this.queue = [];
     this.isHit = isHit;
     this.handle = handle;
     this.invalidate = invalidate;
@@ -124,8 +125,10 @@ class EvalQueue implements IEvalQueue {
   /**
    * Remove an item from the queue
    */
-  private removeFromQueue = (index) => {
-    this.queue = this.queue.slice().splice(index, 1);
+  private removeFromQueue = index => {
+    const newQueue = this.queue.slice();
+    newQueue.splice(index, 1);
+    this.queue = newQueue;
   }
 
   /**
@@ -145,10 +148,9 @@ class EvalQueue implements IEvalQueue {
       }
       // this item was a hit
       if (this.isHit(queueItem)) {
-        const shouldRemove = this.handle(queueItem);
         // recurse and start over only if the item is removed
         // from the queue to prevent infinite loops
-        if (shouldRemove) {
+        if (this.handle(queueItem)) {
           // remove item from the queue
           this.removeFromQueue(i);
           // recursively start evaluation again

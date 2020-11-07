@@ -20,8 +20,8 @@ import type {
 
 class PackageManager implements IPackageManager {
 
+  private queue: EvalQueue;
   private registry: IRegistryManager;
-  private packageQueue: EvalQueue;
   private componentCtrl: ComponentCtrl;
   private commandCtrl: CommandCtrl;
   private relationCtrl: RelationCtrl;
@@ -35,14 +35,14 @@ class PackageManager implements IPackageManager {
     this.commandCtrl = new CommandCtrl(this.registry);
     this.relationCtrl = new RelationCtrl(this.registry);
 
-    this.packageQueue = new EvalQueue(
+    this.queue = new EvalQueue(
       this.isPackageHit,
       this.handlePackage,
-      this.invalidatePackage,
+      this.invalidate,
     );
   }
 
-  private invalidatePackage = (pack: IPackage) => {
+  invalidate = (pack: IPackage) => {
 
     // component
     if (this.componentCtrl.isComponent(pack)) {
@@ -108,7 +108,7 @@ class PackageManager implements IPackageManager {
   }
 
   apply = (packages: IPackage[]) => {
-    this.packageQueue.evaluate(packages);
+    this.queue.evaluate(packages);
   }
 }
 

@@ -39,7 +39,7 @@
   const receiveDispatch = (e: CustomEvent) => {
     const args: DispatcherEvent = e.detail;
     const { packages } = args;
-    registry.insertPackages(packages);
+    registry.insert(packages);
   }
 
 </script>

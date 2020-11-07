@@ -23,7 +23,6 @@ class RelationCtrl {
   }
 
   invalidate = (relation: IRelation) => {
-
     const isLiteral = !relation.hasOwnProperty('to');
     const hasValue = relation.hasOwnProperty('value');
 

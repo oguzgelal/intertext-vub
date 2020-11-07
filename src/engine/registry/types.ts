@@ -62,5 +62,6 @@ export interface IStageManager {
  */
 
 export interface IPackageManager {
+  invalidate: (pack: IPackage) => boolean
   apply: (packages: IPackage[]) => void
 }

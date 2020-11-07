@@ -21,6 +21,10 @@ class ComponentCtrl {
   }
 
   invalidate = (component: IComponent) => {
+
+    // commands has to have an id
+    if (!component.id) return true;
+
     return false;
   }
 

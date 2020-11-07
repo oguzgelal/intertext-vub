@@ -22,12 +22,11 @@
   $: if (!jsonText) { invalid = false; }
   $: if(!!jsonText) {
     try {
-      // use eval instead of json.parsing for
+      // use eval instead of json.parse for
       // flexible js object-style syntax
       eval(`packages = [${jsonText}];`);
       invalid = false;
       pid = packages.length;
-      console.log(packages)
     }
     catch(e) {
       invalid = true;
@@ -66,6 +65,7 @@
   $: insertCTA = () => (
     insertAtCursor(
       '{ ' +
+      'isComponent: true, ' +
       `id: "test_${pid}", ` +
       `type: "${ComponentTypes.CTA}", ` +
       `text: "CTA${pid} "` +
@@ -76,9 +76,22 @@
   $: insertAlert = () => (
     insertAtCursor(
       '{ ' +
+      'isCommand: true, ' +
       `id: "test_${pid}", ` +
       `type: "${CommandTypes.ALERT}", ` +
       `message: "Alert${pid} "` +
+      '}'
+    )
+  )
+
+  $: insertRelation = () => (
+    insertAtCursor(
+      '{ ' +
+      'isRelation: true, ' +
+      `from: "", ` +
+      `to: "", ` +
+      `rel: "", ` +
+      `value: "" ` +
       '}'
     )
   )
@@ -135,5 +148,6 @@
   
     <Button on:click={insertCTA()}>+ CTA</Button>
     <Button on:click={insertAlert()}>+ Alert</Button>
+    <Button on:click={insertRelation()}>+ Relation</Button>
   </div>
 </div>

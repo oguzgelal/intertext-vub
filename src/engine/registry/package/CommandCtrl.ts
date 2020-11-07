@@ -21,6 +21,10 @@ class CommandCtrl {
   }
 
   invalidate = (command: ICommand) => {
+
+    // commands has to have an id
+    if (!command.id) return true;
+
     return false;
   }
 

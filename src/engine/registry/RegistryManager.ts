@@ -123,12 +123,17 @@ class RegistryManager implements IRegistryManager {
    * @param {boolean} options.throw Throws an error if invalid
    */
   private validatePackages = (packages: IPackage[], options: { throw?: boolean } = {}): boolean => {
-    let err: string = null;
+    let isValid: boolean = true;
     packages.forEach(pack => {
-      if (!pack.id) err = `Package "${JSON.stringify(pack)}" has no id`;
-      if (options.throw && err) throw new Error(err);
+      if (this.packageManager.invalidate(pack)) {
+        isValid = false
+        if (options.throw) {
+          throw new Error(`Package "${JSON.stringify(pack)}" is invalid`);
+        }
+      }
     })
-    return !err;
+
+    return isValid;
   }
 
   /**
@@ -141,9 +146,11 @@ class RegistryManager implements IRegistryManager {
     const packages: IPackage[] = Array.isArray(pack) ? pack : [pack];
     // first validate set of packages
     this.validatePackages(packages, { throw: true })
-    // insert all packages
-    this.upsertPackages(packages);
-    // evaluate and process packages
+    // insert that are not relations
+    // TODO: logic of inserting stuff into registry should be
+    // dictated by package manager (controllers)
+    this.upsertPackages(packages.filter(p => !p.isRelation));
+    // evaluate packages
     this.packageManager.apply(packages);
     // handle staging packages
     // this.stageManager.apply(packages);
