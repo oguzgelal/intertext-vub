@@ -12,6 +12,8 @@ export type {
   ComponentID,
 } from './system/types';
 
+export { Literals } from './system/types';
+
 // components
 export { ComponentTypes } from './system/Component';
 export type { IComponent } from './system/Component';

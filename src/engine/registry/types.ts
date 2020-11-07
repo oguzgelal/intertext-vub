@@ -52,7 +52,6 @@ export interface IRegistryManager {
  * @type {array} Stage
  */
 export interface IStageManager {
-  apply: (packages: IPackage[]) => void
 }
 
 /**

@@ -12,5 +12,5 @@ export interface IPackage {
   type: PackageType
   isComponent: boolean
   isCommand: boolean
-  isBinding: boolean
+  isRelation: boolean
 }

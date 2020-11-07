@@ -1,7 +1,7 @@
 import type { IPackage} from '../system/Package';
-import type { BindingsLookupTable } from '../system/Binding';
-import StageManager from './StageManager';
-import PackageManager from './PackageManager';
+import type { RelationsLookupTable } from '../system/Relation';
+import StageManager from './stage/StageManager';
+import PackageManager from './package/PackageManager';
 
 import type {
   Registry,
@@ -31,7 +31,7 @@ class RegistryManager implements IRegistryManager {
   public props: RegistryProps = {};
   private stageManager: IStageManager;
   private packageManager: IPackageManager;
-  private bindingsLookup: BindingsLookupTable;
+  private relations: RelationsLookupTable;
 
   /**
    * @param props 
@@ -136,7 +136,7 @@ class RegistryManager implements IRegistryManager {
     // evaluate and process packages
     this.packageManager.apply(packages);
     // handle staging packages
-    this.stageManager.apply(packages);
+    // this.stageManager.apply(packages);
     // trigger registry change
     this.handleChange();
   }
