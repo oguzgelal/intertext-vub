@@ -68,11 +68,11 @@ class RegistryManager {
   }
 
   /**
-   * Updates a package
+   * Updates a registry item
    * @param {string} id
-   * @param {function updateFn(item:RegistryItem<IPackage>) => RegistryItem<IPackage>} updateFn
+   * @param {function updateFn(item:RegistryItem<IPackage>) => Partial<RegistryItem<IPackage>>} updateFn
    */
-  update = (id: string, updateFn: (existing: RegistryItem<IPackage>) => RegistryItem<IPackage>) => {
+  update = (id: string, updateFn: (existing: RegistryItem<IPackage>) => Partial<RegistryItem<IPackage>>) => {
     let err;
     const existingItem: RegistryItem<IPackage> = this.get(id);
     if (!existingItem) err = `Package with ID "${id}" not found.`
@@ -143,7 +143,7 @@ class RegistryManager {
    * @param {RegistryItem<IPackage>} item
    */
   private upsert = (pack: IPackage, options: {
-    regitem?: RegistryItem<IPackage>,
+    regitem?: Partial<RegistryItem<IPackage>>,
     suppressChange?: boolean
   } = {}): void => {
 
@@ -163,7 +163,7 @@ class RegistryManager {
   }
 
   // insert relation
-  private upsertRelation = (relation: IRelation, regitem?: RegistryItem<IRelation>) => {
+  private upsertRelation = (relation: IRelation, regitem?: Partial<RegistryItem<IRelation>>) => {
     this.relations = merge(this.relations, {
       [relation.from]: {
         [relation.to || LITERAL_KEY]: {
@@ -180,7 +180,7 @@ class RegistryManager {
   }
 
   // insert component
-  private upsertComponent = (component: IComponent, regitem?: RegistryItem<IComponent>) => {
+  private upsertComponent = (component: IComponent, regitem?: Partial<RegistryItem<IComponent>>) => {
     this.components = Object.assign({}, this.components, {
       [component.id]: Object.assign({}, get(this.components, component.id), regitem || {
         id: component.id,
@@ -190,7 +190,7 @@ class RegistryManager {
   }
 
   // insert command
-  private upsertCommand = (command: ICommand, regitem?: RegistryItem<ICommand>) => {
+  private upsertCommand = (command: ICommand, regitem?: Partial<RegistryItem<ICommand>>) => {
     this.commands = Object.assign({}, this.commands, {
       [command.id]: Object.assign({}, get(this.commands, command.id), regitem || {
         id: command.id,

@@ -27,7 +27,7 @@ class ComponentCtrl {
       // the parent is availble in registry
       else if (this.registry.get(component.parent.id)) return true;
      */
-    return false;
+    return true;
   };
 
   static handle = (component: IComponent, registry: RegistryManager) => {

@@ -31,23 +31,6 @@ class PackageManager {
     );
   }
 
-  invalidate = (pack: IPackage) => {
-
-    if (ComponentCtrl.is(pack)) {
-      return ComponentCtrl.invalidate(<IComponent>pack);
-    }
-    if (CommandCtrl.is(pack)) {
-      return CommandCtrl.invalidate(<ICommand>pack);
-    }
-    if (RelationCtrl.is(pack)) {
-      return RelationCtrl.invalidate(<IRelation>pack)
-    }
-    
-    // if a package is neither of these,
-    // its not valid
-    return true;
-  }
-
   private isPackageHit = (pack: IPackage) => {
     
     if (ComponentCtrl.is(pack)) {
@@ -78,6 +61,23 @@ class PackageManager {
     }
 
     // remove package from the queue
+    return true;
+  }
+
+  invalidate = (pack: IPackage) => {
+
+    if (ComponentCtrl.is(pack)) {
+      return ComponentCtrl.invalidate(<IComponent>pack);
+    }
+    if (CommandCtrl.is(pack)) {
+      return CommandCtrl.invalidate(<ICommand>pack);
+    }
+    if (RelationCtrl.is(pack)) {
+      return RelationCtrl.invalidate(<IRelation>pack)
+    }
+    
+    // if a package is neither of these,
+    // its not valid
     return true;
   }
 
