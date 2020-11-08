@@ -1,26 +1,18 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { fly } from "svelte/transition";
-  import type { IComponent } from '../engine';
-  import { RegistryManager, ComponentTypes } from '../engine'
+  import Engine from '../engine'
   
   import type { DispatcherEvent } from "./PackageDispatcher.svelte";
   import PackageDispatcher from "./PackageDispatcher.svelte";
   import Button from './../core_components/Button.svelte';
   
-  let registry: RegistryManager;
-  let stage: IComponent[] = [];
+  let engine;
   let showingPackageDispatcher: boolean;
 
   // initialize registry on mount
   onMount(() => {
-    registry = new RegistryManager({
-      debug: true,
-      onStageUpdate: newStage => {
-        console.log(`Stage Updated`, newStage)
-        stage = newStage
-      }
-    });
+    engine = new Engine({ debug: true });
   });
 
   // show / hide dispatcher
@@ -39,7 +31,7 @@
   const receiveDispatch = (e: CustomEvent) => {
     const args: DispatcherEvent = e.detail;
     const { packages } = args;
-    registry.insert(packages);
+    engine.insert(packages);
   }
 
 </script>
@@ -95,12 +87,12 @@
 
 <!-- TODO: refactor -->
 <!-- TODO: fix type issue -->
-<!-- render staged items -->
+<!-- render staged items 
 {#each stage as component (component.id)}
 
-  <!-- cta -->
   {#if component.type === ComponentTypes.CTA}
     <Button>{component.text}</Button>
   {/if}
 
 {/each}
+-->

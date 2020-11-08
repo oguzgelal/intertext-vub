@@ -1,15 +1,13 @@
-import type { PackageID, PackageType } from './types';
-
 /**
  * Base for all packages
  * 
  * @interface IPackage
- * @param {PackageID} id
- * @param {PackageType} type
+ * @param {string} id
+ * @param {string} type
  */
 export interface IPackage {
-  id?: PackageID
-  type: PackageType
+  id?: string
+  type: string
   isComponent: boolean
   isCommand: boolean
   isRelation: boolean

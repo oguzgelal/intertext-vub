@@ -1,26 +1,14 @@
 import type { IPackage } from '../../system/Package';
 import type { IComponent } from '../../system/Component';
-import type { ICommand } from '../../system/Command';
-
-import type { IRegistryManager } from '../types';
+import type RegistryManager from '../registry/RegistryManager';
 
 class ComponentCtrl {
 
-  private registry: IRegistryManager;
-
-  /**
-   * @param {IRegistryManager} registry
-   * @param {IPackageManager} packageManager
-   */
-  constructor(registry: IRegistryManager) {
-    this.registry = registry;
-  }
-
-  isComponent = (pack: IPackage) => {
+  static is = (pack: IPackage) => {
     return pack.isComponent;
   }
 
-  invalidate = (component: IComponent) => {
+  static invalidate = (component: IComponent) => {
 
     // commands has to have an id
     if (!component.id) return true;
@@ -28,7 +16,7 @@ class ComponentCtrl {
     return false;
   }
 
-  isHit = (component: IComponent) => {
+  static isHit = (component: IComponent, registry: RegistryManager) => {
     /**
      * // typecast
       const component = <IComponent>pack;
@@ -42,8 +30,8 @@ class ComponentCtrl {
     return false;
   };
 
-  handle = (component: IComponent) => {
-    // remove package from the queue
+  static handle = (component: IComponent, registry: RegistryManager) => {
+    registry.insert(component)
     return true;
   }
 }

@@ -51,7 +51,6 @@
  */
 
 import type { IPackage } from './Package';
-import type { PackageID } from './types';
 
 /**
  * Relation type
@@ -71,26 +70,13 @@ import type { PackageID } from './types';
  */
 export interface IRelation extends IPackage {
   isRelation: true
-  from: PackageID
-  to?: PackageID
+  from: IPackage['id']
+  to?: IPackage['id']
   rel: Relations
   value?: unknown
 }
 
-export const LITERAL_KEY = '__literal';
-
-/**
- * A lookup table for relations for easy access
- */
-export type RelationsLookupTable = {
-  // from (package id)
-  [key: string]: {
-    // to (package id)
-    [key: string]: {
-      [rel: string]: IRelation
-    }
-  }
-}
+export const LITERAL_KEY = '__litereal';
 
 /** @enum {string} */
 export enum Relations {
