@@ -6,9 +6,11 @@
 import type { IPackage } from '../../system/Package';
 import type { IComponent } from '../../system/Component';
 import type { ICommand } from '../../system/Command';
+import type { IEntity } from '../../system/Entity';
 import type { IRelation } from '../../system/Relation';
 import ComponentCtrl from './ComponentCtrl';
 import CommandCtrl from './CommandCtrl';
+import EntityCtrl from './EntityCtrl';
 import RelationCtrl from './RelationCtrl';
 import EvalQueue from '../utils/EvalQueue';
 import type RegistryManager from '../registry/RegistryManager';
@@ -42,6 +44,9 @@ class PackageManager {
     if (CommandCtrl.is(pack)) {
       return CommandCtrl.isHit(<ICommand>pack, this.registry);
     }
+    if (EntityCtrl.is(pack)) {
+      return EntityCtrl.isHit(<IEntity>pack, this.registry);
+    }
     if (RelationCtrl.is(pack)) {
       return RelationCtrl.isHit(<IRelation>pack, this.registry)
     }
@@ -59,6 +64,9 @@ class PackageManager {
     if (CommandCtrl.is(pack)) {
       return CommandCtrl.handle(<ICommand>pack, this.registry);
     }
+    if (EntityCtrl.is(pack)) {
+      return EntityCtrl.handle(<IEntity>pack, this.registry);
+    }
     if (RelationCtrl.is(pack)) {
       return RelationCtrl.handle(<IRelation>pack, this.registry, this.stage)
     }
@@ -74,6 +82,9 @@ class PackageManager {
     }
     if (CommandCtrl.is(pack)) {
       return CommandCtrl.invalidate(<ICommand>pack);
+    }
+    if (EntityCtrl.is(pack)) {
+      return EntityCtrl.invalidate(<IEntity>pack);
     }
     if (RelationCtrl.is(pack)) {
       return RelationCtrl.invalidate(<IRelation>pack)

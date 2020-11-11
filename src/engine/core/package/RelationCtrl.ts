@@ -1,6 +1,5 @@
 import type { IPackage } from '../../system/Package';
 import type { IRelation } from '../../system/Relation';
-import { Relations } from '../../system/Relation';
 import type RegistryManager from '../registry/RegistryManager';
 import type StageManager from '../stage/StageManager';
 
@@ -44,15 +43,6 @@ class RelationCtrl {
     
     // insert into registry
     registry.insert(relation)
-
-    // if stage relation
-    if (relation.rel === Relations.STAGED) {
-      if (relation.value === true) {
-        stage.stageComponent(relation.from);
-      } else {
-        stage.unstageComponent(relation.from);
-      }
-    }
     
     // remove package from the queue
     return true;

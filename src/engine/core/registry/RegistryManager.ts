@@ -3,11 +3,13 @@ import { merge } from 'lodash/fp';
 import type { IPackage } from '../../system/Package';
 import type { ICommand } from '../../system/Command';
 import type { IComponent } from '../../system/Component';
+import type { IEntity } from '../../system/Entity';
 import type { Relation, IRelation } from '../../system/Relation';
 
 import ComponentCtrl from '../package/ComponentCtrl';
 import CommandCtrl from '../package/CommandCtrl';
 import RelationCtrl from '../package/RelationCtrl';
+import EntityCtrl from '../package/EntityCtrl';
 
 // TODO: tests
 
@@ -18,25 +20,29 @@ type RegistryItem<T> = {
 
 type OnRegistryUpdate = (newRegistry: RegistryContents) => void
 
+type RegItemComponent = RegistryItem<IComponent>
+type RegItemCommand = RegistryItem<ICommand>
+type RegItemEntity = RegistryItem<IEntity>
+type RegItemRelation = RegistryItem<IRelation>
+
 export type RegistryContents = {
-  components:
-    Record<IComponent['id'],
-      RegistryItem<IComponent>>,
-  commands:
-    Record<ICommand['id'],
-      RegistryItem<ICommand>>,
+  components: Record<IComponent['id'], RegItemComponent>,
+  commands: Record<ICommand['id'], RegItemCommand>,
+  entities: Record<IEntity['id'], RegItemEntity>,
   relations:
     Record<IPackage['id'] | Relation,
       Record<IPackage['id'] | Relation,
-        Record<IRelation['rel'],
-          RegistryItem<IRelation>>>>
+        RegItemRelation |
+        Record<IRelation['rel'], RegItemRelation>
+      >
+    >
 }
-
 
 class RegistryManager {
 
   public components: RegistryContents['components'] = {};
   public commands: RegistryContents['commands'] = {};
+  public entities: RegistryContents['entities'] = {};
   public relations: RegistryContents['relations'] = {};
   private onRegistryUpdate: OnRegistryUpdate;
 
@@ -46,6 +52,7 @@ class RegistryManager {
   constructor(onRegistryUpdate?: OnRegistryUpdate) {
     this.relations = {};
     this.components = {};
+    this.entities = {};
     this.commands = {};
     this.onRegistryUpdate = onRegistryUpdate;
   }
@@ -82,6 +89,7 @@ class RegistryManager {
   get = (id: string): RegistryItem<IPackage> => {
     if (this.commands[id]) return this.commands[id];
     if (this.components[id]) return this.components[id];
+    if (this.entities[id]) return this.entities[id];
     return null;
   }
 
@@ -112,6 +120,7 @@ class RegistryManager {
       this.onRegistryUpdate({
         commands: this.commands,
         components: this.components,
+        entities: this.entities,
         relations: this.relations,
       })
     }
@@ -144,6 +153,8 @@ class RegistryManager {
       this.upsertComponent(<IComponent>pack, <RegistryItem<IComponent>>regitem);
     } else if (CommandCtrl.is(pack)) {
       this.upsertCommand(<ICommand>pack, <RegistryItem<ICommand>>regitem);
+    } else if (EntityCtrl.is(pack)) {
+      this.upsertEntity(<IEntity>pack, <RegistryItem<IEntity>>regitem)
     } else if (RelationCtrl.is(pack)) {
       this.upsertRelation(<IRelation>pack, <RegistryItem<IRelation>>regitem)
     }
@@ -168,6 +179,16 @@ class RegistryManager {
         }
       }
     })
+  }
+
+  // insert entity
+  private upsertEntity = (entity: IEntity, regitem?: Partial<RegistryItem<IEntity>>) => {
+    this.entities = Object.assign({}, this.entities, {
+      [entity.id]: Object.assign({}, get(this.entities, entity.id), regitem || {
+        id: entity.id,
+        package: entity,
+      })
+    });
   }
 
   // insert component
