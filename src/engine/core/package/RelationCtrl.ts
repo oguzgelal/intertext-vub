@@ -21,16 +21,11 @@ class RelationCtrl {
 
   static  isHit = (relation: IRelation, registry: RegistryManager) => {
 
-    const fromExists = registry.exists(relation.from);
-    const toExists = registry.exists(relation.to);
-    const isLiteral = !relation.hasOwnProperty('to')
-
     // relation from package isnt present
-    if (!fromExists) return false;
+    if (!registry.exists(relation.from)) return false;
     
-    // if this relation is not literal, and the
-    // target package is not present
-    if (!toExists && !isLiteral) return false;
+    // relation to package isnt present
+    if (!registry.exists(relation.to)) return false;
 
     return true;
   };
