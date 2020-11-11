@@ -3,8 +3,7 @@ import { merge } from 'lodash/fp';
 import type { IPackage } from '../../system/Package';
 import type { ICommand } from '../../system/Command';
 import type { IComponent } from '../../system/Component';
-import type { IRelation } from '../../system/Relation';
-import { LITERAL_KEY } from '../../system/Relation';
+import type { Relation, IRelation } from '../../system/Relation';
 
 import ComponentCtrl from '../package/ComponentCtrl';
 import CommandCtrl from '../package/CommandCtrl';
@@ -20,25 +19,17 @@ type RegistryItem<T> = {
 type OnRegistryUpdate = (newRegistry: RegistryContents) => void
 
 export type RegistryContents = {
-  components: (
+  components:
     Record<IComponent['id'],
-      RegistryItem<IComponent>
-    >
-  ),
-  commands: (
+      RegistryItem<IComponent>>,
+  commands:
     Record<ICommand['id'],
-      RegistryItem<ICommand>
-    >
-  ),
-  relations: (
-    Record<IPackage['id'],
-      Record<IPackage['id'] | '__literal',
+      RegistryItem<ICommand>>,
+  relations:
+    Record<IPackage['id'] | Relation,
+      Record<IPackage['id'] | Relation,
         Record<IRelation['rel'],
-          RegistryItem<IRelation>
-        >
-      >
-    >
-  )
+          RegistryItem<IRelation>>>>
 }
 
 
@@ -166,10 +157,10 @@ class RegistryManager {
   private upsertRelation = (relation: IRelation, regitem?: Partial<RegistryItem<IRelation>>) => {
     this.relations = merge(this.relations, {
       [relation.from]: {
-        [relation.to || LITERAL_KEY]: {
+        [relation.to]: {
           [relation.rel]: Object.assign({}, get(this.relations, [
             relation.from,
-            relation.to || LITERAL_KEY,
+            relation.to,
             relation.rel
           ]), regitem || {
             package: relation

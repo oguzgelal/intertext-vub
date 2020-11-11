@@ -11,4 +11,5 @@ export interface IPackage {
   isComponent: boolean
   isCommand: boolean
   isRelation: boolean
+  isEntity: boolean
 }

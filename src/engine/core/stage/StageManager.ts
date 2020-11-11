@@ -37,7 +37,7 @@ class StageManager {
    * Stages a component
    * @param {IComponent} component 
    */
-  private stageComponent = (id: IComponent['id']): void => {
+  stageComponent = (id: IComponent['id']): void => {
     this.stage = [ ...this.stage, id ];
     this.registry.update(id, item => ({ ...item, staged: true }));
     this.handleStageChange();
@@ -47,7 +47,7 @@ class StageManager {
    * Removes a component from stage
    * @param {IComponent} component 
    */
-  private unstageComponent = (id: IComponent['id']): void => {
+  unstageComponent = (id: IComponent['id']): void => {
     this.stage = this.stage.filter((id: IComponent['id']) => id !== id).slice();
     this.registry.update(id, item => ({ ...item, staged: false }));
     this.handleStageChange();

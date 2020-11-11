@@ -70,15 +70,14 @@ import type { IPackage } from './Package';
  */
 export interface IRelation extends IPackage {
   isRelation: true
-  from: IPackage['id']
-  to?: IPackage['id']
-  rel: Relations
+  from: IPackage['id'] | Relation
+  to: IPackage['id'] | Relation
+  rel?: Relation
   value?: unknown
 }
 
-export const LITERAL_KEY = '__litereal';
-
 /** @enum {string} */
-export enum Relations {
-  STAGED = 'staged'
+export enum Relation {
+  CHILDREN = 'CHILDREN',
+  ACTIVE_SCREEN = 'ACTIVE_SCREEN'
 }

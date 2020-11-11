@@ -41,7 +41,7 @@ class Engine {
   constructor (props: EngineProps) {
     this.registry = new RegistryManager(props.onRegistryUpdate);
     this.stage = new StageManager(this.registry, props.onStageUpdate);
-    this.package = new PackageManager(this.registry)
+    this.package = new PackageManager(this.registry, this.stage)
     this.props = props;
     if (props && props.debug) {
       window.engine = this;

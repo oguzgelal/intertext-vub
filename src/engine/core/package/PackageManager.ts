@@ -12,17 +12,20 @@ import CommandCtrl from './CommandCtrl';
 import RelationCtrl from './RelationCtrl';
 import EvalQueue from '../utils/EvalQueue';
 import type RegistryManager from '../registry/RegistryManager';
+import type StageManager from '../stage/StageManager';
 
 class PackageManager {
 
   private queue: EvalQueue;
   private registry: RegistryManager;
+  private stage: StageManager;
 
   /**
    * @param {RegistryManager} registry
    */
-  constructor(registry: RegistryManager) {
+  constructor(registry: RegistryManager, stage: StageManager) {
     this.registry = registry;
+    this.stage = stage;
 
     this.queue = new EvalQueue(
       this.isPackageHit,
@@ -57,7 +60,7 @@ class PackageManager {
       return CommandCtrl.handle(<ICommand>pack, this.registry);
     }
     if (RelationCtrl.is(pack)) {
-      return RelationCtrl.handle(<IRelation>pack, this.registry)
+      return RelationCtrl.handle(<IRelation>pack, this.registry, this.stage)
     }
 
     // remove package from the queue
