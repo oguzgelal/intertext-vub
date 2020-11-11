@@ -14,6 +14,7 @@ export enum CommandTypes {
  * @param {string} id
  * @param {CommandTypes} type
  * @param {boolean} once Remove this command from registry after execution
+ * @param {boolean} immediate
  */
 export interface ICommand extends IPackage {
   isComponent: true
