@@ -57,9 +57,10 @@ import type { IPackage } from './Package';
  * Semantic relations between two package
  * 
  * @interface IRelation
+ * @param {string} id The ID of the relation
  * @param {string} from The ID of the package bound from
+ * @param {rel} rel Relationship of these two packages. Omit for unnamed relation
  * @param {string} to The ID of the package bound to
- * @param {rel} rel Relationship of these two packages
  * 
  * @example
  * { id: 'login-btn', isComponent: true, type: 'CTA' }
@@ -70,10 +71,10 @@ import type { IPackage } from './Package';
  */
 export interface IRelation extends IPackage {
   isRelation: true
+  id: string
   from: IPackage['id'] | Relation
-  to: IPackage['id'] | Relation
   rel?: Relation
-  value?: unknown
+  to: IPackage['id'] | Relation
 }
 
 /** @enum {string} */

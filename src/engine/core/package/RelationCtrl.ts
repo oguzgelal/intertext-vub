@@ -13,6 +13,9 @@ class RelationCtrl {
     const isLiteral = !relation.hasOwnProperty('to');
     const hasValue = relation.hasOwnProperty('value');
 
+    // relations has to have an id
+    if (!relation.id) return true;
+
     // invalidate if a relation is a literal, but has no value
     if (isLiteral && !hasValue) return true;
 

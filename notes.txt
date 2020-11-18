@@ -1,4 +1,4 @@
-{ isRelation: true, from: "b1", to: "b2", rel: "test_relation" },
+{ isRelation: true, id:"b1tob2" from: "b1", to: "b2", rel: "test_relation" },
 { isComponent: true, type: "CTA", id: "b1", text: "cta1"},
 { isComponent: true, type: "CTA", id: "b2", text: "cta2"},
 
@@ -6,8 +6,6 @@
 { isRelation: true, from: "b1", to: "b3", rel: "test_relation" },
 { isRelation: true, from: "b1", to: "b4", rel: "test_relation" },
 { isComponent: true, id: "b4", type: "CTA", text: "CTA4 "},
-
-
 
 { isEntity: true, type: "SCREEN", id: "home" },
 { isEntity: true, type: "SCREEN", id: "about" },
@@ -19,8 +17,20 @@
 
 { isRelation: true, from: "ACTIVE_SCREEN", to: "home" },
 
+
+syntax like this?
+rel b1tob2 b1 b2 --rel test_relation
+cta b1 --text cta1
+cta b2 --text cta2 
+
+
 TODO: relations should have ids
+TODO: store all packages under one key `packages`
+TODO: remove stage
+TODO: tests
 TODO: LaTeX
 
 
 
+Done: Relations now have ID's
+Done: Everything is stored under the same roof in the registry

@@ -6,7 +6,7 @@
  * @param {string} type
  */
 export interface IPackage {
-  id?: string
+  id: string
   type: string
   isComponent: boolean
   isCommand: boolean

@@ -1,59 +1,45 @@
 import { get } from 'lodash';
 import { merge } from 'lodash/fp';
 import type { IPackage } from '../../system/Package';
-import type { ICommand } from '../../system/Command';
-import type { IComponent } from '../../system/Component';
-import type { IEntity } from '../../system/Entity';
 import type { Relation, IRelation } from '../../system/Relation';
-
-import ComponentCtrl from '../package/ComponentCtrl';
-import CommandCtrl from '../package/CommandCtrl';
 import RelationCtrl from '../package/RelationCtrl';
-import EntityCtrl from '../package/EntityCtrl';
 
 // TODO: tests
 
-type RegistryItem<T> = {
-  id?: string,
-  package: T,
+type RegistryItem = {
+  id: IPackage['id']
+  package: IPackage
 }
 
-type OnRegistryUpdate = (newRegistry: RegistryContents) => void
-
-type RegItemComponent = RegistryItem<IComponent>
-type RegItemCommand = RegistryItem<ICommand>
-type RegItemEntity = RegistryItem<IEntity>
-type RegItemRelation = RegistryItem<IRelation>
-
-export type RegistryContents = {
-  components: Record<IComponent['id'], RegItemComponent>,
-  commands: Record<ICommand['id'], RegItemCommand>,
-  entities: Record<IEntity['id'], RegItemEntity>,
-  relations:
-    Record<IPackage['id'] | Relation,
-      Record<IPackage['id'] | Relation,
-        RegItemRelation |
-        Record<IRelation['rel'], RegItemRelation>
+// { parent1: { isParentOf: { child1: true } } }
+// { isStaged: { null: { parent1: true } } }
+type RegistryRelationsDict = (
+  Record<IRelation['from'],
+    Record<Relation | null,
+      Record<IRelation['to'],
+        boolean
       >
     >
-}
+  >
+)
+
+export type RegistryContents = Record<IPackage['id'], RegistryItem>
+
+type OnRegistryUpdate = (newContents: RegistryContents) => void
+
 
 class RegistryManager {
 
-  public components: RegistryContents['components'] = {};
-  public commands: RegistryContents['commands'] = {};
-  public entities: RegistryContents['entities'] = {};
-  public relations: RegistryContents['relations'] = {};
+  public contents: RegistryContents;
+  public relations: RegistryRelationsDict;
   private onRegistryUpdate: OnRegistryUpdate;
 
   /**
    * @param props 
    */
   constructor(onRegistryUpdate?: OnRegistryUpdate) {
-    this.relations = {};
-    this.components = {};
-    this.entities = {};
-    this.commands = {};
+    this.contents = {}
+    this.relations = {}
     this.onRegistryUpdate = onRegistryUpdate;
   }
 
@@ -68,11 +54,11 @@ class RegistryManager {
   /**
    * Updates a registry item
    * @param {string} id
-   * @param {function updateFn(item:RegistryItem<IPackage>) => Partial<RegistryItem<IPackage>>} updateFn
+   * @param {function updateFn(item:RegistryItem) => Partial<RegistryItem>} updateFn
    */
-  update = (id: string, updateFn: (existing: RegistryItem<IPackage>) => Partial<RegistryItem<IPackage>>) => {
+  update = (id: string, updateFn: (existing: RegistryItem) => Partial<RegistryItem>) => {
     let err;
-    const existingItem: RegistryItem<IPackage> = this.get(id);
+    const existingItem: RegistryItem = this.get(id);
     if (!existingItem) err = `Package with ID "${id}" not found.`
     if (typeof updateFn !== 'function') return;
     const newItem = updateFn(existingItem);
@@ -84,12 +70,10 @@ class RegistryManager {
   /**
    * Find the registry item for a package
    * @param {id} string
-   * @returns {RegistryItem<IPackage>} 
+   * @returns {RegistryItem} 
    */
-  get = (id: string): RegistryItem<IPackage> => {
-    if (this.commands[id]) return this.commands[id];
-    if (this.components[id]) return this.components[id];
-    if (this.entities[id]) return this.entities[id];
+  get = (id: string): RegistryItem => {
+    if (this.contents[id]) return this.contents[id];
     return null;
   }
 
@@ -107,8 +91,7 @@ class RegistryManager {
    * @param {IPackage} pack
    */
   delete = (id: string): void => {
-    if (this.commands[id]) delete this.commands[id];
-    if (this.components[id]) delete this.components[id];
+    delete this.contents[id];
   }
 
   /**
@@ -117,12 +100,7 @@ class RegistryManager {
    */
   private handleChange = () => {
     if (typeof this.onRegistryUpdate === 'function') {
-      this.onRegistryUpdate({
-        commands: this.commands,
-        components: this.components,
-        entities: this.entities,
-        relations: this.relations,
-      })
+      this.onRegistryUpdate(this.contents)
     }
   }
 
@@ -139,76 +117,59 @@ class RegistryManager {
 
   /**
    * Inserts or updates a package in registry
-   * @param {string} id
-   * @param {RegistryItem<IPackage>} item
+   * @param {IPackage} pack
+   * @param {object} options
    */
-  private upsert = (pack: IPackage, options: {
-    regitem?: Partial<RegistryItem<IPackage>>,
+  private upsert = (pack: IPackage, {
+    regitem,
+    suppressChange
+  }: {
+    regitem?: Partial<RegistryItem>,
     suppressChange?: boolean
   } = {}): void => {
 
-    const { regitem, suppressChange } = options;
-    
-    if (ComponentCtrl.is(pack)) {
-      this.upsertComponent(<IComponent>pack, <RegistryItem<IComponent>>regitem);
-    } else if (CommandCtrl.is(pack)) {
-      this.upsertCommand(<ICommand>pack, <RegistryItem<ICommand>>regitem);
-    } else if (EntityCtrl.is(pack)) {
-      this.upsertEntity(<IEntity>pack, <RegistryItem<IEntity>>regitem)
-    } else if (RelationCtrl.is(pack)) {
-      this.upsertRelation(<IRelation>pack, <RegistryItem<IRelation>>regitem)
+    // upsert package into registry
+    this.upsertPackage(pack, regitem);
+
+    // upsert relation into relations dictionary
+    if (RelationCtrl.is(pack)) {
+      this.upsertRelation(<IRelation>pack)
     }
 
+    // handle change if not suppressed
     if (!suppressChange) {
       this.handleChange();
     }
   }
 
-  // insert relation
-  private upsertRelation = (relation: IRelation, regitem?: Partial<RegistryItem<IRelation>>) => {
+  /**
+   * Insert a package in registry, or update the registry item of an existing package
+   * 
+   * @param {IPackage} pack
+   * @param {Partial<RegistryItem>} regitem
+   */
+  private upsertPackage = (pack: IPackage, regitem?: Partial<RegistryItem>) => {
+    this.contents = Object.assign({}, this.contents, {
+      [pack.id]: Object.assign({}, get(this.contents, pack.id), regitem || {
+        id: pack.id,
+        package: pack,
+      })
+    });
+  }
+
+  /**
+   * Insert a relation into the relations dictionary
+   * 
+   * @param {IRelation} relation
+   */
+  private upsertRelation = (relation: IRelation) => {
     this.relations = merge(this.relations, {
       [relation.from]: {
-        [relation.to]: {
-          [relation.rel]: Object.assign({}, get(this.relations, [
-            relation.from,
-            relation.to,
-            relation.rel
-          ]), regitem || {
-            package: relation
-          })
+        [relation.rel || null]: {
+          [relation.to]: true
         }
       }
     })
-  }
-
-  // insert entity
-  private upsertEntity = (entity: IEntity, regitem?: Partial<RegistryItem<IEntity>>) => {
-    this.entities = Object.assign({}, this.entities, {
-      [entity.id]: Object.assign({}, get(this.entities, entity.id), regitem || {
-        id: entity.id,
-        package: entity,
-      })
-    });
-  }
-
-  // insert component
-  private upsertComponent = (component: IComponent, regitem?: Partial<RegistryItem<IComponent>>) => {
-    this.components = Object.assign({}, this.components, {
-      [component.id]: Object.assign({}, get(this.components, component.id), regitem || {
-        id: component.id,
-        package: component,
-      })
-    });
-  }
-
-  // insert command
-  private upsertCommand = (command: ICommand, regitem?: Partial<RegistryItem<ICommand>>) => {
-    this.commands = Object.assign({}, this.commands, {
-      [command.id]: Object.assign({}, get(this.commands, command.id), regitem || {
-        id: command.id,
-        package: command,
-      })
-    });
   }
 }
 
