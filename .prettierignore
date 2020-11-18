@@ -1,0 +1,11 @@
+# api
+build/
+
+# app-react
+.next/
+out/
+
+# app-vue
+.nuxt/
+dist/
+coverage/

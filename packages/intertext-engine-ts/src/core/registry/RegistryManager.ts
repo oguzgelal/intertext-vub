@@ -15,7 +15,7 @@ type RegistryItem = {
 // { isStaged: { null: { parent1: true } } }
 type RegistryRelationsDict = (
   Record<IRelation['from'],
-    Record<Relation | null,
+    Record<Relation | string,
       Record<IRelation['to'],
         boolean
       >

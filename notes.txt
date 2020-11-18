@@ -18,19 +18,31 @@
 { isRelation: true, from: "ACTIVE_SCREEN", to: "home" },
 
 
-syntax like this?
+TODO: syntax like this?
 rel b1tob2 b1 b2 --rel test_relation
 cta b1 --text cta1
 cta b2 --text cta2 
 
-
-TODO: relations should have ids
-TODO: store all packages under one key `packages`
 TODO: remove stage
 TODO: tests
 TODO: LaTeX
 
+--- 
 
+TODO: 1. Setup mono-repo
+TODO: 2. Refactor the Engine (TS) out
+TODO: 3. Setup a cpp package for the engine
+
+
+Thoughts: Intertext Engine in CPP ?
+1. It will run natively everywhere
+2. Thanks to WebAssembly, it will run on the web
+3. Extremely performance gains
+
+Cons:
+1. I'm not great with C++
+
+---
 
 Done: Relations now have ID's
 Done: Everything is stored under the same roof in the registry
