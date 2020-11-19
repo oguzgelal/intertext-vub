@@ -5,15 +5,17 @@
 </script>
 
 <script lang="ts">
+  import { CommandTypes } from '@intertext/engine-ts';
   import { createEventDispatcher } from 'svelte';
   import Button from '../core_components/Button.svelte';
-  import { CommandTypes } from '../engine/system/Command';
-  import { ComponentTypes } from '../engine/system/Component';
-  import type { IPackage } from '../engine/system/Package';
+  // import { CommandTypes } from '@intertext/engine-ts/src/system/Command';
+  // import { ComponentTypes } from '@intertext/engine-ts/src/system/Component';
+  // import type { IPackage } from '@intertext/engine-ts/src/system/Package';
   
   const dispatch = createEventDispatcher();
 
-  let packages: [IPackage];
+  //let packages: IPackage[];
+  let packages: [any];
   let pid: number = 0;
   let jsonText: string;
   let invalid: boolean;

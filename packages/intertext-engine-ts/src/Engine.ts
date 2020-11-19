@@ -8,6 +8,8 @@ import type { IPackage } from './system/Package';
 import type { RegistryContents } from './core/registry/RegistryManager';
 import type { StageContents } from './core/stage/StageManager';
 
+declare const window: Record<string, unknown>;
+
 /**
  * Populate window variable on debug mode
  * @param {Engine} engine
@@ -44,7 +46,7 @@ class Engine {
     this.package = new PackageManager(this.registry, this.stage)
     this.props = props;
     if (props && props.debug) {
-      window.engine = this;
+      window['engine'] = this;
     }
   }
 
