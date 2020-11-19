@@ -5,13 +5,11 @@
 </script>
 
 <script lang="ts">
-  import { CommandTypes } from '@intertext/engine-ts';
   import { createEventDispatcher } from 'svelte';
   import Button from '../core_components/Button.svelte';
-  // import { CommandTypes } from '@intertext/engine-ts/src/system/Command';
-  // import { ComponentTypes } from '@intertext/engine-ts/src/system/Component';
-  // import type { IPackage } from '@intertext/engine-ts/src/system/Package';
-  
+  import { CommandTypes, ComponentTypes } from '@intertext/engine-ts';
+  import type { IPackage } from '@intertext/engine-ts';
+
   const dispatch = createEventDispatcher();
 
   //let packages: IPackage[];
