@@ -56,7 +56,7 @@ class RegistryManager {
    * @param {string} id
    * @param {function updateFn(item:RegistryItem) => Partial<RegistryItem>} updateFn
    */
-  update = (id: string, updateFn: (existing: RegistryItem) => Partial<RegistryItem>) => {
+  update = (id: string, updateFn: (existing: RegistryItem) => Partial<RegistryItem>): void => {
     let err;
     const existingItem: RegistryItem = this.get(id);
     if (!existingItem) err = `Package with ID "${id}" not found.`
@@ -107,7 +107,7 @@ class RegistryManager {
   /**
    * Inserts or updates multiple packages
    */
-  public upsertPackages = (packages: IPackage[]) => {
+  public upsertPackages = (packages: IPackage[]): void => {
     packages.forEach(pack => this.upsert(pack,
       { suppressChange: true })
     );
