@@ -4,6 +4,7 @@
 
 <script lang="ts">
   import Renderer from "./web_components/Renderer.svelte";
+  import Wasm from "./web_components/Wasm.svelte";
 </script>
 
 <style>
@@ -56,3 +57,4 @@
 
 
 <Renderer />
+<Wasm />

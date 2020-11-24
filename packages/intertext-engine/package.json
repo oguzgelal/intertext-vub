@@ -1,0 +1,9 @@
+{
+  "name": "@intertext/engine",
+  "version": "1.0.1",
+  "private": true,
+  "main": "dist/web/engine.js",
+  "scripts": {
+    "build": "rm -rf dist && tsc"
+  }
+}

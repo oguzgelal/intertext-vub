@@ -5,6 +5,7 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
+import { wasm } from '@rollup/plugin-wasm';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -36,8 +37,9 @@ export default {
 		format: 'iife',
 		name: 'app',
 		file: 'public/build/bundle.js'
-	},
+  },
 	plugins: [
+    wasm(),
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,
