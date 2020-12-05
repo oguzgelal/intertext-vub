@@ -88,10 +88,10 @@
   $: insertRelation = () => (
     insertAtCursor(
       '{ ' +
-      'isRelation: true, ' +
+      'isLink: true, ' +
       `from: "", ` +
       `to: "", ` +
-      `rel: "", ` +
+      `link: "", ` +
       `value: "" ` +
       '}'
     )
@@ -149,6 +149,6 @@
   
     <Button on:click={insertCTA()}>+ CTA</Button>
     <Button on:click={insertAlert()}>+ Alert</Button>
-    <Button on:click={insertRelation()}>+ Relation</Button>
+    <Button on:click={insertRelation()}>+ Link</Button>
   </div>
 </div>

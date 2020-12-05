@@ -8,18 +8,6 @@ import type { IPackage } from './system/Package';
 import type { RegistryContents } from './core/registry/RegistryManager';
 import type { StageContents } from './core/stage/StageManager';
 
-declare const window: Record<string, unknown>;
-
-/**
- * Populate window variable on debug mode
- * @param {Engine} engine
- */
-declare global {
-  interface Window {
-    engine: Engine
-  }
-}
-
 /**
  * Arguments received by RegistiryManager
  * @type {object} EngineProps
@@ -45,16 +33,13 @@ class Engine {
     this.stage = new StageManager(this.registry, props.onStageUpdate);
     this.package = new PackageManager(this.registry, this.stage)
     this.props = props;
-    if (props && props.debug) {
-      window['engine'] = this;
-    }
   }
 
   /**
-   * Inserts one or many packages into registry manager
+   * Inserts one or many packages into registry
    * @param {IPackage | IPackage[]} pack 
    */
-  insert = (pack: IPackage | IPackage[]): void => {
+  register = (pack: IPackage | IPackage[]): void => {
     // convert single packages into an array
     const packages: IPackage[] = Array.isArray(pack) ? pack : [pack];
     // insert that are not relations

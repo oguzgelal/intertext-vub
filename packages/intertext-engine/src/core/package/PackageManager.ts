@@ -7,7 +7,7 @@ import type { IPackage } from '../../system/Package';
 import type { IComponent } from '../../system/Component';
 import type { ICommand } from '../../system/Command';
 import type { IEntity } from '../../system/Entity';
-import type { IRelation } from '../../system/Relation';
+import type { ILink } from '../../system/Link';
 import ComponentCtrl from './ComponentCtrl';
 import CommandCtrl from './CommandCtrl';
 import EntityCtrl from './EntityCtrl';
@@ -48,7 +48,7 @@ class PackageManager {
       return EntityCtrl.isHit(<IEntity>pack, this.registry);
     }
     if (RelationCtrl.is(pack)) {
-      return RelationCtrl.isHit(<IRelation>pack, this.registry)
+      return RelationCtrl.isHit(<ILink>pack, this.registry)
     }
     
     // if above conditions does not hold,
@@ -68,7 +68,7 @@ class PackageManager {
       return EntityCtrl.handle(<IEntity>pack, this.registry);
     }
     if (RelationCtrl.is(pack)) {
-      return RelationCtrl.handle(<IRelation>pack, this.registry, this.stage)
+      return RelationCtrl.handle(<ILink>pack, this.registry, this.stage)
     }
 
     // remove package from the queue
@@ -87,7 +87,7 @@ class PackageManager {
       return EntityCtrl.invalidate(<IEntity>pack);
     }
     if (RelationCtrl.is(pack)) {
-      return RelationCtrl.invalidate(<IRelation>pack)
+      return RelationCtrl.invalidate(<ILink>pack)
     }
     
     // if a package is neither of these,

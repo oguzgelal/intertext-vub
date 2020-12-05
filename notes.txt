@@ -1,21 +1,21 @@
-{ isRelation: true, id:"b1tob2" from: "b1", to: "b2", rel: "test_relation" },
+{ isLink: true, id:"b1tob2" from: "b1", to: "b2", link: "test_relation" },
 { isComponent: true, type: "CTA", id: "b1", text: "cta1"},
 { isComponent: true, type: "CTA", id: "b2", text: "cta2"},
 
 { isComponent: true, type: "CTA", id: "b3", text: "cta3"},
-{ isRelation: true, from: "b1", to: "b3", rel: "test_relation" },
-{ isRelation: true, from: "b1", to: "b4", rel: "test_relation" },
+{ isLink: true, from: "b1", to: "b3", link: "test_relation" },
+{ isLink: true, from: "b1", to: "b4", link: "test_relation" },
 { isComponent: true, id: "b4", type: "CTA", text: "CTA4 "},
 
 { isEntity: true, type: "SCREEN", id: "home" },
 { isEntity: true, type: "SCREEN", id: "about" },
 
-{ isRelation: true, from: "home", to: "b1", rel: "CHILDREN" },
-{ isRelation: true, from: "home", to: "b2", rel: "CHILDREN" },
-{ isRelation: true, from: "about", to: "b3", rel: "CHILDREN" },
-{ isRelation: true, from: "about", to: "b4", rel: "CHILDREN" },
+{ isLink: true, from: "home", to: "b1", link: "CHILDREN" },
+{ isLink: true, from: "home", to: "b2", link: "CHILDREN" },
+{ isLink: true, from: "about", to: "b3", link: "CHILDREN" },
+{ isLink: true, from: "about", to: "b4", link: "CHILDREN" },
 
-{ isRelation: true, from: "ACTIVE_SCREEN", to: "home" },
+{ isLink: true, from: "ACTIVE_SCREEN", to: "home" },
 
 
 TODO: syntax like this?

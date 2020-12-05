@@ -10,6 +10,6 @@ export interface IPackage {
   type: string
   isComponent: boolean
   isCommand: boolean
-  isRelation: boolean
+  isLink: boolean
   isEntity: boolean
 }
