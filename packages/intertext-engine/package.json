@@ -1,6 +1,6 @@
 {
   "name": "@intertext/engine",
-  "version": "1.0.1",
+  "version": "0.0.0",
   "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,7 +11,7 @@
     "typescript": "4.0.5"
   },
   "dependencies": {
-    "@intertext/engine": "^1.0.1",
+    "@intertext/engine": "^0.0.0",
     "@typescript-eslint/eslint-plugin": "4.8.1",
     "@typescript-eslint/parser": "4.8.1",
     "eslint": "7.13.0",

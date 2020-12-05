@@ -1,6 +1,6 @@
 {
-  "name": "@intertext/web",
-  "version": "1.0.0",
+  "name": "@intertext/svelte",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "test": "echo 'Tests coming soon...'",
@@ -26,8 +26,7 @@
     "typescript": "4.0.5"
   },
   "dependencies": {
-    "@intertext/engine": "^1.0.1",
-    "@intertext/engine-ts": "^1.0.0",
+    "@intertext/engine": "^0.0.0",
     "@typescript-eslint/eslint-plugin": "4.8.1",
     "@typescript-eslint/parser": "4.8.1",
     "eslint": "7.13.0",

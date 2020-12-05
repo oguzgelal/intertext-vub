@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { fly } from "svelte/transition";
-  import Engine from '@intertext/engine-ts'
+  import Engine from '@intertext/engine'
   
   import type { DispatcherEvent } from "./PackageDispatcher.svelte";
   import PackageDispatcher from "./PackageDispatcher.svelte";
