@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Renderer from 'components/web/Renderer';
 
 const App = () => {
   return (
-    <div>Hello</div>
+    <Renderer />
   )	
-}
-
-App.propTypes = {
 }
 
 export default App;

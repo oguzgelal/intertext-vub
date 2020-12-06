@@ -1,5 +1,11 @@
 {
   "packages": ["packages/*"],
+  "nohoist": [
+    "*react*",
+    "*react*/**",
+    "*react-native*",
+    "*react-native*/**"
+  ],
   "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true

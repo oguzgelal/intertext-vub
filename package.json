@@ -1,6 +1,6 @@
 {
   "name": "intertext",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -8,26 +8,9 @@
   "scripts": {
     "test": "lerna run test",
     "build": "lerna run build",
-    "start:web": "yarn workspace @intertext/web dev",
     "push": "git remote | xargs -L1 -I R git push R master"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "4.6.0",
-    "@typescript-eslint/parser": "4.6.0",
-    "eslint": "7.12.1",
-    "eslint-config-prettier": "6.15.0",
-    "husky": "4.3.0",
-    "lerna": "^3.22.1",
-    "lint-staged": "10.5.0",
-    "prettier": "2.1.2",
-    "typescript": "4.0.5"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "lerna": "^3.22.1"
   }
 }

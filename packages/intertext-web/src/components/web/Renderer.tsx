@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components/macro';
+import styled from '@emotion/styled/macro';
+
+import Markdown from 'components/core/Markdown';
 
 const Wrapper = styled.div``;
 
 const Renderer = () => {
   return (
-    <Wrapper>Hello</Wrapper>
+    <Wrapper>
+      <Markdown>### Hello, world</Markdown>
+    </Wrapper>
   )	
 }
 
