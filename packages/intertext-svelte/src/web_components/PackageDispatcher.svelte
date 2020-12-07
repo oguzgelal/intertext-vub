@@ -88,10 +88,10 @@
   $: insertRelation = () => (
     insertAtCursor(
       '{ ' +
-      'isLink: true, ' +
+      'isRelation: true, ' +
       `from: "", ` +
       `to: "", ` +
-      `link: "", ` +
+      `type: "", ` +
       `value: "" ` +
       '}'
     )

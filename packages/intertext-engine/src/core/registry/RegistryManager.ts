@@ -1,8 +1,8 @@
 import { get } from 'lodash';
 import { merge } from 'lodash/fp';
 import type { IPackage } from '../../system/Package';
-import type { Relation, Interaction, ILink } from '../../system/Link';
-import LinkCtrl from '../package/LinkCtrl';
+import type { RelationTypes, IRelation } from '../../system/Relation';
+import RelationCtrl from '../package/RelationCtrl';
 
 // TODO: tests
 
@@ -13,10 +13,10 @@ type RegistryItem = {
 
 // { parent1: { isParentOf: { child1: true } } }
 // { isStaged: { null: { parent1: true } } }
-type RegistryLinksDict = (
-  Record<ILink['from'],
-    Record<Relation | Interaction | string,
-      Record<ILink['to'],
+type RegistryRelationsDict = (
+  Record<IRelation['from'],
+    Record<RelationTypes,
+      Record<IRelation['to'],
         boolean
       >
     >
@@ -30,7 +30,7 @@ type OnRegistryUpdate = (newContents: RegistryContents) => void
 class RegistryManager {
 
   public contents: RegistryContents;
-  public links: RegistryLinksDict;
+  public relations: RegistryRelationsDict;
   private onRegistryUpdate: OnRegistryUpdate;
 
   /**
@@ -38,7 +38,7 @@ class RegistryManager {
    */
   constructor(onRegistryUpdate?: OnRegistryUpdate) {
     this.contents = {}
-    this.links = {}
+    this.relations = {}
     this.onRegistryUpdate = onRegistryUpdate;
   }
 
@@ -130,9 +130,9 @@ class RegistryManager {
     // upsert package into registry
     this.upsertPackage(pack, regitem);
 
-    // upsert link into links dictionary
-    if (LinkCtrl.is(pack)) {
-      this.upsertLink(<ILink>pack)
+    // upsert relation into relations dictionary
+    if (RelationCtrl.is(pack)) {
+      this.upsertRelation(<IRelation>pack)
     }
 
     // handle change if not suppressed
@@ -157,15 +157,15 @@ class RegistryManager {
   }
 
   /**
-   * Insert a link into the links dictionary
+   * Insert a relation into the relations dictionary
    * 
-   * @param {ILink} link
+   * @param {IRelation} relation
    */
-  private upsertLink = (link: ILink) => {
-    this.links = merge(this.links, {
-      [link.from]: {
-        [link.link || null]: {
-          [link.to]: true
+  private upsertRelation = (relation: IRelation) => {
+    this.relations = merge(this.relations, {
+      [relation.from]: {
+        [relation.type || null]: {
+          [relation.to]: true
         }
       }
     })
