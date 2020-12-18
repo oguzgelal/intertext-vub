@@ -1,0 +1,2 @@
+pdflatex thesis
+

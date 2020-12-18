@@ -1,0 +1,66 @@
+\documentclass[a4paper,12pt]{book}
+
+%\usepackage{amssymb}
+%\usepackage{pdfpages}
+%\usepackage{pseudocode}
+%\usepackage{blindtext}
+%\usepackage{lscape}
+%\usepackage{verbatim}
+%\usepackage{stmaryrd}
+%\usepackage{caption}
+%\usepackage{subcaption}
+\usepackage{float}
+\usepackage{template/cisa}
+
+\author{Oguz Gelal}
+\level{ma2}
+\title{Intertext}
+\subtitle{The Everything App}
+\promotor{Prof. Dr. Beat Signer}                                                         
+\advisors{Prof. Dr. Beat Signer}
+\academicyear{2020}{2021}
+\dutchspeaking{false}
+          
+\begin{document}
+
+
+% ---------------- THESIS CONTENT ----------------
+
+% Title Pages
+\makethetitle
+
+\setcounter{page}{1}
+ \pagenumbering{roman}
+
+
+% Abstract
+\input{sections/abstract}
+\newpage
+
+% Acknowledgements
+\input{sections/acknowledgements}
+\newpage
+
+% Table of Contents
+\tableofcontents
+\newpage
+\setcounter{page}{1}
+ \pagenumbering{arabic}
+
+% Sections
+\input{sections/introduction}
+\input{sections/relatedwork} 
+\input{sections/intertext} 
+
+% Appendix (optional)
+\newpage
+\appendix
+\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\appendixname}\ \thechapter.\ #1}{}}
+\input{sections/appendix}
+
+% Bibliography
+\bibliographystyle{plain}
+\bibliography{bibliography} % uses the file bibliography.bib !
+ % -------------------------------------------------
+
+\end{document}
