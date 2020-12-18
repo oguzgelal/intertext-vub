@@ -1,9 +1,9 @@
-import type { IPackage } from '../../system/Package';
-import type { IComponent } from '../../system/Component';
+import type { PackageShape } from '../../system/Package';
+import type { ComponentShape } from '../../system/Component';
 import type RegistryManager from '../registry/RegistryManager';
 
 
-export type StageContents = IComponent['id'][];
+export type StageContents = ComponentShape['id'][];
 
 type OnStageUpdate = (newStage: StageContents) => void
 
@@ -35,9 +35,9 @@ class StageManager {
 
   /**
    * Stages a component
-   * @param {IComponent} component 
+   * @param {ComponentShape} component 
    */
-  stageComponent = (id: IComponent['id']): void => {
+  stageComponent = (id: ComponentShape['id']): void => {
     this.stage = [ ...this.stage, id ];
     this.registry.update(id, item => ({ ...item, staged: true }));
     this.handleStageChange();
@@ -45,10 +45,10 @@ class StageManager {
 
   /**
    * Removes a component from stage
-   * @param {IComponent} component 
+   * @param {ComponentShape} component 
    */
-  unstageComponent = (id: IComponent['id']): void => {
-    this.stage = this.stage.filter((id: IComponent['id']) => id !== id).slice();
+  unstageComponent = (id: ComponentShape['id']): void => {
+    this.stage = this.stage.filter((id: ComponentShape['id']) => id !== id).slice();
     this.registry.update(id, item => ({ ...item, staged: false }));
     this.handleStageChange();
   }

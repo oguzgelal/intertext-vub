@@ -4,7 +4,7 @@ import StageManager from './core/stage/StageManager';
 import type RegistryManagerType from './core/registry/RegistryManager';
 import type PackageManagerType from './core/package/PackageManager';
 import type StageManagerType from './core/stage/StageManager';
-import type { IPackage } from './system/Package';
+import type { PackageShape } from './system/Package';
 import type { RegistryContents } from './core/registry/RegistryManager';
 import type { StageContents } from './core/stage/StageManager';
 
@@ -37,11 +37,11 @@ class Engine {
 
   /**
    * Inserts one or many packages into registry
-   * @param {IPackage | IPackage[]} pack 
+   * @param {PackageShape | PackageShape[]} pack 
    */
-  register = (pack: IPackage | IPackage[]): void => {
+  register = (pack: PackageShape | PackageShape[]): void => {
     // convert single packages into an array
-    const packages: IPackage[] = Array.isArray(pack) ? pack : [pack];
+    const packages: PackageShape[] = Array.isArray(pack) ? pack : [pack];
     // insert that are not relations
     this.package.apply(packages);
   }

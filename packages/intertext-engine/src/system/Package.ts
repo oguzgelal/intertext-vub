@@ -1,15 +1,25 @@
+export interface PackageShape {
+  id: string
+  type?: string
+  isComponent?: boolean
+  isCommand?: boolean
+  isRelation?: boolean
+  isEntity?: boolean
+}
+
 /**
  * Base for all packages
- * 
- * @interface IPackage
- * @param {string} id
- * @param {string} type
  */
-export interface IPackage {
-  id: string
-  type: string
-  isComponent: boolean
-  isCommand: boolean
-  isRelation: boolean
-  isEntity: boolean
+export default class Package {
+  
+  // is this a package
+  static validate(item: Record<string, unknown>): boolean {
+    return !!item.id;
+  }
+
+  // TODO: ?
+  parseType(pack: PackageShape[]): PackageShape[] {
+    console.log(pack)
+    return []
+  }
 }

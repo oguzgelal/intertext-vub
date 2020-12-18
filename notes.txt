@@ -1,20 +1,17 @@
+
 { isRelation: true, id:"b1tob2" from: "b1", to: "b2", type: "test_relation" },
 { isComponent: true, type: "CTA", id: "b1", text: "cta1"},
 { isComponent: true, type: "CTA", id: "b2", text: "cta2"},
-
 { isComponent: true, type: "CTA", id: "b3", text: "cta3"},
 { isRelation: true, from: "b1", to: "b3", type: "test_relation" },
 { isRelation: true, from: "b1", to: "b4", type: "test_relation" },
 { isComponent: true, id: "b4", type: "CTA", text: "CTA4 "},
-
 { isEntity: true, type: "SCREEN", id: "home" },
 { isEntity: true, type: "SCREEN", id: "about" },
-
 { isRelation: true, from: "home", to: "b1", type: "CHILDREN" },
 { isRelation: true, from: "home", to: "b2", type: "CHILDREN" },
 { isRelation: true, from: "about", to: "b3", type: "CHILDREN" },
 { isRelation: true, from: "about", to: "b4", type: "CHILDREN" },
-
 { isRelation: true, from: "ACTIVE_SCREEN", to: "home" },
 
 

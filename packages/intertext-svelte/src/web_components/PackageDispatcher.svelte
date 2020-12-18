@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
   export type DispatcherEvent = {
-    packages: [IPackage]
+    packages: [PackageShape]
   }
 </script>
 
@@ -8,11 +8,11 @@
   import { createEventDispatcher } from 'svelte';
   import Button from '../core_components/Button.svelte';
   import { CommandTypes, ComponentTypes } from '@intertext/engine';
-  import type { IPackage } from '@intertext/engine';
+  import type { PackageShape } from '@intertext/engine';
 
   const dispatch = createEventDispatcher();
 
-  //let packages: IPackage[];
+  //let packages: PackageShape[];
   let packages: [any];
   let pid: number = 0;
   let jsonText: string;

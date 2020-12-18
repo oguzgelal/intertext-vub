@@ -329,7 +329,6 @@ export default css`
 
   }
 
-
   /** --- styles --- */
 
   .${[c.TEXT.name]} {

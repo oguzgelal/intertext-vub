@@ -1,28 +1,20 @@
-import type { IPackage } from '../../system/Package';
-import type { IRelation } from '../../system/Relation';
+import type { PackageShape } from '../../system/Package';
+import type { RelationShape } from '../../system/Relation';
 import type RegistryManager from '../registry/RegistryManager';
 import type StageManager from '../stage/StageManager';
 
 class RelationCtrl {
 
-  static is = (pack: IPackage): boolean => {
+  static is = (pack: PackageShape): boolean => {
     return pack.isRelation;
   }
 
-  static invalidate = (relation: IRelation): boolean => {
-    const isLiteral = !relation.to;
-    const hasValue = relation.value;
-
-    // relations has to have an id
-    if (!relation.id) return true;
-
-    // invalidate if a relation is a literal, but has no value
-    if (isLiteral && !hasValue) return true;
+  static invalidate = (relation: RelationShape): boolean => {
 
     return false;
   }
 
-  static  isHit = (relation: IRelation, registry: RegistryManager) => {
+  static  isHit = (relation: RelationShape, registry: RegistryManager): boolean => {
 
     // relation from package isnt present
     if (!registry.exists(relation.from)) return false;
@@ -34,8 +26,9 @@ class RelationCtrl {
   };
 
   static handle = (
-    relation: IRelation,
+    relation: RelationShape,
     registry: RegistryManager,
+    stage: StageManager,
   ): boolean => {
     
     // insert into registry

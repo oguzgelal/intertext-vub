@@ -1,29 +1,29 @@
 import { get } from 'lodash';
 import { merge } from 'lodash/fp';
-import type { IPackage } from '../../system/Package';
-import type { RelationTypes, IRelation } from '../../system/Relation';
+import type { PackageShape } from '../../system/Package';
+import type { RelationTypes, RelationShape } from '../../system/Relation';
 import RelationCtrl from '../package/RelationCtrl';
 
 // TODO: tests
 
 type RegistryItem = {
-  id: IPackage['id']
-  package: IPackage
+  id: PackageShape['id']
+  package: PackageShape
 }
 
 // { parent1: { isParentOf: { child1: true } } }
 // { isStaged: { null: { parent1: true } } }
 type RegistryRelationsDict = (
-  Record<IRelation['from'],
+  Record<RelationShape['from'],
     Record<RelationTypes,
-      Record<IRelation['to'],
+      Record<RelationShape['to'],
         boolean
       >
     >
   >
 )
 
-export type RegistryContents = Record<IPackage['id'], RegistryItem>
+export type RegistryContents = Record<PackageShape['id'], RegistryItem>
 
 type OnRegistryUpdate = (newContents: RegistryContents) => void
 
@@ -44,9 +44,9 @@ class RegistryManager {
 
   /**
    * Inserts a package in registry
-   * @param {IPackage | IPackage[]} pack
+   * @param {PackageShape | PackageShape[]} pack
    */
-  insert = (pack: IPackage | IPackage[]): void => {
+  insert = (pack: PackageShape | PackageShape[]): void => {
     this.upsertPackages(Array.isArray(pack) ? pack : [pack])
   }
 
@@ -87,7 +87,7 @@ class RegistryManager {
 
   /**
    * Remove the registry item for this package
-   * @param {IPackage} pack
+   * @param {PackageShape} pack
    */
   delete = (id: string): void => {
     delete this.contents[id];
@@ -106,7 +106,7 @@ class RegistryManager {
   /**
    * Inserts or updates multiple packages
    */
-  public upsertPackages = (packages: IPackage[]): void => {
+  public upsertPackages = (packages: PackageShape[]): void => {
     packages.forEach(pack => this.upsert(pack,
       { suppressChange: true })
     );
@@ -116,10 +116,10 @@ class RegistryManager {
 
   /**
    * Inserts or updates a package in registry
-   * @param {IPackage} pack
+   * @param {PackageShape} pack
    * @param {object} options
    */
-  private upsert = (pack: IPackage, {
+  private upsert = (pack: PackageShape, {
     regitem,
     suppressChange
   }: {
@@ -132,7 +132,7 @@ class RegistryManager {
 
     // upsert relation into relations dictionary
     if (RelationCtrl.is(pack)) {
-      this.upsertRelation(<IRelation>pack)
+      this.upsertRelation(<RelationShape>pack)
     }
 
     // handle change if not suppressed
@@ -144,10 +144,10 @@ class RegistryManager {
   /**
    * Insert a package in registry, or update the registry item of an existing package
    * 
-   * @param {IPackage} pack
+   * @param {PackageShape} pack
    * @param {Partial<RegistryItem>} regitem
    */
-  private upsertPackage = (pack: IPackage, regitem?: Partial<RegistryItem>) => {
+  private upsertPackage = (pack: PackageShape, regitem?: Partial<RegistryItem>) => {
     this.contents = Object.assign({}, this.contents, {
       [pack.id]: Object.assign({}, get(this.contents, pack.id), regitem || {
         id: pack.id,
@@ -159,9 +159,9 @@ class RegistryManager {
   /**
    * Insert a relation into the relations dictionary
    * 
-   * @param {IRelation} relation
+   * @param {RelationShape} relation
    */
-  private upsertRelation = (relation: IRelation) => {
+  private upsertRelation = (relation: RelationShape) => {
     this.relations = merge(this.relations, {
       [relation.from]: {
         [relation.type || null]: {

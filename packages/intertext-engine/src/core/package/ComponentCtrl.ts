@@ -1,14 +1,14 @@
-import type { IPackage } from '../../system/Package';
-import type { IComponent } from '../../system/Component';
+import type { PackageShape } from '../../system/Package';
+import type { ComponentShape } from '../../system/Component';
 import type RegistryManager from '../registry/RegistryManager';
 
 class ComponentCtrl {
 
-  static is = (pack: IPackage) => {
+  static is = (pack: PackageShape) => {
     return pack.isComponent;
   }
 
-  static invalidate = (component: IComponent) => {
+  static invalidate = (component: ComponentShape) => {
 
     // commands has to have an id
     if (!component.id) return true;
@@ -16,10 +16,10 @@ class ComponentCtrl {
     return false;
   }
 
-  static isHit = (component: IComponent, registry: RegistryManager) => {
+  static isHit = (component: ComponentShape, registry: RegistryManager) => {
     /**
      * // typecast
-      const component = <IComponent>pack;
+      const component = <ComponentShape>pack;
       // if a component has no parent, it is
       // a top level component, so this is a hit
       if (!component.parent) return true;
@@ -30,7 +30,7 @@ class ComponentCtrl {
     return true;
   };
 
-  static handle = (component: IComponent, registry: RegistryManager) => {
+  static handle = (component: ComponentShape, registry: RegistryManager) => {
     registry.insert(component)
     return true;
   }

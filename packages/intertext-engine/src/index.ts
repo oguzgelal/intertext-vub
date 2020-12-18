@@ -1,5 +1,5 @@
 export { default } from './Engine';
 
-export { IPackage } from './system/Package';
-export { IComponent, ComponentTypes } from './system/Component';
-export { ICommand, CommandTypes } from './system/Command';
+export { PackageShape } from './system/Package';
+export { ComponentShape, ComponentTypes } from './system/Component';
+export { CommandShape, CommandTypes } from './system/Command';

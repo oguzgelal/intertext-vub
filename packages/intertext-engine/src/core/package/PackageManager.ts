@@ -3,11 +3,11 @@
  * for packages managed by the registry manager
  */
 
-import type { IPackage } from '../../system/Package';
-import type { IComponent } from '../../system/Component';
-import type { ICommand } from '../../system/Command';
-import type { IEntity } from '../../system/Entity';
-import type { IRelation } from '../../system/Relation';
+import type { PackageShape } from '../../system/Package';
+import type { ComponentShape } from '../../system/Component';
+import type { CommandShape } from '../../system/Command';
+import type { EntityShape } from '../../system/Entity';
+import type { RelationShape } from '../../system/Relation';
 import ComponentCtrl from './ComponentCtrl';
 import CommandCtrl from './CommandCtrl';
 import EntityCtrl from './EntityCtrl';
@@ -36,19 +36,19 @@ class PackageManager {
     );
   }
 
-  private isPackageHit = (pack: IPackage) => {
+  private isPackageHit = (pack: PackageShape): boolean => {
     
     if (ComponentCtrl.is(pack)) {
-      return ComponentCtrl.isHit(<IComponent>pack, this.registry);
+      return ComponentCtrl.isHit(<ComponentShape>pack, this.registry);
     }
     if (CommandCtrl.is(pack)) {
-      return CommandCtrl.isHit(<ICommand>pack, this.registry);
+      return CommandCtrl.isHit(<CommandShape>pack, this.registry);
     }
     if (EntityCtrl.is(pack)) {
-      return EntityCtrl.isHit(<IEntity>pack, this.registry);
+      return EntityCtrl.isHit(<EntityShape>pack, this.registry);
     }
     if (RelationCtrl.is(pack)) {
-      return RelationCtrl.isHit(<IRelation>pack, this.registry)
+      return RelationCtrl.isHit(<RelationShape>pack, this.registry)
     }
     
     // if above conditions does not hold,
@@ -56,38 +56,38 @@ class PackageManager {
     return false;
   };
 
-  private handlePackage = (pack: IPackage) => {
+  private handlePackage = (pack: PackageShape): boolean => {
     
     if (ComponentCtrl.is(pack)) {
-      return ComponentCtrl.handle(<IComponent>pack, this.registry);
+      return ComponentCtrl.handle(<ComponentShape>pack, this.registry);
     }
     if (CommandCtrl.is(pack)) {
-      return CommandCtrl.handle(<ICommand>pack, this.registry);
+      return CommandCtrl.handle(<CommandShape>pack, this.registry);
     }
     if (EntityCtrl.is(pack)) {
-      return EntityCtrl.handle(<IEntity>pack, this.registry);
+      return EntityCtrl.handle(<EntityShape>pack, this.registry);
     }
     if (RelationCtrl.is(pack)) {
-      return RelationCtrl.handle(<IRelation>pack, this.registry, this.stage)
+      return RelationCtrl.handle(<RelationShape>pack, this.registry, this.stage)
     }
 
     // remove package from the queue
     return true;
   }
 
-  invalidate = (pack: IPackage) => {
+  invalidate = (pack: PackageShape): boolean => {
 
     if (ComponentCtrl.is(pack)) {
-      return ComponentCtrl.invalidate(<IComponent>pack);
+      return ComponentCtrl.invalidate(<ComponentShape>pack);
     }
     if (CommandCtrl.is(pack)) {
-      return CommandCtrl.invalidate(<ICommand>pack);
+      return CommandCtrl.invalidate(<CommandShape>pack);
     }
     if (EntityCtrl.is(pack)) {
-      return EntityCtrl.invalidate(<IEntity>pack);
+      return EntityCtrl.invalidate(<EntityShape>pack);
     }
     if (RelationCtrl.is(pack)) {
-      return RelationCtrl.invalidate(<IRelation>pack)
+      return RelationCtrl.invalidate(<RelationShape>pack)
     }
     
     // if a package is neither of these,
@@ -95,7 +95,7 @@ class PackageManager {
     return true;
   }
 
-  apply = (packages: IPackage[]) => {
+  apply = (packages: PackageShape[]): void => {
     this.queue.evaluate(packages);
   }
 }

@@ -1,24 +1,23 @@
-import type { IPackage } from "./Package";
+import Package from './Package';
+import type { PackageShape } from "./Package";
 
-/**
- * @enum {string}
- */
 export enum CommandTypes {
   ALERT = 'ALERT'
 }
 
-/**
- * Base for all commands
- * 
- * @interface ICommand
- * @param {string} id
- * @param {CommandTypes} type
- * @param {boolean} once Remove this command from registry after execution
- * @param {boolean} immediate
- */
-export interface ICommand extends IPackage {
-  isComponent: true
+export interface CommandShape extends PackageShape {
+  isCommand: true
   id: string
   type: CommandTypes
   once: boolean
+}
+
+/**
+ * Base for all commands
+ */
+export default class Command extends Package {
+
+  static validate(item: Record<string, unknown>): boolean {
+    return Package.validate(item) && !!item.isCommand;
+  }
 }
