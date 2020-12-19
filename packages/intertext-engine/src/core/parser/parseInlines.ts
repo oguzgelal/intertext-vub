@@ -5,16 +5,16 @@
  * 
  */
 
-import { PackageRaw } from './common';
+import { ParseOutput, PackageRaw } from './common';
 
 const parse = (
   packageRaw: PackageRaw,
   packagesRaw: PackageRaw[]
-): PackageRaw[] => {
+): ParseOutput<PackageRaw[]> => {
   
   console.log(packageRaw);
   console.log(packagesRaw);
-  return []
+  return { package: [] }
 }
 
 export default parse;

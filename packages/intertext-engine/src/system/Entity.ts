@@ -14,7 +14,7 @@ export interface EntityShape extends PackageShape {
 /**
  * Base for all entities
  */
-export default class Entity  extends Package {
+export default class Entity extends Package {
   
   static validate(item: Record<string, unknown>): boolean {
     return Package.validate(item) && !!item.isEntity;

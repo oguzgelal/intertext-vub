@@ -18,20 +18,43 @@
  * // input
  * { "id:rel:isChildOf": true, "from": "ref:package1", "to": "ref:package2" }
  * // output
- * { "id:rel:isChildOf": "...", "from": "ref:package1", "to": "ref:package2" }
+ * { "id": "...", "id:rel:isChildOf": true, "from": "ref:package1", "to": "ref:package2" }
  * 
  */
-import type { PackageShape } from '../../system/Package';
-import { PackageRaw, PackageRawWithIds } from './common';
 
-const parse = (
-  packageRaw: PackageRaw,
-  packagesRaw: PackageRaw[]
-): PackageRawWithIds => {
+import { v4 as uuidv4 } from 'uuid';
+
+import {
+  ParseOutput,
+  PackageRaw,
+  PackageRawWithIds,
+} from './common';
+
+const parse = (packageRaw: PackageRaw): ParseOutput<PackageRawWithIds> => {
+
+  if (typeof packageRaw !== 'object') {
+    return { error: 'Invalid package' }
+  }
   
-  console.log(packageRaw);
-  console.log(packagesRaw);
-  return { id: '' }
+  const keys = Object.keys(packageRaw);
+  
+  // Find `id` or `id:...` fields
+  const idFieldIndex = keys.findIndex(k => {
+    return k === 'id' || k.split(':')[0] === 'id';
+  })
+
+  // set id field value
+  // if undefined (`id` omitted), or set to `true`, use `uuid`
+  // if it is set to anything else, keep it as it is
+  let idValue: unknown = packageRaw[keys[idFieldIndex] || 'id'];
+  if (!idValue || idValue === true) idValue = uuidv4();
+  
+  return {
+    package: {
+      ...packageRaw,
+      id: <string>idValue
+    }
+  }
 }
 
 export default parse;
