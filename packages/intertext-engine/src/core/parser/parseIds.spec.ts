@@ -1,34 +1,39 @@
 import parseIds from './parseIds';
+import runTests from './utils/runTests';
 
-describe('parser: paseIds', () => {
+describe('parser: paseIds', () => {  
+  
+  const run = runTests(parseIds)
 
-  it('works when `id` is omitted', () => {
-    const res = parseIds({})
-    expect(res.package.id).toBeDefined()
+  run(`works when 'id' is omitted`, ({ parse }) => {
+    const res = parse({})
+    expect(res.id).toBeDefined()
   })
 
-  it('works with `id` syntax', () => {
-    const res = parseIds({ 'id': '123' })
-    expect(res.package.id).toBe('123');
+  run('works with `id` syntax', ({ parse }) => {
+    const res = parse({ 'id': '123' })
+    expect(res.id).toBe('123');
   })
 
-  it('works with `id:...` syntax', () => {
-    const res = parseIds({ 'id:type:subtype': '123' })
-    expect(res.package['id:type:subtype']).toBe('123')
+  run('works with `id:...` syntax', ({ parse }) => {
+    const res = parse({ 'id:type:subtype': '123' })
+    expect(res['id:type:subtype']).toBe('123')
+    // generates `id` field
+    expect(res.id).toBe('123')
   })
 
-  it('generates id when `id` set to true', () => {
-    const res = parseIds({ 'id': true })
-    expect(res.package.id).not.toBe(true);
-    expect(res.package.id).toBeDefined();
+  run('generates id when `id` set to true', ({ parse }) => {
+    const res = parse({ 'id': true })
+    expect(res.id).not.toBe(true);
+    expect(res.id).toBeDefined();
   })
 
-  it('works with `id:...` syntax', () => {
-    const res = parseIds({ 'id:type:subtype': true })
-    expect(res.package.id).not.toBe(true);
-    expect(res.package.id).toBeDefined();
+  run('works with `id:...` syntax', ({ parse }) => {
+    const res = parse({ 'id:type:subtype': true })
+    expect(res.id).not.toBe(true);
+    expect(res.id).toBeDefined();
     // keeps the original field as it is
-    expect(res.package['id:type:subtype']).toBe(true);
+    expect(res['id:type:subtype']).toBe(true);
   })
 
 })
