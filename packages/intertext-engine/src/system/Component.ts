@@ -1,4 +1,4 @@
-import Package from './Package';
+import { PackageCtrl } from './Package';
 import type { PackageShape } from "./Package";
 
 export enum ComponentTypes {
@@ -11,12 +11,10 @@ export interface ComponentShape extends PackageShape {
   type: ComponentTypes
 }
 
-/**
- * Base for all components
- */
-export default class Component extends Package {
+export class ComponentCtrl extends PackageCtrl {
 
-  static validate(item: Record<string, unknown>): boolean {
-    return Package.validate(item) && !!item.isComponent;
-  }
+  protected TYPE_DECLARATION_KEY = 'isComponent';
+
 }
+
+export const componentCtrl = new ComponentCtrl();

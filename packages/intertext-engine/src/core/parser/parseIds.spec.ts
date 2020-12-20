@@ -1,9 +1,13 @@
+import parser from './parser'
 import parseIds from './parseIds';
 import runTests from './utils/runTests';
 
 describe('parser: paseIds', () => {  
   
-  const run = runTests(parseIds)
+  const run = runTests({
+    unit: pack => parseIds(pack)?.package,
+    integration: pack => parser([pack])[0],
+  })
 
   run(`works when 'id' is omitted`, ({ parse }) => {
     const res = parse({})

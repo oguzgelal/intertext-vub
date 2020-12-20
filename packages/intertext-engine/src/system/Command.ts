@@ -1,5 +1,5 @@
-import Package from './Package';
-import type { PackageShape } from "./Package";
+import { PackageCtrl } from './Package';
+import type { PackageShape } from './Package';
 
 export enum CommandTypes {
   ALERT = 'ALERT'
@@ -12,12 +12,10 @@ export interface CommandShape extends PackageShape {
   once: boolean
 }
 
-/**
- * Base for all commands
- */
-export default class Command extends Package {
+export class CommandCtrl extends PackageCtrl {
 
-  static validate(item: Record<string, unknown>): boolean {
-    return Package.validate(item) && !!item.isCommand;
-  }
+  protected TYPE_DECLARATION_KEY = 'isCommand';
+
 }
+
+export const commandCtrl = new CommandCtrl();

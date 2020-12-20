@@ -1,4 +1,4 @@
-import Package from './Package';
+import { PackageCtrl } from './Package';
 import type { PackageShape } from "./Package";
 
 export enum EntityTypes {
@@ -11,12 +11,10 @@ export interface EntityShape extends PackageShape {
   type: EntityTypes
 }
 
-/**
- * Base for all entities
- */
-export default class Entity extends Package {
+export class EntityCtrl extends PackageCtrl {
   
-  static validate(item: Record<string, unknown>): boolean {
-    return Package.validate(item) && !!item.isEntity;
-  }
+  protected TYPE_DECLARATION_KEY = 'isEntity';
+
 }
+
+export const entityCtrl = new EntityCtrl();

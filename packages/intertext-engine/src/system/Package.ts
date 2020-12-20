@@ -7,19 +7,25 @@ export interface PackageShape {
   isEntity?: boolean
 }
 
-/**
- * Base for all packages
- */
-export default class Package {
-  
-  // is this a package
-  static validate(item: Record<string, unknown>): boolean {
-    return !!item.id;
-  }
+interface IPackageCtrl {
+  validate: (item: Record<string, unknown>) => boolean
+}
 
-  // TODO: ?
-  parseType(pack: PackageShape[]): PackageShape[] {
-    console.log(pack)
-    return []
+export class PackageCtrl implements IPackageCtrl {
+  
+  // classes should override this variable with
+  // their type declaration (ie. `isComponent` etc.)
+  protected TYPE_DECLARATION_KEY = '';
+
+  // is this a package
+  validate(item: Record<string, unknown>): boolean {
+    return !!item.id && (
+      this.TYPE_DECLARATION_KEY === ''
+        ? true
+        : !!item[this.TYPE_DECLARATION_KEY]
+    );
   }
 }
+
+export const packageCtrl = new PackageCtrl();
+

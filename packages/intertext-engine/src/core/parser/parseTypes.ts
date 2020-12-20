@@ -1,5 +1,5 @@
 /**
- * Parses the type syntax attached to the `id` field
+ * Parses type declarations attached to the `id` field
  * 
  * @example <caption>No Type</caption>
  * // input
@@ -29,6 +29,13 @@
  * { "id": true, "isComponent": true, type: "text:h1", ... }
  * 
  */
+
+const typeDeclarations = {
+  cmd: 'isCommand',
+  command: 'isCommand',
+  cmp: 'isComponent',
+  component: 'isComponent',
+}
 
 import { ParseOutput, PackageRaw } from './common';
 
