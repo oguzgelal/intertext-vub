@@ -7,15 +7,16 @@ export interface PackageShape {
   isEntity?: boolean
 }
 
-interface IPackageCtrl {
-  validate: (item: Record<string, unknown>) => boolean
-}
-
-export class PackageCtrl implements IPackageCtrl {
+export class PackageCtrl {
   
   // classes should override this variable with
   // their type declaration (ie. `isComponent` etc.)
   protected TYPE_DECLARATION_KEY = '';
+
+  // getter method for the type declaration key
+  getTypeDeclarationKey(): string {
+    return this.TYPE_DECLARATION_KEY;
+  }
 
   // is this a package
   validate(item: Record<string, unknown>): boolean {
