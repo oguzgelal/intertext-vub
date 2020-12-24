@@ -1,4 +1,4 @@
-import parser from './parser'
+import parser from './parser';
 import parseInlines from './parseInlines';
 import runTests from './utils/runTests';
 
@@ -25,6 +25,19 @@ describe('parser: parseInlines', () => {
         bar: 'foo'
       }
     ])
+  })
+
+  run(`should parse inline without an id`, ({ parse }) => {
+    
+    const res = parse({
+      'id': '123',
+      'il:cmp:text:h1': { bar: 'foo' }
+    })
+    
+    expect(res[1].id).toBeDefined();
+    expect(res[1].type).toEqual('text:h1');
+    expect(res[1].isComponent).toEqual(true);
+    expect(res[1].bar).toEqual('foo');
   })
 
   run(`should parse nested inline packages`, ({ parse }) => {
