@@ -33,13 +33,13 @@
 import { ParseOutput, PackageRaw } from './common';
 import { PackageCtrl } from '../../system/Package';
 import resolveTypeDeclarationToCtrl from '../../system/utils/resolveTypeDeclarationToCtrl';
+import validateRawPackage from './utils/validateRawPackage';
 
 const parse = (packageRaw: PackageRaw): ParseOutput<PackageRaw> => {
 
-  if (typeof packageRaw !== 'object') {
-    return { error: 'Invalid package' }
-  }
+  if (!validateRawPackage(packageRaw)) return null;
   
+  const parsedPackage = { ...packageRaw };
   const keys = Object.keys(packageRaw);
   
   // Find `id:...` fields
@@ -48,34 +48,36 @@ const parse = (packageRaw: PackageRaw): ParseOutput<PackageRaw> => {
   })
 
   // this package has no type declaration syntax (id omitted)
-  if (idFieldIndex === -1) return { package: packageRaw };
+  if (idFieldIndex === -1) return { package: parsedPackage };
 
   const idField = keys[idFieldIndex];
   const idFieldParts = idField.split(':');
 
   // this package has no type declaration syntax
-  if (!idFieldParts[1]) return { package: packageRaw };
+  if (!idFieldParts[1]) return { package: parsedPackage };
   
   // extract package type declaration and subtypes from the id
   const packageType = idFieldParts[1];
   const packageSubtype = idFieldParts.slice(2).join(':');
 
+  // delete the id field with the type declaration, and set id field
+  parsedPackage.id = parsedPackage[idField];
+  delete parsedPackage[idField];
+
   // resolve package type dec - receive package ctrl instance
   const targetCtrl: PackageCtrl = resolveTypeDeclarationToCtrl(packageType);
 
   // package type declaration invalid
-  if (!targetCtrl) return { error: 'Invalid type declaration' };
+  if (!targetCtrl) return null;
   
   // attach type declaration
-  packageRaw[targetCtrl.getTypeDeclarationKey()] = true;
+  parsedPackage[targetCtrl.getTypeDeclarationKey()] = true;
 
   // attach subtype if exists
-  if (packageSubtype) packageRaw.type = packageSubtype;
+  if (packageSubtype) parsedPackage.type = packageSubtype;
 
   return {
-    package: {
-      ...packageRaw,
-    }
+    package: parsedPackage
   }
 }
 

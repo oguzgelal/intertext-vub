@@ -8,5 +8,7 @@ export type PackageRawWithIds = {
 
 export type ParseOutput<T> = {
   package?: T,
-  error?: string
+  packages?: T[],
 }
+
+export type ParserFunc = (packagesRaw: PackageRaw[]) => PackageShape[];

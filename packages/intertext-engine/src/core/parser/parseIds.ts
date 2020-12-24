@@ -23,6 +23,7 @@
  */
 
 import { v4 as uuidv4 } from 'uuid';
+import validateRawPackage from './utils/validateRawPackage';
 
 import {
   ParseOutput,
@@ -32,9 +33,7 @@ import {
 
 const parse = (packageRaw: PackageRaw): ParseOutput<PackageRawWithIds> => {
 
-  if (typeof packageRaw !== 'object') {
-    return { error: 'Invalid package' }
-  }
+  if (!validateRawPackage(packageRaw)) return null;
   
   const keys = Object.keys(packageRaw);
   

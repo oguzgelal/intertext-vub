@@ -26,7 +26,7 @@ describe('parser: paseIds', () => {
   })
 
   run('should not parse invalid type declarations', ({ parse }) => {
-    expect(parse({ 'id:invalud': '123' })).toBeUndefined();
+    expect(parse({ 'id:invalid': '123' })).toBeUndefined();
   })
 
   run(`should parse subtypes`, ({ parse }) => {
@@ -39,6 +39,12 @@ describe('parser: paseIds', () => {
     const parsed = parse({ 'id:cmp:text:h1': '123' });
     expect(parsed.isComponent).toBeDefined();
     expect(parsed.type).toBe('text:h1')
+  })
+
+  run(`should clean type declarations from the id`, ({ parse }) => {
+    const parsed = parse({ 'id:cmp:text:h1': '123' });
+    expect(parsed.id).toBe('123')
+    expect(parsed['id:cmp:text:h1']).not.toBeDefined();
   })
 
 })
