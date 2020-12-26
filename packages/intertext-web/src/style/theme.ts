@@ -9,10 +9,13 @@ export const global = css`
   html, body, #root {
     width: 100%;
     height: 100%;
+    font-size: var(--inx-font-size-root);
+    background-color: var(--inx-color-background);
   }
 
   html, body, * {
     box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
   }
 
   /* http://meyerweb.com/eric/tools/css/reset/ 
