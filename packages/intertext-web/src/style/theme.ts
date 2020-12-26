@@ -1,5 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/react/macro';
+import { v } from './values';
 
 export default {};
 
@@ -9,8 +10,8 @@ export const global = css`
   html, body, #root {
     width: 100%;
     height: 100%;
-    font-size: var(--inx-font-size-root);
-    background-color: var(--inx-color-background);
+    font-size: var(${v.FONT_SIZE_ROOT.name});
+    background-color: var(${v.COLOR_BACKGROUND.name});
   }
 
   html, body, * {

@@ -3,22 +3,23 @@ import ReactDOM from 'react-dom';
 import { Global, ThemeProvider } from '@emotion/react/macro';
 import reportWebVitals from 'reportWebVitals';
 import theme, { global } from 'style/theme';
-import baseTheme from 'style/themes/base';
+import { base } from 'style/values';
+
 import darkTheme from 'style/themes/dark';
 
 import App from 'App';
 
 const ThemeSwitcher = () => {
-  const [ theme, themeSet ] = useState('light');
-  console.log('baseTheme', baseTheme);
+  const [ theme, themeSet ] = useState('default');
+
   return (
     <>
       <Global styles={[
         global,
-        baseTheme,
+        base,
         theme === 'dark' && darkTheme,
       ].filter(Boolean)} />
-      <button onClick={() => themeSet('light')}>light</button>
+      <button onClick={() => themeSet('default')}>default</button>
       <button onClick={() => themeSet('dark')}>dark</button>
     </>
   );

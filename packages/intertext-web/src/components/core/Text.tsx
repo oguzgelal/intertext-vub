@@ -1,58 +1,58 @@
 import React from 'react';
 import cc from 'classnames';
-import * as c from 'style/classNames';
+import { v, c } from 'style/values';
 import { Global, css } from '@emotion/react/macro';
 
 const styles = css`
   .${c.TEXT.name} { }
   .${c.TEXT_DEFAULT.name} {
-    color: var(--inx-color-text);
-    font-family: var(--inx-font-family-sans);
-    font-weight: var(--inx-font-weight-default);
-    line-height: var(--inx-line-height-default);
-    font-size: var(--inx-font-size-default);
-    margin-bottom: var(--inx-spacing-text-default);
+    color: var(${v.COLOR_TEXT.name});
+    font-family: var(${v.FONT_FAMILY_SANS.name});
+    font-weight: var(${v.FONT_WEIGHT_DEFAULT.name});
+    line-height: var(${v.LINE_HEIGHT_DEFAULT.name});
+    font-size: var(${v.FONT_SIZE_DEFAULT.name});
+    margin-bottom: var(${v.SPACING_TEXT_DEFAULT.name});
     &:last-child {
       margin-bottom: 0;
     }
   }
   .${c.TEXT_MUTED.name} {
-    color: var(--inx-color-text-muted);
+    color: var(${v.COLOR_TEXT_MUTED.name});
     & > .${c.TEXT_DEFAULT.name} {
-      color: var(--inx-color-text-muted);
+      color: var(${v.COLOR_TEXT_MUTED.name});
     }
   }
   .${c.TEXT_HEADING.name} {
     display: block;
-    color: var(--inx-color-text);
-    font-family: var(--inx-font-family-heading);
+    color: var(${v.COLOR_TEXT.name});
+    font-family: var(${v.FONT_FAMILY_HEADING.name});
     &:last-child {
       margin-bottom: 0;
     }
   }
   .${c.TEXT_H1.name} {
-    font-size: var(--inx-font-size-text-h1);
-    font-weight: var(--inx-font-weight-h1);
-    line-height: var(--inx-line-height-h1);
-    margin-bottom: var(--inx-spacing-text-h1);
+    font-size: var(${v.FONT_SIZE_TEXT_H1.name});
+    font-weight: var(${v.FONT_WEIGHT_H1.name});
+    line-height: var(${v.LINE_HEIGHT_H1.name});
+    margin-bottom: var(${v.SPACING_TEXT_H1.name});
   }
   .${c.TEXT_H2.name} {
-    font-size: var(--inx-font-size-text-h2);
-    font-weight: var(--inx-font-weight-h2);
-    line-height: var(--inx-line-height-h2);
-    margin-bottom: var(--inx-spacing-text-h2);
+    font-size: var(${v.FONT_SIZE_TEXT_H2.name});
+    font-weight: var(${v.FONT_WEIGHT_H2.name});
+    line-height: var(${v.LINE_HEIGHT_H2.name});
+    margin-bottom: var(${v.SPACING_TEXT_H2.name});
   }
   .${c.TEXT_H3.name} {
-    font-size: var(--inx-font-size-text-h3);
-    font-weight: var(--inx-font-weight-h3);
-    line-height: var(--inx-line-height-h3);
-    margin-bottom: var(--inx-spacing-text-h3);
+    font-size: var(${v.FONT_SIZE_TEXT_H3.name});
+    font-weight: var(${v.FONT_WEIGHT_H3.name});
+    line-height: var(${v.LINE_HEIGHT_H3.name});
+    margin-bottom: var(${v.SPACING_TEXT_H3.name});
   }
   .${c.TEXT_P.name} {
     display: block;
   }
   .${c.TEXT_B.name} {
-    font-weight: var(--inx-font-weight-bold);
+    font-weight: var(${v.FONT_WEIGHT_BOLD.name});
   }
   .${c.TEXT_I.name} {
     text-decoration: italic;

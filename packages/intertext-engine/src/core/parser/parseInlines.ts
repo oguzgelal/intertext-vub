@@ -40,12 +40,10 @@ const parse = (packageUnparsed: PackageUnparsed, parser: ParserFunc): ParseOutpu
   const basePackage = { ...packageUnparsed };
   
   const keys = Object.keys(packageUnparsed);
-  // ------------- console.log('keys', keys);
 
   // run inline packages through the parser, and delete
   // the inline references from the base package
   keys.forEach(key => {
-    // ------------- console.log('key', key);
     if (key.split(':')[0] === 'il') {
       // TODO: handle cases where inline package is not an object (ie. custom inline initialization)
       // https://www.notion.so/oguzgelal/Inline-Packages-b9dc60e1fd0841cda4478d347e74e550#0712989177c44cf2b2e79a26ca844f95
@@ -55,10 +53,8 @@ const parse = (packageUnparsed: PackageUnparsed, parser: ParserFunc): ParseOutpu
       const packageTypeDefs = key.split(':').slice(1).join(':');
       inlineRaw[`id${packageTypeDefs ? `:${packageTypeDefs}` : ''}`] = inlineRaw.id || true;
       delete inlineRaw.id;
-      // ------------- console.log('inlineRaw', inlineRaw);
       // run the newly created inline package through the parser recursively
       const inlineParsed = parser([inlineRaw])
-      // ------------- console.log('inlineParsed', inlineParsed);
       outPackages.push(...inlineParsed);
       // delete the inline package def from the base package
       delete basePackage[key];
@@ -68,7 +64,6 @@ const parse = (packageUnparsed: PackageUnparsed, parser: ParserFunc): ParseOutpu
   // add the base package with the inline references deleted
   // to the outputed packages array
   outPackages.unshift(basePackage);
-  // ------------- console.log('outPackages', outPackages);
   
   return { packages: outPackages }
 }
