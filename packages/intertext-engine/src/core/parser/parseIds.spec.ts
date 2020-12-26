@@ -1,4 +1,4 @@
-import parser from './parser'
+import Parser from './Parser';
 import parseIds from './parseIds';
 import runTests from './utils/runTests';
 
@@ -6,7 +6,7 @@ describe('parser: paseIds', () => {
   
   const run = runTests({
     unit: pack => parseIds(pack)?.package,
-    integration: pack => parser([pack])[0],
+    integration: pack => new Parser().parse([pack])[0],
   })
 
   run(`works when 'id' is omitted`, ({ parse }) => {
@@ -20,9 +20,7 @@ describe('parser: paseIds', () => {
   })
 
   run('works with `id:...` syntax', ({ parse }) => {
-    const res = parse({ 'id:type:subtype': '123' })
-    expect(res['id:type:subtype']).toBe('123')
-    // generates `id` field
+    const res = parse({ 'id:cmp:text': '123' })
     expect(res.id).toBe('123')
   })
 
@@ -32,12 +30,10 @@ describe('parser: paseIds', () => {
     expect(res.id).toBeDefined();
   })
 
-  run('works with `id:...` syntax', ({ parse }) => {
-    const res = parse({ 'id:type:subtype': true })
+  run('generates id when `id:...` set to true', ({ parse }) => {
+    const res = parse({ 'id:cmp:text': true })
     expect(res.id).not.toBe(true);
     expect(res.id).toBeDefined();
-    // keeps the original field as it is
-    expect(res['id:type:subtype']).toBe(true);
   })
 
 })

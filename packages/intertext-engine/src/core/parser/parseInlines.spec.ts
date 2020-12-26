@@ -1,12 +1,12 @@
-import parser from './parser';
+import Parser from './Parser';
 import parseInlines from './parseInlines';
 import runTests from './utils/runTests';
 
 describe('parser: parseInlines', () => {  
   
   const run = runTests({
-    unit: pack => parseInlines(pack, parser)?.packages,
-    integration: pack => parser([ pack ]),
+    unit: pack => parseInlines(pack, new Parser().parse)?.packages,
+    integration: pack => new Parser().parse([ pack ]),
   })
 
   run(`should parse inline packages`, ({ parse }) => {

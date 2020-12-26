@@ -1,4 +1,4 @@
-import parser from './parser'
+import Parser from './Parser';
 import parseTypeDeclarations from './parseTypeDeclarations';
 import runTests from './utils/runTests';
 
@@ -6,7 +6,7 @@ describe('parser: paseIds', () => {
   
   const run = runTests({
     unit: pack => parseTypeDeclarations(pack)?.package,
-    integration: pack => parser([pack])[0],
+    integration: pack => new Parser().parse([pack])[0],
   })
 
   run(`should be unchanged without type declaration`, ({ parse }) => {
