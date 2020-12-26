@@ -7,11 +7,11 @@ import parseIds from './parseIds';
 
 class Parser {
 
-  parse: ParserFunc = packagesRaw => {
-    const packages = packagesRaw
-      .map(packageRaw => (parseInlines(packageRaw, this.parse)?.packages || [])).flat()
-      .map(packageRaw => parseTypeDeclarations(packageRaw)?.package)
-      .map(packageRaw => parseIds(packageRaw)?.package)
+  parse: ParserFunc = packagesUnparsed => {
+    const packages = packagesUnparsed
+      .map(packageUnparsed => (parseInlines(packageUnparsed, this.parse)?.packages || [])).flat()
+      .map(packageUnparsed => parseTypeDeclarations(packageUnparsed)?.package)
+      .map(packageUnparsed => parseIds(packageUnparsed)?.package)
       .filter(Boolean)
     
     return <PackageShape[]>packages;

@@ -29,17 +29,17 @@
  * 
  */
 
-import { ParseOutput, PackageRaw, ParserFunc } from './common';
+import { ParseOutput, PackageUnparsed, ParserFunc } from './common';
 import validateRawPackage from './utils/validateRawPackage';
 
-const parse = (packageRaw: PackageRaw, parser: ParserFunc): ParseOutput<PackageRaw> => {
+const parse = (packageUnparsed: PackageUnparsed, parser: ParserFunc): ParseOutput<PackageUnparsed> => {
 
-  if (!validateRawPackage(packageRaw)) return null;
+  if (!validateRawPackage(packageUnparsed)) return null;
   
   const outPackages = [];
-  const basePackage = { ...packageRaw };
+  const basePackage = { ...packageUnparsed };
   
-  const keys = Object.keys(packageRaw);
+  const keys = Object.keys(packageUnparsed);
   // ------------- console.log('keys', keys);
 
   // run inline packages through the parser, and delete
@@ -47,9 +47,10 @@ const parse = (packageRaw: PackageRaw, parser: ParserFunc): ParseOutput<PackageR
   keys.forEach(key => {
     // ------------- console.log('key', key);
     if (key.split(':')[0] === 'il') {
-      // TODO: handle cases where inline package is not an object
+      // TODO: handle cases where inline package is not an object (ie. custom inline initialization)
       // https://www.notion.so/oguzgelal/Inline-Packages-b9dc60e1fd0841cda4478d347e74e550#0712989177c44cf2b2e79a26ca844f95
-      const inlineRaw = <PackageRaw>packageRaw[key];
+      // https://www.notion.so/oguzgelal/Parser-0930eac84b1d4ed38eff49dbf7baa9f6#5a1661888cc74ad4b462e2962be835e8
+      const inlineRaw = <PackageUnparsed>packageUnparsed[key];
       // set the `id` of the inline package
       const packageTypeDefs = key.split(':').slice(1).join(':');
       inlineRaw[`id${packageTypeDefs ? `:${packageTypeDefs}` : ''}`] = inlineRaw.id || true;

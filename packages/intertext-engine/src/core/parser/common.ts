@@ -1,8 +1,8 @@
 import type { PackageShape } from '../../system/Package';
 
-export type PackageRaw = Record<string, unknown>;
+export type PackageUnparsed = Record<string, unknown>;
 
-export type PackageRawWithIds = {
+export type PackageUnparsedWithIds = {
   id: PackageShape['id']
 }
 
@@ -11,4 +11,4 @@ export type ParseOutput<T> = {
   packages?: T[],
 }
 
-export type ParserFunc = (packagesRaw: PackageRaw[]) => PackageShape[];
+export type ParserFunc = (packagesRaw: PackageUnparsed[]) => PackageShape[];

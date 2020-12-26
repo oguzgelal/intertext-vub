@@ -1,6 +1,8 @@
 import RegistryManager from './core/registry/RegistryManager';
 import PackageManager from './core/package/PackageManager';
 import StageManager from './core/stage/StageManager';
+import Parser from './core/parser/Parser';
+import { PackageUnparsed } from './core/parser/common';
 import type RegistryManagerType from './core/registry/RegistryManager';
 import type PackageManagerType from './core/package/PackageManager';
 import type StageManagerType from './core/stage/StageManager';
@@ -27,8 +29,10 @@ class Engine {
   private registry: RegistryManagerType;
   private package: PackageManagerType;
   private stage: StageManagerType;
+  private parser: Parser;
 
   constructor (props: EngineProps) {
+    this.parser = new Parser();
     this.registry = new RegistryManager(props.onRegistryUpdate);
     this.stage = new StageManager(this.registry, props.onStageUpdate);
     this.package = new PackageManager(this.registry, this.stage)
@@ -37,11 +41,12 @@ class Engine {
 
   /**
    * Inserts one or many packages into registry
-   * @param {PackageShape | PackageShape[]} pack 
    */
-  register = (pack: PackageShape | PackageShape[]): void => {
+  register = (pack: PackageUnparsed | PackageUnparsed[]): void => {
     // convert single packages into an array
-    const packages: PackageShape[] = Array.isArray(pack) ? pack : [pack];
+    const packagesRaw: PackageUnparsed[] = Array.isArray(pack) ? pack : [pack];
+    // parse packages
+    const packages: PackageShape[] = this.parser.parse(packagesRaw);
     // insert that are not relations
     this.package.apply(packages);
   }

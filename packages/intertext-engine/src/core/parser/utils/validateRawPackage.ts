@@ -1,12 +1,12 @@
-import { PackageRaw } from '../common';
+import { PackageUnparsed } from '../common';
 
-export default (packageRaw: PackageRaw): boolean => {
+export default (packageUnparsed: PackageUnparsed): boolean => {
   
-  if (!packageRaw) {
+  if (!packageUnparsed) {
     return false;
   }
 
-  if (typeof packageRaw !== 'object') {
+  if (typeof packageUnparsed !== 'object') {
     return false;
   }
 

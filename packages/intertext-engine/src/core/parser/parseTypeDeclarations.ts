@@ -30,17 +30,17 @@
  * 
  */
 
-import { ParseOutput, PackageRaw } from './common';
+import { ParseOutput, PackageUnparsed } from './common';
 import { PackageCtrl } from '../../system/Package';
 import resolveTypeDeclarationToCtrl from '../../system/utils/resolveTypeDeclarationToCtrl';
 import validateRawPackage from './utils/validateRawPackage';
 
-const parse = (packageRaw: PackageRaw): ParseOutput<PackageRaw> => {
+const parse = (packageUnparsed: PackageUnparsed): ParseOutput<PackageUnparsed> => {
 
-  if (!validateRawPackage(packageRaw)) return null;
+  if (!validateRawPackage(packageUnparsed)) return null;
   
-  const parsedPackage = { ...packageRaw };
-  const keys = Object.keys(packageRaw);
+  const parsedPackage = { ...packageUnparsed };
+  const keys = Object.keys(packageUnparsed);
   
   // Find `id:...` fields
   const idFieldIndex = keys.findIndex(k => {

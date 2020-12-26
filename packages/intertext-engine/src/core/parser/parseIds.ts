@@ -27,15 +27,15 @@ import validateRawPackage from './utils/validateRawPackage';
 
 import {
   ParseOutput,
-  PackageRaw,
-  PackageRawWithIds,
+  PackageUnparsed,
+  PackageUnparsedWithIds,
 } from './common';
 
-const parse = (packageRaw: PackageRaw): ParseOutput<PackageRawWithIds> => {
+const parse = (packageUnparsed: PackageUnparsed): ParseOutput<PackageUnparsedWithIds> => {
 
-  if (!validateRawPackage(packageRaw)) return null;
+  if (!validateRawPackage(packageUnparsed)) return null;
   
-  const keys = Object.keys(packageRaw);
+  const keys = Object.keys(packageUnparsed);
   
   // Find `id` or `id:...` fields
   const idFieldIndex = keys.findIndex(k => {
@@ -45,12 +45,12 @@ const parse = (packageRaw: PackageRaw): ParseOutput<PackageRawWithIds> => {
   // set id field value
   // if undefined (`id` omitted), or set to `true`, use `uuid`
   // if it is set to anything else, keep it as it is
-  let idValue: unknown = packageRaw[keys[idFieldIndex] || 'id'];
+  let idValue: unknown = packageUnparsed[keys[idFieldIndex] || 'id'];
   if (!idValue || idValue === true) idValue = uuidv4();
   
   return {
     package: {
-      ...packageRaw,
+      ...packageUnparsed,
       id: <string>idValue
     }
   }
