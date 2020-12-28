@@ -1,5 +1,11 @@
 import { css } from '@emotion/react/macro';
 
 export default css`
-  :root {}
+  :root {
+    --inx-color-background: #343a40;
+    --inx-color-background-paper: #212529;
+    --inx-color-text: #f8f9fa;
+    --inx-color-text-muted: #adb5bd;
+    --inx-color-border: #212529;
+  }
 `;

@@ -1,18 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import { Global, ThemeProvider } from '@emotion/react/macro';
+import { Global } from '@emotion/react/macro';
 import reportWebVitals from 'reportWebVitals';
-import theme, { global } from 'style/theme';
 import { base } from 'style/values';
 
 import App from 'App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-      <Global styles={[ global, base ]} />
-    </ThemeProvider>
+    <Global styles={base} />
+    <App />
   </React.StrictMode>
 , document.getElementById('root'));
 

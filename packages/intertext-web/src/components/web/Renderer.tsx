@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled/macro';
 import Text from 'components/core/Text';
+import Button from 'components/core/Button';
 import { Global } from '@emotion/react/macro';
-import { Intent } from '../../style/values';
+import { Intent, Theme } from '../../style/values';
+import darkTheme from '../../style/themes/dark';
 
 const Wrapper = styled.div`
   display: flex;
@@ -34,7 +36,7 @@ const Side = styled.div`
 
 const Renderer = () => {
 
-  const [ theme, themeSet ] = useState();
+  const [ theme, themeSet ] = useState<Theme>();
   const [ intent, intentSet ] = useState<Intent>();
 
   // common parameters to apply to every component instance 
@@ -44,24 +46,27 @@ const Renderer = () => {
 
   return (
     <Wrapper>
+
+      {/** apply themes */}
+      <Global
+        styles={[
+          theme === Theme.DARK && darkTheme
+        ].filter(Boolean)}
+      />
       
       {/** settings */}
       <Side>
         <Text p b>Theme</Text>
-        <div style={{ display: 'flex' }}>
-          <button>light</button>
-          <button>dark</button>
-        </div>
+        <Button fill onClick={() => themeSet(undefined)}>base</Button>
+        <Button fill onClick={() => themeSet(Theme.DARK)}>dark</Button>
         <div style={{ height: 22 }} />
         
         <Text p b>Intent</Text>
-        <div style={{ display: 'flex' }}>
-          <button onClick={() => intentSet(undefined)}>default</button>
-          <button onClick={() => intentSet(Intent.SUCCESS)}>success</button>
-          <button onClick={() => intentSet(Intent.WARNING)}>warning</button>
-          <button onClick={() => intentSet(Intent.ERROR)}>error</button>
-          <button onClick={() => intentSet(Intent.INFO)}>info</button>
-        </div>
+        <Button fill onClick={() => intentSet(undefined)}>default</Button>
+        <Button fill onClick={() => intentSet(Intent.SUCCESS)}>success</Button>
+        <Button fill onClick={() => intentSet(Intent.WARNING)}>warning</Button>
+        <Button fill onClick={() => intentSet(Intent.ERROR)}>error</Button>
+        <Button fill onClick={() => intentSet(Intent.INFO)}>info</Button>
       </Side>
 
       {/** render styles here */}

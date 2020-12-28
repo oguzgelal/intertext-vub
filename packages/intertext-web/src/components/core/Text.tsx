@@ -14,7 +14,7 @@ const styles = css`
   /** default styles */
   .${c.TEXT_DEFAULT.name} {
     color: var(${v.COLOR_TEXT.name});
-    font-family: var(${v.FONT_FAMILY_SANS.name});
+    font-family: var(${v.FONT_FAMILY_DEFAULT.name});
     font-weight: var(${v.FONT_WEIGHT_DEFAULT.name});
     line-height: var(${v.LINE_HEIGHT_DEFAULT.name});
     font-size: var(${v.FONT_SIZE_DEFAULT.name});
@@ -28,7 +28,7 @@ const styles = css`
   .${c.TEXT_HEADING.name} {
     display: block;
     color: var(${v.COLOR_TEXT.name});
-    font-family: var(${v.FONT_FAMILY_HEADING.name});
+    font-family: var(${v.FONT_FAMILY_DEFAULT.name});
     &:last-child {
       margin-bottom: 0;
     }
@@ -91,10 +91,10 @@ const styles = css`
   }
 `;
 
-console.log(styles)
-
 const Text = ({
   children,
+  muted,
+  intent,
   p,
   h1,
   h2,
@@ -102,10 +102,10 @@ const Text = ({
   b,
   i,
   u,
-  muted,
-  intent,
 }: {
   children: any,
+  muted?: boolean,
+  intent?: Intent,
   p?: boolean,
   h?: boolean,
   h1?: boolean,
@@ -114,8 +114,6 @@ const Text = ({
   b?: boolean,
   i?: boolean,
   u?: boolean,
-  muted?: boolean,
-  intent?: Intent,
 }) => {
 
   const heading: boolean = !!(h1 || h2 || h3);

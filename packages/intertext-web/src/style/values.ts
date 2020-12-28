@@ -7,10 +7,12 @@ type IntertextStyleNameDef = {
   value?: string | number
 }
 
+// Create class name
 const cls = (str: string): IntertextStyleNameDef => ({
   name: `inx__${str}`,
 });
 
+// Create variable name
 const vr = (str: string, value: string | number): IntertextStyleNameDef => ({
   name: `--inx-${str}`,
   value,
@@ -24,6 +26,9 @@ export enum Intent {
   WARNING = 'warning',
   ERROR = 'error',
   INFO = 'info',
+}
+export enum Theme {
+  DARK = 'dark'
 }
 
 /**
@@ -51,6 +56,10 @@ export const c = {
   TEXT_B: cls('text_b'),
   TEXT_I: cls('text_i'),
   TEXT_U: cls('text_u'),
+
+  // button
+  BUTTON: cls('button'),
+  BUTTON_FILL: cls('button_fill'),
 }
 
 /**
@@ -92,19 +101,16 @@ export const v = {
 
   /** colors functional */
   
-  COLOR_TEXT: vr('color-text', '#474554'),
-  COLOR_TEXT_MUTED: vr('color-text-muted', transparentize(0.5, '#474554')),
+  COLOR_TEXT: vr('color-text', '#212529'),
+  COLOR_TEXT_MUTED: vr('color-text-muted', transparentize(0.5, '#212529')),
   COLOR_BACKGROUND: vr('color-background', '#fff'),
-  COLOR_BACKGROUND_PAPER: vr('color-background-paper', '#f7f7f8'),
-  COLOR_BORDER: vr('color-border', '#E9E9EC'),
+  COLOR_BACKGROUND_PAPER: vr('color-background-paper', '#f8f9fa'),
+  COLOR_BORDER: vr('color-border', '#e9ecef'),
 
   /** font family */
-  
-  FONT_FAMILY_SANS: vr('font-family-sans', "'IBM Plex Sans', sans-serif"),
-  FONT_FAMILY_SANS_CONDENSED: vr('font-family-sans-condensed', "'IBM Plex Sans Condensed', sans-serif"),
-  FONT_FAMILY_HEADING: vr('font-family-heading', "'IBM Plex Sans', sans-serif"),
-  FONT_FAMILY_MONO: vr('font-family-mono', "'IBM Plex Mono', monospace"),
-  FONT_FAMILY_SERIF: vr('font-family-serif', "'IBM Plex Sans', sans-serif"),
+
+  FONT_FAMILY_DEFAULT: vr('font-family-sans', `-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji`),
+  FONT_FAMILY_MONO: vr('font-family-mono', `SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace`),
 
   /** font weights */
   
@@ -116,24 +122,24 @@ export const v = {
 
   /** font sizes */
   
-  FONT_SIZE_ROOT: vr('font-size-root', '18px'),
+  FONT_SIZE_ROOT: vr('font-size-root', '16px'),
   FONT_SIZE_DEFAULT: vr('font-size-default', '1rem'),
-  FONT_SIZE_TEXT_H1: vr('font-size-text-h1', '2rem'),
-  FONT_SIZE_TEXT_H2: vr('font-size-text-h2', '1.4rem'),
+  FONT_SIZE_TEXT_H1: vr('font-size-text-h1', '2.8rem'),
+  FONT_SIZE_TEXT_H2: vr('font-size-text-h2', '2rem'),
   FONT_SIZE_TEXT_H3: vr('font-size-text-h3', '1.2rem'),
   FONT_SIZE_TEXT_SECONDARY: vr('font-size-text-secondary', '0.7rem'),
 
   /** line heights */
   
-  LINE_HEIGHT_DEFAULT: vr('line-height-default', '1.3rem'),
+  LINE_HEIGHT_DEFAULT: vr('line-height-default', '1.4rem'),
   LINE_HEIGHT_H1: vr('line-height-h1', '2rem'),
-  LINE_HEIGHT_H2: vr('line-height-h2', '1.4rem'),
-  LINE_HEIGHT_H3: vr('line-height-h3', '1.2rem'),
+  LINE_HEIGHT_H2: vr('line-height-h2', '1.8rem'),
+  LINE_HEIGHT_H3: vr('line-height-h3', '1.6rem'),
 
   /** spacing */
   
   SPACING_TEXT_DEFAULT: vr('spacing-text-default', '0.6rem'),
-  SPACING_TEXT_H1: vr('spacing-text-h1', '1.2rem'),
+  SPACING_TEXT_H1: vr('spacing-text-h1', '1.6rem'),
   SPACING_TEXT_H2: vr('spacing-text-h2', '1rem'),
   SPACING_TEXT_H3: vr('spacing-text-h3', '0.8rem'),
 
@@ -142,14 +148,75 @@ export const v = {
 /**
  * Construct and export base styles
  */
-
 export const base = css`
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital@0;1&family=IBM+Plex+Sans+Condensed:ital@0;1&family=IBM+Plex+Sans:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&family=IBM+Plex+Serif:ital@0;1&display=swap');
 
+  /**
+   * Construct variables
+   */
   :root {
     ${Object
         .values(v)
         .map(val => `${val.name}: ${val.value};`)
         .join('\n')}
+  }
+
+  html, body, #root {
+    width: 100%;
+    height: 100%;
+    font-size: var(${v.FONT_SIZE_ROOT.name});
+    background-color: var(${v.COLOR_BACKGROUND.name});
+  }
+
+  html, body, * {
+    box-sizing: border-box;
+  }
+
+  /* http://meyerweb.com/eric/tools/css/reset/ 
+  v2.0 | 20110126
+  License: none (public domain)
+  */
+
+  html, body, div, span, applet, object, iframe,
+  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  a, abbr, acronym, address, big, cite, code,
+  del, dfn, em, img, ins, kbd, q, s, samp,
+  small, strike, strong, sub, sup, tt, var,
+  b, u, i, center,
+  dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend,
+  table, caption, tbody, tfoot, thead, tr, th, td,
+  article, aside, canvas, details, embed, 
+  figure, figcaption, footer, header, hgroup, 
+  menu, nav, output, ruby, section, summary,
+  time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+  }
+
+  /* HTML5 display-role reset for older browsers */
+  article, aside, details, figcaption, figure, 
+  footer, header, hgroup, menu, nav, section {
+    display: block;
+  }
+  body {
+    line-height: 1;
+  }
+  ol, ul {
+    list-style: none;
+  }
+  blockquote, q {
+    quotes: none;
+  }
+  blockquote:before, blockquote:after,
+  q:before, q:after {
+    content: '';
+    content: none;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
   }
 `;
