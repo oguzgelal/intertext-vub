@@ -2,6 +2,8 @@ import React from 'react';
 import cc from 'classnames';
 import { v, c } from 'style/values';
 import { Global, css } from '@emotion/react/macro';
+import type { Intent } from '../../style/values';
+import { attachIntentClasses, applyIntentStyles } from '../../style/utils/intent'
 
 const styles = css`
   .${c.TEXT.name} { }
@@ -16,18 +18,26 @@ const styles = css`
       margin-bottom: 0;
     }
   }
-  .${c.TEXT_MUTED.name} {
-    color: var(${v.COLOR_TEXT_MUTED.name});
-    & > .${c.TEXT_DEFAULT.name} {
-      color: var(${v.COLOR_TEXT_MUTED.name});
-    }
-  }
   .${c.TEXT_HEADING.name} {
     display: block;
     color: var(${v.COLOR_TEXT.name});
     font-family: var(${v.FONT_FAMILY_HEADING.name});
     &:last-child {
       margin-bottom: 0;
+    }
+  }
+  ${applyIntentStyles(({ vColor }) => css`
+    color: var(${vColor});
+    & > .${c.TEXT_DEFAULT.name},
+    & > .${c.TEXT_HEADING.name} {
+      color: var(${vColor});
+    }
+  `)}
+  .${c.TEXT_MUTED.name} {
+    color: var(${v.COLOR_TEXT_MUTED.name});
+    & > .${c.TEXT_DEFAULT.name},
+    & > .${c.TEXT_HEADING.name} {
+      color: var(${v.COLOR_TEXT_MUTED.name});
     }
   }
   .${c.TEXT_H1.name} {
@@ -72,6 +82,7 @@ const Text = ({
   i,
   u,
   muted,
+  intent,
 }: {
   children: any,
   p?: boolean,
@@ -83,6 +94,7 @@ const Text = ({
   i?: boolean,
   u?: boolean,
   muted?: boolean,
+  intent?: Intent,
 }) => {
 
   const heading: boolean = !!(h1 || h2 || h3);
@@ -103,6 +115,7 @@ const Text = ({
           [c.TEXT_B.name]: b,
           [c.TEXT_I.name]: i,
           [c.TEXT_U.name]: u,
+          ...attachIntentClasses(intent),
         })}
       >
         {children}

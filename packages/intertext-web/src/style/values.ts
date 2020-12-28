@@ -17,11 +17,29 @@ const vr = (str: string, value: string | number): IntertextStyleNameDef => ({
 });
 
 /**
+ * Types
+ */
+export enum Intent {
+  SUCCESS = 'success',
+  WARNING = 'warning',
+  ERROR = 'error',
+  INFO = 'info',
+}
+
+/**
  * Class names
  */
 export const c = {
-  
-  /** text */
+
+  // intents:
+  // these class names are complementary, gets attached to the
+  // rest of the class names to give the element an intent
+  INTENT_SUCCESS: cls('intent_success'),
+  INTENT_WARNING: cls('intent_warning'),
+  INTENT_ERROR: cls('intent_error'),
+  INTENT_INFO: cls('intent_info'),
+
+  // texts:
   TEXT: cls('text'),
   TEXT_DEFAULT: cls('text_default'),
   TEXT_HEADING: cls('text_heading'),

@@ -5,31 +5,13 @@ import reportWebVitals from 'reportWebVitals';
 import theme, { global } from 'style/theme';
 import { base } from 'style/values';
 
-import darkTheme from 'style/themes/dark';
-
 import App from 'App';
-
-const ThemeSwitcher = () => {
-  const [ theme, themeSet ] = useState('default');
-
-  return (
-    <>
-      <Global styles={[
-        global,
-        base,
-        theme === 'dark' && darkTheme,
-      ].filter(Boolean)} />
-      <button onClick={() => themeSet('default')}>default</button>
-      <button onClick={() => themeSet('dark')}>dark</button>
-    </>
-  );
-}
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <App />
-      <ThemeSwitcher />
+      <Global styles={[ global, base ]} />
     </ThemeProvider>
   </React.StrictMode>
 , document.getElementById('root'));
