@@ -5,6 +5,7 @@ import Button from 'components/core/Button';
 import { Global } from '@emotion/react/macro';
 import { Intent, Theme } from '../../style/values';
 import darkTheme from '../../style/themes/dark';
+import fireTheme from '../../style/themes/fire';
 
 const Wrapper = styled.div`
   display: flex;
@@ -50,19 +51,23 @@ const Renderer = () => {
       {/** apply themes */}
       <Global
         styles={[
-          theme === Theme.DARK && darkTheme
+          theme === Theme.DARK && darkTheme,
+          theme === Theme.FIRE && fireTheme,
         ].filter(Boolean)}
       />
       
       {/** settings */}
       <Side>
-        <Text p b>Theme</Text>
+        <Text h3>Theme</Text>
         <Button fill onClick={() => themeSet(undefined)}>base</Button>
         <Button fill onClick={() => themeSet(Theme.DARK)}>dark</Button>
+        <Button fill onClick={() => themeSet(Theme.FIRE)}>fire</Button>
         <div style={{ height: 22 }} />
         
-        <Text p b>Intent</Text>
+        <Text h3>Intent</Text>
         <Button fill onClick={() => intentSet(undefined)}>default</Button>
+        <Button fill onClick={() => intentSet(Intent.PRIMARY)}>primary</Button>
+        <Button fill onClick={() => intentSet(Intent.SECONDARY)}>secondary</Button>
         <Button fill onClick={() => intentSet(Intent.SUCCESS)}>success</Button>
         <Button fill onClick={() => intentSet(Intent.WARNING)}>warning</Button>
         <Button fill onClick={() => intentSet(Intent.ERROR)}>error</Button>

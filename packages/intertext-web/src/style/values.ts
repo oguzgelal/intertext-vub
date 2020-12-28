@@ -22,13 +22,16 @@ const vr = (str: string, value: string | number): IntertextStyleNameDef => ({
  * Types
  */
 export enum Intent {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
   SUCCESS = 'success',
   WARNING = 'warning',
   ERROR = 'error',
   INFO = 'info',
 }
 export enum Theme {
-  DARK = 'dark'
+  DARK = 'dark',
+  FIRE = 'fire',
 }
 
 /**
@@ -39,6 +42,9 @@ export const c = {
   // intents:
   // these class names are complementary, gets attached to the
   // rest of the class names to give the element an intent
+  INTENT_DEFAULT: cls('intent_default'),
+  INTENT_PRIMARY: cls('intent_primary'),
+  INTENT_SECONDARY: cls('intent_secondary'),
   INTENT_SUCCESS: cls('intent_success'),
   INTENT_WARNING: cls('intent_warning'),
   INTENT_ERROR: cls('intent_error'),
@@ -194,7 +200,6 @@ export const base = css`
     margin: 0;
     padding: 0;
     border: 0;
-    font: inherit;
     vertical-align: baseline;
   }
 
