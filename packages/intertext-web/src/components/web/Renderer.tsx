@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled/macro';
 import Text from 'components/core/Text';
 import Button from 'components/core/Button';
+import Spacer from 'components/core/Spacer';
 import { Global } from '@emotion/react/macro';
-import { Intent, Theme } from '../../style/values';
+import { Intent, Size, Theme } from '../../style/values';
 import darkTheme from '../../style/themes/dark';
 import fireTheme from '../../style/themes/fire';
 
@@ -60,17 +61,26 @@ const Renderer = () => {
       <Side>
         <Text h3>Theme</Text>
         <Button fill onClick={() => themeSet(undefined)}>base</Button>
+        <Spacer size={Size.XSMALL} />
         <Button fill onClick={() => themeSet(Theme.DARK)}>dark</Button>
+        <Spacer size={Size.XSMALL} />
         <Button fill onClick={() => themeSet(Theme.FIRE)}>fire</Button>
-        <div style={{ height: 22 }} />
+        
+        <Spacer size={Size.MEDIUM} />
         
         <Text h3>Intent</Text>
         <Button fill onClick={() => intentSet(undefined)}>default</Button>
+        <Spacer size={Size.XSMALL} />
         <Button fill onClick={() => intentSet(Intent.PRIMARY)}>primary</Button>
+        <Spacer size={Size.XSMALL} />
         <Button fill onClick={() => intentSet(Intent.SECONDARY)}>secondary</Button>
+        <Spacer size={Size.XSMALL} />
         <Button fill onClick={() => intentSet(Intent.SUCCESS)}>success</Button>
+        <Spacer size={Size.XSMALL} />
         <Button fill onClick={() => intentSet(Intent.WARNING)}>warning</Button>
+        <Spacer size={Size.XSMALL} />
         <Button fill onClick={() => intentSet(Intent.ERROR)}>error</Button>
+        <Spacer size={Size.XSMALL} />
         <Button fill onClick={() => intentSet(Intent.INFO)}>info</Button>
       </Side>
 

@@ -1,5 +1,4 @@
 import { css, SerializedStyles } from '@emotion/react/macro';
-import type { Intent as IntentType } from '../../style/values';
 import { Intent } from '../../style/values';
 import { v, c } from '../values';
 
@@ -7,7 +6,7 @@ import { v, c } from '../values';
  * Utility function to attach intent classnames
  * to a component.
  */
-export const attachIntentClasses = (intent?: IntentType): Record<string, boolean> => {
+export const attachIntentClasses = (intent?: Intent): Record<string, boolean> => {
   
   const isPrimary = intent === Intent.PRIMARY
   const isSecondary = intent === Intent.SECONDARY

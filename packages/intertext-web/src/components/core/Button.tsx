@@ -15,7 +15,7 @@ const styles = css`
   }
 `;
 
-const Text = ({
+const Button = ({
   children,
   intent,
   fill,
@@ -44,4 +44,4 @@ const Text = ({
   )	
 }
 
-export default Text;
+export default Button;

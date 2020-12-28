@@ -33,6 +33,12 @@ export enum Theme {
   DARK = 'dark',
   FIRE = 'fire',
 }
+export enum Size {
+  LARGE = 'large',
+  MEDIUM = 'medium',
+  SMALL = 'small',
+  XSMALL = 'xsmall',
+}
 
 /**
  * Class names
@@ -66,6 +72,13 @@ export const c = {
   // button
   BUTTON: cls('button'),
   BUTTON_FILL: cls('button_fill'),
+
+  // spacer
+  SPACER: cls('spacer'),
+  SPACER_XSMALL: cls('spacer-xsmall'),
+  SPACER_SMALL: cls('spacer-small'),
+  SPACER_MEDIUM: cls('spacer-medium'),
+  SPACER_LARGE: cls('spacer-large'),
 }
 
 /**
@@ -143,6 +156,11 @@ export const v = {
   LINE_HEIGHT_H3: vr('line-height-h3', '1.6rem'),
 
   /** spacing */
+  
+  SPACING_SPACER_XSMALL: vr('spacing-spacer-xsmall', '0.2rem'),
+  SPACING_SPACER_SMALL: vr('spacing-spacer-small', '0.6rem'),
+  SPACING_SPACER_MEDIUM: vr('spacing-spacer-medium', '1rem'),
+  SPACING_SPACER_LARGE: vr('spacing-spacer-large', '1.6rem'),
   
   SPACING_TEXT_DEFAULT: vr('spacing-text-default', '0.6rem'),
   SPACING_TEXT_H1: vr('spacing-text-h1', '1.6rem'),
