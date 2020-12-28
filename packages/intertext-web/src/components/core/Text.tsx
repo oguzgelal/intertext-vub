@@ -14,7 +14,7 @@ const styles = css`
   /** default styles */
   .${c.TEXT_DEFAULT.name} {
     color: var(${v.COLOR_TEXT.name});
-    font-family: var(${v.FONT_FAMILY_DEFAULT.name});
+    font-family: var(${v.FONT_FAMILY.name});
     font-weight: var(${v.FONT_WEIGHT_DEFAULT.name});
     line-height: var(${v.LINE_HEIGHT_DEFAULT.name});
     font-size: var(${v.FONT_SIZE_DEFAULT.name});
@@ -28,7 +28,7 @@ const styles = css`
   .${c.TEXT_HEADING.name} {
     display: block;
     color: var(${v.COLOR_TEXT.name});
-    font-family: var(${v.FONT_FAMILY_DEFAULT.name});
+    font-family: var(${v.FONT_FAMILY.name});
     &:last-child {
       margin-bottom: 0;
     }

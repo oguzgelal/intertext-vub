@@ -109,7 +109,7 @@ export const v = {
 
   /** font family */
 
-  FONT_FAMILY_DEFAULT: vr('font-family-sans', `-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji`),
+  FONT_FAMILY: vr('font-family', `-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji`),
   FONT_FAMILY_MONO: vr('font-family-mono', `SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace`),
 
   /** font weights */
@@ -149,17 +149,18 @@ export const v = {
  * Construct and export base styles
  */
 export const base = css`
-  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital@0;1&family=IBM+Plex+Sans+Condensed:ital@0;1&family=IBM+Plex+Sans:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&family=IBM+Plex+Serif:ital@0;1&display=swap');
-
-  /**
-   * Construct variables
-   */
+  
+  /** Construct css variables */
   :root {
     ${Object
         .values(v)
         .map(val => `${val.name}: ${val.value};`)
         .join('\n')}
   }
+
+  /**
+   * Base global styles
+   */
 
   html, body, #root {
     width: 100%;
@@ -193,6 +194,7 @@ export const base = css`
     margin: 0;
     padding: 0;
     border: 0;
+    font: inherit;
     vertical-align: baseline;
   }
 
