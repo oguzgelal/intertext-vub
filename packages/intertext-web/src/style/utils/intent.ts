@@ -21,7 +21,8 @@ export const attachIntentClasses = (intent?: IntentType): Record<string, boolean
 type StyleTypes = {
   vColor: string,
   vColorLight: string,
-  vColorDark: string
+  vColorDark: string,
+  vColorMuted: string,
 }
 export const applyIntentStyles = (fn: (args: StyleTypes) => SerializedStyles): SerializedStyles => css`
   .${c.INTENT_INFO.name} {
@@ -29,6 +30,7 @@ export const applyIntentStyles = (fn: (args: StyleTypes) => SerializedStyles): S
       vColor: v.COLOR_INFO.name,
       vColorLight: v.COLOR_INFO_DARK.name,
       vColorDark: v.COLOR_INFO_LIGHT.name,
+      vColorMuted: v.COLOR_INFO_MUTED.name,
     })}
   }
   .${c.INTENT_ERROR.name} {
@@ -36,6 +38,7 @@ export const applyIntentStyles = (fn: (args: StyleTypes) => SerializedStyles): S
       vColor: v.COLOR_ERROR.name,
       vColorLight: v.COLOR_ERROR_DARK.name,
       vColorDark: v.COLOR_ERROR_LIGHT.name,
+      vColorMuted: v.COLOR_ERROR_MUTED.name,
     })}
   }
   .${c.INTENT_WARNING.name} {
@@ -43,6 +46,7 @@ export const applyIntentStyles = (fn: (args: StyleTypes) => SerializedStyles): S
       vColor: v.COLOR_WARNING.name,
       vColorLight: v.COLOR_WARNING_DARK.name,
       vColorDark: v.COLOR_WARNING_LIGHT.name,
+      vColorMuted: v.COLOR_WARNING_MUTED.name,
     })}
   }
   .${c.INTENT_SUCCESS.name} {
@@ -50,6 +54,7 @@ export const applyIntentStyles = (fn: (args: StyleTypes) => SerializedStyles): S
       vColor: v.COLOR_SUCCESS.name,
       vColorLight: v.COLOR_SUCCESS_DARK.name,
       vColorDark: v.COLOR_SUCCESS_LIGHT.name,
+      vColorMuted: v.COLOR_SUCCESS_MUTED.name,
     })}
   }
 `

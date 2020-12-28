@@ -6,7 +6,12 @@ import type { Intent } from '../../style/values';
 import { attachIntentClasses, applyIntentStyles } from '../../style/utils/intent'
 
 const styles = css`
-  .${c.TEXT.name} { }
+
+  .${c.TEXT.name} {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /** default styles */
   .${c.TEXT_DEFAULT.name} {
     color: var(${v.COLOR_TEXT.name});
     font-family: var(${v.FONT_FAMILY_SANS.name});
@@ -18,6 +23,8 @@ const styles = css`
       margin-bottom: 0;
     }
   }
+
+  /** heading styles */
   .${c.TEXT_HEADING.name} {
     display: block;
     color: var(${v.COLOR_TEXT.name});
@@ -26,20 +33,32 @@ const styles = css`
       margin-bottom: 0;
     }
   }
-  ${applyIntentStyles(({ vColor }) => css`
-    color: var(${vColor});
-    & > .${c.TEXT_DEFAULT.name},
-    & > .${c.TEXT_HEADING.name} {
-      color: var(${vColor});
-    }
-  `)}
+
+  /** muted styles */
   .${c.TEXT_MUTED.name} {
-    color: var(${v.COLOR_TEXT_MUTED.name});
-    & > .${c.TEXT_DEFAULT.name},
-    & > .${c.TEXT_HEADING.name} {
+    color: var(${v.COLOR_TEXT_MUTED.name});    
+
+    & > .${c.TEXT.name} {
       color: var(${v.COLOR_TEXT_MUTED.name});
     }
   }
+
+  /** intent styles */
+  ${applyIntentStyles(({ vColor, vColorMuted }) => css`
+    color: var(${vColor});
+    
+    & > .${c.TEXT.name} {
+      color: var(${vColor});
+    }
+
+    .${c.TEXT_MUTED.name} {
+      color: var(${vColorMuted});
+      & > .${c.TEXT.name} {
+        color: var(${vColorMuted});
+      }
+    }
+  `)}
+
   .${c.TEXT_H1.name} {
     font-size: var(${v.FONT_SIZE_TEXT_H1.name});
     font-weight: var(${v.FONT_WEIGHT_H1.name});
@@ -71,6 +90,8 @@ const styles = css`
     text-decoration: underline;
   }
 `;
+
+console.log(styles)
 
 const Text = ({
   children,

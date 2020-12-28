@@ -16,7 +16,6 @@ export const global = css`
 
   html, body, * {
     box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
   }
 
   /* http://meyerweb.com/eric/tools/css/reset/ 
