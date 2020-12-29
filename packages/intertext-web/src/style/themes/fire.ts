@@ -10,10 +10,21 @@ export default css`
     --inx-font-size-root: 20px;
 
     --inx-color-background: #370617;
-    --inx-color-background-paper: #03071e;
+    --inx-color-background-paper: #1b0000;
     --inx-color-text: #e9ecef;
-    --inx-color-text-muted: #6c757d;
-    --inx-color-border: #03071e;
+    --inx-color-text-muted: #adb5bd;
+    --inx-color-border: #2d0000;
+
+    --inx-color-button: #2d0000;
+    --inx-color-button-hover: #280000;
+    --inx-color-button-muted: #240000;
+    
+    --inx-border-radius-small: 0;
+    --inx-border-radius-medium: 0;
+    --inx-border-radius-large: 0;
+    
+    --inx-border-focus-size: 4px;
+    --inx-border-focus-style: dashed;
   }
 
   .inx__text_heading.inx__intent_default {

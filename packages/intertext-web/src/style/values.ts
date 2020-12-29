@@ -22,6 +22,7 @@ const vr = (str: string, value: string | number): IntertextStyleNameDef => ({
  * Types
  */
 export enum Intent {
+  DEFAULT = 'default',
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
   SUCCESS = 'success',
@@ -39,15 +40,19 @@ export enum Size {
   SMALL = 'small',
   XSMALL = 'xsmall',
 }
+export enum Alignment {
+  LEFT = 'left',
+  CENTER = 'center',
+  RIGHT = 'right',
+}
 
 /**
  * Class names
  */
 export const c = {
 
-  // intents:
-  // these class names are complementary, gets attached to the
-  // rest of the class names to give the element an intent
+  // intents
+  // these class names are complementary
   INTENT_DEFAULT: cls('intent_default'),
   INTENT_PRIMARY: cls('intent_primary'),
   INTENT_SECONDARY: cls('intent_secondary'),
@@ -56,11 +61,18 @@ export const c = {
   INTENT_ERROR: cls('intent_error'),
   INTENT_INFO: cls('intent_info'),
 
-  // texts:
+  // alignments
+  // these class names are complementary
+  ALIGN_LEFT: cls('align_left'),
+  ALIGN_CENTER: cls('align_center'),
+  ALIGN_RIGHT: cls('align_right'),
+
+  // texts
   TEXT: cls('text'),
   TEXT_DEFAULT: cls('text_default'),
   TEXT_HEADING: cls('text_heading'),
   TEXT_MUTED: cls('text_muted'),
+  TEXT_BLOCK: cls('text_block'),
   TEXT_P: cls('text_p'),
   TEXT_H1: cls('text_h1'),
   TEXT_H2: cls('text_h2'),
@@ -72,6 +84,9 @@ export const c = {
   // button
   BUTTON: cls('button'),
   BUTTON_FILL: cls('button_fill'),
+  BUTTON_SMALL: cls('button_small'),
+  BUTTON_MEDIUM: cls('button_medium'),
+  BUTTON_LARGE: cls('button_large'),
 
   // spacer
   SPACER: cls('spacer'),
@@ -87,36 +102,36 @@ export const c = {
 export const v = {
   
   /** colors */
-  
+
   COLOR_PRIMARY: vr('color-primary', '#5465FF'),
-  COLOR_PRIMARY_LIGHT: vr('color-primary-light', lighten(0.2, '#5465FF')),
-  COLOR_PRIMARY_DARK: vr('color-primary-dark', darken(0.2, '#5465FF')),
+  COLOR_PRIMARY_HOVER: vr('color-primary-hover', darken(0.03, '#5465FF')),
   COLOR_PRIMARY_MUTED: vr('color-primary-muted', transparentize(0.5, '#5465FF')),
+  COLOR_PRIMARY_INVERTED: vr('color-primary-inverted', '#fff'),
   
   COLOR_SECONDARY: vr('color-secondary', '#9798FF'),
-  COLOR_SECONDARY_LIGHT: vr('color-secondary-light', lighten(0.2, '#9798FF')),
-  COLOR_SECONDARY_DARK: vr('color-secondary-dark', darken(0.2, '#9798FF')),
+  COLOR_SECONDARY_HOVER: vr('color-secondary-hover', darken(0.03, '#9798FF')),
   COLOR_SECONDARY_MUTED: vr('color-secondary-muted', transparentize(0.5, '#9798FF')),
+  COLOR_SECONDARY_INVERTED: vr('color-secondary-inverted', '#fff'),
   
   COLOR_ERROR: vr('color-error', '#FF5A65'),
-  COLOR_ERROR_LIGHT: vr('color-error-light', lighten(0.2, '#FF5A65')),
-  COLOR_ERROR_DARK: vr('color-error-dark', darken(0.2, '#FF5A65')),
+  COLOR_ERROR_HOVER: vr('color-error-hover', darken(0.03, '#FF5A65')),
   COLOR_ERROR_MUTED: vr('color-error-muted', transparentize(0.5, '#FF5A65')),
+  COLOR_ERROR_INVERTED: vr('color-error-inverted', '#fff'),
   
-  COLOR_WARNING: vr('color-warning', '#FFC555'),
-  COLOR_WARNING_LIGHT: vr('color-warning-light', lighten(0.2, '#FFC555')),
-  COLOR_WARNING_DARK: vr('color-warning-dark', darken(0.2, '#FFC555')),
-  COLOR_WARNING_MUTED: vr('color-warning-muted', transparentize(0.5, '#FFC555')),
+  COLOR_WARNING: vr('color-warning', '#FFAD0A'),
+  COLOR_WARNING_HOVER: vr('color-warning-hover', darken(0.03, '#FFAD0A')),
+  COLOR_WARNING_MUTED: vr('color-warning-muted', transparentize(0.5, '#FFAD0A')),
+  COLOR_WARNING_INVERTED: vr('color-warning-inverted', '#fff'),
   
   COLOR_SUCCESS: vr('color-success', '#17C27D'),
-  COLOR_SUCCESS_LIGHT: vr('color-success-light', lighten(0.2, '#17C27D')),
-  COLOR_SUCCESS_DARK: vr('color-success-dark', darken(0.2, '#17C27D')),
+  COLOR_SUCCESS_HOVER: vr('color-success-hover', darken(0.03, '#17C27D')),
   COLOR_SUCCESS_MUTED: vr('color-success-muted', transparentize(0.5, '#17C27D')),
+  COLOR_SUCCESS_INVERTED: vr('color-success-inverted', '#fff'),
   
   COLOR_INFO: vr('color-info', '#00AAFF'),
-  COLOR_INFO_LIGHT: vr('color-info-light', lighten(0.2, '#00AAFF')),
-  COLOR_INFO_DARK: vr('color-info-dark', darken(0.2, '#00AAFF')),
+  COLOR_INFO_HOVER: vr('color-info-hover', darken(0.03, '#00AAFF')),
   COLOR_INFO_MUTED: vr('color-info-muted', transparentize(0.5, '#00AAFF')),
+  COLOR_INFO_INVERTED: vr('color-info-inverted', '#fff'),
 
   /** colors functional */
   
@@ -125,6 +140,9 @@ export const v = {
   COLOR_BACKGROUND: vr('color-background', '#fff'),
   COLOR_BACKGROUND_PAPER: vr('color-background-paper', '#f8f9fa'),
   COLOR_BORDER: vr('color-border', '#e9ecef'),
+  COLOR_BUTTON: vr('color-button', '#F3F5F7'),
+  COLOR_BUTTON_HOVER: vr('color-button-hover', darken(0.03, '#F3F5F7')),
+  COLOR_BUTTON_MUTED: vr('color-button-muted', transparentize(0.5, '#F3F5F7')),
 
   /** font family */
 
@@ -140,7 +158,8 @@ export const v = {
   FONT_WEIGHT_H3: vr('font-weight-h3', 700),
 
   /** font sizes */
-  
+  // all sizes are relative, uses `rem` units and are calculated against
+  // the root value. to change the scale of everything, use `font-size-root`
   FONT_SIZE_ROOT: vr('font-size-root', '16px'),
   FONT_SIZE_DEFAULT: vr('font-size-default', '1rem'),
   FONT_SIZE_TEXT_H1: vr('font-size-text-h1', '2.8rem'),
@@ -155,17 +174,32 @@ export const v = {
   LINE_HEIGHT_H2: vr('line-height-h2', '1.8rem'),
   LINE_HEIGHT_H3: vr('line-height-h3', '1.6rem'),
 
+  /** borders */
+
+  BORDER_RADIUS_SMALL: vr('border-radius-small', '0.1rem'),
+  BORDER_RADIUS_MEDIUM: vr('border-radius-medium', '0.2rem'),
+  BORDER_RADIUS_LARGE: vr('border-radius-large', '0.4rem'),
+  BORDER_FOCUS_SIZE: vr('border-focus-size', '2px'),
+  BORDER_FOCUS_STYLE: vr('border-focus-style', 'solid'),
+
   /** spacing */
   
-  SPACING_SPACER_XSMALL: vr('spacing-spacer-xsmall', '0.2rem'),
+  SPACING_SPACER_XSMALL: vr('spacing-spacer-xsmall', '0.4rem'),
   SPACING_SPACER_SMALL: vr('spacing-spacer-small', '0.6rem'),
-  SPACING_SPACER_MEDIUM: vr('spacing-spacer-medium', '1rem'),
+  SPACING_SPACER_MEDIUM: vr('spacing-spacer-medium', '1.2rem'),
   SPACING_SPACER_LARGE: vr('spacing-spacer-large', '1.6rem'),
   
   SPACING_TEXT_DEFAULT: vr('spacing-text-default', '0.6rem'),
   SPACING_TEXT_H1: vr('spacing-text-h1', '1.6rem'),
   SPACING_TEXT_H2: vr('spacing-text-h2', '1rem'),
   SPACING_TEXT_H3: vr('spacing-text-h3', '0.8rem'),
+
+  SPACING_BUTTON_HEIGHT_SMALL: vr('spacing-button-height-small', '1.4rem'),
+  SPACING_BUTTON_HEIGHT_MEDIUM: vr('spacing-button-height-medium', '2rem'),
+  SPACING_BUTTON_HEIGHT_LARGE: vr('spacing-button-height-large', '2.8rem'),
+  SPACING_BUTTON_PADDING_SMALL: vr('spacing-button-padding-small', '0.5rem'),
+  SPACING_BUTTON_PADDING_MEDIUM: vr('spacing-button-padding-medium', '1rem'),
+  SPACING_BUTTON_PADDING_LARGE: vr('spacing-button-padding-large', '1.5rem'),
 
 }
 

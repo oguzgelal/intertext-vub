@@ -8,14 +8,14 @@ import { v, c } from '../values';
  */
 export const attachIntentClasses = (intent?: Intent): Record<string, boolean> => {
   
-  const isPrimary = intent === Intent.PRIMARY
-  const isSecondary = intent === Intent.SECONDARY
-  const isInfo = intent === Intent.INFO
-  const isError = intent === Intent.ERROR
-  const isWarning = intent === Intent.WARNING
-  const isSuccess = intent === Intent.SUCCESS
+  const isPrimary = intent === Intent.PRIMARY;
+  const isSecondary = intent === Intent.SECONDARY;
+  const isInfo = intent === Intent.INFO;
+  const isError = intent === Intent.ERROR;
+  const isWarning = intent === Intent.WARNING;
+  const isSuccess = intent === Intent.SUCCESS;
   
-  const isDefault = (
+  const isDefault = intent === Intent.DEFAULT || (
     !isPrimary &&
     !isSecondary &&
     !isInfo &&
@@ -40,58 +40,75 @@ export const attachIntentClasses = (intent?: Intent): Record<string, boolean> =>
  * intents at once.
  */
 type StyleTypes = {
+  intent: Intent,
   vColor: string,
-  vColorLight: string,
-  vColorDark: string,
+  vColorHover: string,
   vColorMuted: string,
+  vColorInverted: string,
 }
-export const applyIntentStyles = (fn: (args: StyleTypes) => SerializedStyles): SerializedStyles => css`
-  .${c.INTENT_PRIMARY.name} {
-    ${fn({
-      vColor: v.COLOR_PRIMARY.name,
-      vColorLight: v.COLOR_PRIMARY_DARK.name,
-      vColorDark: v.COLOR_PRIMARY_LIGHT.name,
-      vColorMuted: v.COLOR_PRIMARY_MUTED.name,
-    })}
-  }
-  .${c.INTENT_SECONDARY.name} {
-    ${fn({
-      vColor: v.COLOR_SECONDARY.name,
-      vColorLight: v.COLOR_SECONDARY_DARK.name,
-      vColorDark: v.COLOR_SECONDARY_LIGHT.name,
-      vColorMuted: v.COLOR_SECONDARY_MUTED.name,
-    })}
-  }
-  .${c.INTENT_INFO.name} {
-    ${fn({
-      vColor: v.COLOR_INFO.name,
-      vColorLight: v.COLOR_INFO_DARK.name,
-      vColorDark: v.COLOR_INFO_LIGHT.name,
-      vColorMuted: v.COLOR_INFO_MUTED.name,
-    })}
-  }
-  .${c.INTENT_ERROR.name} {
-    ${fn({
-      vColor: v.COLOR_ERROR.name,
-      vColorLight: v.COLOR_ERROR_DARK.name,
-      vColorDark: v.COLOR_ERROR_LIGHT.name,
-      vColorMuted: v.COLOR_ERROR_MUTED.name,
-    })}
-  }
-  .${c.INTENT_WARNING.name} {
-    ${fn({
-      vColor: v.COLOR_WARNING.name,
-      vColorLight: v.COLOR_WARNING_DARK.name,
-      vColorDark: v.COLOR_WARNING_LIGHT.name,
-      vColorMuted: v.COLOR_WARNING_MUTED.name,
-    })}
-  }
-  .${c.INTENT_SUCCESS.name} {
-    ${fn({
-      vColor: v.COLOR_SUCCESS.name,
-      vColorLight: v.COLOR_SUCCESS_DARK.name,
-      vColorDark: v.COLOR_SUCCESS_LIGHT.name,
-      vColorMuted: v.COLOR_SUCCESS_MUTED.name,
-    })}
-  }
-`
+export const applyIntentStyles = (
+  fn: (args: StyleTypes) => SerializedStyles,
+  { selector }:
+  { selector?: (selector: string) => string }
+): SerializedStyles => {
+  
+  // selector modifier function
+  const selectorFn = selector ? selector : (n: string) => `.${n}`;
+  
+  return css`
+    ${selectorFn(c.INTENT_PRIMARY.name)} {
+      ${fn({
+        intent: Intent.PRIMARY,
+        vColor: v.COLOR_PRIMARY.name,
+        vColorHover: v.COLOR_PRIMARY_HOVER.name,
+        vColorMuted: v.COLOR_PRIMARY_MUTED.name,
+        vColorInverted: v.COLOR_PRIMARY_INVERTED.name,
+      })}
+    }
+    ${selectorFn(c.INTENT_SECONDARY.name)} {
+      ${fn({
+        intent: Intent.SECONDARY,
+        vColor: v.COLOR_SECONDARY.name,
+        vColorHover: v.COLOR_SECONDARY_HOVER.name,
+        vColorMuted: v.COLOR_SECONDARY_MUTED.name,
+        vColorInverted: v.COLOR_SECONDARY_INVERTED.name,
+      })}
+    }
+    ${selectorFn(c.INTENT_INFO.name)} {
+      ${fn({
+        intent: Intent.INFO,
+        vColor: v.COLOR_INFO.name,
+        vColorHover: v.COLOR_INFO_HOVER.name,
+        vColorMuted: v.COLOR_INFO_MUTED.name,
+        vColorInverted: v.COLOR_INFO_INVERTED.name,
+      })}
+    }
+    ${selectorFn(c.INTENT_ERROR.name)} {
+      ${fn({
+        intent: Intent.ERROR,
+        vColor: v.COLOR_ERROR.name,
+        vColorHover: v.COLOR_ERROR_HOVER.name,
+        vColorMuted: v.COLOR_ERROR_MUTED.name,
+        vColorInverted: v.COLOR_ERROR_INVERTED.name,
+      })}
+    }
+    ${selectorFn(c.INTENT_WARNING.name)} {
+      ${fn({
+        intent: Intent.WARNING,
+        vColor: v.COLOR_WARNING.name,
+        vColorHover: v.COLOR_WARNING_HOVER.name,
+        vColorMuted: v.COLOR_WARNING_MUTED.name,
+        vColorInverted: v.COLOR_WARNING_INVERTED.name,
+      })}
+    }
+    ${selectorFn(c.INTENT_SUCCESS.name)} {
+      ${fn({
+        intent: Intent.SUCCESS,
+        vColor: v.COLOR_SUCCESS.name,
+        vColorHover: v.COLOR_SUCCESS_HOVER.name,
+        vColorMuted: v.COLOR_SUCCESS_MUTED.name,
+        vColorInverted: v.COLOR_SUCCESS_INVERTED.name,
+      })}
+    }
+  `
+}

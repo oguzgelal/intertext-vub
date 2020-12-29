@@ -34,6 +34,7 @@ const Side = styled.div`
   align-items: flex-start;
   min-height: 100%;
   padding: 22px;
+  overflow: auto;
 `;
 
 const Renderer = () => {
@@ -69,19 +70,19 @@ const Renderer = () => {
         <Spacer size={Size.MEDIUM} />
         
         <Text h3>Intent</Text>
-        <Button fill onClick={() => intentSet(undefined)}>default</Button>
+        <Button intent={Intent.DEFAULT} fill onClick={() => intentSet(undefined)}>default</Button>
         <Spacer size={Size.XSMALL} />
-        <Button fill onClick={() => intentSet(Intent.PRIMARY)}>primary</Button>
+        <Button intent={Intent.PRIMARY} fill onClick={() => intentSet(Intent.PRIMARY)}>primary</Button>
         <Spacer size={Size.XSMALL} />
-        <Button fill onClick={() => intentSet(Intent.SECONDARY)}>secondary</Button>
+        <Button intent={Intent.SECONDARY} fill onClick={() => intentSet(Intent.SECONDARY)}>secondary</Button>
         <Spacer size={Size.XSMALL} />
-        <Button fill onClick={() => intentSet(Intent.SUCCESS)}>success</Button>
+        <Button intent={Intent.SUCCESS} fill onClick={() => intentSet(Intent.SUCCESS)}>success</Button>
         <Spacer size={Size.XSMALL} />
-        <Button fill onClick={() => intentSet(Intent.WARNING)}>warning</Button>
+        <Button intent={Intent.WARNING} fill onClick={() => intentSet(Intent.WARNING)}>warning</Button>
         <Spacer size={Size.XSMALL} />
-        <Button fill onClick={() => intentSet(Intent.ERROR)}>error</Button>
+        <Button intent={Intent.ERROR} fill onClick={() => intentSet(Intent.ERROR)}>error</Button>
         <Spacer size={Size.XSMALL} />
-        <Button fill onClick={() => intentSet(Intent.INFO)}>info</Button>
+        <Button intent={Intent.INFO} fill onClick={() => intentSet(Intent.INFO)}>info</Button>
       </Side>
 
       {/** render styles here */}
