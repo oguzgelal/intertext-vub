@@ -5,14 +5,17 @@ import { Global, css } from '@emotion/react/macro';
 import { Size, Intent } from '../../style/values';
 import { attachIntentClasses, applyIntentStyles } from '../../style/utils/intent'
 import Text from './Text';
+import Block, { BlockProps } from './Layout/Block';
 
 const styles = css`
 
   .${c.BUTTON.name} {
+    padding: 0;
     border: var(${v.BORDER_FOCUS_SIZE.name}) var(${v.BORDER_FOCUS_STYLE.name}) transparent;
     background: var(${v.COLOR_BUTTON.name});
-    border-radius: var(${v.BORDER_RADIUS_MEDIUM.name});
+    border-radius: var(${v.BORDER_RADIUS.name});
     flex-shrink: 0;
+    user-select: none;
     
     &:hover {
       cursor: pointer;
@@ -40,25 +43,37 @@ const styles = css`
       }
     `, { selector: s => `&.${s}`})}
 
+    & > .${c.BLOCK_TEXT.name} {
+      & > .${c.TEXT.name} {
+        margin: 0;
+      }
+    }
+
     &.${c.BUTTON_SMALL.name} {
       min-height: var(${v.SPACING_BUTTON_HEIGHT_SMALL.name});
-      padding: 0 var(${v.SPACING_BUTTON_PADDING_SMALL.name});
-      & > .${c.TEXT.name} {
-        font-size: 0.7rem;
+      & > .${c.BLOCK_TEXT.name} {
+        padding: 0 var(${v.SPACING_BUTTON_PADDING_SMALL.name});
+        & > .${c.TEXT.name} {
+          font-size: 0.7rem;
+        }
       }
     }
     &.${c.BUTTON_MEDIUM.name} {
       min-height: var(${v.SPACING_BUTTON_HEIGHT_MEDIUM.name});
-      padding: 0 var(${v.SPACING_BUTTON_PADDING_MEDIUM.name});
-      & > .${c.TEXT.name} {
-        font-size: 0.9rem;
+      & > .${c.BLOCK_TEXT.name} {
+        padding: 0 var(${v.SPACING_BUTTON_PADDING_MEDIUM.name});
+        & > .${c.TEXT.name} {
+          font-size: 0.9rem;
+        }
       }
     }
     &.${c.BUTTON_LARGE.name} {
       min-height: var(${v.SPACING_BUTTON_HEIGHT_LARGE.name});
-      padding: 0 var(${v.SPACING_BUTTON_PADDING_LARGE.name});
-      & > .${c.TEXT.name} {
-        font-size: 1rem;
+      & > .${c.BLOCK_TEXT.name} {
+        padding: 0 var(${v.SPACING_BUTTON_PADDING_LARGE.name});
+        & > .${c.TEXT.name} {
+          font-size: 1rem;
+        }
       }
     }
     
@@ -68,22 +83,26 @@ const styles = css`
   }
 `;
 
-const Button = ({
-  children,
-  size = Size.MEDIUM,
-  intent,
-  fill,
-  onClick,
-}: {
+type ButtonProps = {
   children: any,
+  block?: BlockProps,
   size?: Size.SMALL | Size.MEDIUM | Size.LARGE,
   intent?: Intent,
   fill?: boolean,
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
-}) => {
+};
+
+const Button = ({
+  children,
+  block = {},
+  size = Size.MEDIUM,
+  intent,
+  fill,
+  onClick,
+}: ButtonProps) => {
 
   return (
-    <>
+    <Block {...block}>
       <Global styles={styles} />
       <button
         onClick={onClick}
@@ -97,14 +116,13 @@ const Button = ({
         })}
       >
         <Text
-          block
-          align={Alignment.LEFT}
+          block={{ align: Alignment.LEFT }}
           intent={intent}
         >
           {children}
         </Text>
       </button>
-    </>
+    </Block>
   )	
 }
 

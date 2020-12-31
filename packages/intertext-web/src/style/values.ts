@@ -51,8 +51,9 @@ export enum Alignment {
  */
 export const c = {
 
+  /** complementary */
+
   // intents
-  // these class names are complementary
   INTENT_DEFAULT: cls('intent_default'),
   INTENT_PRIMARY: cls('intent_primary'),
   INTENT_SECONDARY: cls('intent_secondary'),
@@ -62,10 +63,23 @@ export const c = {
   INTENT_INFO: cls('intent_info'),
 
   // alignments
-  // these class names are complementary
   ALIGN_LEFT: cls('align_left'),
   ALIGN_CENTER: cls('align_center'),
   ALIGN_RIGHT: cls('align_right'),
+
+  /** components: layout */
+
+  // spacer
+  SPACER: cls('spacer'),
+  SPACER_XSMALL: cls('spacer-xsmall'),
+  SPACER_SMALL: cls('spacer-small'),
+  SPACER_MEDIUM: cls('spacer-medium'),
+  SPACER_LARGE: cls('spacer-large'),
+
+  BLOCK: cls('block'),
+  BLOCK_TEXT: cls('block-text'),
+  
+  /** components: other */
 
   // texts
   TEXT: cls('text'),
@@ -88,12 +102,6 @@ export const c = {
   BUTTON_MEDIUM: cls('button_medium'),
   BUTTON_LARGE: cls('button_large'),
 
-  // spacer
-  SPACER: cls('spacer'),
-  SPACER_XSMALL: cls('spacer-xsmall'),
-  SPACER_SMALL: cls('spacer-small'),
-  SPACER_MEDIUM: cls('spacer-medium'),
-  SPACER_LARGE: cls('spacer-large'),
 }
 
 /**
@@ -158,6 +166,7 @@ export const v = {
   FONT_WEIGHT_H3: vr('font-weight-h3', 700),
 
   /** font sizes */
+
   // all sizes are relative, uses `rem` units and are calculated against
   // the root value. to change the scale of everything, use `font-size-root`
   FONT_SIZE_ROOT: vr('font-size-root', '16px'),
@@ -176,9 +185,7 @@ export const v = {
 
   /** borders */
 
-  BORDER_RADIUS_SMALL: vr('border-radius-small', '0.1rem'),
-  BORDER_RADIUS_MEDIUM: vr('border-radius-medium', '0.2rem'),
-  BORDER_RADIUS_LARGE: vr('border-radius-large', '0.4rem'),
+  BORDER_RADIUS: vr('border-radius', '0.2rem'),
   BORDER_FOCUS_SIZE: vr('border-focus-size', '2px'),
   BORDER_FOCUS_STYLE: vr('border-focus-style', 'solid'),
 
@@ -189,17 +196,22 @@ export const v = {
   SPACING_SPACER_MEDIUM: vr('spacing-spacer-medium', '1.2rem'),
   SPACING_SPACER_LARGE: vr('spacing-spacer-large', '1.6rem'),
   
-  SPACING_TEXT_DEFAULT: vr('spacing-text-default', '0.6rem'),
-  SPACING_TEXT_H1: vr('spacing-text-h1', '1.6rem'),
-  SPACING_TEXT_H2: vr('spacing-text-h2', '1rem'),
-  SPACING_TEXT_H3: vr('spacing-text-h3', '0.8rem'),
+  SPACING_TEXT_DEFAULT: vr('spacing-text-default', '0.4rem'),
+  SPACING_TEXT_H1: vr('spacing-text-h1', '1.2rem'),
+  SPACING_TEXT_H2: vr('spacing-text-h2', '0.6rem'),
+  SPACING_TEXT_H3: vr('spacing-text-h3', '0.4rem'),
 
   SPACING_BUTTON_HEIGHT_SMALL: vr('spacing-button-height-small', '1.4rem'),
-  SPACING_BUTTON_HEIGHT_MEDIUM: vr('spacing-button-height-medium', '2rem'),
+  SPACING_BUTTON_HEIGHT_MEDIUM: vr('spacing-button-height-medium', '2.4rem'),
   SPACING_BUTTON_HEIGHT_LARGE: vr('spacing-button-height-large', '2.8rem'),
   SPACING_BUTTON_PADDING_SMALL: vr('spacing-button-padding-small', '0.5rem'),
   SPACING_BUTTON_PADDING_MEDIUM: vr('spacing-button-padding-medium', '1rem'),
   SPACING_BUTTON_PADDING_LARGE: vr('spacing-button-padding-large', '1.5rem'),
+
+  SPACING_BLOCK_PADDING: vr('spacing-block-padding', '0.4rem'),
+  SPACING_BLOCK_MARGIN_SMALL: vr('spacing-block-margin-small', '0.4rem'),
+  SPACING_BLOCK_MARGIN_MEDIUM: vr('spacing-block-margin-medium', '1rem'),
+  SPACING_BLOCK_MARGIN_LARGE: vr('spacing-block-margin-medium', '1.8rem'),
 
 }
 

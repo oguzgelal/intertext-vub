@@ -2,11 +2,26 @@ import React from 'react';
 import cc from 'classnames';
 import { v, c } from 'style/values';
 import { Global, css } from '@emotion/react/macro';
-import { Alignment, Intent } from '../../style/values';
+import { Intent } from '../../style/values';
 import { attachIntentClasses, applyIntentStyles } from '../../style/utils/intent';
-import { attachAlignmentClasses } from '../../style/utils/alignment';
+import Block, { BlockProps } from './Layout/Block';
 
 const styles = css`
+
+  .${c.BLOCK_TEXT.name} {
+    &.${c.TEXT_DEFAULT.name} {
+      margin-bottom: var(${v.SPACING_TEXT_DEFAULT.name});
+    }
+    &.${c.TEXT_H1.name} {
+      margin-bottom: var(${v.SPACING_TEXT_H1.name});
+    }
+    &.${c.TEXT_H2.name} {
+      margin-bottom: var(${v.SPACING_TEXT_H2.name});
+    }
+    &.${c.TEXT_H3.name} {
+      margin-bottom: var(${v.SPACING_TEXT_H3.name});
+    }
+  }
 
   .${c.TEXT.name} {
     -webkit-font-smoothing: antialiased;
@@ -41,24 +56,12 @@ const styles = css`
       font-weight: var(${v.FONT_WEIGHT_DEFAULT.name});
       line-height: var(${v.LINE_HEIGHT_DEFAULT.name});
       font-size: var(${v.FONT_SIZE_DEFAULT.name});
-      margin-bottom: var(${v.SPACING_TEXT_DEFAULT.name});
-      &:last-child {
-        margin-bottom: 0;
-      }
     }
 
     /** heading styles */
     &.${c.TEXT_HEADING.name} {
       font-family: var(${v.FONT_FAMILY.name});
-      &:last-child {
-        margin-bottom: 0;
-      }
     }
-
-    /** alignments */
-    &.${c.ALIGN_LEFT.name} { text-align: left; }
-    &.${c.ALIGN_CENTER.name} { text-align: center; }
-    &.${c.ALIGN_RIGHT.name} { text-align: right; }
 
     &.${c.TEXT_BLOCK.name} {
       display: block;
@@ -68,19 +71,16 @@ const styles = css`
       font-size: var(${v.FONT_SIZE_TEXT_H1.name});
       font-weight: var(${v.FONT_WEIGHT_H1.name});
       line-height: var(${v.LINE_HEIGHT_H1.name});
-      margin-bottom: var(${v.SPACING_TEXT_H1.name});
     }
     &.${c.TEXT_H2.name} {
       font-size: var(${v.FONT_SIZE_TEXT_H2.name});
       font-weight: var(${v.FONT_WEIGHT_H2.name});
       line-height: var(${v.LINE_HEIGHT_H2.name});
-      margin-bottom: var(${v.SPACING_TEXT_H2.name});
     }
     &.${c.TEXT_H3.name} {
       font-size: var(${v.FONT_SIZE_TEXT_H3.name});
       font-weight: var(${v.FONT_WEIGHT_H3.name});
       line-height: var(${v.LINE_HEIGHT_H3.name});
-      margin-bottom: var(${v.SPACING_TEXT_H3.name});
     }
     &.${c.TEXT_P.name} {
     }
@@ -96,25 +96,11 @@ const styles = css`
   }
 `;
 
-const Text = ({
-  children,
-  muted,
-  intent,
-  block,
-  align,
-  p,
-  h1,
-  h2,
-  h3,
-  b,
-  i,
-  u,
-}: {
+type TextProps = {
   children: any,
+  block?: true | BlockProps,
   muted?: boolean,
   intent?: Intent,
-  block?: boolean,
-  align?: Alignment,
   p?: boolean,
   h?: boolean,
   h1?: boolean,
@@ -123,36 +109,70 @@ const Text = ({
   b?: boolean,
   i?: boolean,
   u?: boolean,
-}) => {
+}
+
+const Text = ({
+  children,
+  block,
+  muted,
+  intent,
+  p,
+  h1,
+  h2,
+  h3,
+  b,
+  i,
+  u,
+}: TextProps) => {
 
   const isHeading: boolean = !!(h1 || h2 || h3);
   const isBlock: boolean = !!(block || isHeading || p);
 
-  return (
+  const blockClassNames = cc({
+    [c.BLOCK_TEXT.name]: true,
+    [c.TEXT_DEFAULT.name]: !isHeading,
+    [c.TEXT_H1.name]: h1,
+    [c.TEXT_H2.name]: h2,
+    [c.TEXT_H3.name]: h3,
+  })
+
+  const classNames = cc({
+    [c.TEXT.name]: true,
+    [c.TEXT_DEFAULT.name]: !isHeading,
+    [c.TEXT_HEADING.name]: isHeading,
+    [c.TEXT_MUTED.name]: muted,
+    [c.TEXT_BLOCK.name]: isBlock,
+    [c.TEXT_P.name]: p,
+    [c.TEXT_H1.name]: h1,
+    [c.TEXT_H2.name]: h2,
+    [c.TEXT_H3.name]: h3,
+    [c.TEXT_B.name]: b,
+    [c.TEXT_I.name]: i,
+    [c.TEXT_U.name]: u,
+    ...attachIntentClasses(intent),
+  })
+
+  const output = (
     <>
       <Global styles={styles} />
-      <span
-        className={cc({
-          [c.TEXT.name]: true,
-          [c.TEXT_DEFAULT.name]: !isHeading,
-          [c.TEXT_HEADING.name]: isHeading,
-          [c.TEXT_MUTED.name]: muted,
-          [c.TEXT_BLOCK.name]: isBlock,
-          [c.TEXT_P.name]: p,
-          [c.TEXT_H1.name]: h1,
-          [c.TEXT_H2.name]: h2,
-          [c.TEXT_H3.name]: h3,
-          [c.TEXT_B.name]: b,
-          [c.TEXT_I.name]: i,
-          [c.TEXT_U.name]: u,
-          ...attachIntentClasses(intent),
-          ...attachAlignmentClasses(align),
-        })}
-      >
+      <span className={classNames}>
         {children}
       </span>
     </>
-  )	
+  );
+
+  if (!isBlock) {
+    return output;
+  }
+
+  return (
+    <Block
+      {...(typeof block === 'object' ? block : {})}
+      className={blockClassNames}
+    >
+      {output}
+    </Block>
+  )
 }
 
 export default Text;
