@@ -21,6 +21,9 @@ const styles = css`
     &.${c.TEXT_H3.name} {
       margin-bottom: var(${v.SPACING_TEXT_H3.name});
     }
+    &:last-of-type {
+      margin-bottom: 0;
+    }
   }
 
   .${c.TEXT.name} {

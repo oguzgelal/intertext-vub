@@ -44,9 +44,7 @@ const styles = css`
     `, { selector: s => `&.${s}`})}
 
     & > .${c.BLOCK_TEXT.name} {
-      & > .${c.TEXT.name} {
-        margin: 0;
-      }
+      margin: 0;
     }
 
     &.${c.BUTTON_SMALL.name} {
@@ -101,19 +99,25 @@ const Button = ({
   onClick,
 }: ButtonProps) => {
 
+  const blockClassNames = cc({
+    [c.BLOCK_BUTTON.name]: true,
+  });
+
+  const classNames = cc({
+    [c.BUTTON.name]: true,
+    [c.BUTTON_FILL.name]: fill,
+    [c.BUTTON_SMALL.name]: size === Size.SMALL,
+    [c.BUTTON_MEDIUM.name]: size === Size.MEDIUM,
+    [c.BUTTON_LARGE.name]: size === Size.LARGE,
+    ...attachIntentClasses(intent),
+  });
+
   return (
-    <Block {...block}>
+    <Block {...block} className={blockClassNames}>
       <Global styles={styles} />
       <button
         onClick={onClick}
-        className={cc({
-          [c.BUTTON.name]: true,
-          [c.BUTTON_FILL.name]: fill,
-          [c.BUTTON_SMALL.name]: size === Size.SMALL,
-          [c.BUTTON_MEDIUM.name]: size === Size.MEDIUM,
-          [c.BUTTON_LARGE.name]: size === Size.LARGE,
-          ...attachIntentClasses(intent),
-        })}
+        className={classNames}
       >
         <Text
           block={{ align: Alignment.LEFT }}

@@ -78,6 +78,7 @@ export const c = {
 
   BLOCK: cls('block'),
   BLOCK_TEXT: cls('block-text'),
+  BLOCK_BUTTON: cls('block-button'),
   
   /** components: other */
 
