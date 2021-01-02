@@ -11,8 +11,18 @@ const styles = css`
     display: flex;
     position: relative;
     padding: var(${v.SPACING_BLOCK_PADDING.name});
+    padding-top: calc(var(${v.SPACING_BLOCK_PADDING.name}) / 2);
+    padding-bottom: calc(var(${v.SPACING_BLOCK_PADDING.name}) / 2);
     width: 100%;
 
+    
+    &:first-of-type {
+      padding-top: var(${v.SPACING_BLOCK_PADDING.name});
+    }
+    &:last-of-type {
+      padding-bottom: var(${v.SPACING_BLOCK_PADDING.name});
+    }
+    
     /** block parts */
     .${c.BLOCK_CONTENTS.name} {
       flex-grow: 1;

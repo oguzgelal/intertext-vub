@@ -205,9 +205,9 @@ export const v = {
   SPACING_SPACER_LARGE: vr('spacing-spacer-large', '1.6rem'),
   
   SPACING_TEXT_DEFAULT: vr('spacing-text-default', '0'),
-  SPACING_TEXT_H1: vr('spacing-text-h1', '1.8rem'),
-  SPACING_TEXT_H2: vr('spacing-text-h2', '1.2rem'),
-  SPACING_TEXT_H3: vr('spacing-text-h3', '0.8rem'),
+  SPACING_TEXT_H1: vr('spacing-text-h1', '2rem'),
+  SPACING_TEXT_H2: vr('spacing-text-h2', '1.8rem'),
+  SPACING_TEXT_H3: vr('spacing-text-h3', '1.4rem'),
 
   SPACING_BUTTON_HEIGHT_SMALL: vr('spacing-button-height-small', '1.4rem'),
   SPACING_BUTTON_HEIGHT_MEDIUM: vr('spacing-button-height-medium', '2.4rem'),

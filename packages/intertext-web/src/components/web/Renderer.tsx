@@ -83,15 +83,31 @@ const Renderer = () => {
       <Contents>
 
         {/** layout */}
-        <Text h3 {...params}>Layout</Text>
-        <Text p {...params}>Block</Text>
+        <Text h2 {...params}>Layout</Text>
+        <Text h3 {...params}>Block</Text>
+        <Text p {...params}>Every component is nested inside of a block</Text>
         <Block><Filler /></Block>
-        <Text p {...params}>Block With Pockets</Text>
+        <Text h3 {...params}>Block With Pockets</Text>
+        <Text p {...params}>Every component is nested inside of a block</Text>
+        <Block pocketLeft={<Filler />}><Filler /></Block>
+        <Block pocketRight={<Filler />}><Filler /></Block>
         <Block
           pocketLeft={<Filler />}
           pocketRight={<Filler />}
         >
           <Filler />
+        </Block>
+        <Text h3 {...params}>Nested Blocks</Text>
+        <Block>
+          <Filler>
+            <Block>
+              <Filler>
+                <Block><Filler /></Block>
+                <Block><Filler /></Block>
+                <Block><Filler /></Block>
+              </Filler>
+            </Block>
+          </Filler>
         </Block>
 
         <Spacer size={Size.MEDIUM} />

@@ -10,20 +10,16 @@ const styles = css`
 
   .${c.BLOCK__TEXT.name} {
     &.${c.TEXT_DEFAULT.name} {
-      margin-top: calc(var(${v.SPACING_TEXT_DEFAULT.name}) / 3);
-      margin-bottom: calc(calc(var(${v.SPACING_TEXT_DEFAULT.name}) / 3) * 2);
+      margin-top: var(${v.SPACING_TEXT_DEFAULT.name});
     }
     &.${c.TEXT_H1.name} {
-      margin-top: calc(var(${v.SPACING_TEXT_H1.name}) / 3);
-      margin-bottom: calc(calc(var(${v.SPACING_TEXT_H1.name}) / 3) * 2);
+      margin-top: var(${v.SPACING_TEXT_H1.name});
     }
     &.${c.TEXT_H2.name} {
-      margin-top: calc(var(${v.SPACING_TEXT_H2.name}) / 3);
-      margin-bottom: calc(calc(var(${v.SPACING_TEXT_H2.name}) / 3) * 2);
+      margin-top: var(${v.SPACING_TEXT_H2.name});
     }
     &.${c.TEXT_H3.name} {
-      margin-top: calc(var(${v.SPACING_TEXT_H3.name}) / 3);
-      margin-bottom: calc(calc(var(${v.SPACING_TEXT_H3.name}) / 3) * 2);
+      margin-top: var(${v.SPACING_TEXT_H3.name});
     }
     &:last-of-type {
       margin-bottom: 0;
