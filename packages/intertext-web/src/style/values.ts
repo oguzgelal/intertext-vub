@@ -71,14 +71,21 @@ export const c = {
 
   // spacer
   SPACER: cls('spacer'),
-  SPACER_XSMALL: cls('spacer-xsmall'),
-  SPACER_SMALL: cls('spacer-small'),
-  SPACER_MEDIUM: cls('spacer-medium'),
-  SPACER_LARGE: cls('spacer-large'),
+  SPACER_XSMALL: cls('spacer_xsmall'),
+  SPACER_SMALL: cls('spacer_small'),
+  SPACER_MEDIUM: cls('spacer_medium'),
+  SPACER_LARGE: cls('spacer_large'),
 
+  // block
   BLOCK: cls('block'),
-  BLOCK_TEXT: cls('block-text'),
-  BLOCK_BUTTON: cls('block-button'),
+  BLOCK_CONTENTS: cls('block_contents'),
+  BLOCK_POCKET: cls('block_pocket'),
+  BLOCK_POCKET_LEFT: cls('block_pocket_left'),
+  BLOCK_POCKET_RIGHT: cls('block_pocket_right'),
+  
+  // block types
+  BLOCK__TEXT: cls('block__text'),
+  BLOCK__BUTTON: cls('block__button'),
   
   /** components: other */
 
@@ -197,10 +204,10 @@ export const v = {
   SPACING_SPACER_MEDIUM: vr('spacing-spacer-medium', '1.2rem'),
   SPACING_SPACER_LARGE: vr('spacing-spacer-large', '1.6rem'),
   
-  SPACING_TEXT_DEFAULT: vr('spacing-text-default', '0.4rem'),
-  SPACING_TEXT_H1: vr('spacing-text-h1', '1.2rem'),
-  SPACING_TEXT_H2: vr('spacing-text-h2', '0.6rem'),
-  SPACING_TEXT_H3: vr('spacing-text-h3', '0.4rem'),
+  SPACING_TEXT_DEFAULT: vr('spacing-text-default', '0'),
+  SPACING_TEXT_H1: vr('spacing-text-h1', '1.8rem'),
+  SPACING_TEXT_H2: vr('spacing-text-h2', '1.2rem'),
+  SPACING_TEXT_H3: vr('spacing-text-h3', '0.8rem'),
 
   SPACING_BUTTON_HEIGHT_SMALL: vr('spacing-button-height-small', '1.4rem'),
   SPACING_BUTTON_HEIGHT_MEDIUM: vr('spacing-button-height-medium', '2.4rem'),

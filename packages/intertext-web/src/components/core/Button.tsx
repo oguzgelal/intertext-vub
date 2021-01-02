@@ -43,13 +43,13 @@ const styles = css`
       }
     `, { selector: s => `&.${s}`})}
 
-    & > .${c.BLOCK_TEXT.name} {
+    & > .${c.BLOCK__TEXT.name} {
       margin: 0;
     }
 
     &.${c.BUTTON_SMALL.name} {
       min-height: var(${v.SPACING_BUTTON_HEIGHT_SMALL.name});
-      & > .${c.BLOCK_TEXT.name} {
+      & > .${c.BLOCK__TEXT.name} {
         padding: 0 var(${v.SPACING_BUTTON_PADDING_SMALL.name});
         & > .${c.TEXT.name} {
           font-size: 0.7rem;
@@ -58,7 +58,7 @@ const styles = css`
     }
     &.${c.BUTTON_MEDIUM.name} {
       min-height: var(${v.SPACING_BUTTON_HEIGHT_MEDIUM.name});
-      & > .${c.BLOCK_TEXT.name} {
+      & > .${c.BLOCK__TEXT.name} {
         padding: 0 var(${v.SPACING_BUTTON_PADDING_MEDIUM.name});
         & > .${c.TEXT.name} {
           font-size: 0.9rem;
@@ -67,7 +67,7 @@ const styles = css`
     }
     &.${c.BUTTON_LARGE.name} {
       min-height: var(${v.SPACING_BUTTON_HEIGHT_LARGE.name});
-      & > .${c.BLOCK_TEXT.name} {
+      & > .${c.BLOCK__TEXT.name} {
         padding: 0 var(${v.SPACING_BUTTON_PADDING_LARGE.name});
         & > .${c.TEXT.name} {
           font-size: 1rem;
@@ -100,7 +100,7 @@ const Button = ({
 }: ButtonProps) => {
 
   const blockClassNames = cc({
-    [c.BLOCK_BUTTON.name]: true,
+    [c.BLOCK__BUTTON.name]: true,
   });
 
   const classNames = cc({

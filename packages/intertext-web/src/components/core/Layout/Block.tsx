@@ -8,8 +8,26 @@ import { attachAlignmentClasses } from '../../../style/utils/alignment';
 const styles = css`
   
   .${c.BLOCK.name} {
-    width: 100%;
+    display: flex;
+    position: relative;
     padding: var(${v.SPACING_BLOCK_PADDING.name});
+    width: 100%;
+
+    /** block parts */
+    .${c.BLOCK_CONTENTS.name} {
+      flex-grow: 1;
+      flex-shrink: 1;
+      width: 100%;
+    }
+    .${c.BLOCK_POCKET.name} {
+      flex-shrink: 0;
+    }
+    .${c.BLOCK_POCKET_LEFT.name} {
+      margin-right: var(${v.SPACING_BLOCK_PADDING.name});
+    }
+    .${c.BLOCK_POCKET_RIGHT.name} {
+      margin-left: var(${v.SPACING_BLOCK_PADDING.name});
+    }
 
     /** alignments */
     &.${c.ALIGN_LEFT.name} { text-align: left; }
@@ -22,24 +40,56 @@ export type BlockProps = {
   children?: any,
   className?: string
   align?: Alignment,
+  pocketLeft?: any,
+  pocketRight?: any,
 } 
 
 const Block = ({
   children,
   className,
   align,
+  pocketLeft,
+  pocketRight,
 }: BlockProps) => {
 
-  const classNameComputed = cc({
+  const classNameWrapper = cc({
     [c.BLOCK.name]: true,
     ...attachAlignmentClasses(align),
+  })
+
+  const classNameContents = cc({
+    [c.BLOCK_CONTENTS.name]: true,
+  })
+
+  const classNameLeftPocket = cc({
+    [c.BLOCK_POCKET.name]: true,
+    [c.BLOCK_POCKET_LEFT.name]: true,
+  })
+  
+  const classNameRightPocket = cc({
+    [c.BLOCK_POCKET.name]: true,
+    [c.BLOCK_POCKET_RIGHT.name]: true,
   })
 
   return (
     <>
       <Global styles={styles} />
-      <div className={`${classNameComputed || ''} ${className || ''}`}>
-        {children}
+      <div className={`${classNameWrapper || ''} ${className || ''}`}>
+        
+        {/** left pocket */}
+        {pocketLeft && (
+          <div className={classNameLeftPocket}>{pocketLeft}</div>
+        )}
+        
+        {/** contents */}
+        <div className={classNameContents}>
+          {children}
+        </div>
+        
+        {/** right pocket */}
+        {pocketRight && (
+          <div className={classNameRightPocket}>{pocketRight}</div>
+        )}
       </div>
     </>
   )	

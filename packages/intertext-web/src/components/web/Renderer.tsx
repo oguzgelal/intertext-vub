@@ -3,6 +3,8 @@ import styled from '@emotion/styled/macro';
 import Text from 'components/core/Text';
 import Button from 'components/core/Button';
 import Spacer from 'components/core/Layout/Spacer';
+import Block from 'components/core/Layout/Block';
+import Filler from 'components/web/Filler';
 import { Global } from '@emotion/react/macro';
 import { Intent, Size, Theme } from '../../style/values';
 import darkTheme from '../../style/themes/dark';
@@ -79,6 +81,24 @@ const Renderer = () => {
 
       {/** render styles here */}
       <Contents>
+
+        {/** layout */}
+        <Text h3 {...params}>Layout</Text>
+        <Text p {...params}>Block</Text>
+        <Block><Filler /></Block>
+        <Text p {...params}>Block With Pockets</Text>
+        <Block
+          pocketLeft={<Filler />}
+          pocketRight={<Filler />}
+        >
+          <Filler />
+        </Block>
+
+        <Spacer size={Size.MEDIUM} />
+        
+        {/** typography */}
+        <Text h3 {...params}>Typography</Text>
+
         <Text h1 {...params}>Heading 1</Text>
         <Text h2 {...params}>Heading 2</Text>
         <Text h3 {...params}>Heading 3</Text>

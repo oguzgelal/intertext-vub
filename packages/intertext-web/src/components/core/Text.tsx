@@ -8,21 +8,28 @@ import Block, { BlockProps } from './Layout/Block';
 
 const styles = css`
 
-  .${c.BLOCK_TEXT.name} {
+  .${c.BLOCK__TEXT.name} {
     &.${c.TEXT_DEFAULT.name} {
-      margin-bottom: var(${v.SPACING_TEXT_DEFAULT.name});
+      margin-top: calc(var(${v.SPACING_TEXT_DEFAULT.name}) / 3);
+      margin-bottom: calc(calc(var(${v.SPACING_TEXT_DEFAULT.name}) / 3) * 2);
     }
     &.${c.TEXT_H1.name} {
-      margin-bottom: var(${v.SPACING_TEXT_H1.name});
+      margin-top: calc(var(${v.SPACING_TEXT_H1.name}) / 3);
+      margin-bottom: calc(calc(var(${v.SPACING_TEXT_H1.name}) / 3) * 2);
     }
     &.${c.TEXT_H2.name} {
-      margin-bottom: var(${v.SPACING_TEXT_H2.name});
+      margin-top: calc(var(${v.SPACING_TEXT_H2.name}) / 3);
+      margin-bottom: calc(calc(var(${v.SPACING_TEXT_H2.name}) / 3) * 2);
     }
     &.${c.TEXT_H3.name} {
-      margin-bottom: var(${v.SPACING_TEXT_H3.name});
+      margin-top: calc(var(${v.SPACING_TEXT_H3.name}) / 3);
+      margin-bottom: calc(calc(var(${v.SPACING_TEXT_H3.name}) / 3) * 2);
     }
     &:last-of-type {
       margin-bottom: 0;
+    }
+    &:first-of-type {
+      margin-top: 0;
     }
   }
 
@@ -132,7 +139,7 @@ const Text = ({
   const isBlock: boolean = !!(block || isHeading || p);
 
   const blockClassNames = cc({
-    [c.BLOCK_TEXT.name]: true,
+    [c.BLOCK__TEXT.name]: true,
     [c.TEXT_DEFAULT.name]: !isHeading,
     [c.TEXT_H1.name]: h1,
     [c.TEXT_H2.name]: h2,
