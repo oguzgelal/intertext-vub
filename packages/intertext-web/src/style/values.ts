@@ -1,5 +1,5 @@
 import { css } from '@emotion/react/macro';
-import { transparentize, darken, lighten } from 'polished';
+import { transparentize, darken } from 'polished';
 
 type IntertextStyleNameDef = {
   name: string,
@@ -196,6 +196,8 @@ export const v = {
   BORDER_RADIUS: vr('border-radius', '0.2rem'),
   BORDER_FOCUS_SIZE: vr('border-focus-size', '2px'),
   BORDER_FOCUS_STYLE: vr('border-focus-style', 'solid'),
+  BORDER_BLOCK_SIZE: vr('border-block-size', '2px'),
+  BORDER_BLOCK_STYLE: vr('border-block-style', 'solid'),
 
   /** spacing */
   
@@ -231,9 +233,9 @@ export const base = css`
   /** Construct css variables */
   :root {
     ${Object
-        .values(v)
-        .map(val => `${val.name}: ${val.value};`)
-        .join('\n')}
+      .values(v)
+      .map(val => `${val.name}: ${val.value};`)
+      .join('\n')}
   }
 
   /**

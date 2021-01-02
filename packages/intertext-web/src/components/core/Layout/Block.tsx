@@ -1,9 +1,9 @@
 import React from 'react';
 import cc from 'classnames';
-import { v, c } from 'style/values';
 import { Global, css } from '@emotion/react/macro';
-import { Alignment } from '../../../style/values';
-import { attachAlignmentClasses } from '../../../style/utils/alignment';
+import { v, c, Alignment, Intent } from 'style/values';
+import { attachAlignmentClasses } from 'style/utils/alignment';
+import { applyIntentStyles, attachIntentClasses } from 'style/utils/intent';
 
 const styles = css`
   
@@ -14,7 +14,6 @@ const styles = css`
     padding-top: calc(var(${v.SPACING_BLOCK_PADDING.name}) / 2);
     padding-bottom: calc(var(${v.SPACING_BLOCK_PADDING.name}) / 2);
     width: 100%;
-
     
     &:first-of-type {
       padding-top: var(${v.SPACING_BLOCK_PADDING.name});
@@ -23,12 +22,28 @@ const styles = css`
       padding-bottom: var(${v.SPACING_BLOCK_PADDING.name});
     }
     
-    /** block parts */
+    /** block contents */
+
     .${c.BLOCK_CONTENTS.name} {
       flex-grow: 1;
       flex-shrink: 1;
       width: 100%;
+      min-width: 40px;
+      border-radius: var(${v.BORDER_RADIUS.name});
     }
+
+    ${applyIntentStyles(({ vColor, vColorMuted }) => css`
+      .${c.BLOCK_CONTENTS.name} {
+        background-color: var(${vColorMuted});
+        border:
+          var(${v.BORDER_BLOCK_SIZE.name})
+          var(${v.BORDER_BLOCK_STYLE.name}) 
+          var(${vColor});
+      }
+    `, { selector: s => `&.${s}`})}
+    
+    /** block pockets */
+
     .${c.BLOCK_POCKET.name} {
       flex-shrink: 0;
     }
@@ -48,16 +63,20 @@ const styles = css`
 
 export type BlockProps = {
   children?: any,
+  style?: object,
   className?: string
   align?: Alignment,
+  intent?: Intent,
   pocketLeft?: any,
   pocketRight?: any,
 } 
 
 const Block = ({
   children,
+  style,
   className,
   align,
+  intent,
   pocketLeft,
   pocketRight,
 }: BlockProps) => {
@@ -65,6 +84,7 @@ const Block = ({
   const classNameWrapper = cc({
     [c.BLOCK.name]: true,
     ...attachAlignmentClasses(align),
+    ...attachIntentClasses(intent),
   })
 
   const classNameContents = cc({
@@ -84,7 +104,10 @@ const Block = ({
   return (
     <>
       <Global styles={styles} />
-      <div className={`${classNameWrapper || ''} ${className || ''}`}>
+      <div
+        style={style}
+        className={`${classNameWrapper || ''} ${className || ''}`}
+      >
         
         {/** left pocket */}
         {pocketLeft && (

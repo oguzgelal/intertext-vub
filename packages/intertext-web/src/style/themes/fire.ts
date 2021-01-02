@@ -21,6 +21,8 @@ export default css`
     --inx-border-radius: 0;
     --inx-border-focus-size: 4px;
     --inx-border-focus-style: dashed;
+    --inx-border-block-size: 4px;
+    --inx-border-block-style: dashed;
 
   }
 

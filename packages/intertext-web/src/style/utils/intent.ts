@@ -55,6 +55,9 @@ export const applyIntentStyles = (
   // selector modifier function
   const selectorFn = selector ? selector : (n: string) => `.${n}`;
   
+  console.log('>', v.COLOR_PRIMARY.name)
+  console.log('->', getComputedStyle(document.documentElement).getPropertyValue('--inx-color-primary'))
+
   return css`
     ${selectorFn(c.INTENT_PRIMARY.name)} {
       ${fn({

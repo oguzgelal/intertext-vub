@@ -1,10 +1,9 @@
 import React from 'react';
 import cc from 'classnames';
-import { v, c } from 'style/values';
 import { Global, css } from '@emotion/react/macro';
-import { Intent } from '../../style/values';
-import { attachIntentClasses, applyIntentStyles } from '../../style/utils/intent';
-import Block, { BlockProps } from './Layout/Block';
+import { v, c, Intent } from 'style/values';
+import { attachIntentClasses, applyIntentStyles } from 'style/utils/intent';
+import Block, { BlockProps } from 'components/core/Layout/Block';
 
 const styles = css`
 
