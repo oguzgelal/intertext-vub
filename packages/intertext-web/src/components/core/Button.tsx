@@ -108,7 +108,7 @@ const Button = ({
     [c.BUTTON_SMALL.name]: size === Size.SMALL,
     [c.BUTTON_MEDIUM.name]: size === Size.MEDIUM,
     [c.BUTTON_LARGE.name]: size === Size.LARGE,
-    ...attachIntentClasses(intent),
+    ...attachIntentClasses({ intent }),
   });
 
   return (

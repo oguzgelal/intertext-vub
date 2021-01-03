@@ -52,10 +52,7 @@ const Renderer = () => {
       : intent
   }
 
-  console.log('blockParams', blockParams)
-
-  const blockFiller = <div style={{ width: 40, height: 40 }} />
-  const blockPocketFiller = <Block {...blockParams} style={{ padding: 0 }}>{blockFiller}</Block>
+  const blockFiller = <div style={{ width: 20, height: 20 }} />
 
   return (
     <Wrapper>
@@ -91,24 +88,18 @@ const Renderer = () => {
       <Contents>
 
         {/** layout */}
+
         <Text h2 {...params}>Layout</Text>
         <Text h3 {...params}>Block</Text>
         <Text p {...params}>
           Blocks are the basic building block of Intertext, every component is 
-          nested inside of a block. Blocks shown here falls to the Info intent 
-          for demonstration purpose.
+          nested inside of a block. <Text muted {...params}>Blocks shown here falls to the 
+          <Text b {...params}> Info</Text> intent for demonstration purpose.</Text>
         </Text>
-        <Block {...blockParams}>{blockFiller}</Block>
-        <Text h3 {...params}>Block With Pockets</Text>
-        <Text p {...params}>
-          Blocks come with pockets on either side, that can contain other blocks 
-          or elements. Pockets should be used for positioning items that are directly 
-          related to whatever is in the block, such as action items. On smaller screens, 
-          pockets will not wrap and positioned in line with the block.
-        </Text>
-        <Block {...blockParams} pocketLeft={blockPocketFiller}>{blockFiller}</Block>
-        <Block {...blockParams} pocketRight={blockPocketFiller}>{blockFiller}</Block>
-        <Block {...blockParams} pocketLeft={blockPocketFiller} pocketRight={blockPocketFiller}>{blockFiller}</Block>
+        <Block {...blockParams}>
+          <Text p {...params} intent={blockParams.intent}>This is some text</Text>
+        </Block>
+
         <Text h3 {...params}>Nested Blocks</Text>
         <Text p {...params}>
           Blocks can contain other blocks, or elements (which are wrapped in 
@@ -122,6 +113,27 @@ const Renderer = () => {
             <Block {...blockParams}>{blockFiller}</Block>
             <Block {...blockParams}>{blockFiller}</Block>
           </Block>
+        </Block>
+        
+        <Text h3 {...params}>Block With Pockets</Text>
+        <Text p {...params}>
+          Blocks come with pockets on either side, that can contain other blocks 
+          or elements. Pockets should be used for positioning items that are directly 
+          related to whatever is in the block, such as action items. On smaller screens, 
+          pockets will not wrap and positioned in line with the block.
+        </Text>
+        <Block {...blockParams} pocketLeft={<Text intent={blockParams.intent}>Left</Text>}>
+          {blockFiller}
+        </Block>
+        <Block {...blockParams} pocketRight={<Text intent={blockParams.intent}>Right</Text>}>
+          {blockFiller}
+        </Block>
+        <Block
+          {...blockParams}
+          pocketLeft={<Text intent={blockParams.intent}>Left</Text>}
+          pocketRight={<Text intent={blockParams.intent}>Right</Text>}
+        >
+          {blockFiller}
         </Block>
 
         <Spacer size={Size.MEDIUM} />

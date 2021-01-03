@@ -5,11 +5,13 @@ import { c } from '../values';
  * Utility function to attach alignment classnames
  * to a component.
  */
-export const attachAlignmentClasses = (alignment?: Alignment): Record<string, boolean> => {
+export const attachAlignmentClasses = ({ align } : {
+  align?: Alignment
+}): Record<string, boolean> => {
   
-  const isLeft = alignment === Alignment.LEFT
-  const isCenter = alignment === Alignment.CENTER
-  const isRight = alignment === Alignment.RIGHT
+  const isLeft = align === Alignment.LEFT
+  const isCenter = align === Alignment.CENTER
+  const isRight = align === Alignment.RIGHT
 
   return {
     [c.ALIGN_LEFT.name]: isLeft,

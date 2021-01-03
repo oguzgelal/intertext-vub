@@ -25,22 +25,11 @@ const styles = css`
     /** block contents */
 
     .${c.BLOCK_CONTENTS.name} {
+      width: 100%;
       flex-grow: 1;
       flex-shrink: 1;
-      width: 100%;
-      min-width: 40px;
       border-radius: var(${v.BORDER_RADIUS.name});
     }
-
-    ${applyIntentStyles(({ vColor, vColorMuted }) => css`
-      .${c.BLOCK_CONTENTS.name} {
-        background-color: var(${vColorMuted});
-        border:
-          var(${v.BORDER_BLOCK_SIZE.name})
-          var(${v.BORDER_BLOCK_STYLE.name}) 
-          var(${vColor});
-      }
-    `, { selector: s => `&.${s}`})}
     
     /** block pockets */
 
@@ -53,6 +42,39 @@ const styles = css`
     .${c.BLOCK_POCKET_RIGHT.name} {
       margin-left: var(${v.SPACING_BLOCK_PADDING.name});
     }
+
+    /** intents */
+
+    ${applyIntentStyles(({ vColor, vColorBg }) => css`
+      & > .${c.BLOCK_CONTENTS.name} {
+        background-color: var(${vColorBg});
+        padding: var(${v.SPACING_BLOCK_PADDING.name});
+        border:
+          var(${v.BORDER_BLOCK_SIZE.name})
+          var(${v.BORDER_BLOCK_STYLE.name}) 
+          var(${vColor});
+      }
+      & > .${c.BLOCK_POCKET.name} {
+        background-color: transparent;
+        padding: var(${v.SPACING_BLOCK_PADDING.name});
+        border:
+          var(${v.BORDER_BLOCK_SIZE.name})
+          var(${v.BORDER_BLOCK_STYLE.name}) 
+          transparent;
+        
+        &.${c.BLOCK_POCKET_LEFT.name} {
+          padding-left: 0;
+          border-left: none;
+        }
+        &.${c.BLOCK_POCKET_RIGHT.name} {
+          padding-right: 0;
+          border-right: none;
+        }
+      }
+    `, {
+      selector: s => `&.${s}`,
+      exclude: s => s === Intent.DEFAULT,
+    })}
 
     /** alignments */
     &.${c.ALIGN_LEFT.name} { text-align: left; }
@@ -83,8 +105,8 @@ const Block = ({
 
   const classNameWrapper = cc({
     [c.BLOCK.name]: true,
-    ...attachAlignmentClasses(align),
-    ...attachIntentClasses(intent),
+    ...attachAlignmentClasses({ align }),
+    ...attachIntentClasses({ intent }),
   })
 
   const classNameContents = cc({

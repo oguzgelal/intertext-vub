@@ -154,7 +154,7 @@ const Text = ({
     [c.TEXT_B.name]: b,
     [c.TEXT_I.name]: i,
     [c.TEXT_U.name]: u,
-    ...attachIntentClasses(intent),
+    ...attachIntentClasses({ intent }),
   })
 
   const output = (

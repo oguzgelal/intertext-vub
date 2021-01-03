@@ -122,31 +122,37 @@ export const v = {
   COLOR_PRIMARY: vr('color-primary', '#5465FF'),
   COLOR_PRIMARY_HOVER: vr('color-primary-hover', darken(0.03, '#5465FF')),
   COLOR_PRIMARY_MUTED: vr('color-primary-muted', transparentize(0.5, '#5465FF')),
+  COLOR_PRIMARY_BG: vr('color-primary-bg', transparentize(0.85, '#5465FF')),
   COLOR_PRIMARY_INVERTED: vr('color-primary-inverted', '#fff'),
   
   COLOR_SECONDARY: vr('color-secondary', '#9798FF'),
   COLOR_SECONDARY_HOVER: vr('color-secondary-hover', darken(0.03, '#9798FF')),
   COLOR_SECONDARY_MUTED: vr('color-secondary-muted', transparentize(0.5, '#9798FF')),
+  COLOR_SECONDARY_BG: vr('color-secondary-bg', transparentize(0.85, '#9798FF')),
   COLOR_SECONDARY_INVERTED: vr('color-secondary-inverted', '#fff'),
   
   COLOR_ERROR: vr('color-error', '#FF5A65'),
   COLOR_ERROR_HOVER: vr('color-error-hover', darken(0.03, '#FF5A65')),
   COLOR_ERROR_MUTED: vr('color-error-muted', transparentize(0.5, '#FF5A65')),
+  COLOR_ERROR_BG: vr('color-error-bg', transparentize(0.85, '#FF5A65')),
   COLOR_ERROR_INVERTED: vr('color-error-inverted', '#fff'),
   
   COLOR_WARNING: vr('color-warning', '#FFAD0A'),
   COLOR_WARNING_HOVER: vr('color-warning-hover', darken(0.03, '#FFAD0A')),
   COLOR_WARNING_MUTED: vr('color-warning-muted', transparentize(0.5, '#FFAD0A')),
+  COLOR_WARNING_BG: vr('color-warning-bg', transparentize(0.85, '#FFAD0A')),
   COLOR_WARNING_INVERTED: vr('color-warning-inverted', '#fff'),
   
   COLOR_SUCCESS: vr('color-success', '#17C27D'),
   COLOR_SUCCESS_HOVER: vr('color-success-hover', darken(0.03, '#17C27D')),
   COLOR_SUCCESS_MUTED: vr('color-success-muted', transparentize(0.5, '#17C27D')),
+  COLOR_SUCCESS_BG: vr('color-success-bg', transparentize(0.85, '#17C27D')),
   COLOR_SUCCESS_INVERTED: vr('color-success-inverted', '#fff'),
   
   COLOR_INFO: vr('color-info', '#00AAFF'),
   COLOR_INFO_HOVER: vr('color-info-hover', darken(0.03, '#00AAFF')),
   COLOR_INFO_MUTED: vr('color-info-muted', transparentize(0.5, '#00AAFF')),
+  COLOR_INFO_BG: vr('color-info-bg', transparentize(0.85, '#00AAFF')),
   COLOR_INFO_INVERTED: vr('color-info-inverted', '#fff'),
 
   /** colors functional */
@@ -219,9 +225,6 @@ export const v = {
   SPACING_BUTTON_PADDING_LARGE: vr('spacing-button-padding-large', '1.5rem'),
 
   SPACING_BLOCK_PADDING: vr('spacing-block-padding', '0.4rem'),
-  SPACING_BLOCK_MARGIN_SMALL: vr('spacing-block-margin-small', '0.4rem'),
-  SPACING_BLOCK_MARGIN_MEDIUM: vr('spacing-block-margin-medium', '1rem'),
-  SPACING_BLOCK_MARGIN_LARGE: vr('spacing-block-margin-medium', '1.8rem'),
 
 }
 
