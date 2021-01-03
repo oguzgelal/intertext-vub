@@ -200,9 +200,9 @@ export const v = {
   /** borders */
 
   BORDER_RADIUS: vr('border-radius', '0.2rem'),
-  BORDER_FOCUS_SIZE: vr('border-focus-size', '2px'),
+  BORDER_FOCUS_SIZE: vr('border-focus-size', '0.15rem'),
   BORDER_FOCUS_STYLE: vr('border-focus-style', 'solid'),
-  BORDER_BLOCK_SIZE: vr('border-block-size', '2px'),
+  BORDER_BLOCK_SIZE: vr('border-block-size', '0.15rem'),
   BORDER_BLOCK_STYLE: vr('border-block-style', 'solid'),
 
   /** spacing */
