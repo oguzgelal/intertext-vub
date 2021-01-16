@@ -2,7 +2,7 @@ import React from 'react';
 import cc from 'classnames';
 import { v, c } from 'style/values';
 import { Global, css } from '@emotion/react/macro';
-import { Size } from '../../../style/values';
+import { Size } from 'style/values';
 
 const styles = css`
   

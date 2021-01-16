@@ -11,7 +11,10 @@ const styles = css`
   .${c.BLOCK.name} {
     display: flex;
     position: relative;
-    width: 100%;
+
+    &.${c.BLOCK_GROW.name} {
+      width: 100%;
+    }
     
     &:first-of-type {
       padding-top: 0;
@@ -23,10 +26,14 @@ const styles = css`
     /** block contents */
 
     .${c.BLOCK_CONTENTS.name} {
-      width: 100%;
-      flex-grow: 1;
       flex-shrink: 1;
       border-radius: var(${v.BORDER_RADIUS.name});
+    }
+
+    &.${c.BLOCK_GROW.name} {
+      .${c.BLOCK_CONTENTS.name} {
+        flex-grow: 1;
+      }
     }
     
     /** block pockets */
@@ -79,41 +86,29 @@ const styles = css`
     &.${c.ALIGN_CENTER.name} { text-align: center; }
     &.${c.ALIGN_RIGHT.name} { text-align: right; }
   }
-
-  /** override block under grid
-  .${c.GRID.name} {
-    .${c.BLOCK.name} {
-      &:first-of-type {
-        padding-top: calc(var(${v.SPACING_BLOCK_PADDING.name}) / 2);
-      }
-      &:last-of-type {
-        padding-bottom: calc(var(${v.SPACING_BLOCK_PADDING.name}) / 2);
-      }
-    }
-  }
-  */
 `;
-
-export type BlockProps = {
-  children?: any,
-  className?: string
-  align?: Alignment,
-  intent?: Intent,
-  pocketLeft?: any,
-  pocketRight?: any,
-} 
 
 const Block = ({
   children,
   className,
   align,
   intent,
+  grow = true,
   pocketLeft,
   pocketRight,
-}: BlockProps) => {
+}: {
+  children?: any,
+  className?: string
+  align?: Alignment,
+  intent?: Intent,
+  grow?: boolean,
+  pocketLeft?: any,
+  pocketRight?: any,
+} ) => {
 
   const classNameWrapper = cc({
     [c.BLOCK.name]: true,
+    [c.BLOCK_GROW.name]: grow,
     ...attachAlignmentClasses({ align }),
     ...attachIntentClasses({ intent }),
   })

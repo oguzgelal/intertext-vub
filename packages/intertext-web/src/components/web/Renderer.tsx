@@ -8,8 +8,9 @@ import Spacer from 'components/core/Layout/Spacer';
 import Block from 'components/core/Layout/Block';
 import Grid from 'components/core/Layout/Grid';
 import Screen from 'components/core/Layout/Screen';
+import Stack from 'components/core/Layout/Stack';
 
-import { Alignment, Intent, Size, Theme } from 'style/values';
+import { Intent, Size, Theme } from 'style/values';
 import darkTheme from 'style/themes/dark';
 import fireTheme from 'style/themes/fire';
 
@@ -60,20 +61,26 @@ const Renderer = () => {
       {/** settings */}
       <Side>
         <Text h3>Theme</Text>
-        <Button fill onClick={() => themeSet(undefined)}>base</Button>
-        <Button fill onClick={() => themeSet(Theme.DARK)}>dark</Button>
-        <Button fill onClick={() => themeSet(Theme.FIRE)}>fire</Button>
+        <Spacer size={Size.SMALL} />
+        <Stack vertical>
+          <Button fill onClick={() => themeSet(undefined)}>base</Button>
+          <Button fill onClick={() => themeSet(Theme.DARK)}>dark</Button>
+          <Button fill onClick={() => themeSet(Theme.FIRE)}>fire</Button>
+        </Stack>
         
         <Spacer size={Size.MEDIUM} />
         
         <Text h3>Intent</Text>
-        <Button intent={Intent.DEFAULT} fill onClick={() => intentSet(undefined)}>default</Button>
-        <Button intent={Intent.PRIMARY} fill onClick={() => intentSet(Intent.PRIMARY)}>primary</Button>
-        <Button intent={Intent.SECONDARY} fill onClick={() => intentSet(Intent.SECONDARY)}>secondary</Button>
-        <Button intent={Intent.SUCCESS} fill onClick={() => intentSet(Intent.SUCCESS)}>success</Button>
-        <Button intent={Intent.WARNING} fill onClick={() => intentSet(Intent.WARNING)}>warning</Button>
-        <Button intent={Intent.ERROR} fill onClick={() => intentSet(Intent.ERROR)}>error</Button>
-        <Button intent={Intent.INFO} fill onClick={() => intentSet(Intent.INFO)}>info</Button>
+        <Spacer size={Size.SMALL} />
+        <Stack vertical>
+          <Button intent={Intent.DEFAULT} fill onClick={() => intentSet(undefined)}>default</Button>
+          <Button intent={Intent.PRIMARY} fill onClick={() => intentSet(Intent.PRIMARY)}>primary</Button>
+          <Button intent={Intent.SECONDARY} fill onClick={() => intentSet(Intent.SECONDARY)}>secondary</Button>
+          <Button intent={Intent.SUCCESS} fill onClick={() => intentSet(Intent.SUCCESS)}>success</Button>
+          <Button intent={Intent.WARNING} fill onClick={() => intentSet(Intent.WARNING)}>warning</Button>
+          <Button intent={Intent.ERROR} fill onClick={() => intentSet(Intent.ERROR)}>error</Button>
+          <Button intent={Intent.INFO} fill onClick={() => intentSet(Intent.INFO)}>info</Button>
+        </Stack>
       </Side>
 
       {/** render styles here */}
@@ -103,13 +110,17 @@ const Renderer = () => {
         </Text>
         <Spacer size={Size.SMALL} />
         <Block {...blockParams}>
-          <Block {...blockParams}>
-            <Block {...blockParams}>{blockFiller}</Block>
-          </Block>
-          <Block {...blockParams}>
-            <Block {...blockParams}>{blockFiller}</Block>
-            <Block {...blockParams}>{blockFiller}</Block>
-          </Block>
+          <Stack vertical>
+            <Block {...blockParams}>
+              <Block {...blockParams}>{blockFiller}</Block>
+            </Block>
+            <Block {...blockParams}>
+              <Stack vertical>
+                <Block {...blockParams}>{blockFiller}</Block>
+                <Block {...blockParams}>{blockFiller}</Block>
+              </Stack>
+            </Block>
+          </Stack>
         </Block>
         
         {/** -- */}
@@ -121,19 +132,21 @@ const Renderer = () => {
           pockets will not wrap and positioned in line with the block.
         </Text>
         <Spacer size={Size.SMALL} />
-        <Block {...blockParams} pocketLeft={<Text intent={blockParams.intent}>Left</Text>}>
-          {blockFiller}
-        </Block>
-        <Block {...blockParams} pocketRight={<Text intent={blockParams.intent}>Right</Text>}>
-          {blockFiller}
-        </Block>
-        <Block
-          {...blockParams}
-          pocketLeft={<Text intent={blockParams.intent}>Left</Text>}
-          pocketRight={<Text intent={blockParams.intent}>Right</Text>}
-        >
-          {blockFiller}
-        </Block>
+        <Stack vertical>
+          <Block {...blockParams} pocketLeft={<Text intent={blockParams.intent}>Left</Text>}>
+            {blockFiller}
+          </Block>
+          <Block {...blockParams} pocketRight={<Text intent={blockParams.intent}>Right</Text>}>
+            {blockFiller}
+          </Block>
+          <Block
+            {...blockParams}
+            pocketLeft={<Text intent={blockParams.intent}>Left</Text>}
+            pocketRight={<Text intent={blockParams.intent}>Right</Text>}
+          >
+            {blockFiller}
+          </Block>
+        </Stack>
 
         {/** -- */}
         <Text h3 {...params}>Grid</Text>
@@ -143,41 +156,60 @@ const Renderer = () => {
           and positions its children based on it.
         </Text>
         <Spacer size={Size.SMALL} />
-        <Grid cols={[1, 1, 1, 1, 1, 1]}>
-          {[1, 1, 1, 1, 1, 1].map((fr, i) => (
-            <Block {...blockParams} key={i}>
-              <Text p {...params} intent={blockParams.intent}>{fr}</Text>
-            </Block>
-          ))}
-        </Grid>
-        <Grid cols={[2, 3, 1]}>
-          {[2, 3, 1].map((fr, i) => (
-            <Block {...blockParams} key={i}>
-              <Text p {...params} intent={blockParams.intent}>{fr}</Text>
-            </Block>
-          ))}
-        </Grid>
-        <Grid cols={[1, 4, 1]}>
-          {[1, 4, 1].map((fr, i) => (
-            <Block {...blockParams} key={i}>
-              <Text p {...params} intent={blockParams.intent}>{fr}</Text>
-            </Block>
-          ))}
-        </Grid>
-        <Grid cols={[3, 1]}>
-          {[3, 1].map((fr, i) => (
-            <Block {...blockParams} key={i}>
-              <Text p {...params} intent={blockParams.intent}>{fr}</Text>
-            </Block>
-          ))}
-        </Grid>
-        <Grid cols={[1, 3]}>
-          {[1, 3].map((fr, i) => (
-            <Block {...blockParams} key={i}>
-              <Text p {...params} intent={blockParams.intent}>{fr}</Text>
-            </Block>
-          ))}
-        </Grid>
+        <Stack vertical>
+          <Grid cols={[1, 1, 1, 1, 1, 1]}>
+            {[1, 1, 1, 1, 1, 1].map((fr, i) => (
+              <Block {...blockParams} key={i}>
+                <Text p {...params} intent={blockParams.intent}>{fr}</Text>
+              </Block>
+            ))}
+          </Grid>
+          <Grid cols={[2, 3, 1]}>
+            {[2, 3, 1].map((fr, i) => (
+              <Block {...blockParams} key={i}>
+                <Text p {...params} intent={blockParams.intent}>{fr}</Text>
+              </Block>
+            ))}
+          </Grid>
+          <Grid cols={[1, 4, 1]}>
+            {[1, 4, 1].map((fr, i) => (
+              <Block {...blockParams} key={i}>
+                <Text p {...params} intent={blockParams.intent}>{fr}</Text>
+              </Block>
+            ))}
+          </Grid>
+          <Grid cols={[3, 1]}>
+            {[3, 1].map((fr, i) => (
+              <Block {...blockParams} key={i}>
+                <Text p {...params} intent={blockParams.intent}>{fr}</Text>
+              </Block>
+            ))}
+          </Grid>
+          <Grid cols={[1, 3]}>
+            {[1, 3].map((fr, i) => (
+              <Block {...blockParams} key={i}>
+                <Text p {...params} intent={blockParams.intent}>{fr}</Text>
+              </Block>
+            ))}
+          </Grid>
+        </Stack>
+
+        <Text h3 {...params}>Stack</Text>
+        <Text p {...params}>
+          Components could be placed next to each other with a gap in between each. This
+          component works horizontally and vertically
+        </Text>
+        <Spacer size={Size.SMALL} />
+        <Stack>
+          <Block {...blockParams} grow={false}>{blockFiller}</Block>
+          <Block {...blockParams} grow={false}>{blockFiller}</Block>
+          <Block {...blockParams} grow={false}>{blockFiller}</Block>
+        </Stack>
+        <Spacer size={Size.SMALL} />
+        <Stack vertical>
+          <Block {...blockParams} grow={false}>{blockFiller}</Block>
+          <Block {...blockParams} grow={false}>{blockFiller}</Block>
+        </Stack>
 
         <Spacer size={Size.MEDIUM} />
         
@@ -199,11 +231,16 @@ const Renderer = () => {
         <Text h2 {...params}>Buttons</Text>
         <Spacer size={Size.SMALL} />
         <Grid cols={[1, 1, 1]}>
-          <div>
+          <Stack vertical>
             <Button {...params}>default</Button>
             <Button {...params} disabled>disabled</Button>
-          </div>
-          <div>
+          </Stack>
+          <Stack vertical>
+            <Button {...params} size={Size.LARGE}>large</Button>
+            <Button {...params} size={Size.MEDIUM}>medium</Button>
+            <Button {...params} size={Size.SMALL}>small</Button>
+          </Stack>
+          <Stack vertical>
             <Button {...params}>
               <Block pocketLeft={<Text>😬</Text>}>
                 <Text p>stuff on left</Text>
@@ -214,12 +251,17 @@ const Renderer = () => {
                 <Text p>stuff on right</Text>
               </Block>
             </Button>
-          </div>
-          <div>
-            <Button {...params} size={Size.LARGE}>large</Button>
-            <Button {...params} size={Size.MEDIUM}>medium</Button>
-            <Button {...params} size={Size.SMALL}>small</Button>
-          </div>
+            <Button {...params} fill>
+              <Block pocketLeft={<Text>😬</Text>}>
+                <Text p>fill</Text>
+              </Block>
+            </Button>
+            <Button {...params} fill>
+              <Block pocketRight={<Text>😬</Text>}>
+                <Text p>fill</Text>
+              </Block>
+            </Button>
+          </Stack>
         </Grid>
 
       </Screen>

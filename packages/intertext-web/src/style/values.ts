@@ -81,6 +81,7 @@ export const c = {
 
   // block
   BLOCK: cls('block'),
+  BLOCK_GROW: cls('block_grow'),
   BLOCK_CONTENTS: cls('block_contents'),
   BLOCK_POCKET: cls('block_pocket'),
   BLOCK_POCKET_LEFT: cls('block_pocket_left'),
@@ -88,9 +89,19 @@ export const c = {
 
   // grid
   GRID: cls('grid'),
+  GRID_GAP_XSMALL: cls('grid-gap-xsmall'),
+  GRID_GAP_SMALL: cls('grid-gap-small'),
+  GRID_GAP_MEDIUM: cls('grid-gap-medium'),
+  GRID_GAP_LARGE: cls('grid-gap-large'),
   
   // stack
   STACK: cls('stack'),
+  STACK_VERTICAL: cls('stack_vertical'),
+  STACK_HORIZONTAL: cls('stack_horizontal'),
+  STACK_SPACE_XSMALL: cls('stack_space_xsmall'),
+  STACK_SPACE_SMALL: cls('stack_space_small'),
+  STACK_SPACE_MEDIUM: cls('stack_space_medium'),
+  STACK_SPACE_LARGE: cls('stack_space_large'),
   
   /** components: other */
 
