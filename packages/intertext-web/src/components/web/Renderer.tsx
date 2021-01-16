@@ -9,7 +9,7 @@ import Block from 'components/core/Layout/Block';
 import Grid from 'components/core/Layout/Grid';
 import Screen from 'components/core/Layout/Screen';
 
-import { Intent, Size, Theme } from 'style/values';
+import { Alignment, Intent, Size, Theme } from 'style/values';
 import darkTheme from 'style/themes/dark';
 import fireTheme from 'style/themes/fire';
 
@@ -184,15 +184,44 @@ const Renderer = () => {
         {/** typography */}
 
         <Text h2 {...params}>Typography</Text>
+        <Text h1 {...params}>Heading 1</Text>
+        <Text h2 {...params}>Heading 2</Text>
+        <Text h3 {...params}>Heading 3</Text>
         <Text p {...params}>
           Lorem ipsum dolor sit amet, <Text muted {...params}>consectetur <Text b u {...params}>adipiscing</Text> elit. Etiam eu 
           fringilla lectus.</Text> Pellentesque <Text b {...params}>suscipit nisi libero, ac rhoncus libero </Text>
           molestie quis. <Text u {...params}>Sed facilisis eros</Text> lectus, non cursus turpis faucibus ut. 
           Phasellus tristique sapien ut lacus molestie ornare. Curabitur id ultrices mauris.
         </Text>
-        <Text h1 {...params}>Heading 1</Text>
-        <Text h2 {...params}>Heading 2</Text>
-        <Text h3 {...params}>Heading 3</Text>
+
+
+        {/** button */}
+        <Text h2 {...params}>Buttons</Text>
+        <Spacer size={Size.SMALL} />
+        <Grid cols={[1, 1, 1]}>
+          <div>
+            <Button {...params}>default</Button>
+            <Button {...params} disabled>disabled</Button>
+          </div>
+          <div>
+            <Button {...params}>
+              <Block pocketLeft={<Text>😬</Text>}>
+                <Text p>stuff on left</Text>
+              </Block>
+            </Button>
+            <Button {...params}>
+              <Block pocketRight={<Text>😬</Text>}>
+                <Text p>stuff on right</Text>
+              </Block>
+            </Button>
+          </div>
+          <div>
+            <Button {...params} size={Size.LARGE}>large</Button>
+            <Button {...params} size={Size.MEDIUM}>medium</Button>
+            <Button {...params} size={Size.SMALL}>small</Button>
+          </div>
+        </Grid>
+
       </Screen>
     </Wrapper>
   )	

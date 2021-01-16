@@ -5,21 +5,19 @@ import { v, c, Alignment, Intent } from 'style/values';
 import { attachAlignmentClasses } from 'style/utils/alignment';
 import { applyIntentStyles, attachIntentClasses } from 'style/utils/intent';
 
+
 const styles = css`
 
   .${c.BLOCK.name} {
     display: flex;
     position: relative;
-    padding: var(${v.SPACING_BLOCK_PADDING.name});
-    padding-top: calc(var(${v.SPACING_BLOCK_PADDING.name}) / 2);
-    padding-bottom: calc(var(${v.SPACING_BLOCK_PADDING.name}) / 2);
     width: 100%;
     
     &:first-of-type {
-      padding-top: var(${v.SPACING_BLOCK_PADDING.name});
+      padding-top: 0;
     }
     &:last-of-type {
-      padding-bottom: var(${v.SPACING_BLOCK_PADDING.name});
+      padding-bottom: 0;
     }
     
     /** block contents */
@@ -82,7 +80,7 @@ const styles = css`
     &.${c.ALIGN_RIGHT.name} { text-align: right; }
   }
 
-  /** override block under grid */
+  /** override block under grid
   .${c.GRID.name} {
     .${c.BLOCK.name} {
       &:first-of-type {
@@ -93,31 +91,7 @@ const styles = css`
       }
     }
   }
-
-  /** override text blocks */
-  .${c.BLOCK__TEXT.name} {
-    &.${c.TEXT_DEFAULT.name} {
-      margin-top: var(${v.SPACING_TEXT_DEFAULT.name});
-    }
-    &.${c.TEXT_H1.name} {
-      margin-top: var(${v.SPACING_TEXT_H1.name});
-    }
-    &.${c.TEXT_H2.name} {
-      margin-top: var(${v.SPACING_TEXT_H2.name});
-    }
-    &.${c.TEXT_H3.name} {
-      margin-top: var(${v.SPACING_TEXT_H3.name});
-    }
-    &:last-of-type {
-      margin-bottom: 0;
-    }
-    &:first-of-type {
-      margin-top: 0;
-    }
-  }
-
-  /** override button blocks */
-  .${c.BLOCK__BUTTON.name} {}
+  */
 `;
 
 export type BlockProps = {

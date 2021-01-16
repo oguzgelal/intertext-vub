@@ -85,13 +85,12 @@ export const c = {
   BLOCK_POCKET: cls('block_pocket'),
   BLOCK_POCKET_LEFT: cls('block_pocket_left'),
   BLOCK_POCKET_RIGHT: cls('block_pocket_right'),
-  
-  // block types
-  BLOCK__TEXT: cls('block__text'),
-  BLOCK__BUTTON: cls('block__button'),
 
   // grid
   GRID: cls('grid'),
+  
+  // stack
+  STACK: cls('stack'),
   
   /** components: other */
 
@@ -112,6 +111,7 @@ export const c = {
   // button
   BUTTON: cls('button'),
   BUTTON_FILL: cls('button_fill'),
+  BUTTON_DISABLED: cls('button_disabled'),
   BUTTON_SMALL: cls('button_small'),
   BUTTON_MEDIUM: cls('button_medium'),
   BUTTON_LARGE: cls('button_large'),
@@ -211,12 +211,6 @@ export const v = {
   BORDER_BLOCK_SIZE: vr('border-block-size', '0.15rem'),
   BORDER_BLOCK_STYLE: vr('border-block-style', 'solid'),
 
-  /** breakpoints */
-
-  BREAKPOINT_LARGE: vr('breakpoint-large', '1312px'),
-  BREAKPOINT_MEDIUM: vr('breakpoint-medium', '992px'),
-  BREAKPOINT_SMALL: vr('breakpoint-small', '688px'),
-
   /** spacing */
   
   SPACING_SPACER_XSMALL: vr('spacing-spacer-xsmall', '0.4rem'),
@@ -229,12 +223,12 @@ export const v = {
   SPACING_TEXT_H2: vr('spacing-text-h2', '1.8rem'),
   SPACING_TEXT_H3: vr('spacing-text-h3', '1.4rem'),
 
-  SPACING_BUTTON_HEIGHT_SMALL: vr('spacing-button-height-small', '1.4rem'),
-  SPACING_BUTTON_HEIGHT_MEDIUM: vr('spacing-button-height-medium', '2.4rem'),
-  SPACING_BUTTON_HEIGHT_LARGE: vr('spacing-button-height-large', '2.8rem'),
+  SPACING_BUTTON_HEIGHT_SMALL: vr('spacing-button-height-small', '1.2rem'),
+  SPACING_BUTTON_HEIGHT_MEDIUM: vr('spacing-button-height-medium', '2.2rem'),
+  SPACING_BUTTON_HEIGHT_LARGE: vr('spacing-button-height-large', '3.2rem'),
   SPACING_BUTTON_PADDING_SMALL: vr('spacing-button-padding-small', '0.5rem'),
   SPACING_BUTTON_PADDING_MEDIUM: vr('spacing-button-padding-medium', '1rem'),
-  SPACING_BUTTON_PADDING_LARGE: vr('spacing-button-padding-large', '1.5rem'),
+  SPACING_BUTTON_PADDING_LARGE: vr('spacing-button-padding-large', '1.8rem'),
 
   SPACING_BLOCK_PADDING: vr('spacing-block-padding', '0.4rem'),
   SPACING_SCREEN_PADDING_TB_LARGE: vr('spacing-screen-padding-tb-large', '62px'),
@@ -266,12 +260,17 @@ export const base = css`
   html, body, #root {
     width: 100%;
     height: 100%;
-    font-size: var(${v.FONT_SIZE_ROOT.name});
     background-color: var(${v.COLOR_BACKGROUND.name});
+    color: var(${v.COLOR_TEXT.name});
+    font-size: var(${v.FONT_SIZE_ROOT.name});
+    font-family: var(${v.FONT_FAMILY.name});
+    font-weight: var(${v.FONT_WEIGHT_DEFAULT.name});
+    line-height: var(${v.LINE_HEIGHT_DEFAULT.name});
   }
 
   html, body, * {
     box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
   }
 
   /* http://meyerweb.com/eric/tools/css/reset/ 

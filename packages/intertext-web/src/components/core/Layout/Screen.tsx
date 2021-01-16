@@ -12,13 +12,12 @@ const styles = css`
     height: auto;
     border-left: 1px solid var(--inx-color-border);
     border-right: 1px solid var(--inx-color-border);
-    padding: ${v.SPACING_SCREEN_PADDING_TB_LARGE.value}  ${v.SPACING_SCREEN_PADDING_LR_LARGE.value};
-    
+    padding: var(${v.SPACING_SCREEN_PADDING_TB_LARGE.name}) var(${v.SPACING_SCREEN_PADDING_LR_LARGE.name});
     ${media('large', css`
-      padding: ${v.SPACING_SCREEN_PADDING_TB_MEDIUM.value}  ${v.SPACING_SCREEN_PADDING_LR_MEDIUM.value};
+      padding: var(${v.SPACING_SCREEN_PADDING_TB_MEDIUM.name}) var(${v.SPACING_SCREEN_PADDING_LR_MEDIUM.name});
     `)}
     ${media('medium', css`
-      padding: ${v.SPACING_SCREEN_PADDING_TB_SMALL.value}  ${v.SPACING_SCREEN_PADDING_LR_SMALL.value};
+      padding: var(${v.SPACING_SCREEN_PADDING_TB_SMALL.name}) var(${v.SPACING_SCREEN_PADDING_LR_SMALL.name});
     `)}
   }
 `;
