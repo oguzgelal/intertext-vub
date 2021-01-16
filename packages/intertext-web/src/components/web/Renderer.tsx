@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { Global } from '@emotion/react/macro';
 import styled from '@emotion/styled/macro';
+
 import Text from 'components/core/Text';
 import Button from 'components/core/Button';
 import Spacer from 'components/core/Layout/Spacer';
 import Block from 'components/core/Layout/Block';
-import Filler from 'components/web/Filler';
-import { Global } from '@emotion/react/macro';
+import Grid from 'components/core/Layout/Grid';
+import Screen from 'components/core/Layout/Screen';
+
 import { Intent, Size, Theme } from 'style/values';
 import darkTheme from 'style/themes/dark';
 import fireTheme from 'style/themes/fire';
@@ -15,16 +18,6 @@ const Wrapper = styled.div`
   justify-content: center;
   overflow: hidden;
   height: 100%;
-`;
-
-const Contents = styled.div`
-  flex-grow: 1;
-  overflow: auto;
-  min-height: 100%;
-  height: auto;
-  border-left: 1px solid var(--inx-color-border);
-  border-right: 1px solid var(--inx-color-border);
-  padding: 62px 222px;
 `;
 
 const Side = styled.div`
@@ -84,11 +77,13 @@ const Renderer = () => {
       </Side>
 
       {/** render styles here */}
-      <Contents>
+      <Screen>
 
         {/** layout */}
 
         <Text h2 {...params}>Layout</Text>
+        
+        {/** -- */}
         <Text h3 {...params}>Block</Text>
         <Text p {...params}>
           Blocks are the basic building block of Intertext, every component is 
@@ -99,7 +94,8 @@ const Renderer = () => {
         <Block {...blockParams}>
           <Text p {...params} intent={blockParams.intent}>This is some text</Text>
         </Block>
-
+        
+        {/** -- */}
         <Text h3 {...params}>Nested Blocks</Text>
         <Text p {...params}>
           Blocks can contain other blocks, or elements (which are wrapped in 
@@ -116,6 +112,7 @@ const Renderer = () => {
           </Block>
         </Block>
         
+        {/** -- */}
         <Text h3 {...params}>Block With Pockets</Text>
         <Text p {...params}>
           Blocks come with pockets on either side, that can contain other blocks 
@@ -138,6 +135,50 @@ const Renderer = () => {
           {blockFiller}
         </Block>
 
+        {/** -- */}
+        <Text h3 {...params}>Grid</Text>
+        <Text p {...params}>
+          Components could be displayed in a grid layout, as well as side by side using
+          this technique. This component works similarly to css-grid, accepts a column template
+          and positions its children based on it.
+        </Text>
+        <Spacer size={Size.SMALL} />
+        <Grid cols={[1, 1, 1, 1, 1, 1]}>
+          {[1, 1, 1, 1, 1, 1].map((fr, i) => (
+            <Block {...blockParams} key={i}>
+              <Text p {...params} intent={blockParams.intent}>{fr}</Text>
+            </Block>
+          ))}
+        </Grid>
+        <Grid cols={[2, 3, 1]}>
+          {[2, 3, 1].map((fr, i) => (
+            <Block {...blockParams} key={i}>
+              <Text p {...params} intent={blockParams.intent}>{fr}</Text>
+            </Block>
+          ))}
+        </Grid>
+        <Grid cols={[1, 4, 1]}>
+          {[1, 4, 1].map((fr, i) => (
+            <Block {...blockParams} key={i}>
+              <Text p {...params} intent={blockParams.intent}>{fr}</Text>
+            </Block>
+          ))}
+        </Grid>
+        <Grid cols={[3, 1]}>
+          {[3, 1].map((fr, i) => (
+            <Block {...blockParams} key={i}>
+              <Text p {...params} intent={blockParams.intent}>{fr}</Text>
+            </Block>
+          ))}
+        </Grid>
+        <Grid cols={[1, 3]}>
+          {[1, 3].map((fr, i) => (
+            <Block {...blockParams} key={i}>
+              <Text p {...params} intent={blockParams.intent}>{fr}</Text>
+            </Block>
+          ))}
+        </Grid>
+
         <Spacer size={Size.MEDIUM} />
         
         {/** typography */}
@@ -152,7 +193,7 @@ const Renderer = () => {
         <Text h1 {...params}>Heading 1</Text>
         <Text h2 {...params}>Heading 2</Text>
         <Text h3 {...params}>Heading 3</Text>
-      </Contents>
+      </Screen>
     </Wrapper>
   )	
 }

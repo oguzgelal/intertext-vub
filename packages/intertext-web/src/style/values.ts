@@ -68,6 +68,9 @@ export const c = {
   ALIGN_RIGHT: cls('align_right'),
 
   /** components: layout */
+  
+  // screen
+  SCREEN: cls('screen'),
 
   // spacer
   SPACER: cls('spacer'),
@@ -86,6 +89,9 @@ export const c = {
   // block types
   BLOCK__TEXT: cls('block__text'),
   BLOCK__BUTTON: cls('block__button'),
+
+  // grid
+  GRID: cls('grid'),
   
   /** components: other */
 
@@ -205,6 +211,12 @@ export const v = {
   BORDER_BLOCK_SIZE: vr('border-block-size', '0.15rem'),
   BORDER_BLOCK_STYLE: vr('border-block-style', 'solid'),
 
+  /** breakpoints */
+
+  BREAKPOINT_LARGE: vr('breakpoint-large', '1312px'),
+  BREAKPOINT_MEDIUM: vr('breakpoint-medium', '992px'),
+  BREAKPOINT_SMALL: vr('breakpoint-small', '688px'),
+
   /** spacing */
   
   SPACING_SPACER_XSMALL: vr('spacing-spacer-xsmall', '0.4rem'),
@@ -225,6 +237,12 @@ export const v = {
   SPACING_BUTTON_PADDING_LARGE: vr('spacing-button-padding-large', '1.5rem'),
 
   SPACING_BLOCK_PADDING: vr('spacing-block-padding', '0.4rem'),
+  SPACING_SCREEN_PADDING_TB_LARGE: vr('spacing-screen-padding-tb-large', '62px'),
+  SPACING_SCREEN_PADDING_LR_LARGE: vr('spacing-screen-padding-lr-large', '222px'),
+  SPACING_SCREEN_PADDING_TB_MEDIUM: vr('spacing-screen-padding-tb-medium', '42px'),
+  SPACING_SCREEN_PADDING_LR_MEDIUM: vr('spacing-screen-padding-lr-medium', '102px'),
+  SPACING_SCREEN_PADDING_TB_SMALL: vr('spacing-screen-padding-tb-small', '12px'),
+  SPACING_SCREEN_PADDING_LR_SMALL: vr('spacing-screen-padding-lr-small', '12px'),
 
 }
 

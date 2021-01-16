@@ -7,27 +7,6 @@ import Block, { BlockProps } from 'components/core/Layout/Block';
 
 const styles = css`
 
-  .${c.BLOCK__TEXT.name} {
-    &.${c.TEXT_DEFAULT.name} {
-      margin-top: var(${v.SPACING_TEXT_DEFAULT.name});
-    }
-    &.${c.TEXT_H1.name} {
-      margin-top: var(${v.SPACING_TEXT_H1.name});
-    }
-    &.${c.TEXT_H2.name} {
-      margin-top: var(${v.SPACING_TEXT_H2.name});
-    }
-    &.${c.TEXT_H3.name} {
-      margin-top: var(${v.SPACING_TEXT_H3.name});
-    }
-    &:last-of-type {
-      margin-bottom: 0;
-    }
-    &:first-of-type {
-      margin-top: 0;
-    }
-  }
-
   .${c.TEXT.name} {
     -webkit-font-smoothing: antialiased;
     color: var(${v.COLOR_TEXT.name});

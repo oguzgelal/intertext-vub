@@ -6,7 +6,7 @@ import { attachAlignmentClasses } from 'style/utils/alignment';
 import { applyIntentStyles, attachIntentClasses } from 'style/utils/intent';
 
 const styles = css`
-  
+
   .${c.BLOCK.name} {
     display: flex;
     position: relative;
@@ -81,11 +81,47 @@ const styles = css`
     &.${c.ALIGN_CENTER.name} { text-align: center; }
     &.${c.ALIGN_RIGHT.name} { text-align: right; }
   }
+
+  /** override block under grid */
+  .${c.GRID.name} {
+    .${c.BLOCK.name} {
+      &:first-of-type {
+        padding-top: calc(var(${v.SPACING_BLOCK_PADDING.name}) / 2);
+      }
+      &:last-of-type {
+        padding-bottom: calc(var(${v.SPACING_BLOCK_PADDING.name}) / 2);
+      }
+    }
+  }
+
+  /** override text blocks */
+  .${c.BLOCK__TEXT.name} {
+    &.${c.TEXT_DEFAULT.name} {
+      margin-top: var(${v.SPACING_TEXT_DEFAULT.name});
+    }
+    &.${c.TEXT_H1.name} {
+      margin-top: var(${v.SPACING_TEXT_H1.name});
+    }
+    &.${c.TEXT_H2.name} {
+      margin-top: var(${v.SPACING_TEXT_H2.name});
+    }
+    &.${c.TEXT_H3.name} {
+      margin-top: var(${v.SPACING_TEXT_H3.name});
+    }
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+
+  /** override button blocks */
+  .${c.BLOCK__BUTTON.name} {}
 `;
 
 export type BlockProps = {
   children?: any,
-  style?: object,
   className?: string
   align?: Alignment,
   intent?: Intent,
@@ -95,7 +131,6 @@ export type BlockProps = {
 
 const Block = ({
   children,
-  style,
   className,
   align,
   intent,
@@ -126,10 +161,7 @@ const Block = ({
   return (
     <>
       <Global styles={styles} />
-      <div
-        style={style}
-        className={`${classNameWrapper || ''} ${className || ''}`}
-      >
+      <div className={`${classNameWrapper || ''} ${className || ''}`}>
         
         {/** left pocket */}
         {pocketLeft && (
