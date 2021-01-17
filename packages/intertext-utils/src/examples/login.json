@@ -1,0 +1,44 @@
+[
+  {
+    "#if": [{ "#state": "user" }, [
+      { "cmp:Block": [ "Hello, ", { "#state": "user.name" } ] },
+      { "cmp:Button": "Logout", "onClick": { "cmd:setState": ["user", null] } }
+    ]],
+    "#elif": [
+      [{ "#stateLocal": "logging_in" }, { "cmp:Block": "Logging in..." }],
+      [
+        { "#stateLocal": "error" },
+        { "cmp:Block": { "#or": [{ "#stateLocal": "error.message" }, "Unknown Error"] } }
+      ]
+    ],
+    "#else": [
+      { "cmp:Input:Email": null, "id": "email" },
+      { "cmp:Input:Password": null, "id": "password" },
+      {
+        "cmp:Button": "Submit",
+        "disabled": { "#stateLocal": "logging_in" },
+        "onClick": [
+          { "cmd:setStateLocal": ["logging_in", true] },
+          {
+            "cmd:request": null,
+            "id": "login_request",
+            "url": "...",
+            "method": "POST",
+            "parameters": {
+              "email": { "input": "email" },
+              "password": { "input": "password" }
+            },
+            "onResponse": [
+              { "cmd:setState": ["user", { "request": "login_request" }] },
+              { "cmd:setStateLocal": ["logging_in", false] }
+            ],
+            "onError": [
+              { "cmd:setLocalState": ["error", { "request": "login_request" }] },
+              { "cmd:setStateLocal": ["logging_in", false] }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

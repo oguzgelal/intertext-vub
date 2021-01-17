@@ -33,7 +33,7 @@ const Side = styled.div`
   overflow: auto;
 `;
 
-const Renderer = () => {
+const ComponentDemo = () => {
 
   const [ theme, themeSet ] = useState<Theme>();
   const [ intent, intentSet ] = useState<Intent>();
@@ -269,4 +269,4 @@ const Renderer = () => {
   )	
 }
 
-export default Renderer;
+export default ComponentDemo;

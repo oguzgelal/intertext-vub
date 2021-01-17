@@ -1,9 +1,9 @@
 import React from 'react';
-import Renderer from 'components/web/Renderer';
+import ComponentDemo from 'components/web/ComponentDemo';
 
 const App = () => {
   return (
-    <Renderer />
+    <ComponentDemo />
   )	
 }
 

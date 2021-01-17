@@ -74,17 +74,17 @@ export const styles = css`
     &.${c.BUTTON_SMALL.name} {
       min-height: var(${v.SPACING_BUTTON_HEIGHT_SMALL.name});
       padding: 0 var(${v.SPACING_BUTTON_PADDING_SMALL.name});
-      font-size: 0.7rem;
+      font-size: 0.75rem;
     }
     &.${c.BUTTON_MEDIUM.name} {
       min-height: var(${v.SPACING_BUTTON_HEIGHT_MEDIUM.name});
       padding: 0 var(${v.SPACING_BUTTON_PADDING_MEDIUM.name});
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
     &.${c.BUTTON_LARGE.name} {
       min-height: var(${v.SPACING_BUTTON_HEIGHT_LARGE.name});
       padding: 0 var(${v.SPACING_BUTTON_PADDING_LARGE.name});
-      font-size: 1rem;
+      font-size: 1.3rem;
     }
     &.${c.BUTTON_FILL.name} {
       width: 100%;

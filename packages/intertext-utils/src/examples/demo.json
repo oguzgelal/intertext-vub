@@ -1,0 +1,100 @@
+[
+  { "cmp:Text:H2": "Layout" },
+
+  { "cmp:Text:H3": "Block" },
+  { "cmp:Text:P": "Blocks are the basic building block of ..." },
+  { "cmp:Block": "This is some text" },
+
+  { "cmp:Text:H3": "Nested Blocks" },
+  { "cmp:Text:P": "Blocks can contain other blocks, or elements..." },
+  {
+    "cmp:Block": [
+      { "cmp:Block": { "cmp:Block": null }},
+      { "cmp:Block": [ { "cmp:Block": null }, { "cmp:Block": null } ]}
+    ]
+  },
+
+  { "cmp:Text:H3": "Block With Pockets" },
+  { "cmp:Text:P": "Blocks come with pockets on either side, that can contain..." },
+  { "cmp:Block": null, "leftPocket": "Left" },
+  { "cmp:Block": null, "rightPocket": "Right" },
+  { "cmp:Block": null, "leftPocket": "Left", "rightPocket": "Right" },
+
+  { "cmp:Text:H3": "Grid" },
+  { "cmp:Text:P": "Components could be displayed in a grid layout..." },
+  {
+    "spacing": "xsmall",
+    "cmp:Stack": [
+      { "cols": [1, 1, 1, 1, 1], "cmp:Grid": [ { "cmp:Block": "1" }, { "cmp:Block": "1" }, { "cmp:Block": "1" }, { "cmp:Block": "1" }, { "cmp:Block": "1" } ]},
+      { "cols": [2, 3, 1], "cmp:Grid": [ { "cmp:Block": "2" }, { "cmp:Block": "3" }, { "cmp:Block": "1" } ]},
+      { "cols": [1, 4, 1], "cmp:Grid": [ { "cmp:Block": "1" }, { "cmp:Block": "4" }, { "cmp:Block": "1" } ]},
+      { "cols": [3, 1], "cmp:Grid": [ { "cmp:Block": "3" }, { "cmp:Block": "1" } ]},
+      { "cols": [1, 3], "cmp:Grid": [ { "cmp:Block": "1" }, { "cmp:Block": "3" } ]}
+    ]
+  },
+
+  { "cmp:Text:H3": "Stack" },
+  { "cmp:Text:P": "Components could be placed next to each other..." },
+  {
+    "cmp:Stack": [ { "cmp:Block": "" }, { "cmp:Block": "" }, { "cmp:Block": "" } ],
+    "horizontal": true,
+    "spacing": "xsmall"
+  },
+  {
+    "cmp:Stack": [ { "cmp:Block": "" }, { "cmp:Block": "" } ],
+    "vertical": true,
+    "spacing": "xsmall"
+  },
+
+  { "cmp:Text:H3": "Typography" },
+  { "cmp:Text:H1": "Heading 1" },
+  { "cmp:Text:H2": "Heading 2" },
+  { "cmp:Text:H3": "Heading 3" },
+  {
+    "cmp:Text:P": [
+      "Lorem ipsum dolor sit amet,",
+      {
+        "cmp:Text:Muted": [
+          "consectetur ",
+          { "cmp:Text:Underlined": "adipiscing" },
+          " elit. Etiam eu fringilla lectus."
+        ]
+      }
+    ]
+  },
+
+  { "cmp:Text:H3": "Buttons" },
+  {
+    "cols": [1, 1, 1, 1, 1],
+    "cmp:Grid": [
+      {
+        "vertical": true,
+        "spacing": "xsmall",
+        "cmp:Stack": [
+          { "cmp:Button": "default" },
+          { "cmp:Button": "disabled", "disabled": true }
+        ]
+      },
+      {
+        "vertical": true,
+        "spacing": "xsmall",
+        "cmp:Stack": [
+          { "cmp:Button": "large", "size": "large" },
+          { "cmp:Block": "medium", "size": "medium" },
+          { "cmp:Block": "medium", "size": "small" }
+        ]
+      },
+      {
+        "vertical": true,
+        "spacing": "xsmall",
+        "cmp:Stack": [
+          { "cmp:Button": { "cmp:Block": "stuff on left", "leftPocket": "😬" } },
+          { "cmp:Button": { "cmp:Block": "stuff on right", "rightPocket": "😬" } },
+          { "cmp:Button": { "cmp:Block": "fill", "leftPocket": "😬" }, "fill": true },
+          { "cmp:Button": { "cmp:Block": "fill", "rightPocket": "😬" }, "fill": true }
+        ]
+      }
+    ]
+  }
+
+]
