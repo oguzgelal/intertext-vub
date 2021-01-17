@@ -1,10 +1,10 @@
 import React from 'react';
 import cc from 'classnames';
-import { Global, css } from '@emotion/react/macro';
+import { css } from '@emotion/react/macro';
 import { v, c, Intent } from 'style/values';
 import { attachIntentClasses, applyIntentStyles } from 'style/utils/intent';
 
-const styles = css`
+export const styles = css`
 
   .${c.TEXT.name} {
     color: inherit;
@@ -110,28 +110,25 @@ const Text = ({
   const isBlock: boolean = !!(block || isHeading || p);
 
   return (
-    <>
-      <Global styles={styles} />
-      <span
-        className={cc({
-          [c.TEXT.name]: true,
-          [c.TEXT_DEFAULT.name]: !isHeading,
-          [c.TEXT_HEADING.name]: isHeading,
-          [c.TEXT_MUTED.name]: muted,
-          [c.TEXT_BLOCK.name]: isBlock,
-          [c.TEXT_P.name]: p,
-          [c.TEXT_H1.name]: h1,
-          [c.TEXT_H2.name]: h2,
-          [c.TEXT_H3.name]: h3,
-          [c.TEXT_B.name]: b,
-          [c.TEXT_I.name]: i,
-          [c.TEXT_U.name]: u,
-          ...attachIntentClasses({ intent }),
-        })}
-      >
-        {children}
-      </span>
-    </>
+    <span
+      className={cc({
+        [c.TEXT.name]: true,
+        [c.TEXT_DEFAULT.name]: !isHeading,
+        [c.TEXT_HEADING.name]: isHeading,
+        [c.TEXT_MUTED.name]: muted,
+        [c.TEXT_BLOCK.name]: isBlock,
+        [c.TEXT_P.name]: p,
+        [c.TEXT_H1.name]: h1,
+        [c.TEXT_H2.name]: h2,
+        [c.TEXT_H3.name]: h3,
+        [c.TEXT_B.name]: b,
+        [c.TEXT_I.name]: i,
+        [c.TEXT_U.name]: u,
+        ...attachIntentClasses({ intent }),
+      })}
+    >
+      {children}
+    </span>
   );
 }
 

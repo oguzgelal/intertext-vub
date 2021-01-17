@@ -1,11 +1,11 @@
 import React from 'react';
 import cc from 'classnames';
-import { Global, css } from '@emotion/react/macro';
+import { css } from '@emotion/react/macro';
 import { v, c, Alignment, Size, Intent } from 'style/values';
 import { attachAlignmentClasses } from 'style/utils/alignment';
 import { attachIntentClasses, applyIntentStyles } from 'style/utils/intent'
 
-const styles = css`
+export const styles = css`
 
   .${c.BUTTON.name} {
     padding: 0;
@@ -111,25 +111,22 @@ const Button = ({
 }) => {
 
   return (
-    <>
-      <Global styles={styles} />
-      <button
-        onClick={onClick}
-        disabled={disabled}
-        className={cc({
-          [c.BUTTON.name]: true,
-          [c.BUTTON_FILL.name]: fill,
-          [c.BUTTON_SMALL.name]: size === Size.SMALL,
-          [c.BUTTON_MEDIUM.name]: size === Size.MEDIUM,
-          [c.BUTTON_LARGE.name]: size === Size.LARGE,
-          [c.BUTTON_DISABLED.name]: disabled,
-          ...attachAlignmentClasses({ align }),
-          ...attachIntentClasses({ intent }),
-        })}
-      >
-        {children}
-      </button>
-    </>
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={cc({
+        [c.BUTTON.name]: true,
+        [c.BUTTON_FILL.name]: fill,
+        [c.BUTTON_SMALL.name]: size === Size.SMALL,
+        [c.BUTTON_MEDIUM.name]: size === Size.MEDIUM,
+        [c.BUTTON_LARGE.name]: size === Size.LARGE,
+        [c.BUTTON_DISABLED.name]: disabled,
+        ...attachAlignmentClasses({ align }),
+        ...attachIntentClasses({ intent }),
+      })}
+    >
+      {children}
+    </button>
   )	
 }
 

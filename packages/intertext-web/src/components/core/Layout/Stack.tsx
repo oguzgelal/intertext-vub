@@ -1,10 +1,10 @@
 import React from 'react';
 import cc from 'classnames';
-import { Global, css } from '@emotion/react/macro';
+import { css } from '@emotion/react/macro';
 import { v, c } from 'style/values';
 import { Size } from '../../../style/values';
 
-const styles = css`
+export const styles = css`
   .${c.STACK.name} {
     display: flex;
     align-items: baseline;
@@ -79,22 +79,19 @@ const Stack = ({
 }) => {
 
   return (
-    <>
-      <Global styles={styles} />
-      <div
-        className={cc({
-          [c.STACK.name]: true,
-          [c.STACK_VERTICAL.name]: vertical,
-          [c.STACK_HORIZONTAL.name]: !vertical,
-          [c.STACK_SPACE_XSMALL.name]: size === Size.XSMALL,
-          [c.STACK_SPACE_SMALL.name]: size === Size.SMALL,
-          [c.STACK_SPACE_MEDIUM.name]: size === Size.MEDIUM,
-          [c.STACK_SPACE_LARGE.name]: size === Size.LARGE,
-        })}
-      >
-        {children}
-      </div>
-    </>
+    <div
+      className={cc({
+        [c.STACK.name]: true,
+        [c.STACK_VERTICAL.name]: vertical,
+        [c.STACK_HORIZONTAL.name]: !vertical,
+        [c.STACK_SPACE_XSMALL.name]: size === Size.XSMALL,
+        [c.STACK_SPACE_SMALL.name]: size === Size.SMALL,
+        [c.STACK_SPACE_MEDIUM.name]: size === Size.MEDIUM,
+        [c.STACK_SPACE_LARGE.name]: size === Size.LARGE,
+      })}
+    >
+      {children}
+    </div>
   )	
 }
 

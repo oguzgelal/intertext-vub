@@ -1,10 +1,10 @@
 import React from 'react';
 import cc from 'classnames';
-import { Global, css } from '@emotion/react/macro';
+import { css } from '@emotion/react/macro';
 import { v, c } from 'style/values';
 import media from 'style/utils/media';
 
-const styles = css`
+export const styles = css`
   .${c.SCREEN.name} {
     flex-grow: 1;
     overflow: auto;
@@ -29,16 +29,13 @@ const Screen = ({
 }) => {
 
   return (
-    <>
-      <Global styles={styles} />
-      <div
-        className={cc({
-          [c.SCREEN.name]: true,
-        })}
-      >
-        {children}
-      </div>
-    </>
+    <div
+      className={cc({
+        [c.SCREEN.name]: true,
+      })}
+    >
+      {children}
+    </div>
   )	
 }
 

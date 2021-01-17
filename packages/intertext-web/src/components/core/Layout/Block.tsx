@@ -1,12 +1,11 @@
 import React from 'react';
 import cc from 'classnames';
-import { Global, css } from '@emotion/react/macro';
+import { css } from '@emotion/react/macro';
 import { v, c, Alignment, Intent } from 'style/values';
 import { attachAlignmentClasses } from 'style/utils/alignment';
 import { applyIntentStyles, attachIntentClasses } from 'style/utils/intent';
 
-
-const styles = css`
+export const styles = css`
 
   .${c.BLOCK.name} {
     display: flex;
@@ -128,26 +127,23 @@ const Block = ({
   })
 
   return (
-    <>
-      <Global styles={styles} />
-      <div className={`${classNameWrapper || ''} ${className || ''}`}>
-        
-        {/** left pocket */}
-        {pocketLeft && (
-          <div className={classNameLeftPocket}>{pocketLeft}</div>
-        )}
-        
-        {/** contents */}
-        <div className={classNameContents}>
-          {children}
-        </div>
-        
-        {/** right pocket */}
-        {pocketRight && (
-          <div className={classNameRightPocket}>{pocketRight}</div>
-        )}
+    <div className={`${classNameWrapper || ''} ${className || ''}`}>
+      
+      {/** left pocket */}
+      {pocketLeft && (
+        <div className={classNameLeftPocket}>{pocketLeft}</div>
+      )}
+      
+      {/** contents */}
+      <div className={classNameContents}>
+        {children}
       </div>
-    </>
+      
+      {/** right pocket */}
+      {pocketRight && (
+        <div className={classNameRightPocket}>{pocketRight}</div>
+      )}
+    </div>
   )	
 }
 

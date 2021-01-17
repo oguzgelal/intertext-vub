@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Global } from '@emotion/react/macro';
 import reportWebVitals from 'reportWebVitals';
-import { base } from 'style/values';
+import { base, global } from 'style';
 
 import App from 'App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Global styles={base} />
+    <Global styles={[ base, global ]} />
     <App />
   </React.StrictMode>
 , document.getElementById('root'));

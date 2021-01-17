@@ -1,10 +1,10 @@
 import React from 'react';
 import cc from 'classnames';
 import { v, c } from 'style/values';
-import { Global, css } from '@emotion/react/macro';
+import { css } from '@emotion/react/macro';
 import { Size } from 'style/values';
 
-const styles = css`
+export const styles = css`
   
   .${c.SPACER.name} {
     width: 100%;
@@ -32,18 +32,15 @@ const Spacer = ({
 }) => {
 
   return (
-    <>
-      <Global styles={styles} />
-      <div
-        className={cc({
-          [c.SPACER.name]: true,
-          [c.SPACER_XSMALL.name]: size === Size.XSMALL,
-          [c.SPACER_SMALL.name]: size === Size.SMALL,
-          [c.SPACER_MEDIUM.name]: size === Size.MEDIUM,
-          [c.SPACER_LARGE.name]: size === Size.LARGE,
-        })}
-      />
-    </>
+    <div
+      className={cc({
+        [c.SPACER.name]: true,
+        [c.SPACER_XSMALL.name]: size === Size.XSMALL,
+        [c.SPACER_SMALL.name]: size === Size.SMALL,
+        [c.SPACER_MEDIUM.name]: size === Size.MEDIUM,
+        [c.SPACER_LARGE.name]: size === Size.LARGE,
+      })}
+    />
   )	
 }
 
