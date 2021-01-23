@@ -62,6 +62,8 @@ export const styles = css`
       margin-top: var(${v.SPACING_TEXT_H3.name});
     }
     &.${c.TEXT_P.name} {
+      margin-top: calc(var(${v.SPACING_TEXT_P.name}) / 2);
+      margin-bottom: calc(var(${v.SPACING_TEXT_P.name}) / 2);
     }
     &.${c.TEXT_B.name} {
       font-weight: var(${v.FONT_WEIGHT_BOLD.name});
@@ -93,7 +95,7 @@ const Text = ({
   u,
 }: {
   children: any,
-  block?: false,
+  block?: boolean,
   muted?: boolean,
   intent?: Intent,
   p?: boolean,

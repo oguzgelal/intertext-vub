@@ -1,14 +1,14 @@
 [
   {
     "#if": [{ "#state": "user" }, [
-      { "cmp:Block": [ "Hello, ", { "#state": "user.name" } ] },
+      { "cmp:block": [ "Hello, ", { "#state": "user.name" } ] },
       { "cmp:Button": "Logout", "onClick": { "cmd:setState": ["user", null] } }
     ]],
     "#elif": [
-      [{ "#stateLocal": "logging_in" }, { "cmp:Block": "Logging in..." }],
+      [{ "#stateLocal": "logging_in" }, { "cmp:block": "Logging in..." }],
       [
         { "#stateLocal": "error" },
-        { "cmp:Block": { "#or": [{ "#stateLocal": "error.message" }, "Unknown Error"] } }
+        { "cmp:block": { "#or": [{ "#stateLocal": "error.message" }, "Unknown Error"] } }
       ]
     ],
     "#else": [

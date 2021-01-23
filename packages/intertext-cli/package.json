@@ -16,6 +16,7 @@
 		"dist/cli.js"
 	],
 	"dependencies": {
+		"@intertext/engine2": "^0.0.0",
 		"@intertext/utils": "^0.0.0",
 		"ink": "^3.0.8",
 		"meow": "^8.0.0",
