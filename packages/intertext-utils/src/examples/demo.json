@@ -78,6 +78,9 @@
     ]
   },
 
+  { "cmp:spacer": null, "size": "large" },
+  { "cmp:text:h2": "Components" },
+
   { "cmp:text:h3": "Typography" },
   { "cmp:text:h1": "Heading 1" },
   { "cmp:text:h2": "Heading 2" },
@@ -94,7 +97,7 @@
         ]
       },
       "Pellentesque ",
-      { "cmp:text": "suscipit nisi libero, ac rhoncus libero ", "bold": true },
+      { "cmp:text": "suscipit nisi libero, ac rhoncus libero ", "bold": true, "italic": true },
       "molestie quis. ",
       { "cmp:text": "Sed facilisis eros", "underlined": true },
       " lectus, non cursus turpis faucibus ut.  Phasellus tristique sapien ut lacus molestie ornare. Curabitur id ultrices mauris."

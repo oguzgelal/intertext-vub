@@ -69,7 +69,7 @@ export const styles = css`
       font-weight: var(${v.FONT_WEIGHT_BOLD.name});
     }
     &.${c.TEXT_I.name} {
-      text-decoration: italic;
+      font-style: italic;
     }
     &.${c.TEXT_U.name} {
       text-decoration: underline;
