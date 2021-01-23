@@ -1,5 +1,5 @@
 [
   { "#if": [{ "#state": "isShowing" }, { "cmp:block": "Hello, world!" }] },
-  { "cmp:Button": "hide", "onClick": { "cmd:setState": ["isShowing", false] } },
-  { "cmp:Button": "show", "onClick": { "cmd:setState": ["isShowing", true] } }
+  { "cmp:button": "hide", "onClick": { "cmd:setState": ["isShowing", false] } },
+  { "cmp:button": "show", "onClick": { "cmd:setState": ["isShowing", true] } }
 ]

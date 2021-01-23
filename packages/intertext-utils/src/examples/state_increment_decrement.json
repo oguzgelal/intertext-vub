@@ -1,11 +1,11 @@
 [
   { "cmp:block": [ "Current: ", { "#state": "count" } ] },
   {
-    "cmp:Button": "increment",
+    "cmp:button": "increment",
     "onClick": { "cmd:setState": ["count", { "#add": [{ "#state": "count" }, 1] }] }
   },
   {
-    "cmp:Button": "decrement",
+    "cmp:button": "decrement",
     "onClick": { "cmd:setState": ["count", { "#subtract": [{ "#state": "count" }, 1] }] }
   }
 ]

@@ -26,9 +26,9 @@ export const styles = css`
 `;
 
 const Spacer = ({
-  size,
+  size = Size.XSMALL,
 }: {
-  size: Size
+  size?: Size
 }) => {
 
   return (

@@ -2,7 +2,7 @@
   {
     "#if": [{ "#state": "user" }, [
       { "cmp:block": [ "Hello, ", { "#state": "user.name" } ] },
-      { "cmp:Button": "Logout", "onClick": { "cmd:setState": ["user", null] } }
+      { "cmp:button": "Logout", "onClick": { "cmd:setState": ["user", null] } }
     ]],
     "#elif": [
       [{ "#stateLocal": "logging_in" }, { "cmp:block": "Logging in..." }],
@@ -15,7 +15,7 @@
       { "cmp:Input:Email": null, "id": "email" },
       { "cmp:Input:Password": null, "id": "password" },
       {
-        "cmp:Button": "Submit",
+        "cmp:button": "Submit",
         "disabled": { "#stateLocal": "logging_in" },
         "onClick": [
           { "cmd:setStateLocal": ["logging_in", true] },

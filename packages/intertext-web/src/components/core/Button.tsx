@@ -106,8 +106,8 @@ const Button = ({
   align?: Alignment,
   intent?: Intent,
   fill?: boolean,
-  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
   disabled?: boolean
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
 }) => {
 
   return (
