@@ -11,11 +11,11 @@
     ]
   },
   {
+    "intent": "info",
     "cmp:block": {
       "cmp:text": "This is some text",
       "intent": "info"
-    },
-    "intent": "info"
+    }
   },
 
   { "cmp:text:h3": "Nested Blocks" },
@@ -78,36 +78,44 @@
     ]
   },
 
-  { "cmp:spacer": null, "size": "large" },
-  { "cmp:text:h2": "Components" },
-
-  { "cmp:text:h3": "Typography" },
-  { "cmp:text:h1": "Heading 1" },
-  { "cmp:text:h2": "Heading 2" },
-  { "cmp:text:h3": "Heading 3" },
+  { "cmp:text:h2": "Typography" },
   {
-    "cmp:text:p": [
-      "Lorem ipsum dolor sit amet, ",
+    "cols": [1, 1],
+    "gap": "large",
+    "cmp:grid": [
       {
-        "muted": true,
-        "cmp:text": [
-          "consectetur ",
-          { "cmp:text": "adipiscing", "underlined": true, "bold": true },
-          " elit. Etiam eu fringilla lectus."
+        "cmp:text:p": [
+          "Lorem ipsum dolor sit amet, ",
+          {
+            "muted": true,
+            "cmp:text": [
+              "consectetur ",
+              { "cmp:text": "adipiscing", "underlined": true, "bold": true },
+              " elit. Etiam eu fringilla lectus."
+            ]
+          },
+          "Pellentesque ",
+          { "cmp:text": "suscipit nisi libero, ac rhoncus libero ", "bold": true, "italic": true },
+          "molestie quis. ",
+          { "cmp:text": "Sed facilisis eros", "underlined": true },
+          " lectus, non cursus turpis faucibus ut.  Phasellus tristique sapien ut lacus molestie ornare. Curabitur id ultrices mauris."
         ]
       },
-      "Pellentesque ",
-      { "cmp:text": "suscipit nisi libero, ac rhoncus libero ", "bold": true, "italic": true },
-      "molestie quis. ",
-      { "cmp:text": "Sed facilisis eros", "underlined": true },
-      " lectus, non cursus turpis faucibus ut.  Phasellus tristique sapien ut lacus molestie ornare. Curabitur id ultrices mauris."
+      {
+        "cmp:block": [
+          { "cmp:text:h1": "Heading 1" },
+          { "cmp:text:h2": "Heading 2" },
+          { "cmp:text:h3": "Heading 3" }
+        ]
+      }
     ]
   },
+  
+  { "cmp:text:h2": "Components" },
 
   { "cmp:text:h3": "Buttons" },
-  { "cmp:spacer": null, "size": "small" },
   {
-    "cols": [1, 1, 1, 1, 1],
+    "cols": [1, 1, 2, 1, 1, 1],
     "cmp:grid": [
       {
         "vertical": true,

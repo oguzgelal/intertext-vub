@@ -114,6 +114,19 @@ const Renderer = ({
     'cmp:text:h2' in branch ||
     'cmp:text:h3' in branch
   ) {
+
+    let child = null;
+    if ('cmp:text' in branch) child = branch['cmp:text']
+    if ('cmp:text:p' in branch) child = branch['cmp:text:p']
+    if ('cmp:text:h1' in branch) child = branch['cmp:text:h1']
+    if ('cmp:text:h2' in branch) child = branch['cmp:text:h2']
+    if ('cmp:text:h3' in branch) child = branch['cmp:text:h3']
+
+    const directRender = (
+      typeof child === "string" ||
+      typeof child === "number"
+    )
+
     return (
       <Text
         p={'cmp:text:p' in branch}
@@ -126,11 +139,7 @@ const Renderer = ({
         muted={branch.muted}
         intent={branch.intent}
       >
-        {'cmp:text' in branch && renderChildren(branch['cmp:text'])}
-        {'cmp:text:p' in branch && renderChildren(branch['cmp:text:p'])}
-        {'cmp:text:h1' in branch && renderChildren(branch['cmp:text:h1'])}
-        {'cmp:text:h2' in branch && renderChildren(branch['cmp:text:h2'])}
-        {'cmp:text:h3' in branch && renderChildren(branch['cmp:text:h3'])}
+        {directRender ? child : renderChildren(child)}
       </Text>
     )
   }

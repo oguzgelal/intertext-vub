@@ -48,18 +48,21 @@ export const styles = css`
       font-weight: var(${v.FONT_WEIGHT_H1.name});
       line-height: var(${v.LINE_HEIGHT_H1.name});
       margin-top: var(${v.SPACING_TEXT_H1.name});
+      margin-bottom: calc(var(${v.SPACING_TEXT_H1.name}) / 6);
     }
     &.${c.TEXT_H2.name} {
       font-size: var(${v.FONT_SIZE_TEXT_H2.name});
       font-weight: var(${v.FONT_WEIGHT_H2.name});
       line-height: var(${v.LINE_HEIGHT_H2.name});
       margin-top: var(${v.SPACING_TEXT_H2.name});
+      margin-bottom: calc(var(${v.SPACING_TEXT_H2.name}) / 6);
     }
     &.${c.TEXT_H3.name} {
       font-size: var(${v.FONT_SIZE_TEXT_H3.name});
       font-weight: var(${v.FONT_WEIGHT_H3.name});
       line-height: var(${v.LINE_HEIGHT_H3.name});
       margin-top: var(${v.SPACING_TEXT_H3.name});
+      margin-bottom: calc(var(${v.SPACING_TEXT_H3.name}) / 6);
     }
     &.${c.TEXT_P.name} {
       margin-top: calc(var(${v.SPACING_TEXT_P.name}) / 2);

@@ -209,10 +209,10 @@ export const v = {
 
   /** line heights */
   
-  LINE_HEIGHT_DEFAULT: vr('line-height-default', '1.4rem'),
-  LINE_HEIGHT_H1: vr('line-height-h1', '2rem'),
-  LINE_HEIGHT_H2: vr('line-height-h2', '1.8rem'),
-  LINE_HEIGHT_H3: vr('line-height-h3', '1.6rem'),
+  LINE_HEIGHT_DEFAULT: vr('line-height-default', '1.4'),
+  LINE_HEIGHT_H1: vr('line-height-h1', '1.4'),
+  LINE_HEIGHT_H2: vr('line-height-h2', '1.4'),
+  LINE_HEIGHT_H3: vr('line-height-h3', '1.4'),
 
   /** borders */
 
