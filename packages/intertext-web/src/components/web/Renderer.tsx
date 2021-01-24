@@ -53,7 +53,7 @@ const Renderer = ({
   /**
    * Block
    */
-  if ('cmp:block' in branch) {
+  if ('block' in branch) {
     return (
       <Block 
         align={branch.align}
@@ -62,7 +62,7 @@ const Renderer = ({
         pocketLeft={('pocketLeft' in branch) && renderChildren(branch.pocketLeft)}
         pocketRight={('pocketRight' in branch) && renderChildren(branch.pocketRight)}
       >
-        {renderChildren(branch['cmp:block'])}
+        {renderChildren(branch['block'])}
       </Block>
     )
   }
@@ -70,13 +70,13 @@ const Renderer = ({
   /**
    * Stack
    */
-  if ('cmp:stack' in branch) {
+  if ('stack' in branch) {
     return (
       <Stack
         size={branch.size}
         vertical={branch.vertical}
       >
-        {renderChildren(branch['cmp:stack'])}
+        {renderChildren(branch['stack'])}
       </Stack>
     )
   }
@@ -84,7 +84,7 @@ const Renderer = ({
   /**
    * Spacer
    */
-  if ('cmp:spacer' in branch) {
+  if ('spacer' in branch) {
     return (
       <Spacer size={branch.size} />
     )
@@ -93,13 +93,13 @@ const Renderer = ({
   /**
    * Grid
    */
-  if ('cmp:grid' in branch) {
+  if ('grid' in branch) {
     return (
       <Grid
         cols={branch.cols}
         gap={branch.gap}
       >
-        {renderChildren(branch['cmp:grid'])}
+        {renderChildren(branch['grid'])}
       </Grid>
     )
   }
@@ -108,19 +108,19 @@ const Renderer = ({
    * Text
    */
   if (
-    'cmp:text' in branch ||
-    'cmp:text:p' in branch ||
-    'cmp:text:h1' in branch ||
-    'cmp:text:h2' in branch ||
-    'cmp:text:h3' in branch
+    'text' in branch ||
+    'p' in branch ||
+    'h1' in branch ||
+    'h2' in branch ||
+    'h3' in branch
   ) {
 
     let child = null;
-    if ('cmp:text' in branch) child = branch['cmp:text']
-    if ('cmp:text:p' in branch) child = branch['cmp:text:p']
-    if ('cmp:text:h1' in branch) child = branch['cmp:text:h1']
-    if ('cmp:text:h2' in branch) child = branch['cmp:text:h2']
-    if ('cmp:text:h3' in branch) child = branch['cmp:text:h3']
+    if ('text' in branch) child = branch['text']
+    if ('p' in branch) child = branch['p']
+    if ('h1' in branch) child = branch['h1']
+    if ('h2' in branch) child = branch['h2']
+    if ('h3' in branch) child = branch['h3']
 
     const directRender = (
       typeof child === "string" ||
@@ -129,10 +129,10 @@ const Renderer = ({
 
     return (
       <Text
-        p={'cmp:text:p' in branch}
-        h1={'cmp:text:h1' in branch}
-        h2={'cmp:text:h2' in branch}
-        h3={'cmp:text:h3' in branch}
+        p={'p' in branch}
+        h1={'h1' in branch}
+        h2={'h2' in branch}
+        h3={'h3' in branch}
         b={branch.bold}
         u={branch.underlined}
         i={branch.italic}
@@ -147,7 +147,7 @@ const Renderer = ({
   /**
    * Button
    */
-  if ('cmp:button' in branch) {
+  if ('button' in branch) {
     return (
       <Button
         size={branch.size}
@@ -156,7 +156,7 @@ const Renderer = ({
         fill={branch.fill}
         disabled={branch.disabled}
       >
-        {renderChildren(branch['cmp:button'])}
+        {renderChildren(branch['button'])}
       </Button>
     )
   }

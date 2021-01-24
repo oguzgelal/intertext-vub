@@ -1,3 +1,6 @@
+// @ts-nocheck
+import xml2js from 'xml2js';
+
 export enum Intent {
   DEFAULT = 'default',
   PRIMARY = 'primary',
@@ -30,7 +33,7 @@ export type Renderable =
   | null
 
 export type Block = {
-  'cmp:block': Renderable
+  'block': Renderable
   pocketLeft?: Renderable
   pocketRight?: Renderable
   align?: Alignment
@@ -39,18 +42,18 @@ export type Block = {
 }
 
 export type Stack = {
-  'cmp:stack': Renderable
+  'stack': Renderable
   size?: Size
   vertical?: boolean
 }
 
 export type Spacer = {
-  'cmp:spacer': null | undefined
+  'spacer': null | undefined
   size?: Size
 }
 
 export type Grid = {
-  'cmp:grid': Renderable
+  'grid': Renderable
   cols: number[]
   gap?: Size
 }
@@ -62,14 +65,14 @@ type TextBase = {
   italic?: boolean
   underlined?: boolean
 }
-export type Text = TextBase & { 'cmp:text': Renderable }
-export type TextP = TextBase & { 'cmp:text:p': Renderable }
-export type TextH1 = TextBase & { 'cmp:text:h1': Renderable }
-export type TextH2 = TextBase & { 'cmp:text:h2': Renderable }
-export type TextH3 = TextBase & { 'cmp:text:h3': Renderable }
+export type Text = TextBase & { 'text': Renderable }
+export type TextP = TextBase & { 'p': Renderable }
+export type TextH1 = TextBase & { 'h1': Renderable }
+export type TextH2 = TextBase & { 'h2': Renderable }
+export type TextH3 = TextBase & { 'h3': Renderable }
 
 export type Button = {
-  'cmp:button': Renderable
+  'button': Renderable
   size?: Size.SMALL | Size.MEDIUM | Size.LARGE
   align?: Alignment
   intent?: Intent
@@ -95,21 +98,123 @@ export type Commands = unknown
 
 export type Branch = Components
 
+type XmlParseOutput = {
+  '#name': string
+  '$': Record<string, unknown>
+  '$$': XmlParseOutput[]
+  '_': string
+}
+
 /**
  * Engine class
  */
 
 class Engine {
   public packages: Branch[] | undefined;
+  private parser: xml2js.Parser;
 
-  insert(pack: Branch | Branch[]) {
+  constructor() {
+    this.parser = new xml2js.Parser({
+      preserveChildrenOrder: true,
+      explicitArray: true,
+      explicitChildren: true,
+      explicitRoot: true
+    })
+  }
+
+  public insert = (pack: Branch | Branch[]) => {
     const packArr = Array.isArray(pack) ? pack : [pack];
     this.packages = [...(this.packages || []), ...packArr];
   }
 
-  evaluate(branch: Branch) {
-    return branch;
+  public insertXml = async (xmlString: string) => {
+    this.insert(await this.parseXml(xmlString))
   }
+
+  public parseXml = async (xmlString: string): Promise<Branch[]> => {
+    
+    function parseAttrValueFromString(attrValue) {
+      if (attrValue === 'true') return true
+      if (attrValue === 'false') return false
+      if (/\s*\[[\s*\d+\s*,]+\]\s*/gi.test(attrValue)) {
+        return JSON.parse(attrValue)
+      }
+      return attrValue;
+    }
+
+    function parseJsonOutput(output: XmlParseOutput): Branch | Branch[] {
+      const nodeName = output['#name']
+      const nodeValue = output['_']
+      const nodeAttrs = output['$']
+      const nodeChildren = output['$$']
+
+      let children = parseAttrValueFromString(nodeValue || null);
+      let nodeComplexAttrs = {}
+      
+      // handle children
+      if (nodeChildren && nodeChildren.length > 0) {
+
+        // separet complex attributes from actual children
+        const [nodeComplexAttrNodes, nodeChildrenSafe] = nodeChildren
+          .reduce((acc, n) => {
+            const childNodeName = n['#name'] || ''
+            const hasComplexAttrSyntax = childNodeName.indexOf('.') !== -1
+            const childNodeNameParts = childNodeName.split('.')
+            const complexAttrMatch = childNodeNameParts[0] === nodeName
+            if (hasComplexAttrSyntax && complexAttrMatch) {
+              const nameFixed = { ...n, '#name': childNodeNameParts.slice(1).join('.') }
+              return [ [ ...acc[0], nameFixed ], acc[1] ]
+            }
+            return [ acc[0], [ ...acc[1], n ] ]
+          }, [[],[]])
+
+        // parse complex attribute nodes
+        if (nodeComplexAttrNodes && nodeComplexAttrNodes.length > 0) {
+          nodeComplexAttrs = nodeComplexAttrNodes.reduce((acc, attrNode) => {
+            const complexAttrParsed = parseJsonOutput(attrNode)
+            return {
+              ...acc,
+              [attrNode['#name']]: complexAttrParsed[attrNode['#name']]
+            }
+          }, {})
+        }
+
+        // parse actual children
+        children = nodeChildrenSafe
+          .map(parseJsonOutput)
+      }
+
+      const attrsCombined = {
+        ...nodeAttrs,
+        ...nodeComplexAttrs
+      }
+      
+      // convert str values of attrs
+      const attrsConverted = Object
+        .keys(attrsCombined)
+        .reduce((acc, key) => ({
+          ...acc,
+          [key]: parseAttrValueFromString(
+            attrsCombined[key]
+          )
+        }), {})
+
+      return {
+        [nodeName]: children,
+        ...attrsConverted
+      }
+    }
+    
+    const output = await this.parser.parseStringPromise(xmlString)
+    // console.log('output', output.root)
+    const parsed = parseJsonOutput(output.root) as Branch[]
+    // console.log('parsed', parsed)
+    return parsed?.root
+  }
+
+  // public evaluate = (branch: Branch) => {
+  //   return branch;
+  // }
 }
 
 export default Engine;
