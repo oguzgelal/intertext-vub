@@ -1,146 +1,402 @@
 [
-  { "cmp:text:h2": "Layout" },
-
-  { "cmp:text:h3": "Block" },
   {
-    "cmp:text:p": [
-      "Blocks are the basic building block of Intertext, every component is nested inside of a block.",
-      { "cmp:text": "Blocks shown here falls to the ", "muted": true },
-      { "cmp:text": "Info", "muted": true, "bold": true },
-      { "cmp:text": " intent for demonstration purpose.", "muted": true }
-    ]
+    "h2": "Layout"
   },
   {
-    "intent": "info",
-    "cmp:block": {
-      "cmp:text": "This is some text",
-      "intent": "info"
-    }
+    "h3": "Block"
   },
-
-  { "cmp:text:h3": "Nested Blocks" },
-  { "cmp:text:p": "Blocks can contain other blocks, or elements (which are wrapped in blocks of their own)" },
   {
-    "intent": "info",
-    "cmp:block": [
+    "p": "Blocks are the basic building block of Intertext, every component is nested inside of a block. Blocks shown here falls to the Info intent for demonstration purpose."
+  },
+  {
+    "block": [
       {
-        "intent": "info",
-        "cmp:block": {
-          "intent": "info",
-          "cmp:block": {
-            "cmp:text": "This is some text",
+        "text": "This is some text",
+        "intent": "info"
+      }
+    ],
+    "intent": "info"
+  },
+  {
+    "h3": "Nested Blocks"
+  },
+  {
+    "p": "Blocks can contain other blocks, or elements (which are wrapped in blocks of their own)"
+  },
+  {
+    "block": [
+      {
+        "block": [
+          {
+            "text": "This is some text",
             "intent": "info"
           }
-        }
+        ],
+        "intent": "info"
+      }
+    ],
+    "intent": "info"
+  },
+  {
+    "h3": "Blocks With Pockets"
+  },
+  {
+    "p": "Blocks come with pockets on either side, that can contain other blocks or elements. Pockets should be used for positioning items that are directly related to whatever is in the block, such as action items. On smaller screens, pockets will not wrap and positioned in line with the block."
+  },
+  {
+    "stack": [
+      {
+        "block": null,
+        "intent": "info",
+        "pocketLeft": "Left"
+      },
+      {
+        "block": null,
+        "intent": "info",
+        "pocketRight": "Right"
+      },
+      {
+        "block": null,
+        "intent": "info",
+        "pocketLeft": "Left",
+        "pocketRight": "Right"
+      },
+      {
+        "block": [
+          {
+            "text": "Complex pockets",
+            "intent": "info"
+          }
+        ],
+        "intent": "info",
+        "pocketLeft": [
+          {
+            "stack": [
+              {
+                "button": "✓",
+                "intent": "success",
+                "size": "small"
+              },
+              {
+                "button": "✕",
+                "intent": "error",
+                "size": "small"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "vertical": true
+  },
+  {
+    "h3": "Grid"
+  },
+  {
+    "p": "Components could be displayed in a grid layout, as well as side by side using this technique. This component works similarly to css-grid, accepts a column template and positions its children based on it."
+  },
+  {
+    "stack": [
+      {
+        "grid": [
+          {
+            "block": "1",
+            "intent": "info"
+          },
+          {
+            "block": "1",
+            "intent": "info"
+          },
+          {
+            "block": "1",
+            "intent": "info"
+          },
+          {
+            "block": "1",
+            "intent": "info"
+          },
+          {
+            "block": "1",
+            "intent": "info"
+          }
+        ],
+        "cols": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "grid": [
+          {
+            "block": "2",
+            "intent": "info"
+          },
+          {
+            "block": "3",
+            "intent": "info"
+          },
+          {
+            "block": "1",
+            "intent": "info"
+          }
+        ],
+        "cols": [
+          2,
+          3,
+          1
+        ]
+      },
+      {
+        "grid": [
+          {
+            "block": "1",
+            "intent": "info"
+          },
+          {
+            "block": "4",
+            "intent": "info"
+          },
+          {
+            "block": "1",
+            "intent": "info"
+          }
+        ],
+        "cols": [
+          1,
+          4,
+          1
+        ]
+      },
+      {
+        "grid": [
+          {
+            "block": "3",
+            "intent": "info"
+          },
+          {
+            "block": "1",
+            "intent": "info"
+          }
+        ],
+        "cols": [
+          3,
+          1
+        ]
+      },
+      {
+        "grid": [
+          {
+            "block": "1",
+            "intent": "info"
+          },
+          {
+            "block": "3",
+            "intent": "info"
+          }
+        ],
+        "cols": [
+          1,
+          3
+        ]
+      }
+    ],
+    "vertical": true
+  },
+  {
+    "h3": "Stack"
+  },
+  {
+    "p": "Components could be placed next to each other with a gap in between. This component works horizontally and vertically."
+  },
+  {
+    "stack": [
+      {
+        "block": null,
+        "intent": "info",
+        "grow": false
+      },
+      {
+        "block": null,
+        "intent": "info",
+        "grow": false
+      },
+      {
+        "block": null,
+        "intent": "info",
+        "grow": false
       }
     ]
   },
-
-  { "cmp:text:h3": "Block With Pockets" },
-  { "cmp:text:p": "Blocks come with pockets on either side, that can contain other blocks or elements. Pockets should be used for positioning items that are directly related to whatever is in the block, such as action items. On smaller screens, pockets will not wrap and positioned in line with the block." },
   {
-    "vertical": true,
-    "cmp:stack": [
-      { "cmp:block": null, "pocketLeft": "Left", "intent": "info" },
-      { "cmp:block": null, "pocketRight": "Right", "intent": "info" },
-      { "cmp:block": null, "pocketLeft": "Left", "pocketRight": "Right", "intent": "info" }
-    ]
+    "spacer": null
   },
-
-  { "cmp:text:h3": "Grid" },
-  { "cmp:text:p": "Components could be displayed in a grid layout, as well as side by side using this technique. This component works similarly to css-grid, accepts a column template and positions its children based on it." },
   {
-    "vertical": true,
-    "cmp:stack": [
-      { "cols": [1, 1, 1, 1, 1], "cmp:grid": [ { "intent": "info", "cmp:block": "1" }, { "intent": "info", "cmp:block": "1" }, { "intent": "info", "cmp:block": "1" }, { "intent": "info", "cmp:block": "1" }, { "intent": "info", "cmp:block": "1" } ]},
-      { "cols": [2, 3, 1], "cmp:grid": [ { "intent": "info", "cmp:block": "2" }, { "intent": "info", "cmp:block": "3" }, { "intent": "info", "cmp:block": "1" } ]},
-      { "cols": [1, 4, 1], "cmp:grid": [ { "intent": "info", "cmp:block": "1" }, { "intent": "info", "cmp:block": "4" }, { "intent": "info", "cmp:block": "1" } ]},
-      { "cols": [3, 1], "cmp:grid": [ { "intent": "info", "cmp:block": "3" }, { "intent": "info", "cmp:block": "1" } ]},
-      { "cols": [1, 3], "cmp:grid": [ { "intent": "info", "cmp:block": "1" }, { "intent": "info", "cmp:block": "3" } ]}
-    ]
-  },
-
-  { "cmp:text:h3": "Stack" },
-  { "cmp:text:p": "Components could be placed next to each other with a gap in between. This component works horizontally and vertically" },
-  {
-    "cmp:stack": [
-      { "cmp:block": "", "intent": "info", "grow": false },
-      { "cmp:block": "", "intent": "info", "grow": false },
-      { "cmp:block": "", "intent": "info", "grow": false }
-    ]
-  },
-  { "cmp:spacer": null },
-  {
-    "vertical": true,
-    "cmp:stack": [
-      { "cmp:block": "", "intent": "info", "grow": false },
-      { "cmp:block": "", "intent": "info", "grow": false }
-    ]
-  },
-
-  { "cmp:text:h2": "Typography" },
-  {
-    "cols": [1, 1],
-    "gap": "large",
-    "cmp:grid": [
+    "stack": [
       {
-        "cmp:text:p": [
-          "Lorem ipsum dolor sit amet, ",
+        "block": null,
+        "intent": "info",
+        "grow": false
+      },
+      {
+        "block": null,
+        "intent": "info",
+        "grow": false
+      }
+    ],
+    "vertical": true
+  },
+  {
+    "h2": "Typography"
+  },
+  {
+    "grid": [
+      {
+        "p": [
           {
-            "muted": true,
-            "cmp:text": [
-              "consectetur ",
-              { "cmp:text": "adipiscing", "underlined": true, "bold": true },
-              " elit. Etiam eu fringilla lectus."
+            "text": "Lorem ipsum dolor sit amet, "
+          },
+          {
+            "text": [
+              {
+                "text": "consectetur "
+              },
+              {
+                "text": "adipiscing",
+                "bold": true
+              },
+              {
+                "text": "elit. Etiam eu fringilla lectus."
+              }
+            ],
+            "muted": true
+          },
+          {
+            "text": "Pellentesque "
+          },
+          {
+            "text": "suscipit nisi libero, ac rhoncus libero ",
+            "bold": true,
+            "italic": true
+          },
+          {
+            "text": "molestie quis. "
+          },
+          {
+            "text": "Sed facilisis eros",
+            "underlined": true
+          },
+          {
+            "text": "lectus, non cursus turpis faucibus ut.  Phasellus tristique sapien ut lacus molestie ornare. Curabitur id ultrices mauris."
+          }
+        ]
+      },
+      {
+        "block": [
+          {
+            "h1": "Heading 1"
+          },
+          {
+            "h2": "Heading 2"
+          },
+          {
+            "h3": "Heading 3"
+          }
+        ]
+      }
+    ],
+    "cols": [
+      1,
+      1
+    ],
+    "gap": "large"
+  },
+  {
+    "h2": "Components"
+  },
+  {
+    "h3": "Buttons"
+  },
+  {
+    "grid": [
+      {
+        "stack": [
+          {
+            "button": "default"
+          },
+          {
+            "button": "disabled",
+            "disabled": true
+          }
+        ],
+        "vertical": true
+      },
+      {
+        "stack": [
+          {
+            "button": "large",
+            "size": "large"
+          },
+          {
+            "button": "medium",
+            "size": "medium"
+          },
+          {
+            "button": "small",
+            "size": "small"
+          }
+        ],
+        "vertical": true
+      },
+      {
+        "stack": [
+          {
+            "button": [
+              {
+                "block": "stuff on left",
+                "pocketLeft": "😬"
+              }
             ]
           },
-          "Pellentesque ",
-          { "cmp:text": "suscipit nisi libero, ac rhoncus libero ", "bold": true, "italic": true },
-          "molestie quis. ",
-          { "cmp:text": "Sed facilisis eros", "underlined": true },
-          " lectus, non cursus turpis faucibus ut.  Phasellus tristique sapien ut lacus molestie ornare. Curabitur id ultrices mauris."
-        ]
-      },
-      {
-        "cmp:block": [
-          { "cmp:text:h1": "Heading 1" },
-          { "cmp:text:h2": "Heading 2" },
-          { "cmp:text:h3": "Heading 3" }
-        ]
+          {
+            "button": [
+              {
+                "block": "stuff on right",
+                "pocketRight": "😬"
+              }
+            ]
+          },
+          {
+            "button": [
+              {
+                "block": "fill",
+                "pocketLeft": "😬"
+              }
+            ],
+            "fill": true
+          },
+          {
+            "button": [
+              {
+                "block": "fill",
+                "pocketRight": "😬"
+              }
+            ],
+            "fill": true
+          }
+        ],
+        "vertical": true
       }
-    ]
-  },
-  
-  { "cmp:text:h2": "Components" },
-
-  { "cmp:text:h3": "Buttons" },
-  {
-    "cols": [1, 1, 2, 1, 1, 1],
-    "cmp:grid": [
-      {
-        "vertical": true,
-        "cmp:stack": [
-          { "cmp:button": "default" },
-          { "cmp:button": "disabled", "disabled": true }
-        ]
-      },
-      {
-        "vertical": true,
-        "cmp:stack": [
-          { "cmp:button": "large", "size": "large" },
-          { "cmp:button": "medium", "size": "medium" },
-          { "cmp:button": "small", "size": "small" }
-        ]
-      },
-      {
-        "vertical": true,
-        "cmp:stack": [
-          { "cmp:button": { "cmp:block": "stuff on left", "pocketLeft": "😬" } },
-          { "cmp:button": { "cmp:block": "stuff on right", "pocketRight": "😬" } },
-          { "cmp:button": { "cmp:block": "fill", "pocketLeft": "😬" }, "fill": true },
-          { "cmp:button": { "cmp:block": "fill", "pocketRight": "😬" }, "fill": true }
-        ]
-      }
+    ],
+    "cols": [
+      1,
+      1,
+      2,
+      1,
+      1,
+      1
     ]
   }
 ]

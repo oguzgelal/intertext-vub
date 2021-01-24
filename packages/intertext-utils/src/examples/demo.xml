@@ -1,0 +1,127 @@
+<root>
+  <h2>Layout</h2>
+
+  <h3>Block</h3>
+  <p>Blocks are the basic building block of Intertext, every component is nested inside of a block. Blocks shown here falls to the Info intent for demonstration purpose.</p>
+
+  <block intent="info">
+    <text intent="info">This is some text</text>
+  </block>
+
+  <h3>Nested Blocks</h3>
+  <p>Blocks can contain other blocks, or elements (which are wrapped in blocks of their own)</p>
+
+  <block intent="info">
+    <block intent="info">
+      <text intent="info">This is some text</text>
+    </block>
+  </block>
+
+  <h3>Blocks With Pockets</h3>
+  <p>Blocks come with pockets on either side, that can contain other blocks or elements. Pockets should be used for positioning items that are directly related to whatever is in the block, such as action items. On smaller screens, pockets will not wrap and positioned in line with the block.</p>
+
+  <stack vertical="true">
+    <block intent="info" pocketLeft="Left" />
+    <block intent="info" pocketRight="Right" />
+    <block intent="info" pocketLeft="Left" pocketRight="Right" />
+    <block intent="info">
+      <text intent="info">Complex pockets</text>
+      <block.pocketLeft>
+        <stack>
+          <button intent="success" size="small">✓</button>
+          <button intent="error" size="small">✕</button>
+        </stack>
+      </block.pocketLeft>
+    </block>
+  </stack>
+
+  <h3>Grid</h3>
+  <p>Components could be displayed in a grid layout, as well as side by side using this technique. This component works similarly to css-grid, accepts a column template and positions its children based on it.</p>
+
+  <stack vertical="true">
+    <grid cols="[1, 1, 1, 1, 1]">
+      <block intent="info">1</block>
+      <block intent="info">1</block>
+      <block intent="info">1</block>
+      <block intent="info">1</block>
+      <block intent="info">1</block>
+    </grid>
+    <grid cols="[2, 3, 1]">
+      <block intent="info">2</block>
+      <block intent="info">3</block>
+      <block intent="info">1</block>
+    </grid>
+    <grid cols="[1, 4, 1]">
+      <block intent="info">1</block>
+      <block intent="info">4</block>
+      <block intent="info">1</block>
+    </grid>
+    <grid cols="[3, 1]">
+      <block intent="info">3</block>
+      <block intent="info">1</block>
+    </grid>
+    <grid cols="[1, 3]">
+      <block intent="info">1</block>
+      <block intent="info">3</block>
+    </grid>
+  </stack>
+
+  <h3>Stack</h3>
+  <p>Components could be placed next to each other with a gap in between. This component works horizontally and vertically.</p>
+
+  <stack>
+    <block intent="info" grow="false" />
+    <block intent="info" grow="false" />
+    <block intent="info" grow="false" />
+  </stack>
+  <spacer />
+  <stack vertical="true">
+    <block intent="info" grow="false" />
+    <block intent="info" grow="false" />
+  </stack>
+
+  <h2>Typography</h2>
+
+  <grid cols="[1, 1]" gap="large">
+    <p>
+      <text>Lorem ipsum dolor sit amet, </text>
+      <text muted="true">
+        <text>consectetur </text>
+        <text bold="true">adipiscing</text> 
+        <text>elit. Etiam eu fringilla lectus.</text>
+      </text>
+      <text>Pellentesque </text>
+      <text bold="true" italic="true">suscipit nisi libero, ac rhoncus libero </text>
+      <text>molestie quis. </text>
+      <text underlined="true">Sed facilisis eros</text>
+      <text>lectus, non cursus turpis faucibus ut.  Phasellus tristique sapien ut lacus molestie ornare. Curabitur id ultrices mauris.</text>
+    </p>
+    <block>
+      <h1>Heading 1</h1>
+      <h2>Heading 2</h2>
+      <h3>Heading 3</h3>
+    </block>
+  </grid>
+
+  <h2>Components</h2>
+
+  <h3>Buttons</h3>
+
+  <grid cols="[1, 1, 2, 1, 1, 1]">
+    <stack vertical="true">
+      <button>default</button>
+      <button disabled="true">disabled</button>
+    </stack>
+    <stack vertical="true">
+      <button size="large">large</button>
+      <button size="medium">medium</button>
+      <button size="small">small</button>
+    </stack>
+    <stack vertical="true">
+      <button><block pocketLeft="😬">stuff on left</block></button>
+      <button><block pocketRight="😬">stuff on right</block></button>
+      <button fill="true"><block pocketLeft="😬">fill</block></button>
+      <button fill="true"><block pocketRight="😬">fill</block></button>
+    </stack>
+  </grid>
+</root>
