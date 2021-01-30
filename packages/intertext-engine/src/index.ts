@@ -173,8 +173,6 @@ class Engine {
       const nodeValue: string = output['_'];
       const nodeAttrs: Record<string, unknown> = output['$'] ?? {};
       const nodeChildren: XmlParseOutput[] = output['$$'];
-      // console.log('--------')
-      // console.log('nodeName', nodeName)
 
       const complexAttributes: Record<string, Renderable> = {};
 
@@ -188,33 +186,24 @@ class Engine {
         // seperate complex attributes from actual children.
         // ie: { #name: block.pocketLeft, ... }
         // complex attributes needs to be handled differently
-        const [complexAttributesArray, nodeChildrenSafe] = nodeChildren.reduce<
+        const [complexAttrArray, nodeChildrenSafe] = nodeChildren.reduce<
           [XmlParseOutput[], XmlParseOutput[]]
         >(
           (acc, n) => {
             const childNodeName = n['#name'] || '';
             const isComplexNode = childNodeName.indexOf('.') !== -1;
-            const isCorrectComplexNode =
-              childNodeName.split('.')[0] === nodeName;
-            if (isComplexNode) {
-              // console.log('>', childNodeName, nodeName, n)
-              // console.log('>', isCorrectComplexNode)
-            }
-            return isComplexNode && isCorrectComplexNode
+            const isCorrectNode = childNodeName.split('.')[0] === nodeName;
+            return isComplexNode && isCorrectNode
               ? [[...acc[0], n], acc[1]]
               : [acc[0], [...acc[1], n]];
           },
           [[], []],
         );
 
-        // console.log('complexAttributesArray', complexAttributesArray)
-        // console.log('nodeChildrenSafe', nodeChildrenSafe)
-
         // parse complex attribute children nodes
-
-        complexAttributesArray.forEach((attrNode) => {
+        complexAttrArray.forEach((attrNode) => {
           const attrNodeNameFixed = fixComplexAttrNodeName(attrNode);
-          const attrName = attrNodeNameFixed['#name']
+          const attrName = attrNodeNameFixed['#name'];
           const attrParsed = parseXmlJsonOutput(attrNodeNameFixed);
           // TODO:
           // @ts-ignore
