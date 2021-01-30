@@ -129,6 +129,8 @@ class Engine {
     this.insert(await this.parseXml(xmlString));
   };
 
+  // TODO: consider rewriting in htmlparser2
+  // https://github.com/fb55/htmlparser2
   public parseXml = async (xmlString: string): Promise<Branch[]> => {
     // convert values of a node from string
     function parseAttrValues(

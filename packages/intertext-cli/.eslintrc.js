@@ -4,8 +4,11 @@ module.exports = {
   parserOptions: {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.eslint.json'],
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
-  plugins: ['@typescript-eslint', 'jest', 'import', 'node'],
+  plugins: ['@typescript-eslint', 'jest', 'import', 'node', 'react', 'react-hooks'],
   extends: [
     'eslint:recommended',
     'plugin:eslint-comments/recommended',
@@ -13,6 +16,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:import/recommended',
     'plugin:import/typescript',
+    'plugin:react/recommended',
     'plugin:jest/recommended',
     'plugin:jest/style',
     'prettier/@typescript-eslint',
