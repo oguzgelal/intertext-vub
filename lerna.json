@@ -6,7 +6,5 @@
     "*react-native*",
     "*react-native*/**"
   ],
-  "version": "independent",
-  "npmClient": "yarn",
-  "useWorkspaces": true
+  "version": "independent"
 }

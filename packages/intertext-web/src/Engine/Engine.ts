@@ -172,6 +172,7 @@ class Engine {
         if (nodeComplexAttrNodes && nodeComplexAttrNodes.length > 0) {
           nodeComplexAttrs = nodeComplexAttrNodes.reduce((acc, attrNode) => {
             const complexAttrParsed = parseJsonOutput(attrNode)
+            console.log('....', complexAttrParsed)
             return {
               ...acc,
               [attrNode['#name']]: complexAttrParsed[attrNode['#name']]
@@ -206,9 +207,9 @@ class Engine {
     }
     
     const output = await this.parser.parseStringPromise(xmlString)
-    // console.log('output', output.root)
+    console.log('output', output.root)
     const parsed = parseJsonOutput(output.root) as Branch[]
-    // console.log('parsed', parsed)
+    console.log('parsed', parsed)
     return parsed?.root
   }
 
