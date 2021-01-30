@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Renderable } from 'Engine/Engine'
 
 import Text from 'components/core/Text';
 import Block from 'components/core/Layout/Block';
@@ -8,6 +7,7 @@ import Button from 'components/core/Button';
 import Spacer from 'components/core/Layout/Spacer';
 import Grid from 'components/core/Layout/Grid';
 import Stack from 'components/core/Layout/Stack';
+import { Renderable } from '@intertext/engine';
 
 
 const renderChildren = (data: Renderable) => {

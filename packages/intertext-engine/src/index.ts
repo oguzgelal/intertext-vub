@@ -26,7 +26,6 @@ export enum Alignment {
 export type Renderable =
   | Renderable[]
   | Branch
-  | boolean
   | string
   | number
   | undefined
@@ -176,10 +175,7 @@ class Engine {
 
       const complexAttributes: Record<string, Renderable> = {};
 
-      let children:
-        | Renderable
-        | Record<string, Renderable>
-        | Record<string, Renderable>[] = parseAttrValueFromString(nodeValue);
+      let children: string | Component[] = nodeValue;
 
       // handle children
       if (nodeChildren && nodeChildren.length > 0) {

@@ -7,7 +7,8 @@ import demoXml from '@intertext/utils/src/examples/demo.xml'
 import engine from './engine';
 import Renderer from 'components/web/Renderer';
 import Screen from 'components/core/Layout/Screen';
-import { Branch } from 'Engine/Engine';
+import { Branch } from '@intertext/engine';
+
 
 console.log('demo', demo)
 console.log('demoXml', demoXml)
