@@ -23,7 +23,14 @@ export enum Alignment {
   RIGHT = 'right',
 }
 
-export type Renderable = Renderable[] | Branch | boolean | string | number | undefined | null;
+export type Renderable =
+  | Renderable[]
+  | Branch
+  | boolean
+  | string
+  | number
+  | undefined
+  | null;
 
 export type Block = {
   block: Renderable;
@@ -74,7 +81,17 @@ export type Button = {
   onClick: Commands;
 };
 
-export type Component = Block | Stack | Spacer | Grid | Text | TextP | TextH1 | TextH2 | TextH3 | Button;
+export type Component =
+  | Block
+  | Stack
+  | Spacer
+  | Grid
+  | Text
+  | TextP
+  | TextH1
+  | TextH2
+  | TextH3
+  | Button;
 
 export type Commands = unknown;
 
@@ -115,19 +132,22 @@ class Engine {
 
   public parseXml = async (xmlString: string): Promise<Branch[]> => {
     // convert values of a node from string
-    function parseAttrValues(node: Record<string, unknown>): Record<string, unknown> {
+    function parseAttrValues(
+      node: Record<string, unknown>,
+    ): Record<string, unknown> {
       return Object.keys(node ?? {}).reduce((acc, key) => {
         let parsed = node[key];
         if (typeof parsed === 'string') {
           parsed = parseAttrValueFromString(parsed);
         }
-        return Object.assign({}, acc, parsed);
+        return Object.assign({}, acc, { [key]: parsed });
       }, {});
     }
 
     // convert string based values into values of a type
-    function parseAttrValueFromString(attrValue: string): string | boolean | number[] {
-      if (typeof attrValue !== 'string') return attrValue;
+    function parseAttrValueFromString(
+      attrValue: string,
+    ): string | boolean | number[] {
       // convert from string to boolean
       if (attrValue === 'true') return true;
       if (attrValue === 'false') return false;
@@ -153,33 +173,52 @@ class Engine {
       const nodeValue: string = output['_'];
       const nodeAttrs: Record<string, unknown> = output['$'] ?? {};
       const nodeChildren: XmlParseOutput[] = output['$$'];
+      // console.log('--------')
+      // console.log('nodeName', nodeName)
 
       const complexAttributes: Record<string, Renderable> = {};
 
-      let children: Renderable | Record<string, Renderable> | Record<string, Renderable>[] = parseAttrValueFromString(
-        nodeValue,
-      );
+      let children:
+        | Renderable
+        | Record<string, Renderable>
+        | Record<string, Renderable>[] = parseAttrValueFromString(nodeValue);
 
       // handle children
       if (nodeChildren && nodeChildren.length > 0) {
-        // seperate complex attributes from actual children. ie:
-        // { #name: block.pocketLeft, ... }
+        // seperate complex attributes from actual children.
+        // ie: { #name: block.pocketLeft, ... }
         // complex attributes needs to be handled differently
-        const [complexAttributesArray, nodeChildrenSafe] = nodeChildren.reduce<[XmlParseOutput[], XmlParseOutput[]]>(
+        const [complexAttributesArray, nodeChildrenSafe] = nodeChildren.reduce<
+          [XmlParseOutput[], XmlParseOutput[]]
+        >(
           (acc, n) => {
             const childNodeName = n['#name'] || '';
-            return childNodeName.split('.')[0] === nodeName ? [[...acc[0], n], acc[1]] : [acc[0], [...acc[1], n]];
+            const isComplexNode = childNodeName.indexOf('.') !== -1;
+            const isCorrectComplexNode =
+              childNodeName.split('.')[0] === nodeName;
+            if (isComplexNode) {
+              // console.log('>', childNodeName, nodeName, n)
+              // console.log('>', isCorrectComplexNode)
+            }
+            return isComplexNode && isCorrectComplexNode
+              ? [[...acc[0], n], acc[1]]
+              : [acc[0], [...acc[1], n]];
           },
           [[], []],
         );
 
+        // console.log('complexAttributesArray', complexAttributesArray)
+        // console.log('nodeChildrenSafe', nodeChildrenSafe)
+
         // parse complex attribute children nodes
+
         complexAttributesArray.forEach((attrNode) => {
-          const attrNodeFixed = fixComplexAttrNodeName(attrNode);
-          const attrParsed = parseXmlJsonOutput(attrNodeFixed);
+          const attrNodeNameFixed = fixComplexAttrNodeName(attrNode);
+          const attrName = attrNodeNameFixed['#name']
+          const attrParsed = parseXmlJsonOutput(attrNodeNameFixed);
           // TODO:
           // @ts-ignore
-          complexAttributes['#name'] = attrParsed[attrNode['#name']];
+          complexAttributes[attrName] = attrParsed[attrName];
         });
 
         // parse actual children
@@ -191,13 +230,14 @@ class Engine {
       return {
         [nodeName]: children,
         ...parseAttrValues(nodeAttrs),
+        ...complexAttributes,
       };
     }
 
     const output = await this.parser.parseStringPromise(xmlString);
-    // console.log('output', output.root)
+    console.log('output', output.root);
     const parsed = parseXmlJsonOutput(output.root);
-    // console.log('parsed', parsed)
+    console.log('parsed', parsed);
 
     // TODO:
     // @ts-ignore
