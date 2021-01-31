@@ -1,36 +1,20 @@
 #!/usr/bin/env node
 import React from 'react';
-import { render } from 'ink';
-import App from './ui';
-// import meow from 'meow';
-// import FullScreen from './FullScreen'
+import { render, useApp, useInput } from 'ink';
+import Stage from './Stage';
 
-/*
-const cli = meow(`
-  Usage
-    $ intertext-cli
+const App = () => {
+  const { exit } = useApp()
+  
+  useInput((input/*, key*/) => {
+    if (input === 'q') {
+			exit();
+		}
+  })
 
-  Options
-    --name  Your name
-
-  Examples
-    $ intertext-cli --name=Jane
-    Hello, Jane
-`, {
-  flags: {
-    name: {
-      type: 'string'
-    }
-  }
-});
-*/
-
-/*
-render(
-  <FullScreen>
-    <App />
-  </FullScreen>
-)
-*/
+  return (
+    <Stage />
+  )
+};
 
 render(<App />)
