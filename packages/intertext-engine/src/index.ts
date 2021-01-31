@@ -222,9 +222,9 @@ class Engine {
     }
 
     const output = await this.parser.parseStringPromise(xmlString);
-    console.log('output', output.root);
+    // console.log('output', output.root);
     const parsed = parseXmlJsonOutput(output.root);
-    console.log('parsed', parsed);
+    // console.log('parsed', parsed);
 
     // TODO:
     // @ts-ignore
