@@ -42,7 +42,7 @@ const Renderer = ({ branch }: { branch: Renderable }) => {
     return (
       <Block
         // align={branch.align}
-        // intent={branch.intent}
+        intent={branch.intent}
         // grow={branch.grow}
         // pocketLeft={'pocketLeft' in branch && renderChildren(branch.pocketLeft)}
         // pocketRight={'pocketRight' in branch && renderChildren(branch.pocketRight)}
@@ -100,7 +100,7 @@ const Renderer = ({ branch }: { branch: Renderable }) => {
 
     return (
       <Text
-        // p={'p' in branch}
+        p={'p' in branch}
         h1={'h1' in branch}
         h2={'h2' in branch}
         h3={'h3' in branch}
@@ -108,7 +108,7 @@ const Renderer = ({ branch }: { branch: Renderable }) => {
         u={branch.underlined}
         i={branch.italic}
         muted={branch.muted}
-        // intent={branch.intent}
+        intent={branch.intent}
       >
         {directRender ? child : renderChildren(child)}
       </Text>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Text as InkText } from 'ink'
+import { Intent } from '@intertext/engine';
 
 const Text = (props: {
   children?: any,
@@ -11,14 +12,21 @@ const Text = (props: {
   i?: boolean,
   u?: boolean,
   muted?: boolean,
+  intent?: Intent,
 }) => {
 
   const isHeading: boolean = !!(props.h1 || props.h2 || props.h3);
-
+  
   let paddingTop = 0;
   if (props.h3) paddingTop = 1;
   if (props.h2) paddingTop = 1;
   if (props.h1) paddingTop = 2;
+  if (props.p) paddingTop = 0;
+  
+  let color;
+  if (props.intent === Intent.INFO) {
+    color = '#00AAFF'
+  }
 
   return (
     <Box
@@ -30,6 +38,7 @@ const Text = (props: {
         underline={props.u}
         dimColor={props.muted}
         inverse={isHeading}
+        color={color}
       >
         {props.h1 && <InkText {...props} inverse># </InkText>}
         {props.h2 && <InkText {...props} inverse>## </InkText>}
