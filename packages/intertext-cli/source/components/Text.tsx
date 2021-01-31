@@ -13,6 +13,7 @@ const Text = (props: {
   u?: boolean,
   muted?: boolean,
   intent?: Intent,
+  doNotWrapInBlock?: boolean
 }) => {
 
   const isHeading: boolean = !!(props.h1 || props.h2 || props.h3);
@@ -21,30 +22,36 @@ const Text = (props: {
   if (props.h3) paddingTop = 1;
   if (props.h2) paddingTop = 1;
   if (props.h1) paddingTop = 2;
-  if (props.p) paddingTop = 0;
+  if (props.p) paddingTop = 1;
   
   let color;
   if (props.intent === Intent.INFO) {
     color = '#00AAFF'
   }
 
-  return (
-    <Box
-      paddingTop={paddingTop}
+  const textComponent = (
+    <InkText
+      bold={props.b}
+      italic={props.i}
+      underline={props.u}
+      dimColor={props.muted}
+      inverse={isHeading}
+      color={color}
     >
-      <InkText
-        bold={props.b}
-        italic={props.i}
-        underline={props.u}
-        dimColor={props.muted}
-        inverse={isHeading}
-        color={color}
-      >
-        {props.h1 && <InkText {...props} inverse># </InkText>}
-        {props.h2 && <InkText {...props} inverse>## </InkText>}
-        {props.h3 && <InkText {...props} inverse>### </InkText>}
-        {props.children}
-      </InkText>
+      {props.h1 && <InkText {...props} inverse># </InkText>}
+      {props.h2 && <InkText {...props} inverse>## </InkText>}
+      {props.h3 && <InkText {...props} inverse>### </InkText>}
+      {props.children}
+    </InkText>
+  )
+
+  if (props.doNotWrapInBlock) {
+    return textComponent
+  }
+
+  return (
+    <Box paddingTop={paddingTop}>
+      {textComponent}      
     </Box>
   )	
 }

@@ -3,7 +3,9 @@
 	"compilerOptions": {
 		"jsx": "react",
 		"esModuleInterop": true,
-		"outDir": "dist"
+    "outDir": "dist",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
 	},
 	"include": ["source"]
 }

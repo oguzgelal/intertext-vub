@@ -2,16 +2,38 @@ import React from 'react';
 import { Renderable } from '@intertext/engine';
 import Block from './components/Block'
 import Text from './components/Text'
+import Stack from './components/Stack'
+import Grid from './components/Grid'
 
-const renderChildren = (data: Renderable) => {
+type RenderOptions = {
+  doNotWrapTextWithinBlock?: boolean
+}
+
+const renderChildren = (data: Renderable, options?: RenderOptions) => {
   if (Array.isArray(data)) {
-    return <>{data.map((c, i) => <Renderer key={i} branch={c} />)}</>;
+    return (
+      <>
+        {data.map((c, i) => (
+          <Renderer
+            key={i}
+            branch={c}
+            options={options}
+          />
+        ))}
+      </>
+    );
   }
 
-  return <Renderer branch={data} />;
+  return <Renderer branch={data} options={options} />;
 };
 
-const Renderer = ({ branch }: { branch: Renderable }) => {
+const Renderer = ({
+  branch,
+  options,
+}: {
+  branch: Renderable,
+  options?: RenderOptions
+}) => {
 
   /**
    * List of items
@@ -43,9 +65,9 @@ const Renderer = ({ branch }: { branch: Renderable }) => {
       <Block
         // align={branch.align}
         intent={branch.intent}
-        // grow={branch.grow}
-        // pocketLeft={'pocketLeft' in branch && renderChildren(branch.pocketLeft)}
-        // pocketRight={'pocketRight' in branch && renderChildren(branch.pocketRight)}
+        grow={branch.grow}
+        pocketLeft={'pocketLeft' in branch && renderChildren(branch.pocketLeft)}
+        pocketRight={'pocketRight' in branch && renderChildren(branch.pocketRight)}
       >
         {renderChildren(branch['block'])}
       </Block>
@@ -55,15 +77,18 @@ const Renderer = ({ branch }: { branch: Renderable }) => {
 
   /**
    * Stack
-   
+   */
   if ('stack' in branch) {
     return (
-      <Stack size={branch.size} vertical={branch.vertical}>
+      <Stack
+        // size={branch.size}
+        vertical={branch.vertical}
+      >
         {renderChildren(branch['stack'])}
       </Stack>
     );
   }
-  */
+  
 
   /**
    * Spacer
@@ -75,15 +100,18 @@ const Renderer = ({ branch }: { branch: Renderable }) => {
 
   /**
    * Grid
-   
+   */ 
   if ('grid' in branch) {
     return (
-      <Grid cols={branch.cols} gap={branch.gap}>
+      <Grid
+        cols={branch.cols}
+        // gap={branch.gap}
+      >
         {renderChildren(branch['grid'])}
       </Grid>
     );
   }
-  */
+  
 
   /**
    * Text
@@ -109,8 +137,13 @@ const Renderer = ({ branch }: { branch: Renderable }) => {
         i={branch.italic}
         muted={branch.muted}
         intent={branch.intent}
+        doNotWrapInBlock={options?.doNotWrapTextWithinBlock}
       >
-        {directRender ? child : renderChildren(child)}
+        {directRender
+          ? child
+          : renderChildren(child, {
+            doNotWrapTextWithinBlock: true
+          })}
       </Text>
     );
   }

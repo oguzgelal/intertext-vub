@@ -15,17 +15,31 @@
     <block intent="info">
       <text intent="info">This is some text</text>
     </block>
+    <spacer />
+    <block intent="info">
+      <block intent="info">
+        <block intent="info">
+          <text intent="info">This is some text</text>
+        </block>
+      </block>
+    </block>
   </block>
 
   <h3>Blocks With Pockets</h3>
   <p>Blocks come with pockets on either side, that can contain other blocks or elements. Pockets should be used for positioning items that are directly related to whatever is in the block, such as action items. On smaller screens, pockets will not wrap and positioned in line with the block.</p>
 
   <stack vertical="true">
-    <block intent="info" pocketLeft="Left" />
-    <block intent="info" pocketRight="Right" />
-    <block intent="info" pocketLeft="Left" pocketRight="Right" />
+    <block intent="info" pocketLeft="text">
+      <text intent="info">Left Pocket</text>
+    </block>
+    <block intent="info" pocketRight="text">
+      <text intent="info">Right Pocket</text>
+    </block>
+    <block intent="info" pocketLeft="text" pocketRight="text">
+      <text intent="info">Both Pockets</text>
+    </block>
     <block intent="info">
-      <text intent="info">Complex pockets</text>
+      <text intent="info">Complex Pockets</text>
       <block.pocketLeft>
         <stack>
           <button intent="success" size="small">✓</button>
@@ -83,19 +97,21 @@
   <h2>Typography</h2>
 
   <grid cols="[1, 1]" gap="large">
-    <p>
-      <text>Lorem ipsum dolor sit amet, </text>
-      <text muted="true">
-        <text>consectetur </text>
-        <text bold="true">adipiscing</text> 
-        <text>elit. Etiam eu fringilla lectus.</text>
-      </text>
-      <text>Pellentesque </text>
-      <text bold="true" italic="true">suscipit nisi libero, ac rhoncus libero </text>
-      <text>molestie quis. </text>
-      <text underlined="true">Sed facilisis eros</text>
-      <text>lectus, non cursus turpis faucibus ut.  Phasellus tristique sapien ut lacus molestie ornare. Curabitur id ultrices mauris.</text>
-    </p>
+    <block>
+      <p>
+        <text>Lorem ipsum dolor sit amet, </text>
+        <text muted="true">
+          <text>consectetur </text>
+          <text bold="true">adipiscing</text> 
+          <text>elit. Etiam eu fringilla lectus.</text>
+        </text>
+        <text>Pellentesque </text>
+        <text bold="true" italic="true">suscipit nisi libero, ac rhoncus libero </text>
+        <text>molestie quis. </text>
+        <text underlined="true">Sed facilisis eros</text>
+        <text>lectus, non cursus turpis faucibus ut.  Phasellus tristique sapien ut lacus molestie ornare. Curabitur id ultrices mauris.</text>
+      </p>
+    </block>
     <block>
       <h1>Heading 1</h1>
       <h2>Heading 2</h2>

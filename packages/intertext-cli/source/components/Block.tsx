@@ -2,14 +2,7 @@ import React from 'react';
 import { Box } from 'ink'
 import { Alignment, Intent } from '@intertext/engine';
 
-const Block = ({
-  children,
-  // align,
-  intent,
-  // grow = true,
-  // pocketLeft,
-  // pocketRight,
-}: {
+const Block = (props: {
   children?: any,
   className?: string
   align?: Alignment,
@@ -19,30 +12,38 @@ const Block = ({
   pocketRight?: any,
 }) => {
 
-  let paddingX: number | undefined = 1;
-  let paddingY: number | undefined;
   let borderStyle: "round" | "single" | "double" | "bold" | "singleDouble" | "doubleSingle" | "classic" | undefined;
   let borderColor: string | undefined;
 
-  if (!!intent && intent !== Intent.DEFAULT) {
-    paddingY = 1
+  if (!!props.intent && props.intent !== Intent.DEFAULT) {
     borderStyle = 'round'
     borderColor = '#00AAFF'
   }
 
   return (
     <Box
-      paddingX={paddingX}
-      paddingY={paddingY}
-      borderStyle={borderStyle}
-      borderColor={borderColor}
+      flexDirection="row"
+      alignItems="center"
+      flexGrow={props.grow ? 1 : 0}
     >
-      {children}
+      {props.pocketLeft && <Box paddingRight={1}>{props.pocketLeft}</Box>}
+      <Box
+        paddingX={1}
+        paddingY={0}
+        borderStyle={borderStyle}
+        borderColor={borderColor}
+        flexDirection="column"
+        flexGrow={props.grow ? 1 : 0}
+      >
+        {props.children}
+      </Box>
+      {props.pocketRight && <Box paddingLeft={1}>{props.pocketRight}</Box>}
     </Box>
   )	
 }
 
-Block.propTypes = {
+Block.defaultProps = {
+  grow: true
 }
 
 export default Block;
