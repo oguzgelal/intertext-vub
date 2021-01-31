@@ -101,13 +101,13 @@ const Renderer = ({ branch }: { branch: Renderable }) => {
     return (
       <Text
         // p={'p' in branch}
-        // h1={'h1' in branch}
-        // h2={'h2' in branch}
-        // h3={'h3' in branch}
-        // b={branch.bold}
-        // u={branch.underlined}
-        // i={branch.italic}
-        // muted={branch.muted}
+        h1={'h1' in branch}
+        h2={'h2' in branch}
+        h3={'h3' in branch}
+        b={branch.bold}
+        u={branch.underlined}
+        i={branch.italic}
+        muted={branch.muted}
         // intent={branch.intent}
       >
         {directRender ? child : renderChildren(child)}
