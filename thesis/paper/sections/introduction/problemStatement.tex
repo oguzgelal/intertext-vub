@@ -1,19 +1,10 @@
-% !TEX root = ../thesis.tex
+% !TEX root = ../../thesis.tex
 
-\chapter{Introduction}
+\section{Problem Statement}
 
-The leap in the Internet of Things (IoT) has opened doors to a new era in information technology in the recent decade. New realms of interconnected devices and device families introduced different ways of interacting with information. Emerging new tools, techniques, frameworks, libraries, and SDKs made it possible to build consumer-facing products in ways that were never possible before. A recent survey conducted namely \textit{State of JavaScript} reveals that (Fig ~\ref{fig:num_of_frameworks_used}) around 60\% of developers use more than one Front-end framework, and for cross-platform frameworks this number is more than 80\% ~\cite{StateOfJs2020}. These advancements attracted many users and developers and helped to create a large and diverse market of consumer products, goods and services. However, it did not come without some hurdles. In this thesis, we group these hurdles under three main categories; consuming data, privacy and security, and providing data. The consuming data section discusses end-users problems due to user interface and experience inconsistencies, and lack of device and accessibility support. The Privacy and Security section argues why there are no truly private and secure environments. Providing data section gives insights into the challenges faced by data and service providers in creating front-end applications.
+In this thesis, we group these hurdles mentioned above under three main categories; consuming data, privacy and security, and providing data. The consuming data section discusses end-users problems due to user interface and experience inconsistencies, and lack of device and accessibility support. The Privacy and Security section argues why there are no truly private and secure environments. Providing data section gives insights into the challenges faced by data and service providers in creating front-end applications.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=5.2cm]{images/frontend_frameworks_2020.png}
-  \qquad
-  \includegraphics[width=5cm]{images/hybrid_frameworks_2020.png}
-  \caption{Percentage of respondents vs. number of frameworks used}%
-  \label{fig:num_of_frameworks_used}%
-\end{figure}
-
-\paragraph{Consuming Data}
+\subsubsection{Consuming Data}
 
 The simplicity of consuming data is lost within the complexity of modern-day applications; nowadays, something as simple as checking the weather, reading a news article, browsing an image gallery, buying a product or service and filling out a form can be frustrating and time-consuming. One common reason for this is the inconsistencies and errors in front-end implementations. In the open market, where everyone can create user-facing applications, there is little to no enforcement or quality control measures on how a user-interface should look or how it should behave. The presentation of the same functions can significantly differ based on the implementations. For instance, some websites' navigational menu component may be on the top, and others could have it on the left or right. Some could offer hamburger-menu style functionality where the user has to click/tap on the hamburger icon to toggle on and off, but some could work by swiping gestures. Swiping gestures might toggle the navigation menu on and off, while some implementations could implement it as "go back", and so on. 
 
@@ -23,11 +14,11 @@ Another major hurdle in consuming data for users is device and screen size suppo
 
 Creating accessible front-ends is another thing that providers have to spend significant efforts on, so much so that there are even developers who specialize only in this field. Creating accessible applications is not always the priority for many development projects due to its costs and efforts. The diversity in user interfaces directly affects the accessibility aspect, as it is another implementation detail that the developer needs to deal with. There are many different ways of creating accessible user interfaces, various implementations for different kinds of accessibility needs, and different ways of implementing each one of them. For instance, in a web application, adding "focus" states to DOM elements is the most basic form of accessibility implementation that allows users to tab into a specific element to interact with it. Designing the order in which they receive focus is a whole other dimension. 
 
-\paragraph{Privacy and Security}
+\subsubsection{Privacy and Security}
 
 As mentioned before, there is a lack of a systematic enforcement mechanism for front-end applications. There are some protective measures in place; however, none of these measures can guarantee a completely secure and private environment ~\cite{TrackingWeb}, even the most ubiquitous browser or platform features could be used to relinquish the privacy of the users ~\cite{TrackingFavicon}. Most popular application stores typically have policies and guidelines on what the applications they distribute are allowed to do, but offending practices, especially the non-obvious ones, likely flies under the radar as most app stores do not require the source codes to be provided. Browsers and operating systems block suspicious activities to some extent, but they do not (or cannot) interfere with the legitimate (or legitimate-looking) ones. Governments implement various forms of cybersecurity laws to protect users, but laws are for the law-abiding, and as long as these laws cannot be enforced effectively, there is no safe environment for the users. As long as users are required to execute code on their devices, the bottom line is that they cannot be truly safe.
 
-\paragraph{Providing Data}
+\subsubsection{Providing Data}
 
 The word Providers refers to anyone who offers data and services to end-users, and it is safe to say that the providers also share the problems discussed under the Consuming Data section. The complexity of building a decent, well designed, accessible front-end experience, not even once but once per every client built for various platforms, forces providers to choose between supporting multiple devices, following best practices, creating a good experience. It is typically the case that providers cannot have it all initially, as it requires high costs and large teams. 
 
