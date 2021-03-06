@@ -8,7 +8,8 @@
   "scripts": {
     "test": "lerna run test",
     "build": "lerna run build",
-    "push": "git remote | xargs -L1 -I R git push R master"
+    "push": "git remote | xargs -L1 -I R git push R master",
+    "sync": "git pull origin master && npm run push"
   },
   "devDependencies": {
     "lerna": "^3.22.1"
