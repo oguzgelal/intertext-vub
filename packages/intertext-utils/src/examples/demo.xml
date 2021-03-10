@@ -1,14 +1,29 @@
 <root>
   <h1>Layout</h1>
 
-  <h2>Block</h2>
-  <p>Blocks are the basic building block of Intertext, every component is nested inside of a block. Blocks shown here falls to the Info intent for demonstration purpose.</p>
+  <h3>Block</h3>
+  <p>Blocks are the basic building block of Intertext, every component is nested inside of a block.</p>
   
+  <block>
+    <text>No Intent</text>
+  </block>
+  <block intent="default">
+    <text intent="default">Intent: default</text>
+  </block>
   <block intent="info">
-    <text intent="info">This is some text</text>
+    <text intent="info">Intent: info</text>
+  </block>
+  <block intent="success">
+    <text intent="success">Intent: success</text>
+  </block>
+  <block intent="warning">
+    <text intent="warning">Intent: warning</text>
+  </block>
+  <block intent="error">
+    <text intent="error">Intent: error</text>
   </block>
 
-  <h2>Nested Blocks</h2>
+  <h3>Nested Blocks</h3>
   <p>Blocks can contain other blocks, or elements (which are wrapped in blocks of their own)</p>
 
   <block intent="info">
@@ -24,7 +39,7 @@
     </block>
   </block>
 
-  <h2>Blocks With Pockets</h2>
+  <h3>Blocks With Pockets</h3>
   <p>Blocks come with pockets on either side, that can contain other blocks or elements. Pockets should be used for positioning items that are directly related to whatever is in the block, such as action items. On smaller screens, pockets will not wrap and positioned in line with the block.</p>
 
   <stack vertical="true">
@@ -48,7 +63,7 @@
     </block>
   </stack>
 
-  <h2>Grid</h2>
+  <h3>Grid</h3>
   <p>Components could be displayed in a grid layout, as well as side by side using this technique. This component works similarly to css-grid, accepts a column template and positions its children based on it.</p>
 
   <stack vertical="true">
@@ -79,7 +94,7 @@
     </grid>
   </stack>
 
-  <h2>Stack</h2>
+  <h3>Stack</h3>
   <p>Components could be placed next to each other with a gap in between. This component works horizontally and vertically.</p>
 
   <stack>
@@ -119,7 +134,7 @@
 
   <h1>Components</h1>
 
-  <h2>Buttons</h2>
+  <h3>Buttons</h3>
 
   <grid cols="[1, 1, 2, 1, 1, 1]">
     <stack vertical="true">
