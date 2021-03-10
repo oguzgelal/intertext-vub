@@ -19,7 +19,10 @@ const InxGrid = ({
   return (
     <Grid
       sx={styles.base}
-      templateColumns={cols.map(c => `${c}fr`).join(' ')}
+      templateColumns={{
+        base: '1fr',
+        md: cols.map(c => `${c}fr`).join(' '),
+      }}
     >
       {children}
     </Grid>

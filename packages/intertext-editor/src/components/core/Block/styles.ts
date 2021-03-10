@@ -1,18 +1,30 @@
 import { ComponentMultiStyleConfig } from "@chakra-ui/theme";
-import { mode, getColor, transparentize } from "@chakra-ui/theme-tools"
+import { getColor, transparentize } from "@chakra-ui/theme-tools"
 import { Dict } from "@chakra-ui/utils"
 import { iff } from "../../../common/utils/conditions";
 
 const getBgColor = (props: Dict) => {
   const c = props.__intent;
-  if (!c) return mode('white', 'black')(props)
+  if (!c) return 'transparent'
   return transparentize(getColor(props.theme, `${c}.400`), 0.15)(props.theme)
 }
 
 const getBorderColor = (props: Dict) => {
   const c = props.__intent;
-  if (!c) return mode('white', 'black')(props)
+  if (!c) return 'transparent'
   return `${c}.400`
+}
+
+const getIntentStyles = (props: Dict) => {
+  const c = props.__intent;
+  if (!c) return {}
+  return {
+    p: 2,
+    bg: getBgColor(props),
+    borderColor: getBorderColor(props),
+    borderRadius: 'lg',
+    borderWidth: 2,
+  }
 }
 
 export const InxBlock: ComponentMultiStyleConfig = {
@@ -21,8 +33,8 @@ export const InxBlock: ComponentMultiStyleConfig = {
     base: {
       display: 'flex',
       alignItems: 'center',
-      marginTop: 2,
-      marginBottom: 2,
+      marginTop: 4,
+      marginBottom: 4,
       '&:first-child': {
         marginTop: 0,
       },
@@ -31,11 +43,7 @@ export const InxBlock: ComponentMultiStyleConfig = {
       }
     },
     container: {
-      p: 2,
-      bg: getBgColor(props),
-      borderColor: getBorderColor(props),
-      borderRadius: 'lg',
-      borderWidth: 2,
+      ...getIntentStyles(props),
       ...iff<object>([props.__block_grow, { flexGrow: 1 }])({})
     },
     pocketLeft: {

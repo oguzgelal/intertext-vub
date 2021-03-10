@@ -17,7 +17,8 @@ export const InxStack: ComponentMultiStyleConfig = {
         marginTop: 4,
         marginBottom: 4,
         '& > *': {
-          margin: 0,
+          marginTop: 0,
+          marginBottom: 0,
         },
         columnGap: gap,
         rowGap: gap,

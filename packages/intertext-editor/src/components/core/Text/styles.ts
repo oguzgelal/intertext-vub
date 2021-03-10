@@ -46,19 +46,19 @@ export const InxText: ComponentMultiStyleConfig = {
           [props['__text_h1'], {
             fontSize: ["4xl", null, "5xl"],
             lineHeight: 1,
-            marginTop: 8,
+            marginTop: 12,
             marginBottom: 2, 
           }],
           [props['__text_h2'], {
             fontSize: ["2xl", null, "3xl"],
             lineHeight: [1.2, null, 1],
-            marginTop: 6,
+            marginTop: 10,
             marginBottom: 1,
           }],
           [props['__text_h3'], {
             fontSize: ["xl", null, "2xl"],
             lineHeight: [1.33, null, 1.2],
-            marginTop: 4,
+            marginTop: 8,
             marginBottom: 0.5,
           }]
         )(),

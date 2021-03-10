@@ -9,7 +9,8 @@ export const InxGrid: ComponentMultiStyleConfig = {
       marginTop: 4,
       marginBottom: 4,
       '& > *': {
-        margin: 0,
+        marginTop: 0,
+        marginBottom: 0,
       },
       gridGap: iff(
         [props.__gap === Size.LARGE, 12],
