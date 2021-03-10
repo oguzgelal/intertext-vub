@@ -1,8 +1,8 @@
 import React from 'react';
-import { Box, As, Text, Heading } from '@chakra-ui/react'
+import { As, Text, Heading, useMultiStyleConfig } from '@chakra-ui/react'
 import { Intent } from '../../../common/types';
 
-const TextComponent = ({
+const InxText = ({
   children,
   block,
   muted,
@@ -37,22 +37,26 @@ const TextComponent = ({
   if (h2) tagHeading = 'h2'
   if (h3) tagHeading = 'h3'
 
-  // text as
-  let tagText: As = isBlock ? 'p' : 'span'
-
-  // variants
-  let variant = ''
-  if (muted) variant = 'muted';
+  const styles = useMultiStyleConfig('InxText', {
+    __text_heading: isHeading,
+    __text_h1: h1,
+    __text_h2: h2,
+    __text_h3: h3,
+    __text_block: isBlock,
+    __text_p: isBlock,
+    __text_span: !isBlock,
+    __text_bold: b,
+    __text_italic: i,
+    __text_underlined: u,
+    __text_muted: muted,
+  })
 
   if (isHeading) {
     return (
       <Heading
         as={tagHeading}
         colorScheme={intent}
-        size={tagHeading}
-        fontStyle={i ? 'italic' : 'normal'}
-        textDecoration={u ? 'underline' : 'none'}
-        variant={variant}
+        sx={styles.heading}
       >
         {children}
       </Heading>
@@ -61,16 +65,13 @@ const TextComponent = ({
 
   return (
     <Text
-      as={tagText}
+      as={isBlock ? 'p' : 'span'}
       colorScheme={intent}
-      fontWeight={b ? 'bold' : 'normal'}
-      fontStyle={i ? 'italic' : 'normal'}
-      textDecoration={u ? 'underline' : 'none'}
-      variant={variant}
+      sx={styles.text}
     >
       {children}
     </Text>
   );
 }
 
-export default TextComponent;
+export default InxText;

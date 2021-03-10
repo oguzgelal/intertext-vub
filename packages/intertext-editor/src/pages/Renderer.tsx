@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Text from '../components/core/Text/Text';
+import Block from '../components/core/Block/Block';
 /*
-import Block from 'components/core/Layout/Block';
 import Button from 'components/core/Button';
 import Spacer from 'components/core/Layout/Spacer';
 import Grid from 'components/core/Layout/Grid';
@@ -53,7 +53,7 @@ const Renderer = ({
   
   /**
    * Block
-   
+   */
   if ('block' in branch) {
     return (
       <Block 
@@ -67,7 +67,6 @@ const Renderer = ({
       </Block>
     )
   }
-  */
 
   /**
    * Stack

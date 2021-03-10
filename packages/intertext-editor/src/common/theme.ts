@@ -1,6 +1,7 @@
 import { theme, extendTheme } from "@chakra-ui/react"
 import { Intent } from './types'
-import { Text, Heading } from '../components/core/Text/styles'
+import { InxText } from '../components/core/Text/styles'
+import { InxBlock } from '../components/core/Block/styles'
 
 const themeExtended = extendTheme({
   config: {
@@ -18,8 +19,8 @@ const themeExtended = extendTheme({
     [Intent.INFO]: theme.colors.cyan,
   },
   components: {
-    Text,
-    Heading
+    InxText,
+    InxBlock,
   }
 })
 
