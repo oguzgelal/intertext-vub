@@ -11,7 +11,12 @@ export const App = () => (
     <Box fontSize="xl">
       <Grid minH="100vh" p={3}>
         <ColorModeSwitcher justifySelf="flex-end" />
-        <Stage />
+        <Box
+          justifySelf="center"
+          w={{ base: '100%', md: '75%', lg: '50%' }}
+        >
+          <Stage />
+        </Box>
       </Grid>
     </Box>
   </ChakraProvider>

@@ -1,8 +1,6 @@
 import React from 'react';
-import { Text, Heading } from '@chakra-ui/react'
-import { vars } from '../../../common/utils/vars';
+import { Box, As, Text, Heading } from '@chakra-ui/react'
 import { Intent } from '../../../common/types';
-import { TypographyVariants } from './styles'
 
 const TextComponent = ({
   children,
@@ -30,23 +28,46 @@ const TextComponent = ({
   u?: boolean,
 }) => {
 
-  const variants = vars<TypographyVariants>({
-    'bold': b,
-    'italic': i,
-    'underlined': u,
-    'muted': muted,
-  }, { intent })
+  const isHeading = h1 || h2 || h3
+  const isBlock = block || p
+  
+  // heading as
+  let tagHeading: As = 'h3'
+  if (h1) tagHeading = 'h1'
+  if (h2) tagHeading = 'h2'
+  if (h3) tagHeading = 'h3'
 
-  if (h1 || h2 || h3) {
+  // text as
+  let tagText: As = isBlock ? 'p' : 'span'
+
+  // variants
+  let variant = ''
+  if (muted) variant = 'muted';
+
+  if (isHeading) {
     return (
-      <Heading variants={variants}>
+      <Heading
+        as={tagHeading}
+        colorScheme={intent}
+        size={tagHeading}
+        fontStyle={i ? 'italic' : 'normal'}
+        textDecoration={u ? 'underline' : 'none'}
+        variant={variant}
+      >
         {children}
       </Heading>
     )
   }
 
   return (
-    <Text variants={variants}>
+    <Text
+      as={tagText}
+      colorScheme={intent}
+      fontWeight={b ? 'bold' : 'normal'}
+      fontStyle={i ? 'italic' : 'normal'}
+      textDecoration={u ? 'underline' : 'none'}
+      variant={variant}
+    >
       {children}
     </Text>
   );
