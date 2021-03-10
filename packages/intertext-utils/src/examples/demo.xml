@@ -1,9 +1,10 @@
 <root>
+  <h1>Intertext UIDL</h1>
   <h2>Layout</h2>
 
   <h3>Block</h3>
   <p>Blocks are the basic building block of Intertext, every component is nested inside of a block. Blocks shown here falls to the Info intent for demonstration purpose.</p>
-
+  
   <block intent="info">
     <text intent="info">This is some text</text>
   </block>

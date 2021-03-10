@@ -1,25 +1,38 @@
 import { ComponentSingleStyleConfig } from "@chakra-ui/theme";
-import { mode, lighten, darken, getColor } from "@chakra-ui/theme-tools"
+import { mode, getColor, lighten, darken } from "@chakra-ui/theme-tools"
 import { Dict } from "@chakra-ui/utils"
 
-const colorSchemeDefault = (props: Dict) => {
-  const { colorScheme: c } = props
-  return {
-    color: mode(`${c}.600`, `${c}.200`)(props)
+const getTextColor = (props: Dict, delta?: number) => {
+  const c = props.colorScheme ?? 'gray'
+  let toneLight = 600;
+  let toneDark = 200;
+
+  if (c === 'gray') {
+    toneLight = 800;
+    toneDark = 100;
   }
+
+  toneLight += delta ?? 0
+  toneDark += delta ?? 0
+
+  return mode(`${c}.${toneLight}`, `${c}.${toneDark}`)(props)
 }
 
 const variantMuted = (props: Dict) => {
-  console.log('getColor', getColor(props.theme, 'current'))
+  const currentColor = getTextColor(props, mode(-400, 400)(props))
+  const currentColorValue = getColor(props.theme, currentColor)
   return {
-    color: mode( lighten('current', 0.4), darken('current', 0.4))(props)
+    color: mode(
+      lighten(currentColorValue, 0.9)(props.theme),
+      darken(currentColorValue, 0.9)(props.theme)
+    )(props)
   }
 }
 
 export const Text: ComponentSingleStyleConfig = {
   baseStyle: props => ({
     fontSize: 'md',
-    ...colorSchemeDefault(props)
+    color: getTextColor(props)
   }),
   variants: {
     muted: variantMuted
@@ -28,7 +41,7 @@ export const Text: ComponentSingleStyleConfig = {
 
 export const Heading: ComponentSingleStyleConfig = {
   baseStyle: props => ({
-    ...colorSchemeDefault(props)
+    color: getTextColor(props)
   }),
   sizes: {
     h1: {
@@ -42,6 +55,6 @@ export const Heading: ComponentSingleStyleConfig = {
     }
   },
   variants: {
-    muted: variantMuted
+    muted: props => variantMuted(props)
   }
 }
