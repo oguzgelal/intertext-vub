@@ -2,10 +2,10 @@ import React from 'react';
 
 import Text from '../components/core/Text/Text';
 import Block from '../components/core/Block/Block';
+import Grid from '../components/core/Grid/Grid';
 /*
 import Button from 'components/core/Button';
 import Spacer from 'components/core/Layout/Spacer';
-import Grid from 'components/core/Layout/Grid';
 import Stack from 'components/core/Layout/Stack';
 */
 import { Renderable } from '@intertext/engine';
@@ -95,7 +95,7 @@ const Renderer = ({
 
   /**
    * Grid
-   
+   */
   if ('grid' in branch) {
     return (
       <Grid
@@ -106,7 +106,6 @@ const Renderer = ({
       </Grid>
     )
   }
-  */
 
   /**
    * Text

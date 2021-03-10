@@ -20,8 +20,7 @@ const Block = ({
 } ) => {
 
   const styles = useMultiStyleConfig('InxBlock', {
-    colorScheme: intent,
-    yoooooo: true
+    __intent: intent,
   })
 
   return (
@@ -29,17 +28,21 @@ const Block = ({
       
       {/** left pocket */}
       {pocketLeft && (
-        <Box>{pocketLeft}</Box>
+        <Box sx={styles.pocketLeft}>
+          {pocketLeft}
+        </Box>
       )}
       
       {/** contents */}
-      <Box colorScheme={intent}>
+      <Box sx={styles.container}>
         {children}
       </Box>
       
       {/** right pocket */}
       {pocketRight && (
-        <Box>{pocketRight}</Box>
+        <Box sx={styles.pocketRight}>
+          {pocketRight}
+        </Box>
       )}
     </Box>
   )	

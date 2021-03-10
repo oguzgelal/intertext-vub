@@ -2,8 +2,9 @@ import { theme, extendTheme } from "@chakra-ui/react"
 import { Intent } from './types'
 import { InxText } from '../components/core/Text/styles'
 import { InxBlock } from '../components/core/Block/styles'
+import { InxGrid } from '../components/core/Grid/styles'
 
-const themeExtended = extendTheme({
+export default extendTheme({
   config: {
     cssVarPrefix: "inx",
     initialColorMode: 'light',
@@ -21,9 +22,6 @@ const themeExtended = extendTheme({
   components: {
     InxText,
     InxBlock,
+    InxGrid,
   }
 })
-
-console.log('themeExtended', themeExtended)
-
-export default themeExtended

@@ -3,13 +3,13 @@ import { mode, getColor, transparentize } from "@chakra-ui/theme-tools"
 import { Dict } from "@chakra-ui/utils"
 
 const getBgColor = (props: Dict) => {
-  const c = props.colorScheme;
+  const c = props.__intent;
   if (!c) return mode('white', 'black')(props)
   return transparentize(getColor(props.theme, `${c}.400`), 0.15)(props.theme)
 }
 
 const getBorderColor = (props: Dict) => {
-  const c = props.colorScheme;
+  const c = props.__intent;
   if (!c) return mode('white', 'black')(props)
   return `${c}.400`
 }

@@ -1,11 +1,11 @@
 import { ComponentMultiStyleConfig } from "@chakra-ui/theme";
 import { mode, getColor, lighten, darken } from "@chakra-ui/theme-tools"
 import { Dict } from "@chakra-ui/utils"
-import { chain } from './../../../common/utils/conditions';
+import { iff } from './../../../common/utils/conditions';
 
 const getTextColor = (props: Dict, delta?: number) => {
-  const c = props.colorScheme ?? 'gray'
-  let toneLight = 600;
+  const c = props.__intent ?? 'gray'
+  let toneLight = 500;
   let toneDark = 200;
 
   if (c === 'gray') {
@@ -32,8 +32,7 @@ export const InxText: ComponentMultiStyleConfig = {
   parts: ['heading', 'text'],
   baseStyle: props => {
     const shared = {
-      color: chain(
-        [[props['__text_muted'], getMutedColor(props)]],
+      color: iff([props['__text_muted'], getMutedColor(props)])(
         getTextColor(props)
       )
     }
@@ -43,26 +42,29 @@ export const InxText: ComponentMultiStyleConfig = {
         ...shared,
         fontFamily: "heading",
         fontWeight: "bold",
-        ...chain([
+        ...iff(
           [props['__text_h1'], {
             fontSize: ["4xl", null, "5xl"],
             lineHeight: 1,
-            marginTop: 12,
+            marginTop: 8,
             marginBottom: 2, 
           }],
           [props['__text_h2'], {
             fontSize: ["2xl", null, "3xl"],
             lineHeight: [1.2, null, 1],
-            marginTop: 8,
+            marginTop: 6,
             marginBottom: 1,
           }],
           [props['__text_h3'], {
             fontSize: ["xl", null, "2xl"],
             lineHeight: [1.33, null, 1.2],
-            marginTop: 6,
+            marginTop: 4,
             marginBottom: 0.5,
           }]
-        ]),
+        )(),
+        '&:first-child': {
+          marginTop: 0,
+        },
       },
       text: {
         ...shared,

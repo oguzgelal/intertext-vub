@@ -49,13 +49,13 @@ const InxText = ({
     __text_italic: i,
     __text_underlined: u,
     __text_muted: muted,
+    __intent: intent,
   })
 
   if (isHeading) {
     return (
       <Heading
         as={tagHeading}
-        colorScheme={intent}
         sx={styles.heading}
       >
         {children}
@@ -66,7 +66,6 @@ const InxText = ({
   return (
     <Text
       as={isBlock ? 'p' : 'span'}
-      colorScheme={intent}
       sx={styles.text}
     >
       {children}
