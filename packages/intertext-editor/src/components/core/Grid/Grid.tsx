@@ -3,13 +3,13 @@ import { Grid, useMultiStyleConfig } from '@chakra-ui/react'
 import { Size } from '../../../common/types';
 
 const InxGrid = ({
-  cols,
-  gap = Size.XSMALL,
   children,
+  gap = Size.XSMALL,
+  cols,
 }: {
-  cols: number[],
-  gap?: Size,
   children?: any
+  gap?: Size,
+  cols: number[],
 }) => {
 
   const styles = useMultiStyleConfig('InxGrid', {

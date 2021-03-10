@@ -3,6 +3,7 @@ import { Intent } from './types'
 import { InxText } from '../components/core/Text/styles'
 import { InxBlock } from '../components/core/Block/styles'
 import { InxGrid } from '../components/core/Grid/styles'
+import { InxStack } from '../components/core/Stack/styles'
 
 export default extendTheme({
   config: {
@@ -23,5 +24,6 @@ export default extendTheme({
     InxText,
     InxBlock,
     InxGrid,
+    InxStack,
   }
 })

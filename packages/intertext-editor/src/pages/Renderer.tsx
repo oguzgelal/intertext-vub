@@ -3,10 +3,9 @@ import React from 'react';
 import Text from '../components/core/Text/Text';
 import Block from '../components/core/Block/Block';
 import Grid from '../components/core/Grid/Grid';
+import Stack from '../components/core/Stack/Stack';
 /*
 import Button from 'components/core/Button';
-import Spacer from 'components/core/Layout/Spacer';
-import Stack from 'components/core/Layout/Stack';
 */
 import { Renderable } from '@intertext/engine';
 
@@ -70,28 +69,17 @@ const Renderer = ({
 
   /**
    * Stack
-   
+   */
   if ('stack' in branch) {
     return (
       <Stack
-        size={branch.size}
+        gap={branch.size}
         vertical={branch.vertical}
       >
         {renderChildren(branch['stack'])}
       </Stack>
     )
   }
-  */
-
-  /**
-   * Spacer
-   
-  if ('spacer' in branch) {
-    return (
-      <Spacer size={branch.size} />
-    )
-  }
-  */
 
   /**
    * Grid

@@ -81,7 +81,7 @@ const Renderer = ({
   if ('stack' in branch) {
     return (
       <Stack
-        // size={branch.size}
+        // gap={branch.gap}
         vertical={branch.vertical}
       >
         {renderChildren(branch['stack'])}

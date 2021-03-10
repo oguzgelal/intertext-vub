@@ -4,7 +4,7 @@ import { Box } from 'ink';
 
 const Stack = (props: {
   children?: any,
-  // size?: Size,
+  // gap?: Size,
   vertical?: boolean,
 }) => {
 

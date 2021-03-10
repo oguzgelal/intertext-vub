@@ -1,6 +1,7 @@
 import { ComponentMultiStyleConfig } from "@chakra-ui/theme";
 import { mode, getColor, transparentize } from "@chakra-ui/theme-tools"
 import { Dict } from "@chakra-ui/utils"
+import { iff } from "../../../common/utils/conditions";
 
 const getBgColor = (props: Dict) => {
   const c = props.__intent;
@@ -18,11 +19,8 @@ export const InxBlock: ComponentMultiStyleConfig = {
   parts: ['base', 'container', 'pocketLeft', 'pocketRight'],
   baseStyle: props => ({
     base: {
-      p: 2,
-      bg: getBgColor(props),
-      borderRadius: 'lg',
-      borderWidth: 2,
-      borderColor: getBorderColor(props),
+      display: 'flex',
+      alignItems: 'center',
       marginTop: 2,
       marginBottom: 2,
       '&:first-child': {
@@ -33,10 +31,18 @@ export const InxBlock: ComponentMultiStyleConfig = {
       }
     },
     container: {
+      p: 2,
+      bg: getBgColor(props),
+      borderColor: getBorderColor(props),
+      borderRadius: 'lg',
+      borderWidth: 2,
+      ...iff<object>([props.__block_grow, { flexGrow: 1 }])({})
     },
     pocketLeft: {
+      marginRight: 3,
     },
     pocketRight: {
+      marginLeft: 3,
     },
   })
 }

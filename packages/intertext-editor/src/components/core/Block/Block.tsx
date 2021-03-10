@@ -21,6 +21,7 @@ const Block = ({
 
   const styles = useMultiStyleConfig('InxBlock', {
     __intent: intent,
+    __block_grow: grow,
   })
 
   return (

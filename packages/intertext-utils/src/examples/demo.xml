@@ -16,7 +16,6 @@
     <block intent="info">
       <text intent="info">This is some text</text>
     </block>
-    <spacer />
     <block intent="info">
       <block intent="info">
         <block intent="info">
@@ -89,7 +88,6 @@
     <block intent="info" grow="false" />
     <block intent="info" grow="false" />
   </stack>
-  <spacer />
   <stack vertical="true">
     <block intent="info" grow="false" />
     <block intent="info" grow="false" />
