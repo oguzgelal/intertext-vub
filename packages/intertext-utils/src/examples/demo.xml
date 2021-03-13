@@ -23,8 +23,7 @@
     <text intent="error">Intent: error</text>
   </block>
 
-  <h3>Nested Blocks</h3>
-  <p>Blocks can contain other blocks, or elements (which are wrapped in blocks of their own)</p>
+  <p>Blocks can contain other blocks or elements</p>
 
   <block intent="info">
     <block intent="info">
@@ -32,67 +31,60 @@
     </block>
     <block intent="info">
       <block intent="info">
-        <block intent="info">
-          <text intent="info">This is some text</text>
-        </block>
+        <text intent="info">This is some text</text>
       </block>
     </block>
   </block>
-
-  <h3>Blocks With Pockets</h3>
+  <p></p>
   <p>Blocks come with pockets on either side, that can contain other blocks or elements. Pockets should be used for positioning items that are directly related to whatever is in the block, such as action items. On smaller screens, pockets will not wrap and positioned in line with the block.</p>
 
-  <stack vertical="true">
-    <block intent="info" pocketLeft="text">
-      <text intent="info">Left Pocket</text>
-    </block>
-    <block intent="info" pocketRight="text">
-      <text intent="info">Right Pocket</text>
-    </block>
-    <block intent="info" pocketLeft="text" pocketRight="text">
-      <text intent="info">Both Pockets</text>
-    </block>
-    <block intent="info">
-      <text intent="info">Complex Pockets</text>
-      <block.pocketLeft>
-        <stack>
-          <button intent="success" size="small">✓</button>
-          <button intent="error" size="small">✕</button>
-        </stack>
-      </block.pocketLeft>
-    </block>
-  </stack>
+  <block intent="info" pocketLeft="text">
+    <text intent="info">Left Pocket</text>
+  </block>
+  <block intent="info" pocketRight="text">
+    <text intent="info">Right Pocket</text>
+  </block>
+  <block intent="info" pocketLeft="text" pocketRight="text">
+    <text intent="info">Both Pockets</text>
+  </block>
+  <block intent="info">
+    <text intent="info">Complex Pockets</text>
+    <block.pocketLeft>
+      <stack>
+        <button intent="success" size="small">✓</button>
+        <button intent="error" size="small">✕</button>
+      </stack>
+    </block.pocketLeft>
+  </block>
 
   <h3>Grid</h3>
   <p>Components could be displayed in a grid layout, as well as side by side using this technique. This component works similarly to css-grid, accepts a column template and positions its children based on it.</p>
 
-  <stack vertical="true">
-    <grid cols="[1, 1, 1, 1, 1]">
-      <block intent="info">1</block>
-      <block intent="info">1</block>
-      <block intent="info">1</block>
-      <block intent="info">1</block>
-      <block intent="info">1</block>
-    </grid>
-    <grid cols="[2, 3, 1]">
-      <block intent="info">2</block>
-      <block intent="info">3</block>
-      <block intent="info">1</block>
-    </grid>
-    <grid cols="[1, 4, 1]">
-      <block intent="info">1</block>
-      <block intent="info">4</block>
-      <block intent="info">1</block>
-    </grid>
-    <grid cols="[3, 1]">
-      <block intent="info">3</block>
-      <block intent="info">1</block>
-    </grid>
-    <grid cols="[1, 3]">
-      <block intent="info">1</block>
-      <block intent="info">3</block>
-    </grid>
-  </stack>
+  <grid cols="[1, 1, 1, 1, 1]">
+    <block intent="info">1</block>
+    <block intent="info">1</block>
+    <block intent="info">1</block>
+    <block intent="info">1</block>
+    <block intent="info">1</block>
+  </grid>
+  <grid cols="[2, 3, 1]">
+    <block intent="info">2</block>
+    <block intent="info">3</block>
+    <block intent="info">1</block>
+  </grid>
+  <grid cols="[1, 4, 1]">
+    <block intent="info">1</block>
+    <block intent="info">4</block>
+    <block intent="info">1</block>
+  </grid>
+  <grid cols="[3, 1]">
+    <block intent="info">3</block>
+    <block intent="info">1</block>
+  </grid>
+  <grid cols="[1, 3]">
+    <block intent="info">1</block>
+    <block intent="info">3</block>
+  </grid>
 
   <h3>Stack</h3>
   <p>Components could be placed next to each other with a gap in between. This component works horizontally and vertically.</p>
@@ -116,7 +108,7 @@
         <text muted="true">
           <text>consectetur </text>
           <text bold="true">adipiscing</text> 
-          <text>elit. Etiam eu fringilla lectus.</text>
+          <text>elit. Etiam eu fringilla lectus. </text>
         </text>
         <text>Pellentesque </text>
         <text bold="true" italic="true">suscipit nisi libero, ac rhoncus libero </text>

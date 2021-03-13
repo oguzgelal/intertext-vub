@@ -1,6 +1,6 @@
 import { ComponentMultiStyleConfig } from "@chakra-ui/theme";
-import { iff } from './../../../common/utils/conditions'
 import { Size } from '../../../common/types';
+import { first } from './../../../common/utils/conditions'
 
 export const InxGrid: ComponentMultiStyleConfig = {
   parts: ['base'],
@@ -12,7 +12,7 @@ export const InxGrid: ComponentMultiStyleConfig = {
         marginTop: 0,
         marginBottom: 0,
       },
-      gridGap: iff(
+      gridGap: first(
         [props.__gap === Size.LARGE, 12],
         [props.__gap === Size.MEDIUM, 9],
         [props.__gap === Size.SMALL, 6],

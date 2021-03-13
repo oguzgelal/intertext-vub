@@ -1,7 +1,6 @@
 import { ComponentMultiStyleConfig } from "@chakra-ui/theme";
 import { getColor, transparentize } from "@chakra-ui/theme-tools"
 import { Dict } from "@chakra-ui/utils"
-import { iff } from "../../../common/utils/conditions";
 
 const getBgColor = (props: Dict) => {
   const c = props.__intent;
@@ -44,7 +43,7 @@ export const InxBlock: ComponentMultiStyleConfig = {
     },
     container: {
       ...getIntentStyles(props),
-      ...iff<object>([props.__block_grow, { flexGrow: 1 }])({})
+      ...(props.__block_grow ? { flexGrow: 1 } : {})
     },
     pocketLeft: {
       marginRight: 3,
