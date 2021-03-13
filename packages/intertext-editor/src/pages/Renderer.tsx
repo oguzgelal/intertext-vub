@@ -3,7 +3,6 @@ import React from 'react';
 import Text from '../components/core/Text/Text';
 import Block from '../components/core/Block/Block';
 import Grid from '../components/core/Grid/Grid';
-import Stack from '../components/core/Stack/Stack';
 /*
 import Button from 'components/core/Button';
 */
@@ -59,25 +58,9 @@ const Renderer = ({
         align={branch.align}
         intent={branch.intent}
         grow={branch.grow}
-        pocketLeft={('pocketLeft' in branch) && renderChildren(branch.pocketLeft)}
-        pocketRight={('pocketRight' in branch) && renderChildren(branch.pocketRight)}
       >
         {renderChildren(branch['block'])}
       </Block>
-    )
-  }
-
-  /**
-   * Stack
-   */
-  if ('stack' in branch) {
-    return (
-      <Stack
-        gap={branch.size}
-        vertical={branch.vertical}
-      >
-        {renderChildren(branch['stack'])}
-      </Stack>
     )
   }
 

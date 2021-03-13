@@ -1,6 +1,7 @@
 import { ComponentMultiStyleConfig } from "@chakra-ui/theme";
 import { getColor, transparentize } from "@chakra-ui/theme-tools"
 import { Dict } from "@chakra-ui/utils"
+import { merge } from './../../../common/utils/conditions'
 
 const getBgColor = (props: Dict) => {
   const c = props.__intent;
@@ -27,29 +28,29 @@ const getIntentStyles = (props: Dict) => {
 }
 
 export const InxBlock: ComponentMultiStyleConfig = {
-  parts: ['base', 'container', 'pocketLeft', 'pocketRight'],
-  baseStyle: props => ({
-    base: {
-      display: 'flex',
-      alignItems: 'center',
-      marginTop: 4,
-      marginBottom: 4,
-      '&:first-child': {
-        marginTop: 0,
+  parts: ['base'],
+  baseStyle: props => {
+
+    /**
+     * base styles
+     */
+    const base = merge(
+      {
+        marginTop: 4,
+        marginBottom: 4,
+        '&:first-child': {
+          marginTop: 0,
+        },
+        '&:last-child': {
+          marginBottom: 0,
+        }
       },
-      '&:last-child': {
-        marginBottom: 0,
-      }
-    },
-    container: {
-      ...getIntentStyles(props),
-      ...(props.__block_grow ? { flexGrow: 1 } : {})
-    },
-    pocketLeft: {
-      marginRight: 3,
-    },
-    pocketRight: {
-      marginLeft: 3,
-    },
-  })
+      getIntentStyles(props),
+      props['__block_grow'] && { flexGrow: 1 }
+    )
+
+    return {
+      base
+    }
+  }
 }

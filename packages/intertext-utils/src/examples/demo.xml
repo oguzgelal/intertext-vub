@@ -36,26 +36,6 @@
     </block>
   </block>
   <p></p>
-  <p>Blocks come with pockets on either side, that can contain other blocks or elements. Pockets should be used for positioning items that are directly related to whatever is in the block, such as action items. On smaller screens, pockets will not wrap and positioned in line with the block.</p>
-
-  <block intent="info" pocketLeft="text">
-    <text intent="info">Left Pocket</text>
-  </block>
-  <block intent="info" pocketRight="text">
-    <text intent="info">Right Pocket</text>
-  </block>
-  <block intent="info" pocketLeft="text" pocketRight="text">
-    <text intent="info">Both Pockets</text>
-  </block>
-  <block intent="info">
-    <text intent="info">Complex Pockets</text>
-    <block.pocketLeft>
-      <stack>
-        <button intent="success" size="small">✓</button>
-        <button intent="error" size="small">✕</button>
-      </stack>
-    </block.pocketLeft>
-  </block>
 
   <h3>Grid</h3>
   <p>Components could be displayed in a grid layout, as well as side by side using this technique. This component works similarly to css-grid, accepts a column template and positions its children based on it.</p>
@@ -85,19 +65,6 @@
     <block intent="info">1</block>
     <block intent="info">3</block>
   </grid>
-
-  <h3>Stack</h3>
-  <p>Components could be placed next to each other with a gap in between. This component works horizontally and vertically.</p>
-
-  <stack>
-    <block intent="info" grow="false" />
-    <block intent="info" grow="false" />
-    <block intent="info" grow="false" />
-  </stack>
-  <stack vertical="true">
-    <block intent="info" grow="false" />
-    <block intent="info" grow="false" />
-  </stack>
 
   <h1>Typography</h1>
 
@@ -139,10 +106,7 @@
       <button size="small">small</button>
     </stack>
     <stack vertical="true">
-      <button><block pocketLeft="😬">stuff on left</block></button>
-      <button><block pocketRight="😬">stuff on right</block></button>
-      <button fill="true"><block pocketLeft="😬">fill</block></button>
-      <button fill="true"><block pocketRight="😬">fill</block></button>
+      <button fill="true">fill</button>
     </stack>
   </grid>
 </root>
