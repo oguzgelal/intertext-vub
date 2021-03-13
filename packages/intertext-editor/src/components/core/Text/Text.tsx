@@ -1,6 +1,6 @@
 import React from 'react';
 import { As, Text, Heading, useMultiStyleConfig } from '@chakra-ui/react'
-import { Intent } from '../../../common/types';
+import { Intent } from '../../../types/theme';
 
 const InxText = ({
   children,
