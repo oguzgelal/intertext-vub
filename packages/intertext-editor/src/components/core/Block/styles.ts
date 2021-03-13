@@ -46,7 +46,6 @@ export const InxBlock: ComponentMultiStyleConfig = {
         }
       },
       getIntentStyles(props),
-      props['__block_grow'] && { flexGrow: 1 }
     )
 
     return {

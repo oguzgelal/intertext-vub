@@ -55,9 +55,7 @@ const Renderer = ({
   if ('block' in branch) {
     return (
       <Block 
-        align={branch.align}
         intent={branch.intent}
-        grow={branch.grow}
       >
         {renderChildren(branch['block'])}
       </Block>
@@ -125,7 +123,6 @@ const Renderer = ({
     return (
       <Button
         size={branch.size}
-        align={branch.align}
         intent={branch.intent}
         fill={branch.fill}
         disabled={branch.disabled}
