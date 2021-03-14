@@ -54,3 +54,33 @@ export type JustifyContent =
 export type LayoutDirection =
   | 'ltr'
   | 'rtl'
+
+export type LayoutProps = {
+  position?: Position,
+  alignContent?: AlignContent
+  alignItems?: AlignItems
+  alignSelf?: AlignSelf
+  flexDirection?: FlexDirection
+  flexWrap?: FlexWrap
+  flexGrow?: FlexGrow
+  flexShrink?: FlexShrink
+  flexBasis?: FlexBasis
+  justifyContent?: JustifyContent
+  layoutDirection?: LayoutDirection
+  width?: Size | undefined
+  minWidth?: Size | undefined
+  maxWidth?: Size | undefined
+  height?: Size | undefined
+  minHeight?: Size | undefined
+  maxHeight?: Size | undefined
+  margin?: Space | undefined
+  marginTop?: Space | undefined
+  marginBottom?: Space | undefined
+  marginLeft?: Space | undefined
+  marginRight?: Space | undefined
+  padding?: Space | undefined
+  paddingTop?: Space | undefined
+  paddingBottom?: Space | undefined
+  paddingLeft?: Space | undefined
+  paddingRight?: Space | undefined
+}

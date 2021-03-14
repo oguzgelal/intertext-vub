@@ -54,9 +54,7 @@ const Renderer = ({
    */
   if ('block' in branch) {
     return (
-      <Block 
-        intent={branch.intent}
-      >
+      <Block intent={branch.intent}>
         {renderChildren(branch['block'])}
       </Block>
     )

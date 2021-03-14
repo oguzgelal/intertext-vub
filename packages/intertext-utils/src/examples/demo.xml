@@ -10,6 +10,9 @@
   <block intent="default">
     <text intent="default">Intent: default</text>
   </block>
+  <block intent="primary">
+    <text intent="primary">Intent: primary</text>
+  </block>
   <block intent="info">
     <text intent="info">Intent: info</text>
   </block>

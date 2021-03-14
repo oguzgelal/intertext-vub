@@ -1,7 +1,7 @@
+import { Dict } from "@chakra-ui/utils"
 import { ComponentMultiStyleConfig } from "@chakra-ui/theme";
 import { getColor, transparentize } from "@chakra-ui/theme-tools"
-import { Dict } from "@chakra-ui/utils"
-import { merge } from './../../../common/utils/conditions'
+import { merge } from './../../../utils/conditions'
 
 const getBgColor = (props: Dict) => {
   const c = props.__intent;

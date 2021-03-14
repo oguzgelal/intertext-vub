@@ -1,107 +1,57 @@
-import xml2js from 'xml2js';
+import parseXml from './utils/parseXml'
+import { Branch } from './types/renderable'
 
-export enum Intent {
-  DEFAULT = 'default',
-  PRIMARY = 'primary',
-  SECONDARY = 'secondary',
-  SUCCESS = 'success',
-  WARNING = 'warning',
-  ERROR = 'error',
-  INFO = 'info',
-}
+/**
+ * type exports
+ */
 
-export enum Size {
-  LARGE = 'large',
-  MEDIUM = 'medium',
-  SMALL = 'small',
-  XSMALL = 'xsmall',
-}
+export { Size, Unit, Percent } from './types/size'
+export { Space } from './types/space'
+export { Intent } from './types/theme'
+export {
+  AlignContent,
+  AlignItems,
+  AlignSelf,
+  FlexBasis,
+  FlexDirection,
+  FlexGrow,
+  FlexShrink,
+  FlexWrap,
+  JustifyContent,
+  LayoutDirection,
+  LayoutProps,
+  Position,
+} from './types/layout'
 
-export enum Alignment {
-  LEFT = 'left',
-  CENTER = 'center',
-  RIGHT = 'right',
-}
+export {
+  Branch,
+  Renderable,
+} from './types/renderable'
 
-export type Renderable =
-  | Renderable[]
-  | Branch
-  | string
-  | number
-  | undefined
-  | null;
+export {
+  Block,
+  Grid,
+  Text,
+  TextH1,
+  TextH2,
+  TextH3,
+  TextP,
+  Button,
+  Component,
+} from './types/components'
 
-export type Block = {
-  block: Renderable;
-  pocketLeft?: Renderable;
-  pocketRight?: Renderable;
-  align?: Alignment;
-  intent?: Intent;
-  grow?: boolean;
-};
+export {
+  Command
+} from './types/commands'
 
-export type Stack = {
-  stack: Renderable;
-  size?: Size;
-  vertical?: boolean;
-};
+/**
+ * other exports
+ */
 
-export type Spacer = {
-  spacer: null | undefined;
-  size?: Size;
-};
-
-export type Grid = {
-  grid: Renderable;
-  cols: number[];
-  gap?: Size;
-};
-
-type TextBase = {
-  intent?: Intent;
-  muted?: boolean;
-  bold?: boolean;
-  italic?: boolean;
-  underlined?: boolean;
-};
-export type Text = TextBase & { text: Renderable };
-export type TextP = TextBase & { p: Renderable };
-export type TextH1 = TextBase & { h1: Renderable };
-export type TextH2 = TextBase & { h2: Renderable };
-export type TextH3 = TextBase & { h3: Renderable };
-
-export type Button = {
-  button: Renderable;
-  size?: Size.SMALL | Size.MEDIUM | Size.LARGE;
-  align?: Alignment;
-  intent?: Intent;
-  fill?: boolean;
-  disabled?: boolean;
-  onClick: Commands;
-};
-
-export type Component =
-  | Block
-  | Stack
-  | Spacer
-  | Grid
-  | Text
-  | TextP
-  | TextH1
-  | TextH2
-  | TextH3
-  | Button;
-
-export type Commands = unknown;
-
-export type Branch = Component;
-
-type XmlParseOutput = {
-  '#name': string;
-  $: Record<string, unknown>;
-  $$: XmlParseOutput[];
-  _: string;
-};
+export {
+  getLayoutProps,
+  defaultProps as defaultLayoutProps,
+} from './utils/layout'
 
 /**
  * Engine class
@@ -109,16 +59,6 @@ type XmlParseOutput = {
 
 class Engine {
   public packages: Branch[] | undefined;
-  private parser: xml2js.Parser;
-
-  constructor() {
-    this.parser = new xml2js.Parser({
-      preserveChildrenOrder: true,
-      explicitArray: true,
-      explicitChildren: true,
-      explicitRoot: true,
-    });
-  }
 
   public insert = (pack: Branch | Branch[]): void => {
     const packArr = Array.isArray(pack) ? pack : [pack];
@@ -132,108 +72,8 @@ class Engine {
   // TODO: consider rewriting in htmlparser2
   // https://github.com/fb55/htmlparser2
   public parseXml = async (xmlString: string): Promise<Branch[]> => {
-    // convert values of a node from string
-    function parseAttrValues(
-      node: Record<string, unknown>,
-    ): Record<string, unknown> {
-      return Object.keys(node ?? {}).reduce((acc, key) => {
-        let parsed = node[key];
-        if (typeof parsed === 'string') {
-          parsed = parseAttrValueFromString(parsed);
-        }
-        return Object.assign({}, acc, { [key]: parsed });
-      }, {});
-    }
-
-    // convert string based values into values of a type
-    function parseAttrValueFromString(
-      attrValue: string,
-    ): string | boolean | number[] {
-      // convert from string to boolean
-      if (attrValue === 'true') return true;
-      if (attrValue === 'false') return false;
-      // parses things like '[1, 2, 3]'
-      if (/\s*\[[\s*\d+\s*,]+\]\s*/gi.test(attrValue ?? '')) {
-        return <number[]>JSON.parse(attrValue ?? '');
-      }
-      return attrValue;
-    }
-
-    /**
-     * Fix complex attribute node names. ie:
-     * { #name: block.pocketLeft } to { #name: pocketLeft }
-     */
-    function fixComplexAttrNodeName(node: XmlParseOutput): XmlParseOutput {
-      return Object.assign({}, node, {
-        '#name': (node['#name'] ?? '').split('.').slice(1).join('.'),
-      });
-    }
-
-    function parseXmlJsonOutput(output: XmlParseOutput): Branch {
-      const nodeName: string = output['#name'];
-      const nodeValue: string = output['_'];
-      const nodeAttrs: Record<string, unknown> = output['$'] ?? {};
-      const nodeChildren: XmlParseOutput[] = output['$$'];
-
-      const complexAttributes: Record<string, Renderable> = {};
-
-      let children: string | Component[] = nodeValue;
-
-      // handle children
-      if (nodeChildren && nodeChildren.length > 0) {
-        // seperate complex attributes from actual children.
-        // ie: { #name: block.pocketLeft, ... }
-        // complex attributes needs to be handled differently
-        const [complexAttrArray, nodeChildrenSafe] = nodeChildren.reduce<
-          [XmlParseOutput[], XmlParseOutput[]]
-        >(
-          (acc, n) => {
-            const childNodeName = n['#name'] || '';
-            const isComplexNode = childNodeName.indexOf('.') !== -1;
-            const isCorrectNode = childNodeName.split('.')[0] === nodeName;
-            return isComplexNode && isCorrectNode
-              ? [[...acc[0], n], acc[1]]
-              : [acc[0], [...acc[1], n]];
-          },
-          [[], []],
-        );
-
-        // parse complex attribute children nodes
-        complexAttrArray.forEach((attrNode) => {
-          const attrNodeNameFixed = fixComplexAttrNodeName(attrNode);
-          const attrName = attrNodeNameFixed['#name'];
-          const attrParsed = parseXmlJsonOutput(attrNodeNameFixed);
-          // TODO:
-          // @ts-ignore
-          complexAttributes[attrName] = attrParsed[attrName];
-        });
-
-        // parse actual children
-        children = nodeChildrenSafe.map(parseXmlJsonOutput);
-      }
-
-      // TODO:
-      // @ts-ignore
-      return {
-        [nodeName]: children,
-        ...parseAttrValues(nodeAttrs),
-        ...complexAttributes,
-      };
-    }
-
-    const output = await this.parser.parseStringPromise(xmlString);
-    // console.log('output', output.root);
-    const parsed = parseXmlJsonOutput(output.root);
-    // console.log('parsed', parsed);
-
-    // TODO:
-    // @ts-ignore
-    return parsed?.root;
+    return parseXml(xmlString)
   };
-
-  // public evaluate = (branch: Branch) => {
-  //   return branch;
-  // }
 }
 
 export default Engine;

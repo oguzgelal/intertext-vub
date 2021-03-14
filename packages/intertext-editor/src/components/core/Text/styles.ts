@@ -1,7 +1,7 @@
-import { ComponentMultiStyleConfig } from "@chakra-ui/theme";
-import { mode } from "@chakra-ui/theme-tools"
 import { Dict } from "@chakra-ui/utils"
-import { merge } from './../../../common/utils/conditions'
+import { mode } from "@chakra-ui/theme-tools"
+import { ComponentMultiStyleConfig } from "@chakra-ui/theme";
+import { merge } from './../../../utils/conditions'
 
 const getTextColor = (props: Dict) => {
   const c = props.__intent ?? 'gray'

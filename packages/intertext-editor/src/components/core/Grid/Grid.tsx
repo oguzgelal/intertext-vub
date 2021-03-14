@@ -1,14 +1,15 @@
 import React from 'react';
 import { Grid, useMultiStyleConfig } from '@chakra-ui/react'
-import { Space } from '../../../types/space';
+import { Space, LayoutProps, getLayoutProps } from '@intertext/engine'
 
 const InxGrid = ({
   children,
-  gap = Size.XSMALL,
+  gap = '4',
   cols,
-}: {
+  ...rest
+}: LayoutProps & {
   children?: any
-  gap?: Size,
+  gap?: Space,
   cols: number[],
 }) => {
 
@@ -16,6 +17,7 @@ const InxGrid = ({
 
   return (
     <Grid
+      {...getLayoutProps(rest)}
       sx={styles.base}
       templateColumns={{
         base: '1fr',

@@ -1,8 +1,17 @@
 import { theme, extendTheme } from "@chakra-ui/react"
-import { Intent } from './types/types'
+import { Intent } from '../types/theme'
 import { InxText } from '../components/core/Text/styles'
 import { InxBlock } from '../components/core/Block/styles'
 import { InxGrid } from '../components/core/Grid/styles'
+
+const colors: Record<Intent, Record<number, string>> = {
+  'default': theme.colors.gray,
+  'primary': theme.colors.blue,
+  'error': theme.colors.red,
+  'success': theme.colors.green,
+  'warning': theme.colors.orange,
+  'info': theme.colors.cyan,
+}
 
 export default extendTheme({
   config: {
@@ -10,15 +19,7 @@ export default extendTheme({
     initialColorMode: 'light',
     useSystemColorMode: true,
   },
-  colors: {
-    [Intent.DEFAULT]: theme.colors.gray,
-    [Intent.PRIMARY]: theme.colors.blue,
-    [Intent.SECONDARY]: theme.colors.blue,
-    [Intent.ERROR]: theme.colors.red,
-    [Intent.SUCCESS]: theme.colors.green,
-    [Intent.WARNING]: theme.colors.orange,
-    [Intent.INFO]: theme.colors.cyan,
-  },
+  colors,
   components: {
     InxText,
     InxBlock,
