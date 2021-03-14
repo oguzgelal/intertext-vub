@@ -8,7 +8,6 @@ import Button from 'components/core/Button';
 */
 import { Renderable } from '@intertext/engine';
 
-
 const renderChildren = (data: Renderable) => {
   if (Array.isArray(data)) {
     return data.map((c, i) => (
@@ -54,7 +53,7 @@ const Renderer = ({
    */
   if ('block' in branch) {
     return (
-      <Block intent={branch.intent}>
+      <Block {...branch}>
         {renderChildren(branch['block'])}
       </Block>
     )
@@ -65,10 +64,7 @@ const Renderer = ({
    */
   if ('grid' in branch) {
     return (
-      <Grid
-        cols={branch.cols}
-        gap={branch.gap}
-      >
+      <Grid {...branch}>
         {renderChildren(branch['grid'])}
       </Grid>
     )
@@ -99,6 +95,7 @@ const Renderer = ({
 
     return (
       <Text
+        {...branch}
         p={'p' in branch}
         h1={'h1' in branch}
         h2={'h2' in branch}
@@ -106,8 +103,6 @@ const Renderer = ({
         b={branch.bold}
         u={branch.underlined}
         i={branch.italic}
-        muted={branch.muted}
-        intent={branch.intent}
       >
         {directRender ? child : renderChildren(child)}
       </Text>

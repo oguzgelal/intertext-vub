@@ -19,11 +19,11 @@ const getIntentStyles = (props: Dict) => {
   const c = props.__intent;
   if (!c) return {}
   return {
-    p: 2,
     bg: getBgColor(props),
     borderColor: getBorderColor(props),
     borderRadius: 'lg',
     borderWidth: 2,
+    padding: 2,
   }
 }
 
@@ -36,8 +36,9 @@ export const InxBlock: ComponentMultiStyleConfig = {
      */
     const base = merge(
       {
-        marginTop: 4,
-        marginBottom: 4,
+        display: 'flex',
+        marginTop: 2,
+        marginBottom: 2,
         '&:first-child': {
           marginTop: 0,
         },

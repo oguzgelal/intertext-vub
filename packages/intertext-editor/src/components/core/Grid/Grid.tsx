@@ -17,8 +17,12 @@ const InxGrid = ({
 
   return (
     <Grid
-      {...getLayoutProps(rest)}
-      sx={styles.base}
+      sx={{
+        ...styles.base,
+        ...getLayoutProps(rest),
+      }}
+      gridColumnGap={gap}
+      gridRowGap={gap}
       templateColumns={{
         base: '1fr',
         md: cols.map(c => `${c}fr`).join(' '),

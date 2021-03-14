@@ -12,7 +12,11 @@ export const App = () => (
       <Grid minH="100vh" p={3}>
         <ColorModeSwitcher justifySelf="flex-end" />
         <Box
+          display="flex"
+          flexDirection="column"
+          flexGrow={0}
           justifySelf="center"
+          overflow="hidden"
           w={{ base: '100%', md: '75%', lg: '50%' }}
         >
           <Stage />

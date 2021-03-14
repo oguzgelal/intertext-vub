@@ -20,7 +20,6 @@ export type AlignItems =
   | 'center'
   | 'baseline'
 
-
 export type AlignSelf =
   | 'stretch'
   | 'flex-start'
@@ -39,8 +38,8 @@ export type FlexWrap =
   | 'nowrap'
   | 'wrap-reverse'
 
-export type FlexGrow = number
-export type FlexShrink = number
+export type FlexGrow = string | number
+export type FlexShrink = string | number
 export type FlexBasis = 'auto' | Size
 
 export type JustifyContent =
@@ -66,13 +65,11 @@ export type LayoutProps = {
   flexShrink?: FlexShrink
   flexBasis?: FlexBasis
   justifyContent?: JustifyContent
-  layoutDirection?: LayoutDirection
-  width?: Size | undefined
-  minWidth?: Size | undefined
-  maxWidth?: Size | undefined
-  height?: Size | undefined
-  minHeight?: Size | undefined
-  maxHeight?: Size | undefined
+  direction?: LayoutDirection
+  top?: Space | undefined
+  bottom?: Space | undefined
+  left?: Space | undefined
+  right?: Space | undefined
   margin?: Space | undefined
   marginTop?: Space | undefined
   marginBottom?: Space | undefined
@@ -83,4 +80,10 @@ export type LayoutProps = {
   paddingBottom?: Space | undefined
   paddingLeft?: Space | undefined
   paddingRight?: Space | undefined
+  width?: Size | undefined
+  minWidth?: Size | undefined
+  maxWidth?: Size | undefined
+  height?: Size | undefined
+  minHeight?: Size | undefined
+  maxHeight?: Size | undefined
 }

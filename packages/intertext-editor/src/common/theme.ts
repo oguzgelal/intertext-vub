@@ -1,5 +1,5 @@
 import { theme, extendTheme } from "@chakra-ui/react"
-import { Intent } from '../types/theme'
+import { Intent } from '@intertext/engine'
 import { InxText } from '../components/core/Text/styles'
 import { InxBlock } from '../components/core/Block/styles'
 import { InxGrid } from '../components/core/Grid/styles'

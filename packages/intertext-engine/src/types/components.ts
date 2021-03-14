@@ -1,5 +1,5 @@
 import { LayoutProps } from './layout'
-import { Size } from './size'
+import { Space } from './space'
 import { Intent } from './theme'
 import { Command } from './commands'
 import { Renderable } from './renderable'
@@ -26,12 +26,13 @@ export interface Block extends LayoutProps {
 export interface Grid extends LayoutProps {
   grid: Renderable;
   cols: number[];
-  gap?: Size;
+  gap?: Space;
 };
 
 interface TextBase extends LayoutProps {
   intent?: Intent;
   muted?: boolean;
+  code?: boolean;
   bold?: boolean;
   italic?: boolean;
   underlined?: boolean;

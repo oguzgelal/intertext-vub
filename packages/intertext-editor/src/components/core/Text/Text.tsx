@@ -1,11 +1,12 @@
 import React from 'react';
 import { As, Text, Heading, useMultiStyleConfig } from '@chakra-ui/react'
-import { Intent } from '@intertext/engine';
+import { Intent, LayoutProps, getLayoutProps } from '@intertext/engine';
 
 const InxText = ({
   children,
   block,
   muted,
+  code,
   intent,
   p,
   h1,
@@ -14,10 +15,12 @@ const InxText = ({
   b,
   i,
   u,
-}: {
+  ...rest
+}: LayoutProps & {
   children: any,
   block?: boolean,
   muted?: boolean,
+  code?: boolean,
   intent?: Intent,
   p?: boolean,
   h1?: boolean,
@@ -49,6 +52,7 @@ const InxText = ({
     __text_italic: i,
     __text_underlined: u,
     __text_muted: muted,
+    __text_code: code,
     __intent: intent,
   })
 
@@ -56,7 +60,10 @@ const InxText = ({
     return (
       <Heading
         as={tagHeading}
-        sx={styles.heading}
+        sx={{
+          ...styles.heading,
+          ...getLayoutProps(rest),
+        }}
       >
         {children}
       </Heading>
@@ -66,7 +73,10 @@ const InxText = ({
   return (
     <Text
       as={isBlock ? 'p' : 'span'}
-      sx={styles.text}
+      sx={{
+        ...styles.text,
+        ...getLayoutProps(rest),
+      }}
     >
       {children}
     </Text>

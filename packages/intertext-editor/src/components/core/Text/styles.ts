@@ -1,5 +1,5 @@
 import { Dict } from "@chakra-ui/utils"
-import { mode } from "@chakra-ui/theme-tools"
+import { mode, getColor, transparentize } from "@chakra-ui/theme-tools"
 import { ComponentMultiStyleConfig } from "@chakra-ui/theme";
 import { merge } from './../../../utils/conditions'
 
@@ -16,6 +16,13 @@ const getTextColor = (props: Dict) => {
   return mode(`${c}.${toneLight}`, `${c}.${toneDark}`)(props)
 }
 
+const getBackgroundColor = (props: Dict) => {
+  const c = props.__intent = 'default';
+  const code = props.__text_code;
+  if (!code) return 'transparent'
+  return transparentize(getColor(props.theme, `${c}.400`), 0.15)(props.theme)
+}
+
 export const InxText: ComponentMultiStyleConfig = {
   parts: ['heading', 'text'],
   baseStyle: props => {
@@ -26,11 +33,18 @@ export const InxText: ComponentMultiStyleConfig = {
     const shared = merge(
       {
         color: getTextColor(props),
+        background: getBackgroundColor(props)
       },
       props['__text_muted'] && { opacity: 0.6 },
       props['__text_bold'] && { fontWeight: "bold" },
       props['__text_italic'] && { fontStyle: "italic" },
       props['__text_underlined'] && { textDecoration: "underline" },
+      props['__text_code'] && {
+        paddingLeft: 0.5,
+        paddingRight: 0.5,
+        borderRadius: 2,
+        fontFamily: 'monospace',
+      },
     );
 
     /**
@@ -75,6 +89,11 @@ export const InxText: ComponentMultiStyleConfig = {
         fontSize: 'md'
       },
       shared,
+      props['__text_p'] && {
+        lineHeight: 1.4,
+        marginTop: 4,
+        marginBottom: 0.5, 
+      },
     );
 
     return {

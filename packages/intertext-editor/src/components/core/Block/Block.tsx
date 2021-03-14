@@ -17,7 +17,12 @@ const Block = ({
   })
 
   return (
-    <Box {...getLayoutProps(rest)} sx={styles.base}>
+    <Box
+      sx={{
+        ...styles.base,
+        ...getLayoutProps(rest),
+      }}
+    >
       {children}
     </Box>
   )	
