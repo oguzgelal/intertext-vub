@@ -86,14 +86,14 @@ export const InxText: ComponentMultiStyleConfig = {
      */
     const text = merge(
       {
-        fontSize: 'md'
+        fontSize: 'md',
       },
       shared,
       props['__text_p'] && {
         lineHeight: 1.4,
         marginTop: 4,
         marginBottom: 0.5, 
-      },
+      }
     );
 
     return {

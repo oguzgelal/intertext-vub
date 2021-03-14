@@ -9,7 +9,7 @@ export const defaultProps: LayoutProps = {
   justifyContent: 'flex-start',
   flexDirection: 'column',
   flexWrap: 'nowrap',
-  flexGrow: '1',
+  flexGrow: '0',
   flexShrink: '1',
   flexBasis: 'auto',
   direction: 'ltr',
@@ -38,12 +38,10 @@ export const getLayoutProps = (props: LayoutProps): LayoutProps => {
   attach(layout, 'right', props.right);
   attach(layout, 'top', props.top);
   attach(layout, 'bottom', props.bottom);
-  attach(layout, 'margin', props.margin);
   attach(layout, 'marginTop', props.marginTop ?? props.margin);
   attach(layout, 'marginBottom', props.marginBottom ?? props.margin);
   attach(layout, 'marginLeft', props.marginLeft ?? props.margin);
   attach(layout, 'marginRight', props.marginRight ?? props.margin);
-  attach(layout, 'padding', props.padding);
   attach(layout, 'paddingTop', props.paddingTop ?? props.padding);
   attach(layout, 'paddingBottom', props.paddingBottom ?? props.padding);
   attach(layout, 'paddingLeft', props.paddingLeft ?? props.padding);

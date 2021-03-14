@@ -1,6 +1,7 @@
 import React from 'react';
 import { LayoutProps, getLayoutProps } from '@intertext/engine'
 import {
+  Box,
   Accordion,
   AccordionItem,
   AccordionButton,
@@ -30,7 +31,9 @@ const InxCollapse = ({
     >
       <AccordionItem>
         <AccordionButton>
-          {handle}
+          <Box flexGrow={1} textAlign="left">
+            {handle}
+          </Box>
           <AccordionIcon />
         </AccordionButton>
         <AccordionPanel pb={4}>
