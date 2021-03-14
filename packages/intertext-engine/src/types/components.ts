@@ -12,7 +12,8 @@ export type Component =
   | TextH1
   | TextH2
   | TextH3
-  | Button;
+  | Button
+  | Collapse
 
 /**
  * Components
@@ -47,6 +48,14 @@ export interface Button extends LayoutProps {
   button: Renderable;
   intent?: Intent;
   size?: 'xs' | 'sm' | 'md' | 'lg'
+  disabled?: boolean;
+  onClick: Command[];
+};
+
+export interface Collapse extends LayoutProps {
+  collapse: Renderable;
+  handle: Renderable;
+  intent?: Intent;
   disabled?: boolean;
   onClick: Command[];
 };

@@ -3,6 +3,7 @@ import React from 'react';
 import Text from '../components/core/Text/Text';
 import Block from '../components/core/Block/Block';
 import Grid from '../components/core/Grid/Grid';
+import Collapse from '../components/core/Collapse/Collapse';
 /*
 import Button from 'components/core/Button';
 */
@@ -125,6 +126,21 @@ const Renderer = ({
     )
   }
   */
+
+  /**
+   * Collapse
+   */
+   if ('collapse' in branch) {
+     const { handle, collapse, ...rest } = branch
+    return (
+      <Collapse
+        handle={renderChildren(handle)}
+        {...rest}
+      >
+        {renderChildren(collapse)}
+      </Collapse>
+    )
+  }
   
   return null
 }
