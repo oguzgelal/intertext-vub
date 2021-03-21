@@ -2,12 +2,36 @@
 
 \section{UIDLs} \label{relatedUIDLs}
 
-A UIDL can be defined as having two separate parts: a syntax that describes the user interface characteristics, and semantics that defines what these characteristics mean. They often share the common goal of describing a UI without targeting any particular programming language or platform; nevertheless, the end-goal of UIDLs often varies \cite{XMLCompliantUIDLs}. UIDLs often uses XML or a similar markup language/notation that later gets transpiled into a programming language or is processed by a software to automatically or semi-automatically be translated into a UI, a visualisation, or any by-product depending on the goal of the project. A UIDL can be thought of as a tool designed to achieve a particular goal or to achieve a common goal in a particular way. 
+A UIDL can be defined as having two separate parts: a syntax that describes the user interface characteristics, and semantics that defines what these characteristics mean. They share the common goal of describing a UI without targeting any particular programming language or platform; nevertheless, the end-goal of UIDLs often varies \cite{XMLCompliantUIDLs}. UIDLs typically use XML or a similar markup language/notation that later gets transpiled into a programming language or is processed by a software to automatically or semi-automatically be translated into a UI, a visualisation, or any byproduct depending on the goal of the project. A UIDL can be thought of as a tool designed to achieve a particular goal or to achieve a common goal in a particular way. 
 
-Souchon, Nathalie and Vanderdonckt et al., 2003 \cite{XMLCompliantUIDLs}, and later Guerrero-Garcia, Josefina and Gonzalez-Calleros et al., 2009 \cite{UIDLTheoreticalSurvey} argued \textit{"there is a plethora of UIDLs that are widely used, with different goals and different strengths"}. There are many ways of classifying and categorising existing UIDLs, as can be seen in \textit{A review of XML-compliant user interface description languages, 2003} \cite{XMLCompliantUIDLs}, and \textit{A theoretical survey of user interface description languages: Preliminary results, 2009} \cite{UIDLTheoreticalSurvey}. However, in this section, to stay relevant to the comparison to Intertext, we group UIDLs under three main categories: compiled, compiled with runtime support, and interpreted UIDLs. Most of them belong to the first category, allowing us to focus on the general picture instead of on a case-by-case basis. This separation narrows down the comparison to a select few UIDLs, which we investigate in more detail.
+Souchon, Nathalie and Vanderdonckt et al., 2003 \cite{XMLCompliantUIDLs}, and later Guerrero-Garcia, Josefina and Gonzalez-Calleros et al., 2009 \cite{UIDLTheoreticalSurvey} argued \textit{"there is a plethora of UIDLs that are widely used, with different goals and different strengths"}. There are many ways of classifying and categorising existing UIDLs, as can be seen in \textit{A review of XML-compliant user interface description languages, 2003} \cite{XMLCompliantUIDLs}, and \textit{A theoretical survey of user interface description languages: Preliminary results, 2009} \cite{UIDLTheoreticalSurvey}. However, in this section, to stay relevant to the comparison to Intertext, we group UIDLs under two main categories: compiled and interpreted UIDLs. Most of them belong to the first category, allowing us to focus on the general picture instead of on a case-by-case basis. This separation narrows down the comparison to a select few UIDLs, which we investigate in more detail.
 
 \subsubsection{Compiled UIDLs}
 
-\subsubsection{Compiled UIDLs with Runtime Support}
+Compiled refers to cases where UI descriptions are created at design time and are used to generate code or the final UI for different target platforms and environments. Most of the known UIDLs falls under this category. They often rely on a transformational approach; they utilise a reference framework for classifying UI elements with multiple levels of abstraction, and reify them into more concrete levels based on the target platform and context of use. UIML \cite{UIML}, XIML \cite{XIML}, TeresaXML \cite{TeresaXML}, MariaXML \cite{MariaXML} and UsiXML \cite{UsiXML} are several examples of UIDLs that uses this model. 
 
 \subsubsection{Interpreted UIDLs}
+
+\hl{TODO: BOSS?}
+\hl{TODO: SeescoaXML}
+
+\subsubsection{Comparison}
+
+We explored several of the existing UIDLs in this section. Some of them show similarities with Intertext in some respect, whereas others are radically different. The differences between many of them include but are not limited to:
+
+\begin{enumerate}
+  \item Intertexts focuses on graphical user interfaces (GUIs), while many UIDLs try to cover different kinds of UIs. \hl{TODO: narrow down the mentions to focus on GUIs early on in the paper?}
+  \item Intertext has a single level of abstraction, unlike many of the other UIDLs with multiple levels of abstraction, mostly due to their wider focus
+  \item Intertexts' IUIDL is interpreted. It relies on reifying the single level of its abstraction into the final UI on-the-fly, whereas the final UI for the UIDLs in the first category is generated during compile time.
+  \item The UI descriptions are created manually during design time for many UIDLs (or, in some cases, generated by several different means). However, for Intertext, it is meant to be generated and served on-the-fly from an endpoint based on the application logic and UI state.
+  \item Unlike Intertext, most UIDLs with a model-based approach incorporates heavy user interactions.
+\end{enumerate}
+
+Nonetheless, if we were to take a step back to look at the big picture, Intertext has a fundamental difference that separates itself from the others; it is the purpose. The value added by the UIDLs is to improve the development process of user interfaces, reduce the cost and effort of creating UI descriptions that can target multiple platforms and environments with minimal to none additional effort. The byproduct of these UIDLs is a functioning user interface on each target platform. While we aim to take advantage of the nature of UIDLs to enable some of these advancements, we also have an equal focus on the user and improving the user experience. Unlike other UIDLs that doubles down on creating the best UI development experience and producing the most comprehensive outcome possible, we intentionally introduce calculated limitations to benefit users equally, if not more. Although we provide more details on Intertext clients and IUIDL in section \hl{TODO: add section}, we can summerise our efforts that distinguish Intertext from other UIDLs as below:
+
+\begin{enumerate}
+  \item Intertext is style-agnostic so that users can customise the look-and-feel of the UIs to their liking.
+  \item The final UI rendered for each platform and environment cannot be altered to ensure the quality and accessibility of the UI elements.
+  \item Intertext UIs are meant to be solely presentational with minimal user interaction for security reasons.
+  \item Intertext, in general, is a platform that comes with IUIDL and software clients that can interpret and render IUIDL. It has no intention of generating a UI that can run independently.
+\end{enumerate}
