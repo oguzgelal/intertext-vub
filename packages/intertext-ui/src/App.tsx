@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import Button from 'revitail/src/components/Button/Button'
-import themeLight from 'revitail/src/styles/themeLight'
-import { applyTheme } from 'revitail/src/styles/themeUtils'
+import Button from '../revitail/src/components/Button/Button'
+import themeLight from '../revitail/src/styles/themeLight'
+import { applyTheme } from '../revitail/src/styles/themeUtils'
 
 type AppProps = {}
 

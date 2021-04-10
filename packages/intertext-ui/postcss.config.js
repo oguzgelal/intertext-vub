@@ -1,3 +1,3 @@
-const config = require('revitail/postcss.config')
+const config = require('./revitail/postcss.config.js')
 
 module.exports = config
