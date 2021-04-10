@@ -122,7 +122,7 @@
     <block intent="info" width="8xl">8xl</block>
   </collapse>
 
-  <h3>Flexbox</h3>
+  <h3>Flexbox</h3>日曜日
   <p>
     <text>Intertext UIDL fully supports CSS Flexbox specification. For the web version, it uses the native </text>
     <text>browser implementation of flexbox, whereas on other platforms, it uses the Yoga layout engine.</text>
