@@ -1,8 +1,3 @@
-module.exports = {
-  plugins: {
-    '@tailwindcss/jit': {},
-    // 'tailwindcss': {},
-    'autoprefixer': {},
-    'postcss-focus-visible': {}
-  },
-}
+const config = require('revitail/postcss.config')
+
+module.exports = config

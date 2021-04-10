@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import Button from './components/Button/Button'
-import themeLight from './styles/themeLight'
-import { applyTheme } from './styles/themeUtils'
+import Button from 'revitail/src/components/Button/Button'
+import themeLight from 'revitail/src/styles/themeLight'
+import { applyTheme } from 'revitail/src/styles/themeUtils'
 
 type AppProps = {}
 
@@ -15,7 +15,10 @@ const App: React.FC = ({}: AppProps) => {
         React + Tailwind JIT + Vite Starter
       </h1>
       <div>
-        <Button iconLeft="Plus" intent="accent">
+        <Button
+          iconLeft={{icon: 'Cloud'}}
+          intent="accent"
+        >
           Add
         </Button>
       </div>
