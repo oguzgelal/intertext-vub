@@ -1,11 +1,12 @@
 {
-  "packages": ["packages/*"],
+  "packages": [
+    "packages/*"
+  ],
   "nohoist": [
     "*react*",
     "*react*/**",
     "*react-native*",
-    "*react-native*/**",
-    "tailwindcss"
+    "*react-native*/**"
   ],
   "version": "independent"
 }

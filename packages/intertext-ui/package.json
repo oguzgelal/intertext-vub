@@ -11,6 +11,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@intertext/engine": "^0.0.0",
     "chroma-js": "^2.1.1",
     "classnames": "^2.2.6",
     "focus-visible": "^5.2.0",

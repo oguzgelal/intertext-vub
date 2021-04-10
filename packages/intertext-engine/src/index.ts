@@ -5,7 +5,7 @@ import { Branch } from './types/renderable'
  * type exports
  */
 
-export { Size, Unit, Percent } from './types/size'
+export { Size } from './types/size'
 export { Space } from './types/space'
 export { Intent } from './types/theme'
 export {

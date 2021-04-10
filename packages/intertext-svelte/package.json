@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "@intertext/engine": "^0.0.0",
-    "@intertext/utils": "^0.0.0",
     "@typescript-eslint/eslint-plugin": "4.8.1",
     "@typescript-eslint/parser": "4.8.1",
     "eslint": "7.13.0",

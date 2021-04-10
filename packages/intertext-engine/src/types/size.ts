@@ -1,20 +1,4 @@
-export type Unit =
-  | '3xs'
-  | '2xs'
-  | 'xs'
-  | 'sm'
-  | 'md'
-  | 'lg'
-  | 'xl'
-  | '2xl'
-  | '3xl'
-  | '4xl'
-  | '5xl'
-  | '6xl'
-  | '7xl'
-  | '8xl'
-
-export type Percent =
+export type Size =
   | '10%'
   | '20%'
   | '30%'
@@ -25,5 +9,3 @@ export type Percent =
   | '80%'
   | '90%'
   | '100%'
-
-export type Size = Unit | Percent

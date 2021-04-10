@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@intertext/engine": "^0.0.0",
-    "@intertext/utils": "^0.0.0",
     "expo": "~39.0.2",
     "expo-status-bar": "~1.0.2",
     "react": "16.13.1",

@@ -17,7 +17,6 @@
   ],
   "dependencies": {
     "@intertext/engine": "^0.0.0",
-    "@intertext/utils": "^0.0.0",
     "blessed": "^0.1.81",
     "neo-blessed": "^0.2.0",
     "node-fetch": "^2.6.1",

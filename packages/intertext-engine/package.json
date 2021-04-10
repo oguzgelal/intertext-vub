@@ -15,7 +15,6 @@
     "dist/index.js"
   ],
   "dependencies": {
-    "@intertext/utils": "^0.0.0",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {

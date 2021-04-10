@@ -1,7 +1,1 @@
-export type Intent =
-  | 'default'
-  | 'primary'
-  | 'success'
-  | 'warning'
-  | 'error'
-  | 'info'
+export type Intent = 'accent' | 'error' | 'warning' | 'success' | 'info'
