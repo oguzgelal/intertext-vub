@@ -20,7 +20,8 @@
 		"@intertext/utils": "^0.0.0",
 		"ink": "^3.0.8",
 		"meow": "^9.0.0",
-		"react": "^17.0.1"
+		"react": "^17.0.1",
+		"revitail": "^0.0.0"
 	},
 	"devDependencies": {
 		"@ava/typescript": "^1.1.1",
