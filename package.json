@@ -5,6 +5,12 @@
   "workspaces": [
     "packages/*"
   ],
+  "nohoist": [
+    "*react*",
+    "*react*/**",
+    "*react-native*",
+    "*react-native*/**"
+  ],
   "scripts": {
     "test": "lerna run test",
     "build": "lerna run build",

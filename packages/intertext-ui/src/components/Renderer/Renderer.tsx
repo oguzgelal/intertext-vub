@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Block from '../Block/Block'
-import Text from '../../../revitail/src/components/Text/Text'
+// import Text from '../../../revitail/src/components/Text/Text'
 
 /*
 import Button from 'components/core/Button';
@@ -33,10 +33,12 @@ const Renderer = ({ branch }: { branch: Renderable }) => {
 
   /**
    * Direct values
-   */
+   */ 
   if (typeof branch === 'string' || typeof branch === 'number') {
-    return <Text>{branch}</Text>
+    // return <Text>{branch}</Text>
+    return <div>{branch}</div>
   }
+  
 
   /**
    * Block
