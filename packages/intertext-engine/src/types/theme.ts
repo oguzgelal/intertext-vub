@@ -1,6 +1,6 @@
 export type Intent =
   | 'default'
-  | 'accent'
+  | 'primary'
   | 'error'
   | 'warning'
   | 'success'
