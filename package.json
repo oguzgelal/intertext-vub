@@ -14,6 +14,7 @@
   "scripts": {
     "test": "lerna run test",
     "build": "lerna run build",
+    "build:editor": "cd ./packages/intertext-editor && npm run build",
     "push": "git remote | xargs -L1 -I R git push R master",
     "sync": "git pull origin master && npm run push"
   },
