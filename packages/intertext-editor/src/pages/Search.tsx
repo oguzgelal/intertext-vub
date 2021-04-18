@@ -1,6 +1,19 @@
 import React, { FC, useState } from "react"
-import { Box, Input, Button, Text, Spinner } from "@chakra-ui/react"
-import { ArrowForwardIcon, SearchIcon } from "@chakra-ui/icons"
+import {
+  Box,
+  Input,
+  Button,
+  Text,
+  Spinner,
+  useToast,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverCloseButton,
+  PopoverHeader,
+  PopoverBody,
+} from "@chakra-ui/react"
+import { ArrowForwardIcon, SearchIcon, AddIcon, LinkIcon } from "@chakra-ui/icons"
 import { Branch } from "@intertext/engine"
 import useColorMode from "../utils/colorMode"
 import engine from "../common/engine"
@@ -34,20 +47,27 @@ const Search: FC<SearchProps> = () => {
   const [url, urlSet] = useState("")
   const [packages, packagesSet] = useState<Branch[] | null>(null)
   const mode = useColorMode()
+  const toast = useToast()
 
   const load = () => {
-    loadingSet(false)
+    loadingSet(true)
     fetch(url)
       .then((response) => response.text())
       .then(engine.parseXml)
-      .then(res => {
+      .then((res) => {
         packagesSet(res)
         loadingSet(false)
       })
-      .catch(err => {
+      .catch((err) => {
         loadingSet(false)
         urlSet("")
-        alert((err as Error).message)
+        toast({
+          title: "Error",
+          description: (err as Error).message ?? "Something went wrong",
+          duration: 3000,
+          isClosable: true,
+          status: "error",
+        })
       })
   }
 
@@ -88,7 +108,7 @@ const Search: FC<SearchProps> = () => {
             flexGrow={1}
             placeholder="https://..."
             background={mode<string>("white", "gray.800")}
-            onChange={e => urlSet(e.target.value)}
+            onChange={(e) => urlSet(e.target.value)}
           />
           <Button
             disabled={loading}
@@ -98,6 +118,33 @@ const Search: FC<SearchProps> = () => {
           >
             Go
           </Button>
+          <Popover>
+            <PopoverTrigger>
+              <Button
+                marginLeft="2"
+                colorScheme="blue"
+                variant="ghost"
+              >
+                ?
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverCloseButton />
+              <PopoverHeader>Demo Links</PopoverHeader>
+              <PopoverBody>
+                <Button
+                  w="100%"
+                  size="sm"
+                  colorScheme="blue"
+                  variant="ghost"
+                  onClick={() => urlSet("https://intertext-backend-demo.herokuapp.com/demo")}
+                  rightIcon={<LinkIcon w="3" />}
+                >
+                  Demo
+                </Button>
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
         </Box>
       </form>
 
@@ -115,9 +162,7 @@ const Search: FC<SearchProps> = () => {
             Visit a URL to get started
           </CenterText>
         )}
-        {!loading && packages && (
-          <Stage packages={packages} />
-        )}
+        {!loading && packages && <Stage packages={packages} />}
       </Box>
     </Box>
   )

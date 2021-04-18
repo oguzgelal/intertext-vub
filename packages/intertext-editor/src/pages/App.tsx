@@ -1,8 +1,10 @@
 import * as React from "react"
-import { ChakraProvider, Grid, Box } from "@chakra-ui/react"
+import {
+  ChakraProvider,
+  Box,
+} from "@chakra-ui/react"
 import { ColorModeSwitcher } from "../components/ColorModeSwitcher"
 import theme from "../common/theme"
-// import Stage from './Stage'
 import Search from "./Search"
 
 export const App = () => (

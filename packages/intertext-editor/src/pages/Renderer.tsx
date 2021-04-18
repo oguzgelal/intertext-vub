@@ -115,9 +115,6 @@ const Renderer = ({
     return (
       <Button
         {...branch}
-        // size={branch.size}
-        // intent={branch.intent}
-        // fill={branch.fill}
         disabled={branch.disabled}
       >
         {renderChildren(branch['button'])}
