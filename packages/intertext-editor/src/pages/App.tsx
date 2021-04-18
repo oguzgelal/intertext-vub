@@ -1,27 +1,25 @@
 import * as React from "react"
 import { ChakraProvider, Grid, Box } from "@chakra-ui/react"
 import { ColorModeSwitcher } from "../components/ColorModeSwitcher"
-import theme from '../common/theme'
-import Stage from './Stage'
-
-console.log('theme', theme)
+import theme from "../common/theme"
+// import Stage from './Stage'
+import Search from "./Search"
 
 export const App = () => (
   <ChakraProvider theme={theme}>
-    <Box fontSize="xl">
-      <Grid minH="100vh" p={3}>
-        <ColorModeSwitcher justifySelf="flex-end" />
-        <Box
-          display="flex"
-          flexDirection="column"
-          flexGrow={0}
-          justifySelf="center"
-          overflow="hidden"
-          w={{ base: '100%', md: '75%', lg: '50%' }}
-        >
-          <Stage />
-        </Box>
-      </Grid>
+    <Box position="absolute" top="2" right="2">
+      <ColorModeSwitcher justifySelf="flex-end" />
+    </Box>
+    <Box
+      w={{ base: "100%", md: "75%", lg: "60%" }}
+      pos="relative"
+      display="flex"
+      alignItems="flex-start"
+      margin="auto"
+      h="100vh"
+      overflow="hidden"
+    >
+      <Search />
     </Box>
   </ChakraProvider>
 )
