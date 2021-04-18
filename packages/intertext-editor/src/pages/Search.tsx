@@ -111,6 +111,7 @@ const Search: FC<SearchProps> = () => {
             onChange={(e) => urlSet(e.target.value)}
           />
           <Button
+            type="submit"
             disabled={loading}
             marginLeft="2"
             colorScheme="blue"
