@@ -1,0 +1,58 @@
+% !TEX root = ../thesis.tex
+
+\chapter{Solution} \label{solution}
+
+
+Intertext is a platform based on a straightforward premise; it is a family of applications that can interpret IUIDL, an XML based UI description language, and generate appropriate front-ends for the host platform on the fly. Simply put, a developer wanting to create a front-end application uses a generic backend to generate IUIDL, and serve it from an endpoint, say at https://intertext.example.com. Users who wish to use this application uses an Intertext client on their preferred device or environment and visit this domain just like in a web browser. The Intertext client then makes a request to this domain, fetches the IUIDL served by this endpoint and generates the user interface as per the instructions received via IUIDL. (Fig ~\ref{fig:how_intertext_works})
+
+
+Rather than rendering a simple static view, it performs some tasks such as accepting user input, navigating to different screens, making additional requests to fetch more data, keeping the UI updated and reading and writing some data to users local storage; all of which is again orchestrated based on the instructions received by the backend in IUIDL syntax.
+
+
+\begin{figure}
+  \centering
+  \includegraphics[width=9.2cm]{thesis/paper/images/how_it_works.pdf}
+  \caption{A diagram showing the general workings of Intertext}%
+  \label{fig:how_intertext_works}%
+\end{figure}
+
+
+Intertext aims to support multiple software clients (at the time of this paper, web and command-line interface clients are implemented, with more on the way) built natively for various platforms that can interpret IUIDL most appropriately to the host device or platform. For instance, users browsing an Intertext app through a smartphone receives an experience optimized for touch screens, command-line interface client users receive an optimized experience for a text-based interface or a user browsing from a low-end device with limited capabilities use the version optimized for low-performance devices to get a comfortable viewing experience and so on. 
+
+\input{sections/3_solution/designPrinciples}
+\input{sections/3_solution/intertextUIDL}
+\input{sections/3_solution/intertextClients}
+\input{sections/3_solution/communication}
+
+
+% - How it addresses problems
+% - Describe theoretically (not too much details)
+% - Client, Server etc.
+% - Technical-ish / Conceptual / Architecture 
+
+
+
+% - design principles
+%   - no foreign code executions / only data
+%   - no foreign styling / customisable styles
+%   - transparency
+%     - all front-end ops goes through intertext client (requests from the server)
+%     - all requests goes through intertext client (youtube embed etc.)
+%   - all platforms shares the same syntax
+  
+
+% - intertext uidl
+%   - terminologies? (platform-specific etc.)
+%   - json? xml?
+ 
+% - clients
+%   - server-side rendering
+%   - engine
+%   - state
+%   - layout
+  
+% - communication
+%   - ui manipulation technique
+%     - front-end manipulation
+%     - backend manipulation
+%   - front-end state management

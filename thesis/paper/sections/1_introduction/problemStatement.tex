@@ -1,0 +1,43 @@
+% !TEX root = ../../thesis.tex
+
+\section{Problem Statement} \label{problemStatement}
+
+In this section, we focus on these hurdles from the users and developers perspectives:
+
+\subsection{User Problems}
+
+The simplicity of consuming data is lost within the complexity of modern-day applications; nowadays, something as simple as checking the weather, reading a news article, browsing an image gallery, buying a product or service and filling out a form can be frustrating and time-consuming. We have identified the fundamental problems that lead to user experience problems and compromise privacy/security.
+
+\subsubsection{UI / UX Inconsistencies}
+One reason for this is the inconsistencies in front-end implementations. The visual presentation of components with the same functionality can often differ across front-end implementations, often confusing the end-users. Inconsistencies are often seen not only within a platform or cross-platform, but even a single front-end application can have inconsistencies within itself. This can arise from a variety of different reasons ranging from poor design to poor implementation.
+
+\subsubsection{Intrusive Advertisement}
+Another common source of frustration for the users is intrusive online advertisement and numerous other attention-grabbing call-to-action popups that diverts users attention from the content they are consuming. A recent study by Yahoo \cite{IntrusiveAds} states that as online advertisement became the primary source of income for most products, it has become increasingly intrusive and annoying even at the cost of hurting the user experience.
+
+\subsubsection{Lack of Accessibility}
+Due to its high costs of implementation and maintenance, accessibility is often overlooked by developers. A study reveals that on an average webpage, only 3.89\% of the HTML elements were found to be fully accessible \cite{WebNotForAll}. This paints a picture of how accessibility is a common problem among users.
+
+\subsubsection{Lack of Customisability}
+For many front-end applications, customisability is rarely a concern. The way of front-end ecosystem is, the developer decides on the look and feel of an application rather than the user. Although a recent trend in web design, dark mode support in front-end design \cite{DarkMode} could be seen as a shift towards more customisability. However, very few front-end applications provide such features.
+
+\subsubsection{Lack of Cross-platform Support}
+Every now and then, we find ourselves in situations where we are trying to operate a web application with no responsiveness or touch support from our phone—or having to stand up from in front of our computer to reach for our phone because the messaging application we want to use is only available for web/desktop. Hardships in cross-platform application development often result in poor user experience due to compatibility issues and sometimes complete lack of availability.
+
+\subsubsection{Privacy and Security Concerns}
+In the open market, where everyone can create user-facing applications, there is little to no enforcement mechanism or quality control measures. At times, this results in a compromise in users security and privacy. Users, especially of old age, can be lead to downloading and executing harmful software. Without alerting the user, a foreign script can be executed on the users' computer/browser, leading to severe security and privacy concerns. 
+
+
+\subsection{Developer Problems}
+
+The complexity of building a decent, well designed, accessible front-end experience, not even once but once per every client built for various platforms, forces developers to choose between supporting multiple devices, following best practices, creating a good experience.
+
+\subsubsection{Challenges in Development}
+\begin{enumerate}
+  \item Cross-platform support:
+  Cross-platform application development is a prominent topic even to this day. Even though several development techniques exists \cite{PWAs}, building applications capable of running on multiple platforms is still a complex engineering challenge, and creating and maintaining multiple applications for different platforms is costly. 
+  \item Accessibility support:
+  Creating fully accessible applications is not always the priority for many development projects due to its costs and efforts. Accessibility implementations are often complicated as there are many different ways of creating accessible user interfaces for many different kinds of accessibility needs. A study shows that accessibility and complexity of web applications are reversely proportional, hinting that making a web page accessible hinders maintainability \cite{WebNotForAll}.
+\end{enumerate}
+
+\subsubsection{Challenges in Maintenance and Enhancements}
+Building a front-end application is a great effort, but maintaining and enhancing it over time could be even more troublesome. The world of front-end development is a fast-growing and evolving ecosystem. The changes are persistent, and at times breaking. There are thousands of tools, libraries, frameworks, SDKs available at the fingertips of developers at no cost. It is a common practice to make use of these libraries as they help with the development significantly. However, the diversity in the libraries used to build the software results in a diversity of maintenance problems. Even the most well-tested and maintained libraries could break after an update, causing a headache for the developers and hardship for the users.
