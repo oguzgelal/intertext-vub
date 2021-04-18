@@ -1,7 +1,9 @@
 import React, { FC, useState } from "react"
 import { Box, Input, Button, Text, Spinner } from "@chakra-ui/react"
 import { ArrowForwardIcon, SearchIcon } from "@chakra-ui/icons"
+import { Branch } from "@intertext/engine"
 import useColorMode from "../utils/colorMode"
+import engine from "../common/engine"
 import Stage from "./Stage"
 
 type SearchProps = {}
@@ -29,7 +31,25 @@ const CenterText = ({ children }: { children: any }) => {
 
 const Search: FC<SearchProps> = () => {
   const [loading, loadingSet] = useState(false)
+  const [url, urlSet] = useState("")
+  const [packages, packagesSet] = useState<Branch[] | null>(null)
   const mode = useColorMode()
+
+  const load = () => {
+    loadingSet(false)
+    fetch(url)
+      .then((response) => response.text())
+      .then(engine.parseXml)
+      .then(res => {
+        packagesSet(res)
+        loadingSet(false)
+      })
+      .catch(err => {
+        loadingSet(false)
+        urlSet("")
+        alert((err as Error).message)
+      })
+  }
 
   return (
     <Box
@@ -48,6 +68,7 @@ const Search: FC<SearchProps> = () => {
           if (loading) {
             return
           }
+          load()
         }}
       >
         <Box
@@ -62,10 +83,12 @@ const Search: FC<SearchProps> = () => {
           background={mode<string>("gray.50", "gray.900")}
         >
           <Input
+            value={url}
             disabled={loading}
             flexGrow={1}
             placeholder="https://..."
             background={mode<string>("white", "gray.800")}
+            onChange={e => urlSet(e.target.value)}
           />
           <Button
             disabled={loading}
@@ -86,11 +109,14 @@ const Search: FC<SearchProps> = () => {
             Loading
           </CenterText>
         )}
-        {!loading && (
+        {!loading && !packages && (
           <CenterText>
             <SearchIcon size="xs" marginRight="2" />
             Visit a URL to get started
           </CenterText>
+        )}
+        {!loading && packages && (
+          <Stage packages={packages} />
         )}
       </Box>
     </Box>

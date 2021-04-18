@@ -1,3 +1,11 @@
 <block intent="error">
-  <text intent="error">Error: {{message}} </text>
+  <h3 intent="error">{{message}}</h3>
+  <collapse>
+    <collapse.handle>
+      <text intent="error">
+        Show Details
+      </text>
+    </collapse.handle>
+    <p intent="error">{{error.stack}}</p>
+  </collapse>
 </block>
