@@ -1,13 +1,13 @@
-import parseXml from './utils/parseXml'
-import { Branch } from './types/renderable'
+import parseXml from './utils/parseXml';
+import { Branch } from './types/renderable';
 
 /**
  * type exports
  */
 
-export { Size } from './types/size'
-export { Space } from './types/space'
-export { Intent } from './types/theme'
+export { Size } from './types/size';
+export { Space } from './types/space';
+export { Intent } from './types/theme';
 export {
   AlignContent,
   AlignItems,
@@ -21,12 +21,9 @@ export {
   LayoutDirection,
   LayoutProps,
   Position,
-} from './types/layout'
+} from './types/layout';
 
-export {
-  Branch,
-  Renderable,
-} from './types/renderable'
+export { Branch, Renderable } from './types/renderable';
 
 export {
   Block,
@@ -38,11 +35,9 @@ export {
   TextP,
   Button,
   Component,
-} from './types/components'
+} from './types/components';
 
-export {
-  Command
-} from './types/commands'
+export { Command } from './types/commands';
 
 /**
  * other exports
@@ -51,7 +46,7 @@ export {
 export {
   getLayoutProps,
   defaultProps as defaultLayoutProps,
-} from './utils/layout'
+} from './utils/layout';
 
 /**
  * Engine class
@@ -72,7 +67,7 @@ class Engine {
   // TODO: consider rewriting in htmlparser2
   // https://github.com/fb55/htmlparser2
   public parseXml = async (xmlString: string): Promise<Branch[]> => {
-    return parseXml(xmlString)
+    return parseXml(xmlString);
   };
 }
 

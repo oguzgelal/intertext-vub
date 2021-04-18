@@ -1,4 +1,4 @@
-import { Component } from './components'
+import { Component } from './components';
 // import { Command } from './commands'
 
 export type Branch = Component;

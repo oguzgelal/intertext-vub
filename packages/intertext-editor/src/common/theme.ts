@@ -4,6 +4,7 @@ import { InxText } from '../components/core/Text/styles'
 import { InxBlock } from '../components/core/Block/styles'
 import { InxGrid } from '../components/core/Grid/styles'
 import { InxCollapse } from '../components/core/Collapse/styles'
+import { InxButton } from '../components/core/Button/styles'
 
 const colors: Record<Intent, Record<number, string>> = {
   'default': theme.colors.gray,
@@ -26,5 +27,6 @@ export default extendTheme({
     InxBlock,
     InxGrid,
     InxCollapse,
+    InxButton,
   }
 })

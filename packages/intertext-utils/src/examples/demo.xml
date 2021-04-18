@@ -299,18 +299,18 @@
 
   <h3>Buttons</h3>
 
-  <grid cols="[1, 1, 2, 1, 1, 1]">
-    <stack vertical="true">
-      <button>default</button>
-      <button disabled="true">disabled</button>
-    </stack>
-    <stack vertical="true">
-      <button size="large">large</button>
-      <button size="medium">medium</button>
-      <button size="small">small</button>
-    </stack>
-    <stack vertical="true">
-      <button fill="true">fill</button>
-    </stack>
+  <grid cols="[1, 1, 1, 1]">
+    <block>
+      <button marginBottom="2">default</button>
+      <button marginBottom="2" disabled="true">disabled</button>
+    </block>
+    <block>
+      <button marginBottom="2" intent="default">default</button>
+      <button marginBottom="2" intent="primary">primary</button>
+      <button marginBottom="2" intent="error">error</button>
+      <button marginBottom="2" intent="warning">warning</button>
+      <button marginBottom="2" intent="success">success</button>
+      <button marginBottom="2" intent="info">info</button>
+    </block>
   </grid>
 </root>

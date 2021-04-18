@@ -1,11 +1,11 @@
 const attach = (
   obj: Record<string, unknown>,
   key: string,
-  value: unknown
+  value: unknown,
 ): void => {
   if (value) {
-    obj[key] = value
+    obj[key] = value;
   }
-}
+};
 
 export default attach;

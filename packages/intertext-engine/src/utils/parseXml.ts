@@ -1,7 +1,7 @@
 import xml2js from 'xml2js';
-import { Component } from '../types/components'
-import { Command } from '../types/commands'
-import { Branch, Renderable } from '../types/renderable'
+import { Component } from '../types/components';
+import { Command } from '../types/commands';
+import { Branch, Renderable } from '../types/renderable';
 
 const parser = new xml2js.Parser({
   preserveChildrenOrder: true,
@@ -18,7 +18,9 @@ type XmlParseOutput = {
 };
 
 // convert values of a node from string
-const parseAttrValues = (node: Record<string, unknown> ): Record<string, unknown> => {
+const parseAttrValues = (
+  node: Record<string, unknown>,
+): Record<string, unknown> => {
   return Object.keys(node ?? {}).reduce((acc, key) => {
     let parsed = node[key];
     if (typeof parsed === 'string') {
@@ -26,10 +28,12 @@ const parseAttrValues = (node: Record<string, unknown> ): Record<string, unknown
     }
     return Object.assign({}, acc, { [key]: parsed });
   }, {});
-}
+};
 
 // convert string based values into values of a type
-const parseAttrValueFromString = (attrValue: string ): string | boolean | number[] => {
+const parseAttrValueFromString = (
+  attrValue: string,
+): string | boolean | number[] => {
   // convert from string to boolean
   if (attrValue === 'true') return true;
   if (attrValue === 'false') return false;
@@ -38,7 +42,7 @@ const parseAttrValueFromString = (attrValue: string ): string | boolean | number
     return <number[]>JSON.parse(attrValue ?? '');
   }
   return attrValue;
-}
+};
 
 /**
  * Fix complex attribute node names. ie:
@@ -48,7 +52,7 @@ const fixComplexAttrNodeName = (node: XmlParseOutput): XmlParseOutput => {
   return Object.assign({}, node, {
     '#name': (node['#name'] ?? '').split('.').slice(1).join('.'),
   });
-}
+};
 
 const parseXmlJsonOutput = (output: XmlParseOutput): Branch => {
   const nodeName: string = output['#name'];
@@ -100,7 +104,7 @@ const parseXmlJsonOutput = (output: XmlParseOutput): Branch => {
     ...parseAttrValues(nodeAttrs),
     ...complexAttributes,
   };
-}
+};
 
 export default async (xmlString: string): Promise<Branch[]> => {
   const output = await parser.parseStringPromise(xmlString);
@@ -111,4 +115,4 @@ export default async (xmlString: string): Promise<Branch[]> => {
   // TODO:
   // @ts-ignore
   return parsed?.root;
-}
+};

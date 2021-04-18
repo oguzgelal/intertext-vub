@@ -4,9 +4,7 @@ import Text from '../components/core/Text/Text';
 import Block from '../components/core/Block/Block';
 import Grid from '../components/core/Grid/Grid';
 import Collapse from '../components/core/Collapse/Collapse';
-/*
-import Button from 'components/core/Button';
-*/
+import Button from '../components/core/Button/Button';
 import { Renderable } from '@intertext/engine';
 
 const renderChildren = (data: Renderable) => {
@@ -112,20 +110,21 @@ const Renderer = ({
 
   /**
    * Button
-   
+   */
   if ('button' in branch) {
     return (
       <Button
-        size={branch.size}
-        intent={branch.intent}
-        fill={branch.fill}
+        {...branch}
+        // size={branch.size}
+        // intent={branch.intent}
+        // fill={branch.fill}
         disabled={branch.disabled}
       >
         {renderChildren(branch['button'])}
       </Button>
     )
   }
-  */
+  
 
   /**
    * Collapse
