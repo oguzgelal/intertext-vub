@@ -8,6 +8,9 @@ module.exports = {
     "prettier",
     "prettier/@typescript-eslint",
   ],
+  ignorePatterns: [
+    "packages/intertext-backend-demo/**/*"
+  ],
   env: {
     es6: true,
     node: true,

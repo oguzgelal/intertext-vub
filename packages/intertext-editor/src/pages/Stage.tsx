@@ -13,7 +13,7 @@ const Stage = () => {
       .then(engine.parseXml)
       .then(packagesSet)
   }, [])
-  console.log('packages', packages)
+
   return (
     <>
       {packages.map((branch, i) => (
