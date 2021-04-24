@@ -28,7 +28,7 @@ Intertext adopts a component based approach, we provide a set of components for 
 
 \begin{figure}
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[language=html]
+\begin{lstlisting}[language=xml]
 <h3>Buttons</h3>
 
 <grid cols="[1,1]">
@@ -62,7 +62,7 @@ However other than properties that components accepts, they cannot be modified o
 
 Consistency is one of the most important benefit that this principle enables. A standard look and feel for components helps users to never get disoriented across applications, and recognise similar patterns easily. Another benefit is customisability, it is only possible to create one-size-fits-all themes that applies to every component in every application when all the applications uses components that are built in the same way. Another thing that comes to mind is accessibility. We established in section \ref{problemStatement} that accessibility is a big issue that not all developers choose to address. This principle allows us to take this responsibility from the developers hands by providing accessible components as building blocks. 
 
-\begin{figure}[H]
+\begin{figure}
   \centering
   \includegraphics[width=13cm]{thesis/paper/images/pressable.png}
   \caption{Diagram that shows the implementation of Pressable component in React Native (reactnative.dev/docs/pressable)}%
@@ -77,4 +77,4 @@ We designed IUIDL to be a generic markup language, agnostic of any platform or i
 
 \hl{TODO Add screenshots that shows similarities between the web version and the cli version}
 
-Also, this approach allows existing Intertext applications to adopt to new Intertext clients as they are built in the future. At the time of this paper, Intertext web client and command-line client is ready, but as mentioned in the \hl{TODO: Future Work} section, more Intertext clients are on the way. Thanks to this principle, Intertext clients will have immediate availability for the upcoming Intertext clients.
+Also, this approach allows existing Intertext applications to adopt to new Intertext clients as they are built in the future. At the time of this paper, Intertext web client and command-line client is ready, but as mentioned in the \nameref{futureWork} section, more Intertext clients are on the way. Thanks to this principle, Intertext clients will have immediate availability for the upcoming Intertext clients.
