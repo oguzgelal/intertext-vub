@@ -25,9 +25,9 @@ Most presentational Intertext components share a concept, "intent", which is a w
 
 \subsection{Commands}
 
-Commands are IUIDL statements that are used to instruct Intertext client to take an action. These actions can be triggered upon interaction with some components (such as clicking a button or submitting a form), a life-cycle event or with a timeout. Commands are very primitive by design, they are not meant to build application logic with. They are merely for asking the Intertext client to communicate with the server, store something, read something that is stored, or retrieve some data from the user. Command system is designed in order to ensure Intertext client is aware of what it is being asked to do, so that it can control and restrict the entire flow, ask for permission from the user when necessary, or simply refuse to take an action and bail if needed. 
+Commands are IUIDL statements that are used to instruct Intertext client to take an action. These actions can be triggered upon interaction with some components (such as clicking a button or submitting a form), a life-cycle event, with a timeout, or on page load. Commands are very primitive by design, they are not meant to build application logic with. They are merely for asking the Intertext client to communicate with the server, store something, read something that is stored, or retrieve some user data. Command system is designed in order to ensure Intertext client is aware of what it is being asked to do, so that it can control and restrict the entire flow, ask for permission from the user when necessary, or simply refuse to take an action if needed. 
 
-Figure \ref{fig:ex_cmd_post_timeout} shows an example of how a network request action can be executed upon a delay, and Figure \ref{fig:ex_cmd_form} how a form can be submitted with reference to input fields on the server side. More on commands are on \nameref{implementation} section.
+Figure \ref{fig:ex_cmd_post_timeout} shows an example of how a network request action can be executed upon a delay, and Figure \ref{fig:ex_cmd_form} shows how a form can be submitted with reference to input fields. More on commands will be on \nameref{implementation} section.
 
 \begin{figure}
 \begin{minipage}{\linewidth}
@@ -55,44 +55,90 @@ Figure \ref{fig:ex_cmd_post_timeout} shows an example of how a network request a
 \label{fig:ex_cmd_form}%
 \end{figure}
 
+\begin{figure}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=javascript]
+router.get('/signup', async (req, res, next) => {
+  
+  const currentStep = req.body.state?.current_step ?? 0
+  const currentFormData = req.body.params?.form_data
+  const previousFormData = req.body.state?.form_data
+  
+  // check if user finished the form
+  if (currentStep == LAST_STEP) {
+    
+    // execute signup logic
+    const error = await signupUser(req.body.state?)
+    
+    // render success or error page based on
+    // the signup result
+    res.render(error
+      ? 'signup_form_error'
+      : 'signup_form_success',
+    { error });
+  
+  } else {
+    
+    // render signup form
+    res.render('signup_form', {
+      // increment the current step
+      step: currentStep + 1
+      // merge current form data with previous
+      formData: merge(previousFormData, currentFormData)
+    });
+  }
+});
+\end{lstlisting}
+\end{minipage}
+\caption{Handling a sign-up flow with multiple steps}%
+\label{fig:state_signup_progress_js}%
+\end{figure}
+
 \subsection{State Management}
 
-\subsection{Communication}
+Intertext clients offer basic state management, making it possible to serve stateful Intertext applications using serverless/stateless backends. Front-end state can be fully driven from the backend via IUIDL. Intertext client offers two types of storage, persisted and volatile. 
 
+Volatile storage is kept in the memory and it is persisted across the session. The purpose of this storage is to keep temporary values, such as users progress in a long form distributed across multiple pages. Intertext clients passes the entire application state on the volatile storage to the backend on every request, allowing backend to build logic around the current state of the front-end application, and serve the UI accordingly. Figure \ref{fig:state_signup_progress_js} and \ref{fig:state_signup_progress_xml} shows this through an hypothetical sign up form with steps distributed across multiple steps. On figure \ref{fig:state_signup_progress_js}, we see the pseudo-code implementation of the stateless backend for this scenario. It can be seen that the current step user is at on the form, and the form data collected thus far is kept in the volatile state on the front-end. The state gets passed on to the backend on every request made to the "/signup" endpoint. We retrieve the current step, and serve different responses accordingly. If user completed the last step, then we execute our application logic (which in this case is signing user up), and render the result page. Otherwise, we increment the current step, combine the form data collected thus far, and render the form template with these. On the form template on figure \ref{fig:state_signup_progress_xml}, we use the <state> block to instruct the Intertext client to record these new set of data to the front-end, so it could be passed on to the backend on the next request. Moreover, we render the correct form UI based on the step user is currently at.
 
+Another type of storage is the persisted storage. As the name suggests, values stored this way is persisted across sessions. Unlike the volatile storage, in which the data is kept in the memory, persisted storage gets stored locally using the storage option available to the host platform. By default, data available in the persisted storage is not passed on to the backend in every request automatically, but can be configured to do so.
+
+In order to protect user privacy, Intertext clients block cross-origin storage reads/writes, preventing users to be tracked across Intertext applications. In another words, state management is bound to the origin. Lets say "sub1.example.com" wrote data to the storage. This data can only be read or manipulated by the very same domain. "sub2.example.com" or "sub.example2.com" or any other domain will not have access to this data. While this behaviour protects users from cross-origin tracking, it may also inconvenience some users, especially in scenarios such as services that shares the same user login that is distributed across multiple domains/subdomains. As mentioned further in the \nameref{futureWork} section, we plan to add a feature where Intertext clients would ask for user permission to share data between domains/subdomains instead of directly blocking it.
 
 \begin{figure}
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[language=xml]
-<state key="current_page">4</state>
-<button>
-  Previous Page
-  <button.onClick>
-    <post endpoint="/items/previous_page"></post>
-  </button.onClick>
-</button>
-<button>
-  Next Page
-  <button.onClick>
-    <post endpoint="/items/next_page"></post>
-  </button.onClick>
-</button>
+<!-- signup_form -->
+
+<!-- set front-end state to read on later requests  -->
+<state key="current_step">{{ step }}</state>
+<state key="form_data">{{ formData }}</state>
+
+{{#ifEquals step 1}}
+  <!-- step 1 -->
+{{/ifEquals}}
+
+{{#ifEquals step 2}}
+  <!-- form elements for step 2 -->
+{{/ifEquals}}
+
+<!-- ... -->
 \end{lstlisting}
+
+\begin{lstlisting}[language=xml]
+<!-- signup_form_success -->
+
+<h1 intent="success">Sign Up Successful!</h1>
+<p intent="success">Please check your verification email</p>
+\end{lstlisting}
+
+\begin{lstlisting}[language=xml]
+<!-- signup_form_error -->
+
+<h1 intent="error">Something went wrong</h1>
+<p intent="error">{{error}}</p>
+\end{lstlisting}
+
 \end{minipage}
-\caption{Setting state from server side}%
-\label{fig:ex_cmd_post_state}%
+\caption{Template files for multi-step sign up flow at Figure \ref{fig:state_signup_progress_js}}%
+\label{fig:state_signup_progress_xml}%
 \end{figure}
-
-% - clients
-%   - server-side rendering
-%   - state
-%   - layout
-%   - communication
-%     - ui manipulation technique
-%       - front-end manipulation
-%       - backend manipulation
-%     - front-end state management
-
-
-- Components
-- Commands
