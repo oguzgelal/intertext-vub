@@ -4,7 +4,7 @@
 
 In order to address the problems mentioned in the \nameref{problemStatement} (\ref{problemStatement}) section, we adopted and implemented the following design principles.
 
-\subsection{No foreign code execution}
+\subsection{No Foreign Code Execution}
 
 There is no foolproof way of entirely securing a piece of software; even the most mature platforms and operating systems sometimes end up vulnerable to security exploits. However, without the ability to execute code on a platform, it is not directly possible to take advantage of vulnerabilities, even when there is one. Furthermore, the nature of Intertext allowed us to adopt disallowing code execution as a design principle. Intertext clients only accept UIUDL code, which is in XML and is not executable. Should a server send anything else, Intertext clients will simply ignore it. Thus, we can guarantee security for the users, regardless of the platform they are using the Intertext client on.
 
@@ -22,7 +22,7 @@ The most prominent way of achieving this is to have Intertext clients be in cont
 \end{figure}
 
 
-\subsection{Black-box Components as Building Blocks}
+\subsection{Black-box Components}
 
 Intertext adopts a component based approach, we provide a set of components for developers to use to build their applications with. Each component accepts a set of properties, which gives them certain functionality or appearance. Developers are to use these components through IUIDL. For example, the IUIDL code below (at Figure \ref{fig:iuidl_buttons}) and it's output for Intertext web version (at Figure \ref{fig:iuidl_buttons_output}) shows some of the properties that \textit{button} component accepts. Layout properties such as  \textit{marginButton} allows positioning of the buttons to be customised, \textit{intent} properties gives the button a different look based on the use-case, properties like \textit{disabled} can alter its behaviour and so on.
 
@@ -53,7 +53,7 @@ Intertext adopts a component based approach, we provide a set of components for 
 
 \begin{figure}
   \centering
-  \includegraphics{thesis/paper/images/buttons.png}
+  \includegraphics[width=13cm]{thesis/paper/images/buttons.png}
   \caption{Output of IUIDL at Figure \ref{fig:iuidl_buttons} on Intertext web client}%
   \label{fig:iuidl_buttons_output}%
 \end{figure}
@@ -71,7 +71,7 @@ Consistency is one of the most important benefit that this principle enables. A 
 
 Last but not least, this principle was crucial to achieve cross-device compatibility. The appearance and behaviour of components differs between implementations of the Intertext clients. For instance, the \textit{button} component on the web version needs not to be too big as clicks are precise, it requires a hover and focus state and so on. For a touch interface however, it needs to be bigger, and handle the caveat of having less precision by accepting hits on an area around it as seen in figure \ref{fig:pressable}. Every feature that components have needs to be supported as much as possible on different platforms that has different requirements. Having components with a fixed set of features allowed us to implement them all for different Intertext clients.
 
-\subsection{Shared syntax between clients}
+\subsection{Shared Syntax}
 
 We designed IUIDL to be a generic markup language, agnostic of any platform or interaction type, and be based purely on XML so it could be consumed by all clients. This approach has many advantages, both for developers and users. It allows developers to create universal applications; once they start serving an Intertext application through an endpoint, any Intertext endpoint can consume the application through that endpoint. Moreover, it helps create a continual experience for the user; given that there is a shared layout system, UI elements will look and feel the same between Intertext clients. Figure \hl{TODO} and \hl{TODO} shows the similarities between Intertext web client and the command-line client.
 

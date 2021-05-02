@@ -48,7 +48,7 @@ One of the compromises we had to make for our an all-in-one layout solution was 
 
 As a solution, we offer three different types of units; percentages, spaces and sizes. These units can be used for every property that accepts a unit; such as for width, height, margins, paddings and so on. Percentages are universal and can be calculated on any platform that we can get the screen dimensions of. We are able to use it in web environment natively, also the Yoga engine supports percentage values. Spaces are numeric values that starts from 0, increments by 0.5 until 4, by 1 until 12, by 2 until 16, and keeps increasing exponentially until 96. These values are meant to be used for spacing; for paddings, margins, gutter sizes, and other cases where spaces between UI elements needs to be determined. They are mapped to values on different platforms that are reasonable and look approximately same. Finally, we have sizes, which are used for determining the size of UI elements; in properties such as width, height, minWidth/maxWidth, minHeight/maxHeight and so on. While it also makes sense to use percentages for sizes, in cases where sizes should be fixed and not be changing based on the screen size, the size units can be used. Sizes are named values and are mapped to an appropriate value on every platform. They start from 3xs (xsmall) - up to xs, sm (small), md (medium), lg (large), xl (xlarge), 2xl and goes all the way to 8xl.
 
-\subsection{Layout Properties}
+\subsection{Properties}
 
 \begin{figure}[H]
 \begin{minipage}{\linewidth}
@@ -104,8 +104,42 @@ There are multiple components for typography, most of which are based off of the
 
 By default, the \textit{text} component renders inline, meaning, the render output of \textit{<text>1</text><text>2</text>} will appear side by side, as "\textit{12}". However, this behaviour changes for block-level properties; \textit{p}, \textit{h1}, \textit{h2} and \textit{h3}. \textit{text} components that has these properties will take up the full line, and any other text component before or after them will fall into a new line. \textit{block} property is a way to prevent text from rendering inline, without giving it any particular style. Text component also accepts \textit{intent} property, which renders the text with the a color given its intent. Last but not least, text component can accept all layout properties just like any other component. The aliases that can be used in place of \textit{text} are \textit{p}, \textit{h1}, \textit{h2} and \textit{h3} - which will render a \textit{text} component with the respective styles applied. All properties that the text component accepts can be used together to combine styles. For instance, a configuration such as \textit{intent="error", b="true", u="true", h2="true" muted="true"} will result as a red h2 tag, muted, that is bold and underlined.
 
+\subsection{Collapse}
+
+Collapse component can be used to hide long-form content within a collapsible panel that is closed by default, and can be toggled by clicking the handle. It accepts the complex attribute \textit{handle} that takes the contents of the collapse handle. It's children will be rendered inside of the collapse. Collapse components can be nested, in which case each collapse component will operate individually. Figure \ref{fig:collapse_xml} shows how it can be used, and Figure \ref{fig:collapse} shows the render output of a collapse component on the Intertext web client.
+
+
+\begin{figure}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=xml]
+<collapse>
+  <collapse.handle>
+    <text>This is the handle</text>
+  </collapse.handle>
+  <text>This is the content</text>
+</collapse>
+\end{lstlisting}
+\end{minipage}
+\caption{How grid component is used}%
+\label{fig:collapse_xml}%
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/collapse_closed.png}
+  \includegraphics[width=13cm]{thesis/paper/images/collapse_open.png}
+  \caption{Collapse component opened and closed state}%
+  \label{fig:collapse}%
+\end{figure}
+
+\subsection{Button}
+
+\subsection{Input}
+
+\subsection{Form}
+
+\section{Commands}
+
 \section{Web Client}
 
 \section{Command-line Client}
-
-\section{Other Planned Clients}
