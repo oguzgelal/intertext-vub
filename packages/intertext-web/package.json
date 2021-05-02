@@ -1,5 +1,5 @@
 {
-  "name": "@intertext/editor",
+  "name": "@intertext/web",
   "version": "0.0.0",
   "dependencies": {
     "@chakra-ui/icons": "^1.0.10",
