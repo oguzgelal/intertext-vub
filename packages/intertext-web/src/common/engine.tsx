@@ -1,5 +1,4 @@
 import React from "react"
-
 import Engine from "@intertext/engine"
 import Text from "../components/core/Text/Text"
 import Block from "../components/core/Block/Block"

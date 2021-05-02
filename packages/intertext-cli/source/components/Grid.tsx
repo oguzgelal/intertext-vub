@@ -1,19 +1,27 @@
 import React from 'react';
 import { Box, Text } from 'ink';
+import { Intent, Space, LayoutProps } from '@intertext/engine';
+import getLayoutProps from '../utils/getLayoutProps'
 
-const Grid = (props: {
-  cols: number[],
+const Grid = ({
+  children,
+  gap = '4',
+  cols,
+  ...rest
+}: LayoutProps & {
   children?: any
+  gap?: Space,
+  cols: number[],
 }) => {
 
-  const children = Array.isArray(props.children)
-    ? props.children
-    : [props.children]
+  const useChildren = Array.isArray(children)
+    ? children
+    : [children]
   
   // react-ink grid won't support wrapping,
   // so it needs to be simulated
-  const itemCount = children.length
-  const colCount = props.cols.length;
+  const itemCount = useChildren.length
+  const colCount = cols.length;
   const rowCount = Math.ceil(itemCount / colCount)  
 
   // const colSum = props.cols.reduce((acc, c) => acc + c, 0)
@@ -24,18 +32,20 @@ const Grid = (props: {
         <Box
           key={`row-${rowIndex}`}
           flexGrow={1}
-          flexDirection="column"
+          // flexShrink={0}
+          // flexDirection="column"
           // width="100%"
         >
-          {props.cols.map((colBasis, colIndex) => (
+          {cols.map((colBasis, colIndex) => (
             <Box
               key={`row-${rowIndex}-col-${colIndex}`}
+              // flexDirection="row"
               alignItems="flex-start"
               flexBasis={colBasis}
-              // flexGrow={1}
-              // flexShrink={0}
+              flexGrow={1}
+              flexShrink={0}
             >
-              {children[(rowIndex * colCount) + colIndex]}
+              {useChildren[(rowIndex * colCount) + colIndex]}
             </Box>
           ))}
         </Box>

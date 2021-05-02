@@ -16,7 +16,7 @@ const Text = (props: {
   doNotWrapInBlock?: boolean
 }) => {
 
-  const isHeading: boolean = !!(props.h1 || props.h2 || props.h3);
+  const isHeading = !!(props.h1 || props.h2 || props.h3);
   
   let paddingTop = 0;
   if (props.h3) paddingTop = 1;
@@ -25,7 +25,7 @@ const Text = (props: {
   if (props.p) paddingTop = 1;
   
   let color;
-  if (props.intent === Intent.INFO) {
+  if (props.intent === 'info') {
     color = '#00AAFF'
   }
 
@@ -51,7 +51,7 @@ const Text = (props: {
 
   return (
     <Box paddingTop={paddingTop}>
-      {textComponent}      
+      {textComponent}
     </Box>
   )	
 }
