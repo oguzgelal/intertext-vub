@@ -53,6 +53,7 @@ export interface TextH2 extends TextBase {
 export interface TextH3 extends TextBase {
   h3: Renderable;
 }
+export type TextGeneral = Text | TextP | TextH1 | TextH2 | TextH3;
 
 export interface Button extends LayoutProps {
   button: Renderable;

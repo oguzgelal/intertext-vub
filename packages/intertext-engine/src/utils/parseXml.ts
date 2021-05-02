@@ -106,13 +106,17 @@ const parseXmlJsonOutput = (output: XmlParseOutput): Branch => {
   };
 };
 
-export default async (xmlString: string): Promise<Branch[]> => {
+// TODO:
+// @ts-ignore
+const main = async (xmlString: string): Promise<Branch[]> => {
   const output = await parser.parseStringPromise(xmlString);
-  // console.log('output', output)
+  console.log('output', output)
   const parsed = parseXmlJsonOutput(output.root);
-  // console.log('parsed', parsed)
+  console.log('parsed', parsed)
 
   // TODO:
   // @ts-ignore
   return parsed?.root;
 };
+
+export default main;

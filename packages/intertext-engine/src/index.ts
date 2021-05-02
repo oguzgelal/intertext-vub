@@ -1,5 +1,6 @@
 import parseXml from './utils/parseXml';
 import { Branch } from './types/renderable';
+import Renderer from './Renderer';
 
 /**
  * type exports
@@ -54,6 +55,7 @@ export {
 
 class Engine {
   public packages: Branch[] | undefined;
+  public renderer: Renderer = new Renderer();
 
   public insert = (pack: Branch | Branch[]): void => {
     const packArr = Array.isArray(pack) ? pack : [pack];

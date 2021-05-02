@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { FC, useState } from "react"
 import {
   Box,
@@ -13,11 +14,10 @@ import {
   PopoverHeader,
   PopoverBody,
 } from "@chakra-ui/react"
-import { ArrowForwardIcon, SearchIcon, AddIcon, LinkIcon } from "@chakra-ui/icons"
+import { ArrowForwardIcon, SearchIcon, LinkIcon } from "@chakra-ui/icons"
 import { Branch } from "@intertext/engine"
 import useColorMode from "../utils/colorMode"
 import engine from "../common/engine"
-import Stage from "./Stage"
 
 type SearchProps = {}
 
@@ -121,11 +121,7 @@ const Search: FC<SearchProps> = () => {
           </Button>
           <Popover>
             <PopoverTrigger>
-              <Button
-                marginLeft="2"
-                colorScheme="blue"
-                variant="ghost"
-              >
+              <Button marginLeft="2" colorScheme="blue" variant="ghost">
                 ?
               </Button>
             </PopoverTrigger>
@@ -138,10 +134,22 @@ const Search: FC<SearchProps> = () => {
                   size="sm"
                   colorScheme="blue"
                   variant="ghost"
-                  onClick={() => urlSet("https://intertext-backend-demo.herokuapp.com/demo")}
+                  onClick={() =>
+                    urlSet("https://intertext-backend-demo.herokuapp.com/demo")
+                  }
                   rightIcon={<LinkIcon w="3" />}
                 >
                   Demo
+                </Button>
+                <Button
+                  w="100%"
+                  size="sm"
+                  colorScheme="blue"
+                  variant="ghost"
+                  onClick={() => urlSet("http://localhost:8008/demo")}
+                  rightIcon={<LinkIcon w="3" />}
+                >
+                  Demo Local
                 </Button>
               </PopoverBody>
             </PopoverContent>
@@ -163,7 +171,9 @@ const Search: FC<SearchProps> = () => {
             Visit a URL to get started
           </CenterText>
         )}
-        {!loading && packages && <Stage packages={packages} />}
+        {!loading && packages && (
+          engine.renderer.render({ branch: packages })
+        )}
       </Box>
     </Box>
   )
