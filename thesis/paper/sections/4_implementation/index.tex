@@ -66,7 +66,43 @@ IUIDL defines some properties that can be used to leverate the layout system to 
 
 \section{Components}
 
+\subsection{Block}
 
+Block component is the most basic and primitive building block of Intertext. It could be thought of as the \textit{div} element of HTML, its main purpose is to enclose components and other blocks. It is primarily a layout component, as it can group and position elements together. Moreover, it can also double as a display component by accepting the \textit{intent} property. When an intent is provided, it renders the block appropriately, thus it can be also used to convey a message. They also accept all layout properties. Figure \ref{fig:intents} shows an example of the block component on the web client, with and without intents.
+
+\subsection{Grid}
+
+Grid is an another layout component that can be used to render its children in grid formation. It accepts \textit{cols} property, which can be used to define how many columns should the grid have, and what the size of the column should be. It accepts numeric values inside curly brackets delaminated with a comma. Number of items in curly brackets represents the number of columns, and each number represents units that the columns should take up, where the total number of units is the sum of the numbers inside curly brackets. For instance, if \textit{cols} value was \textit{[1, 1, 1, 1]}, it would mean that the grid has four columns that are divided equally, where \textit{[1, 3]} would represent two columns with widths being 25\% to 75\%. Grid component also takes a \textit{gap} property to describe the gutter size. It can take any one of the spacing values. Any number of children can be provided to the grid component, without the need to next them in any way, it will automatically position its immediate children based on the given configuration. \ref{fig:grid_xml} shows an example of how grid component can be used, and Figure \ref{fig:grid} shows some render outputs of the grid component for the web client.
+
+\begin{figure}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=xml]
+<grid cols="[2, 3, 1]" gap="2">
+  <block intent="info">2</block>
+  <block intent="info">3</block>
+  <block intent="info">1</block>
+  <block intent="info">2</block>
+  <block intent="info">3</block>
+  <block intent="info">1</block>
+</grid>
+\end{lstlisting}
+\end{minipage}
+\caption{How grid component is used}%
+\label{fig:grid_xml}%
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/grid.png}
+  \caption{Grid component}%
+  \label{fig:grid}%
+\end{figure}
+
+\subsection{Typography}
+
+There are multiple components for typography, most of which are based off of the \textit{text} component. All components for typography stems from the \textit{text} component, but for ease of use, we defined aliases that utilizes the \textit{text} component with a set configuration. The properties that the \textit{text} component accepts are \textit{p}, \textit{h1}, \textit{h2}, \textit{h3}, \textit{b}, \textit{i}, \textit{u}, \textit{block}, \textit{muted}, \textit{code} and \textit{intent}. \textit{p} stands for "paragraph", which is used to define a paragraph block. \textit{h1}, \textit{h2}, \textit{h3} represents headings, and their respective number represents the heading level. The behaviour is similar to HTML. \textit{b}, \textit{i}, \textit{u} are styling options, represents "bold", "italics" and "underlined" respectively. \textit{muted} renders the text with a muted color, useful for descriptions, subtexts or any secondary text that needs to be less attention grabbing. \textit{code} renders the text with a light background and with monospace font family, should be used with codes. 
+
+By default, the \textit{text} component renders inline, meaning, the render output of \textit{<text>1</text><text>2</text>} will appear side by side, as "\textit{12}". However, this behaviour changes for block-level properties; \textit{p}, \textit{h1}, \textit{h2} and \textit{h3}. \textit{text} components that has these properties will take up the full line, and any other text component before or after them will fall into a new line. \textit{block} property is a way to prevent text from rendering inline, without giving it any particular style. Text component also accepts \textit{intent} property, which renders the text with the a color given its intent. Last but not least, text component can accept all layout properties just like any other component. The aliases that can be used in place of \textit{text} are \textit{p}, \textit{h1}, \textit{h2} and \textit{h3} - which will render a \textit{text} component with the respective styles applied. All properties that the text component accepts can be used together to combine styles. For instance, a configuration such as \textit{intent="error", b="true", u="true", h2="true" muted="true"} will result as a red h2 tag, muted, that is bold and underlined.
 
 \section{Web Client}
 
