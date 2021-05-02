@@ -12,8 +12,8 @@
     "*react-native*/**"
   ],
   "scripts": {
-    "build": "CI= npm run build:engine && npm run build:editor",
-    "build:editor": "cd ./packages/intertext-editor && npm run build",
+    "build": "CI= npm run build:engine && npm run build:web",
+    "build:web": "cd ./packages/intertext-web && npm run build",
     "build:engine": "cd ./packages/intertext-engine && npm run build",
     "push": "git remote | xargs -L1 -I R git push R master",
     "sync": "git pull origin master && npm run push"
