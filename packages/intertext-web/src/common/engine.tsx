@@ -8,6 +8,10 @@ import Button from "../components/core/Button/Button"
 
 const engine = new Engine()
 
+/**
+ * Register component renderers
+ */
+
 engine.renderer.registerBlockRenderer(({ index, children, props }) => (
   <Block key={index} {...props}>
     {engine.renderer.render({ branch: children })}
@@ -31,7 +35,11 @@ engine.renderer.registerCollapseRenderer(({ index, children, props }) => (
 ))
 
 engine.renderer.registerButtonRenderer(({ index, children, props }) => (
-  <Button key={index} {...props}>
+  <Button
+    {...props}
+    key={index}
+    onClick={() => engine.runner.run({ branch: props.onClick })}
+  >
     {engine.renderer.render({ branch: children })}
   </Button>
 ))
@@ -60,6 +68,14 @@ engine.renderer.registerTextRenderer(({ index, children, props }) => {
 
 engine.renderer.registerLiteralRenderer(({ children }) => {
   return <Text>{children}</Text>
+})
+
+/**
+ * Register command runners
+ */
+
+engine.runner.registerAlertCommand(({ props }) => {
+  alert(props.alert)
 })
 
 export default engine

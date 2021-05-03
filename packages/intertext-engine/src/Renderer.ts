@@ -42,7 +42,7 @@ class Renderer {
   /**
    * Main render function
    */
-  render = (args: { branch: Renderable; index?: number }): unknown => {
+  public render = (args: { branch: Renderable; index?: number }): unknown => {
     // List of items
     if (Array.isArray(args.branch)) {
       return args.branch.map((branch, index) => {

@@ -1,6 +1,7 @@
 import parseXml from './utils/parseXml';
 import { Branch } from './types/renderable';
 import Renderer from './Renderer';
+import Runner from './Runner';
 
 /**
  * type exports
@@ -55,6 +56,7 @@ export {
 
 class Engine {
   public packages: Branch[] | undefined;
+  public runner: Runner = new Runner();
   public renderer: Renderer = new Renderer();
 
   public insert = (pack: Branch | Branch[]): void => {

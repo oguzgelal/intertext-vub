@@ -1,3 +1,5 @@
+// @ts-nocheck
+// TODO ^
 import xml2js from 'xml2js';
 import { Component } from '../types/components';
 import { Command } from '../types/commands';
@@ -88,8 +90,7 @@ const parseXmlJsonOutput = (output: XmlParseOutput): Branch => {
       const attrNodeNameFixed = fixComplexAttrNodeName(attrNode);
       const attrName = attrNodeNameFixed['#name'];
       const attrParsed = parseXmlJsonOutput(attrNodeNameFixed);
-      // TODO:
-      // @ts-ignore
+
       complexAttributes[attrName] = attrParsed[attrName];
     });
 
@@ -97,8 +98,6 @@ const parseXmlJsonOutput = (output: XmlParseOutput): Branch => {
     children = nodeChildrenSafe.map(parseXmlJsonOutput);
   }
 
-  // TODO:
-  // @ts-ignore
   return {
     [nodeName]: children,
     ...parseAttrValues(nodeAttrs),
@@ -107,15 +106,12 @@ const parseXmlJsonOutput = (output: XmlParseOutput): Branch => {
 };
 
 // TODO:
-// @ts-ignore
 const main = async (xmlString: string): Promise<Branch[]> => {
   const output = await parser.parseStringPromise(xmlString);
-  console.log('output', output)
+  console.log('output', output);
   const parsed = parseXmlJsonOutput(output.root);
-  console.log('parsed', parsed)
+  console.log('parsed', parsed);
 
-  // TODO:
-  // @ts-ignore
   return parsed?.root;
 };
 

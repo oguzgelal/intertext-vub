@@ -9,11 +9,13 @@ const InxButton = ({
   children,
   disabled,
   intent,
+  onClick,
   ...rest
 }: LayoutProps & {
   children: any,
   disabled?: boolean,
   intent?: Intent
+  onClick: () => unknown
 }) => {
 
   const styles = useMultiStyleConfig('InxButton', {
@@ -23,6 +25,7 @@ const InxButton = ({
   return (
     <Button
       disabled={disabled}
+      onClick={onClick}
       sx={{
         ...styles.base,
         ...getLayoutProps(rest, {

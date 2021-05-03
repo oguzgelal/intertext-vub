@@ -1,7 +1,7 @@
 import { Component } from './components';
-// import { Command } from './commands'
+import { Command } from './commands';
 
-export type Branch = Component;
+export type Branch = Component | Command;
 
 export type Renderable =
   | Renderable[]

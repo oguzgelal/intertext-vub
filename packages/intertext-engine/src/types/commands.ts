@@ -1,1 +1,5 @@
-export type Command = unknown;
+export type Command = Alert;
+
+export interface Alert {
+  alert: string;
+}
