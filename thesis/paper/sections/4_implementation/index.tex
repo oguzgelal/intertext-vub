@@ -66,6 +66,31 @@ IUIDL defines some properties that can be used to leverate the layout system to 
 
 \section{Components}
 
+Components are the building block of Intertext applications, they are a set of pre-defined building blocks provided out of the box, which can be assembled to create a functional front-end application. They define the view layer, and they are handled differently on every Intertext client. While the rendering logic and flow of the components are fully driven by engine for consistency, it exposes functions for Intertext clients to register renderers for each component. The renderer function gets called by the engine during the render flow; it receives the props that are the given to the component, the children of the component (if any) that the function is expected to be passing on to the next call level of the recursive rendering flow, and are expected to return the component instance that needs to be rendered, which will later be used to render the UI. Figure \ref{fig:registering_renderer} shows an example snippet of the block renderer being registered to the engine on Intertext web client.
+
+\begin{figure}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=javascript]
+import Engine from "@intertext/engine"
+import Block from "../components/core/Block/Block"
+
+const engine = new Engine()
+
+engine.renderer.registerBlockRenderer(({
+  index,
+  children,
+  props,
+}) => (
+  <Block key={index} {...props}>
+    {engine.renderer.render({ branch: children })}
+  </Block>
+))
+\end{lstlisting}
+\end{minipage}
+\caption{Registering a component renderer}%
+\label{fig:registering_renderer}%
+\end{figure}
+
 \subsection{Block}
 
 Block component is the most basic and primitive building block of Intertext. It could be thought of as the \textit{div} element of HTML, its main purpose is to enclose components and other blocks. It is primarily a layout component, as it can group and position elements together. Moreover, it can also double as a display component by accepting the \textit{intent} property. When an intent is provided, it renders the block appropriately, thus it can be also used to convey a message. They also accept all layout properties. Figure \ref{fig:intents} shows an example of the block component on the web client, with and without intents.
@@ -104,10 +129,25 @@ There are multiple components for typography, most of which are based off of the
 
 By default, the \textit{text} component renders inline, meaning, the render output of \textit{<text>1</text><text>2</text>} will appear side by side, as "\textit{12}". However, this behaviour changes for block-level properties; \textit{p}, \textit{h1}, \textit{h2} and \textit{h3}. \textit{text} components that has these properties will take up the full line, and any other text component before or after them will fall into a new line. \textit{block} property is a way to prevent text from rendering inline, without giving it any particular style. Text component also accepts \textit{intent} property, which renders the text with the a color given its intent. Last but not least, text component can accept all layout properties just like any other component. The aliases that can be used in place of \textit{text} are \textit{p}, \textit{h1}, \textit{h2} and \textit{h3} - which will render a \textit{text} component with the respective styles applied. All properties that the text component accepts can be used together to combine styles. For instance, a configuration such as \textit{intent="error", b="true", u="true", h2="true" muted="true"} will result as a red h2 tag, muted, that is bold and underlined.
 
+\subsection{Literals}
+
+Literals are standalone string (or number) values provided to components (other than the \textit{text} component) as children. Figure \ref{fig:text_vs_literal} shows the difference between a literal and a text value. While literals aren't exactly a component themselves, they are nonetheless values that rendering needs to be handled by each client, thus they need their own renderer. The way literals are handled differs from platform to platform, for instance on the web client they can be rendered as is, while on the command line client, they are required to be wrapped within a local Text node.
+
+\begin{figure}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=xml]
+<text>Handled by text renderer</text>
+<block><text>Handled by text renderer</text></block>
+<block>Handled by literal renderer</block>
+\end{lstlisting}
+\end{minipage}
+\caption{Difference between text and literal nodes}%
+\label{fig:text_vs_literal}%
+\end{figure}
+
 \subsection{Collapse}
 
 Collapse component can be used to hide long-form content within a collapsible panel that is closed by default, and can be toggled by clicking the handle. It accepts the complex attribute \textit{handle} that takes the contents of the collapse handle. It's children will be rendered inside of the collapse. Collapse components can be nested, in which case each collapse component will operate individually. Figure \ref{fig:collapse_xml} shows how it can be used, and Figure \ref{fig:collapse} shows the render output of a collapse component on the Intertext web client.
-
 
 \begin{figure}
 \begin{minipage}{\linewidth}
@@ -140,6 +180,30 @@ Collapse component can be used to hide long-form content within a collapsible pa
 
 \section{Commands}
 
-\section{Web Client}
+Similar to the components, commands also are registered to the engine. However the registration of the commands are more dynamic compared to the components; while components are static and are immediately available right after the initialization, some commands rely on other artifacts to be available before they are able to be registered. For instance on the web client, the commands related to the client state requires the root component to be mounted, therefor they can only be registered after the mounting occurs. These requirements changes from client to client based on the platform requirements.
 
-\section{Command-line Client}
+\subsection{State}
+
+State command is used to set the state or retrieve read a value from the state. This command is expected to be registered to the engine by each Intertext client based on how the state is handled on the host platform. For instance, for the web client, the client state is controlled by the root component, thus it can only be initialized once the component is initialized and mounted on screen. State command accepts a \textit{key} attribute, which takes the key of the state value to be set. The children of the state command takes the value of the state to be set. Unlike other commands, state command can also be used as a component to display state values on the screen. When the state command is used without providing a value, Intertext engine reads the state value, and interprets it as a literal value, uses the \textit{literalRenderer} to display it on the screen. Figure \ref{fig:how_state_is_set_and_read} shows the syntax of how setting and reading the state works.
+
+\begin{figure}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=xml]
+<!-- set the `name` state value -->
+<state key="name">John</state>
+\end{lstlisting}
+\begin{lstlisting}[language=xml]
+<!-- read the `name` state value -->
+<!-- renders "Hello, John!" -->
+<block>
+  <text>Hello, </text>
+  <state key="name"></state>
+  <text>!</text>
+</block>
+\end{lstlisting}
+\end{minipage}
+\caption{How grid component is used}%
+\label{fig:how_state_is_set_and_read}%
+\end{figure}
+
+\subsection{Alert}
