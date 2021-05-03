@@ -57,7 +57,7 @@ export {
 class Engine {
   public packages: Branch[] | undefined;
   public runner: Runner = new Runner();
-  public renderer: Renderer = new Renderer();
+  public renderer: Renderer = new Renderer(this.runner);
 
   public insert = (pack: Branch | Branch[]): void => {
     const packArr = Array.isArray(pack) ? pack : [pack];

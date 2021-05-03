@@ -1,3 +1,4 @@
+import Runner from './Runner';
 import { Grid, Block, Button, Collapse, TextGeneral } from './types/components';
 import { Renderable } from './types/renderable';
 
@@ -16,6 +17,8 @@ class Renderer {
   private textRenderer: RendererFn<TextGeneral> = () => null;
   private buttonRenderer: RendererFn<Button> = () => null;
   private collapseRenderer: RendererFn<Collapse> = () => null;
+
+  constructor(private runner: Runner) {}
 
   /**
    * Register a renderer
@@ -56,6 +59,19 @@ class Renderer {
         index: args.index,
         props: undefined,
         children: args.branch,
+      });
+    }
+
+    // State values
+    // `state` command can also be used as a component
+    // to display the value of the state variable
+    if (args.branch && 'state' in args.branch) {
+      return this.literalRenderer({
+        index: args.index,
+        props: undefined,
+        children: this.runner.run({
+          branch: args.branch,
+        }) as string,
       });
     }
 

@@ -1,5 +1,5 @@
 import { ComponentMultiStyleConfig } from "@chakra-ui/theme";
-import { getColor } from "@chakra-ui/theme-tools"
+import { mode } from "@chakra-ui/theme-tools"
 import { Intent } from "@intertext/engine";
 
 export const InxButton: ComponentMultiStyleConfig = {
@@ -8,9 +8,9 @@ export const InxButton: ComponentMultiStyleConfig = {
     const c: Intent = props.__intent ?? 'default';
     return {
       base: {
-        bg: getColor(props.theme, `${c}.300`),
+        bg: mode(`${c}.300`, `${c}.500`)(props),
         '&:hover': {
-          bg: getColor(props.theme, `${c}.400`),
+          bg: mode(`${c}.400`, `${c}.600`)(props),
         }
       }
     }

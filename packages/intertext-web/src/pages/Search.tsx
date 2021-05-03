@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { FC, useState } from "react"
+import React, { FC, useEffect, useState } from "react"
 import {
   Box,
   Input,
@@ -43,11 +43,33 @@ const CenterText = ({ children }: { children: any }) => {
 }
 
 const Search: FC<SearchProps> = () => {
+  const [clientState, clientStateSet] = useState(false)
   const [loading, loadingSet] = useState(false)
   const [url, urlSet] = useState("")
   const [packages, packagesSet] = useState<Branch[] | null>(null)
   const mode = useColorMode()
   const toast = useToast()
+
+  /**
+   * Register state setters
+   */
+  useEffect(() => {
+    /**
+     * Register state command
+     * if value empty, return current state value
+     * otherwise, set the client state
+     */
+    engine.runner.registerStateCommand(({ props }) => {
+      if (!props.state || props.state === "") {
+        return clientState[props.key]
+      } else {
+        clientStateSet({
+          ...clientState,
+          [props.key]: props.state,
+        })
+      }
+    })
+  }, [clientState])
 
   const load = () => {
     loadingSet(true)
@@ -171,9 +193,7 @@ const Search: FC<SearchProps> = () => {
             Visit a URL to get started
           </CenterText>
         )}
-        {!loading && packages && (
-          engine.renderer.render({ branch: packages })
-        )}
+        {!loading && packages && engine.renderer.render({ branch: packages })}
       </Box>
     </Box>
   )

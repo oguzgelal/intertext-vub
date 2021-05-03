@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { ChakraProvider, Box } from "@chakra-ui/react"
 import { ColorModeSwitcher } from "../components/ColorModeSwitcher"
 import theme from "../common/theme"
@@ -22,7 +22,6 @@ export const App = () => {
   /**
    * Implement running actions on setTimeout setInterval
    */
-  const [clientState, clientStateSet] = useState({})
 
   return (
     <ChakraProvider theme={theme}>
