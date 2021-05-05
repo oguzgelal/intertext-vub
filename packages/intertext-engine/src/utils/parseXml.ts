@@ -57,6 +57,10 @@ const fixComplexAttrNodeName = (node: XmlParseOutput): XmlParseOutput => {
 };
 
 const parseXmlJsonOutput = (output: XmlParseOutput): Branch => {
+  if (!output) {
+    console.error('empty output', output);
+    return;
+  }
   const nodeName: string = output['#name'];
   const nodeValue: string = output['_'];
   const nodeAttrs: Record<string, unknown> = output['$'] ?? {};

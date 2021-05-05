@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Branch } from "@intertext/engine"
 import { useToast } from "@chakra-ui/react"
-import engine from "../common/engine"
+import engine from "./engine"
+import storage from '../common/storage'
 
 type ReqTypes = {
   /**
@@ -15,33 +16,41 @@ type ReqTypes = {
    * `append`: Append responses to the end of the page
    * `prepend`: Prepend responses to the beginning of the page
    */
-  strategy?: "replace" | "append" | "prepend",
+  strategy?: "replace" | "append" | "prepend"
 }
 
 const useIntertext = () => {
   const [url, urlSet] = useState("")
+  const [urlBase, urlBaseSet] = useState("")
+  const [urlPath, urlPathSet] = useState("")
   const [loading, loadingSet] = useState(false)
   const [packages, packagesSet] = useState<Branch[] | null>(null)
-  const [inputState, inputStateSet] = useState({})
+  const [inputState, inputStateSet] = useState<Record<string, string>>({})
 
-  const setInputValue = (name: string, value: string) => inputStateSet({
-    ...inputState,
-    [name]: value
-  })
+  useEffect(() => {
+    try {
+      const urlParts = new URL(url)
+      urlBaseSet(urlParts.origin)
+      urlPathSet(urlParts.pathname)
+      storage.setItem('urlBase', urlParts.origin)
+    } catch (e) {}
+  }, [url])
+
+  const setInputValue = (name: string, value: string) =>
+    inputStateSet({
+      ...inputState,
+      [name]: value,
+    })
 
   // client state (volatile)
   const [state, stateSet] = useState(false)
-  
+
   const toast = useToast()
 
   /**
    * Generic request function
    */
-  const request = ({
-    path,
-    strategy = "replace",
-  }: ReqTypes) => {
-    
+  const request = ({ path, strategy = "replace" }: ReqTypes) => {
     if (!url) {
       throw new Error("URL not set")
     }
@@ -50,47 +59,45 @@ const useIntertext = () => {
       throw new Error("Path needs to start with a slash")
     }
 
-    const urlParts = new URL(url)
-    const urlBase = urlParts.origin
-    const urlPath = urlParts.pathname
-
     loadingSet(true)
     fetch(`${urlBase}${path ?? urlPath}`, {
-      method: 'post',
+      method: "post",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         state,
         inputState,
-      })
+      }),
     })
       .then((response) => {
-        console.log('response', response)
+        console.log("response", response)
         return response.text()
       })
-      .then(engine.parseXml)
+      .then((out) => {
+        console.log("out", out)
+        return engine.parseXml(out)
+      })
       .then((res) => {
-
         if (!res || res.length === 0) {
-          console.warn('Server returned empty response')
-          return;
+          console.warn("Server returned empty response")
+          return
         }
 
         if (strategy === "replace") {
           packagesSet(res)
         } else if (strategy === "append") {
           packagesSet([...(packages || []), ...res])
-        } else if (strategy === 'prepend') {
+        } else if (strategy === "prepend") {
           packagesSet([...res, ...(packages || [])])
         } else {
-          throw new Error('Unknown strategy')
+          throw new Error("Unknown strategy")
         }
 
         loadingSet(false)
       })
       .catch((err) => {
-        console.log('err', err)
+        console.log("err", err)
         loadingSet(false)
         toast({
           title: "Error",
@@ -104,9 +111,12 @@ const useIntertext = () => {
 
   return {
     url,
+    urlBase,
+    urlPath,
     urlSet,
     state,
     stateSet,
+    inputState,
     setInputValue,
     loading,
     packages,

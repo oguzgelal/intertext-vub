@@ -1,5 +1,13 @@
 import Runner from './Runner';
-import { Grid, Block, Button, Collapse, TextGeneral } from './types/components';
+import {
+  Grid,
+  Block,
+  Button,
+  Input,
+  Collapse,
+  Image,
+  TextGeneral,
+} from './types/components';
 import { Renderable } from './types/renderable';
 
 type RenderArgs<T> = {
@@ -16,7 +24,9 @@ class Renderer {
   private gridRenderer: RendererFn<Grid> = () => null;
   private textRenderer: RendererFn<TextGeneral> = () => null;
   private buttonRenderer: RendererFn<Button> = () => null;
+  private inputRenderer: RendererFn<Input> = () => null;
   private collapseRenderer: RendererFn<Collapse> = () => null;
+  private imageRenderer: RendererFn<Image> = () => null;
 
   constructor(private runner: Runner) {}
 
@@ -38,8 +48,14 @@ class Renderer {
   public registerButtonRenderer = (fn: RendererFn<Button>): void => {
     this.buttonRenderer = fn;
   };
+  public registerInputRenderer = (fn: RendererFn<Input>): void => {
+    this.inputRenderer = fn;
+  };
   public registerCollapseRenderer = (fn: RendererFn<Collapse>): void => {
     this.collapseRenderer = fn;
+  };
+  public registerImageRenderer = (fn: RendererFn<Image>): void => {
+    this.imageRenderer = fn;
   };
 
   /**
@@ -102,11 +118,29 @@ class Renderer {
       });
     }
 
+    // Input
+    if (args.branch && 'input' in args.branch) {
+      return this.inputRenderer({
+        index: args.index,
+        children: args.branch['input'],
+        props: { ...args.branch },
+      });
+    }
+
     // Collapse
     if (args.branch && 'collapse' in args.branch) {
       return this.collapseRenderer({
         index: args.index,
         children: args.branch['collapse'],
+        props: { ...args.branch },
+      });
+    }
+
+    // Image
+    if (args.branch && 'img' in args.branch) {
+      return this.imageRenderer({
+        index: args.index,
+        children: args.branch['img'],
         props: { ...args.branch },
       });
     }

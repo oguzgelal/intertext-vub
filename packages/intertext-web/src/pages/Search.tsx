@@ -1,9 +1,9 @@
 // @ts-nocheck
-import React, { FC, useEffect } from "react"
+import React, { FC, useEffect, useMemo } from "react"
 import {
   Box,
-  Input,
   Button,
+  Input as InputChakra,
   Text,
   Spinner,
   Popover,
@@ -14,7 +14,8 @@ import {
   PopoverBody,
 } from "@chakra-ui/react"
 import { ArrowForwardIcon, SearchIcon, LinkIcon } from "@chakra-ui/icons"
-import useIntertext from "../utils/useIntertext"
+import Input from "../components/core/Input/Input"
+import useIntertext from "../common/useIntertext"
 import useColorMode from "../utils/colorMode"
 import engine from "../common/engine"
 
@@ -67,9 +68,15 @@ const Search: FC<SearchProps> = () => {
     request,
     loading,
     packages,
-    // TODO
+    inputState,
     setInputValue,
   } = useIntertext()
+
+  useEffect(() => {
+    console.log('packages changed')
+  }, [
+    packages
+  ])
 
   /**
    * Register state setters
@@ -90,7 +97,22 @@ const Search: FC<SearchProps> = () => {
         })
       }
     })
-  }, [state, stateSet])
+
+    /**
+     * Register input renderer, integrate it with
+     * the inputState
+     */
+    engine.renderer.registerInputRenderer(({ index, children, props }) => (
+      <Input
+        {...props}
+        key={index}
+        value={inputState[props.name]}
+        onChange={(e) => setInputValue(props.name, e.target.value)}
+      >
+        {engine.renderer.render({ branch: children })}
+      </Input>
+    ))
+  }, [state, stateSet, setInputValue, inputState])
 
   return (
     <Box
@@ -123,7 +145,7 @@ const Search: FC<SearchProps> = () => {
           pr="4"
           background={mode<string>("gray.50", "gray.900")}
         >
-          <Input
+          <InputChakra
             value={url}
             disabled={loading}
             flexGrow={1}
@@ -156,9 +178,7 @@ const Search: FC<SearchProps> = () => {
                     size="sm"
                     colorScheme="blue"
                     variant="ghost"
-                    onClick={() =>
-                      urlSet(shortcut.url)
-                    }
+                    onClick={() => urlSet(shortcut.url)}
                     rightIcon={<LinkIcon w="3" />}
                   >
                     {shortcut.title}
@@ -184,7 +204,14 @@ const Search: FC<SearchProps> = () => {
             Visit a URL to get started
           </CenterText>
         )}
-        {!loading && packages && engine.renderer.render({ branch: packages })}
+        {/* For now, do not re-render when state values changes */}
+        {useMemo(() => {
+          if (!loading && packages) {
+            return engine.renderer.render({ branch: packages })
+          } else {
+            return null
+          }
+        }, [loading, packages])}
       </Box>
     </Box>
   )

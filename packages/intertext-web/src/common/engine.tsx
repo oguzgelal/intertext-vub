@@ -5,6 +5,7 @@ import Block from "../components/core/Block/Block"
 import Grid from "../components/core/Grid/Grid"
 import Collapse from "../components/core/Collapse/Collapse"
 import Button from "../components/core/Button/Button"
+import Image from "../components/core/Image/Image"
 
 const engine = new Engine()
 
@@ -42,6 +43,16 @@ engine.renderer.registerButtonRenderer(({ index, children, props }) => (
   >
     {engine.renderer.render({ branch: children })}
   </Button>
+))
+
+engine.renderer.registerImageRenderer(({ index, children, props }) => (
+  <Image
+    {...props}
+    key={index}
+    src={props.src}
+  >
+    {engine.renderer.render({ branch: children }) as string}
+  </Image>
 ))
 
 engine.renderer.registerTextRenderer(({ index, children, props }) => {

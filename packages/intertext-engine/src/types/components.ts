@@ -13,7 +13,9 @@ export type Component =
   | TextH2
   | TextH3
   | Button
-  | Collapse;
+  | Input
+  | Collapse
+  | Image;
 
 /**
  * Components
@@ -63,10 +65,24 @@ export interface Button extends LayoutProps {
   onClick: Command[];
 }
 
+export interface Input extends LayoutProps {
+  input: Renderable;
+  name: string;
+  type?: 'text' | 'email' | 'password';
+  placeholder?: string;
+  intent?: Intent;
+  disabled?: boolean;
+}
+
 export interface Collapse extends LayoutProps {
   collapse: Renderable;
   handle: Renderable;
   intent?: Intent;
   disabled?: boolean;
   onClick: Command[];
+}
+
+export interface Image extends LayoutProps {
+  img: Renderable;
+  src: string;
 }
