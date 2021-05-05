@@ -37,14 +37,6 @@ export const InxBlock: ComponentMultiStyleConfig = {
     const base = merge(
       {
         display: 'flex',
-        marginTop: 2,
-        marginBottom: 2,
-        '&:first-child': {
-          marginTop: 0,
-        },
-        '&:last-child': {
-          marginBottom: 0,
-        }
       },
       getIntentStyles(props),
     )
