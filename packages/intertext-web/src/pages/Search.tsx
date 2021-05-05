@@ -1,12 +1,11 @@
 // @ts-nocheck
-import React, { FC, useEffect, useState } from "react"
+import React, { FC, useEffect } from "react"
 import {
   Box,
   Input,
   Button,
   Text,
   Spinner,
-  useToast,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -15,7 +14,7 @@ import {
   PopoverBody,
 } from "@chakra-ui/react"
 import { ArrowForwardIcon, SearchIcon, LinkIcon } from "@chakra-ui/icons"
-import { Branch } from "@intertext/engine"
+import useIntertext from "../utils/useIntertext"
 import useColorMode from "../utils/colorMode"
 import engine from "../common/engine"
 
@@ -42,13 +41,35 @@ const CenterText = ({ children }: { children: any }) => {
   )
 }
 
+const shortcuts = [
+  {
+    title: "Demo",
+    url: "https://intertext-backend-demo.herokuapp.com/demo",
+  },
+  {
+    title: "Demo (local)",
+    url: "http://localhost:8008/demo",
+  },
+  {
+    title: "Recipes (local)",
+    url: "http://localhost:8008/recipes",
+  },
+]
+
 const Search: FC<SearchProps> = () => {
-  const [clientState, clientStateSet] = useState(false)
-  const [loading, loadingSet] = useState(false)
-  const [url, urlSet] = useState("")
-  const [packages, packagesSet] = useState<Branch[] | null>(null)
   const mode = useColorMode()
-  const toast = useToast()
+
+  const {
+    url,
+    urlSet,
+    state,
+    stateSet,
+    request,
+    loading,
+    packages,
+    // TODO
+    setInputValue,
+  } = useIntertext()
 
   /**
    * Register state setters
@@ -61,37 +82,15 @@ const Search: FC<SearchProps> = () => {
      */
     engine.runner.registerStateCommand(({ props }) => {
       if (!props.state || props.state === "") {
-        return clientState[props.key]
+        return state[props.key]
       } else {
-        clientStateSet({
-          ...clientState,
+        stateSet({
+          ...state,
           [props.key]: props.state,
         })
       }
     })
-  }, [clientState])
-
-  const load = () => {
-    loadingSet(true)
-    fetch(url)
-      .then((response) => response.text())
-      .then(engine.parseXml)
-      .then((res) => {
-        packagesSet(res)
-        loadingSet(false)
-      })
-      .catch((err) => {
-        loadingSet(false)
-        urlSet("")
-        toast({
-          title: "Error",
-          description: (err as Error).message ?? "Something went wrong",
-          duration: 3000,
-          isClosable: true,
-          status: "error",
-        })
-      })
-  }
+  }, [state, stateSet])
 
   return (
     <Box
@@ -110,7 +109,7 @@ const Search: FC<SearchProps> = () => {
           if (loading) {
             return
           }
-          load()
+          request({})
         }}
       >
         <Box
@@ -151,28 +150,20 @@ const Search: FC<SearchProps> = () => {
               <PopoverCloseButton />
               <PopoverHeader>Demo Links</PopoverHeader>
               <PopoverBody>
-                <Button
-                  w="100%"
-                  size="sm"
-                  colorScheme="blue"
-                  variant="ghost"
-                  onClick={() =>
-                    urlSet("https://intertext-backend-demo.herokuapp.com/demo")
-                  }
-                  rightIcon={<LinkIcon w="3" />}
-                >
-                  Demo
-                </Button>
-                <Button
-                  w="100%"
-                  size="sm"
-                  colorScheme="blue"
-                  variant="ghost"
-                  onClick={() => urlSet("http://localhost:8008/demo")}
-                  rightIcon={<LinkIcon w="3" />}
-                >
-                  Demo Local
-                </Button>
+                {shortcuts.map((shortcut) => (
+                  <Button
+                    w="100%"
+                    size="sm"
+                    colorScheme="blue"
+                    variant="ghost"
+                    onClick={() =>
+                      urlSet(shortcut.url)
+                    }
+                    rightIcon={<LinkIcon w="3" />}
+                  >
+                    {shortcut.title}
+                  </Button>
+                ))}
               </PopoverBody>
             </PopoverContent>
           </Popover>
