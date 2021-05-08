@@ -46,11 +46,7 @@ engine.renderer.registerButtonRenderer(({ index, children, props }) => (
 ))
 
 engine.renderer.registerImageRenderer(({ index, children, props }) => (
-  <Image
-    {...props}
-    key={index}
-    src={props.src}
-  >
+  <Image {...props} key={index} src={props.src}>
     {engine.renderer.render({ branch: children }) as string}
   </Image>
 ))
@@ -87,6 +83,13 @@ engine.renderer.registerLiteralRenderer(({ children }) => {
 
 engine.runner.registerAlertCommand(({ props }) => {
   alert(props.alert)
+})
+
+engine.runner.registerTimeoutCommand(({ props }) => {
+  const delay = parseInt(props.delay ?? "0", 10)
+  setTimeout(() => {
+    engine.runner.run({ branch: props.timeout })
+  }, delay)
 })
 
 export default engine

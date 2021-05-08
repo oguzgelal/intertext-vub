@@ -169,6 +169,18 @@ class Renderer {
       });
     }
 
+    /**
+     * Component-like commands:
+     * Below are commands that can be top level
+     */
+
+    // Onload
+    if (args.branch && 'onload' in args.branch) {
+      this.runner.run({
+        branch: args.branch,
+      });
+    }
+
     return null;
   };
 }

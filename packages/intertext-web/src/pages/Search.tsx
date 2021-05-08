@@ -72,36 +72,11 @@ const Search: FC<SearchProps> = () => {
     setInputValue,
   } = useIntertext()
 
-  useEffect(() => {
-    console.log('packages changed')
-  }, [
-    packages
-  ])
-
   /**
-   * Register state setters
+   * Register input renderer, integrate it with
+   * the inputState
    */
   useEffect(() => {
-    /**
-     * Register state command
-     * if value empty, return current state value
-     * otherwise, set the client state
-     */
-    engine.runner.registerStateCommand(({ props }) => {
-      if (!props.state || props.state === "") {
-        return state[props.key]
-      } else {
-        stateSet({
-          ...state,
-          [props.key]: props.state,
-        })
-      }
-    })
-
-    /**
-     * Register input renderer, integrate it with
-     * the inputState
-     */
     engine.renderer.registerInputRenderer(({ index, children, props }) => (
       <Input
         {...props}
@@ -128,10 +103,12 @@ const Search: FC<SearchProps> = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault()
-          if (loading) {
-            return
-          }
-          request({})
+          if (loading) return
+          request({
+            url,
+            navigate: true,
+            strategy: 'replace',
+          })
         }}
       >
         <Box
