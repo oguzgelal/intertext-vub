@@ -21,8 +21,10 @@ type ReqTypes = {
    * `replace`: Replace response with current page content (default)
    * `append`: Append responses to the end of the page
    * `prepend`: Prepend responses to the beginning of the page
+   * `execute`: Do not change the UI, execute response as a command
+   * `ignore`: Do not change the UI, ignore response
    */
-  strategy?: "replace" | "append" | "prepend"
+  strategy?: "replace" | "append" | "prepend" | "execute" | "ignore"
 
   /**
    * True if the request is based off of the `navigate` command
@@ -112,6 +114,10 @@ const useIntertext = () => {
             packagesSet([...(packages || []), ...res])
           } else if (strategy === "prepend") {
             packagesSet([...res, ...(packages || [])])
+          } else if (strategy === "execute") {
+            engine.runner.run({ branch: res })
+          } else if (strategy === "ignore") {
+            /** do not make any changes, ignore res */
           } else {
             throw new Error("Unknown strategy")
           }

@@ -28,7 +28,7 @@ export interface State {
  */
 export interface Request {
   endpoint: string;
-  strategy: 'replace' | 'append' | 'prepend';
+  strategy: 'replace' | 'append' | 'prepend' | 'execute' | 'ignore';
 }
 
 /**
