@@ -21,6 +21,8 @@ export interface OnLoad {
 export interface State {
   key: string;
   state: unknown;
+  persist?: boolean;
+  clear?: boolean;
 }
 
 /**

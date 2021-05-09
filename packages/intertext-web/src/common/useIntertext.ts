@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react"
-import { Branch, Command } from "@intertext/engine"
+import { Branch } from "@intertext/engine"
 import { useToast } from "@chakra-ui/react"
 import engine from "./engine"
 import storage from "../common/storage"
@@ -35,24 +35,10 @@ type ReqTypes = {
 const useIntertext = () => {
   const toast = useToast()
 
-  const [state, stateSet] = useState<Record<string, unknown>>({})
   const [url, urlSet] = useState("")
   const [loading, loadingSet] = useState(false)
   const [packages, packagesSet] = useState<Branch[] | null>(null)
-  const [inputState, inputStateSet] = useState<Record<string, string>>({})
   const [onloadBlock, onloadBlockSet] = useState(false)
-
-  /**
-   * Set the value of an input field
-   */
-  const setInputValue = useCallback(
-    (name: string, value: string) =>
-      inputStateSet({
-        ...inputState,
-        [name]: value,
-      }),
-    [inputState, inputStateSet]
-  )
 
   /**
    * Get URL origin
@@ -96,8 +82,9 @@ const useIntertext = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          state,
-          inputState,
+          state: storage.get("state"),
+          persist: storage.get("persist"),
+          inputState: storage.get("inputState"),
         }),
       })
         .then((response) => response.text())
@@ -106,6 +93,10 @@ const useIntertext = () => {
           if (!res || res.length === 0) {
             console.warn("Server returned empty response")
             return
+          }
+
+          if (strategy === "replace") {
+            storage.set("inputState", () => ({}))
           }
 
           if (strategy === "replace") {
@@ -136,7 +127,7 @@ const useIntertext = () => {
           })
         })
     },
-    [toast, inputState, packages, packagesSet, state]
+    [toast, packages, packagesSet]
   )
 
   /**
@@ -149,13 +140,22 @@ const useIntertext = () => {
      * otherwise, set the client state
      */
     engine.runner.registerStateCommand(({ props }) => {
-      if (!props.state || props.state === "") {
-        return state[props.key]
+      console.log(">>", props, !!props.clear)
+      const key = props.persist ? "persist" : "state"
+      if (props.clear) {
+        storage.set<Record<string, unknown>>(key, (state = {}) => {
+          const currentState = { ...state }
+          delete currentState[props.key]
+          return currentState
+        })
+      } else if (!props.state || props.state === "") {
+        const currentState = storage.get<Record<string, undefined>>(key) ?? {}
+        return currentState[props.key]
       } else {
-        stateSet({
+        storage.set<Record<string, unknown>>(key, (state = {}) => ({
           ...state,
           [props.key]: props.state,
-        })
+        }))
       }
     })
 
@@ -179,7 +179,7 @@ const useIntertext = () => {
         navigate: true,
       })
     })
-  }, [url, state, stateSet, setInputValue, inputState, request])
+  }, [url, request])
 
   /**
    * Control the flow of "onload"
@@ -190,6 +190,7 @@ const useIntertext = () => {
   useEffect(() => {
     if (!onloadBlock) {
       onloadBlockSet(true)
+
       engine.runner.registerOnLoadCommand(({ props }) => {
         engine.runner.registerOnLoadCommand(() => null)
         engine.runner.run({ branch: props.onload })
@@ -215,13 +216,17 @@ const useIntertext = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  /**
+   * Reset necessary states on mount
+   */
+  useEffect(() => {
+    storage.set("state", () => ({}))
+    storage.set("inputState", () => ({}))
+  }, [])
+
   return {
     url,
     urlSet,
-    state,
-    stateSet,
-    inputState,
-    setInputValue,
     loading,
     packages,
     request,

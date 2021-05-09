@@ -18,6 +18,7 @@ import Input from "../components/core/Input/Input"
 import useIntertext from "../common/useIntertext"
 import useColorMode from "../utils/colorMode"
 import engine from "../common/engine"
+import storage from "../common/storage"
 
 type SearchProps = {}
 
@@ -63,13 +64,9 @@ const Search: FC<SearchProps> = () => {
   const {
     url,
     urlSet,
-    state,
-    stateSet,
     request,
     loading,
     packages,
-    inputState,
-    setInputValue,
   } = useIntertext()
 
   /**
@@ -77,17 +74,27 @@ const Search: FC<SearchProps> = () => {
    * the inputState
    */
   useEffect(() => {
-    engine.renderer.registerInputRenderer(({ index, children, props }) => (
-      <Input
-        {...props}
-        key={index}
-        value={inputState[props.name]}
-        onChange={(e) => setInputValue(props.name, e.target.value)}
-      >
-        {engine.renderer.render({ branch: children })}
-      </Input>
-    ))
-  }, [state, stateSet, setInputValue, inputState])
+    engine.renderer.registerInputRenderer(({ index, children, props }) => {
+      const currentInputState = storage.get<Record<string, string>>("inputState") ?? {}
+      return (
+        <Input
+          {...props}
+          key={index}
+          value={currentInputState[props.name]}
+          onChange={(str) => {
+            storage.set("inputState", (current = {}) => ({
+              ...current,
+              [props.name]: str,
+            }))
+          }}
+        >
+          {engine.renderer.render({
+            branch: children,
+          })}
+        </Input>
+      )
+    })
+  }, [])
 
   return (
     <Box
@@ -107,7 +114,7 @@ const Search: FC<SearchProps> = () => {
           request({
             url,
             navigate: true,
-            strategy: 'replace',
+            strategy: "replace",
           })
         }}
       >

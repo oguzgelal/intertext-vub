@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Intent, LayoutProps, getLayoutProps } from "@intertext/engine"
 import { Input, useMultiStyleConfig } from "@chakra-ui/react"
 
@@ -20,8 +20,9 @@ const InxInput = ({
   intent?: Intent
   placeholder?: string
   type?: string
-  onChange?: React.ChangeEventHandler<HTMLInputElement>
+  onChange?: (str: string) => void
 }) => {
+  const [_value, _valueSet] = useState(value ?? "")
   const styles = useMultiStyleConfig("InxInput", {
     __intent: intent,
   })
@@ -32,8 +33,13 @@ const InxInput = ({
       name={name}
       placeholder={placeholder}
       type={type ?? "text"}
-      onChange={onChange}
-      value={value}
+      onChange={(e) => {
+        _valueSet(e.target.value)
+        if (onChange) {
+          onChange(e.target.value)
+        }
+      }}
+      value={_value}
       sx={{
         ...styles.base,
         ...getLayoutProps(rest, {
