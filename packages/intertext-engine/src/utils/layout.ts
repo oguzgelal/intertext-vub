@@ -20,6 +20,7 @@ export const getLayoutProps = (
   overrideDefault?: Partial<LayoutProps>,
 ): LayoutProps => {
   const layout: LayoutProps = {};
+  attach(layout, 'display', props.display);
   attach(
     layout,
     'position',

@@ -1,6 +1,7 @@
 import { Size } from './size';
 import { Space } from './space';
 
+export type Display = 'inline' | 'block' | 'flex' | 'inline-flex';
 export type Position = 'relative' | 'absolute';
 
 export type AlignContent =
@@ -44,6 +45,7 @@ export type JustifyContent =
 export type LayoutDirection = 'ltr' | 'rtl';
 
 export type LayoutProps = {
+  display?: Display;
   position?: Position;
   alignContent?: AlignContent;
   alignItems?: AlignItems;
