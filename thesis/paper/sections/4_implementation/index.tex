@@ -178,33 +178,140 @@ Button component is simplest and the most primitive way of triggering commands. 
 
 \subsection{Input}
 
+Input component can be used to take text based input from the user. The type of the input can also be determined for validation purposes using the \texttt{type} attribute, with the accepted values at the time of writing is \texttt{text} (default), \texttt{email} and \texttt{password}. Input components are required to take \texttt{name} attribute, and a unique key to identify the input field should be provided. Intertext client automatically syncs the value of the input component to the state variable \texttt{inputState}, which gets passed on to the backend on every request within the request body.
+
+\subsection{Image}
+
+This command can be used to display images on the screen, for platforms that can support displaying images. It takes \texttt{src} attribute to accept the image URI, and a textual identifier for the image as \texttt{alt} attribute to display for platforms that cannot support images, such as the Intertext command-line client. At the time of the writing, the only acceptable way to display images in Intertext clients is to serve the images from the same origin. This is a result of the same origin policy as our privacy requirements. So for instance if IUIDL codes are being served from \texttt{example.com} and the \texttt{src} attribute is provded as \texttt{/assets/image.png}, Intertext client will try to load the image from \texttt{example.com/assets/image.png}. We have future plans of allowing assets to be loaded from remote servers after permission is granted by the user, which is explained in \nameref{futureWork}.
+
 \section{Commands}
 
 Similar to the components, commands also are registered to the engine. However the registration of the commands are more dynamic compared to the components; while components are static and are immediately available right after the initialization, some commands rely on other artifacts to be available before they are able to be registered. For instance on the web client, the commands related to the client state requires the root component to be mounted, therefor they can only be registered after the mounting occurs. These requirements changes from client to client based on the platform requirements.
 
 \subsection{State}
 
-State command is used to set the state or retrieve read a value from the state. This command is expected to be registered to the engine by each Intertext client based on how the state is handled on the host platform. For instance, for the web client, the client state is controlled by the root component, thus it can only be initialized once the component is initialized and mounted on screen. State command accepts a \textit{key} attribute, which takes the key of the state value to be set. The children of the state command takes the value of the state to be set. Unlike other commands, state command can also be used as a component to display state values on the screen. When the state command is used without providing a value, Intertext engine reads the state value, and interprets it as a literal value, uses the \textit{literalRenderer} to display it on the screen. Figure \ref{fig:how_state_is_set_and_read} shows the syntax of how setting and reading the state works.
+State command is used to set the state or retrieve read a value from the state. This command is expected to be registered to the engine by each Intertext client based on how the state is handled on the host platform. For instance, for the web client, the client state is controlled by the root React component, therefore it can only be initialized once the component is initialized and mounted on screen. 
+
+State command accepts \texttt{key} attribute, which takes the key of the state variable. The children of the state command takes the value of the state to be set. Unlike other commands, state command can also be used as a component to display state values on the screen. When the state command is used without providing a value, Intertext engine reads the state value, and interprets it as a literal value, uses the \texttt{literalRenderer} to display it on the screen. Additionally it takes the attribute \texttt{clear} to clear the state value. When this attribute is provided, Intertext client will clear the value instead of printing it even when no children is provided. Last but not least, state command takes the attribute \texttt{persist} to target the persisted storage instead of the volatile storage. All attributes work the exact same way when \texttt{persist} attribute is provided, only difference being that it runs against the persisted storage. Figure \ref{fig:how_state_is_set_and_read} shows the syntax of how setting and reading the state works.
 
 \begin{figure}
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[language=xml]
 <!-- set the `name` state value -->
 <state key="name">John</state>
+
+<!-- set the `name` state value to persisted storage -->
+<state key="name" persist="true">John</state>
+
+<!-- read and print the `name` value -->
+<state key="name"></state>
+
+<!-- read and  print the `name` value from the persisted storage -->
+<state key="name" persist="true"></state>
+
+<!-- clear the `name` value -->
+<state key="name" clear="true"></state>
+
+<!-- clear the `name` value from persisted storage -->
+<state key="name" clear="true" persist="true"></state>
 \end{lstlisting}
-\begin{lstlisting}[language=xml]
-<!-- read the `name` state value -->
-<!-- renders "Hello, John!" -->
-<block>
-  <text>Hello, </text>
-  <state key="name"></state>
-  <text>!</text>
-</block>
-\end{lstlisting}
+
 \end{minipage}
-\caption{How grid component is used}%
+\caption{Example usage of the \texttt{state} command}%
 \label{fig:how_state_is_set_and_read}%
 \end{figure}
 
 \subsection{Alert}
 
+Alert component is used to display a simple text-based message to the user. It uses the \texttt{<alert>}, and accepts the message as its children. An example usage can be seen in Figure \ref{fig:alert_command_usage}.
+
+\begin{figure}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=xml]
+<button>
+  <text>Save</text>
+  <button.onClick>
+    <alert>Saved!</alert>
+  </button.onClick>
+</button>
+\end{lstlisting}
+\end{minipage}
+\caption{Example of the \texttt{alert} command}%
+\label{fig:alert_command_usage}%
+\end{figure}
+
+\subsection{OnLoad}
+
+The \texttt{onload} command can be used to execute certain commands on page load. The concept of \dquote{page being loaded} differs from platform to platform, therefore each Intertext client is expected to implement this based on the platform requirements. For instance, the \dquote{load} event for the web client fires when the root React component is mounted on the screen. It takes no arguments, and takes one or more commands as its children. This command is especially useful for cases when a command needs to be executed straight away without waiting for user interaction, for things such as setting the state or making a request. An example usage of \texttt{onload} is shown in Figure \ref{fig:onload_usage}.
+
+\begin{figure}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=xml]
+<onload>
+  <alert>Page loaded!</alert>
+</onload>
+\end{lstlisting}
+\end{minipage}
+\caption{Example of the \texttt{onload} command}%
+\label{fig:onload_usage}%
+\end{figure}
+
+\subsection{Timeout}
+
+The \texttt{timeout} command takes other commands as its children, and executes them with a given delay. The delay can be provided using the \texttt{delay} attribute in milliseconds. An example usage of \texttt{timeout} is shown in Figure \ref{fig:timeout_usage} to demonstrates how a simple \dquote{polling} mechanism can be implemented by combining \texttt{timeout} and \texttt{onload} commands.
+
+\begin{figure}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=xml]
+<!-- /poll: if task is not finished -->
+<onload>
+  <timeout delay="5000">
+    <request endpoint="/poll"></request>
+  </timeout>
+</onload>
+\end{lstlisting}
+\begin{lstlisting}[language=xml]
+<!-- /poll: if task is finished -->
+<onload>
+  <alert>
+    Task completed!
+  </alert>
+</onload>
+\end{lstlisting}
+\end{minipage}
+\caption{Example of the \texttt{timeout} command}%
+\label{fig:timeout_usage}%
+\end{figure}
+
+\subsection{Request}
+
+The \texttt{request} command is a general purpose command that can be used to instruct Intertext client to make a request to the server. It takes \texttt{endpoint} attribute, which can be used to provide which endpoint should the request target. For this attribute, an endpoint relative to the origin must be provided, as per our privacy requirements, we implement a same origin policy where Intertext clients will only make requests on behalf of an origin to the same origin itself. So if IUIDL is being served from \texttt{example.com}, the \texttt{endpoint} attribute provided must look like \texttt{/some/path}, in which case the Intertext client will make the request to \texttt{example.com/some/path}. As explained further in \nameref{futureWork}, we plan to implement a permission flow that when an origin tries to make a request to another origin, Intertext client would ask the user, and only make the request when permission is granted.
+
+All requests made to the backend are \texttt{POST} requests, in order to attach the overhead to each request body. With each request, Intertext client passes \texttt{state}, \texttt{persist} and \texttt{inputState} values; which are the volatile state, persisted state and the state of the input fields on the current page respectively. On the server side, these values can be used to build custom logic.
+
+With every request, the backend endpoint is expected to return some IUIDL code. The \texttt{request} command accepts the attribute \texttt{strategy} to specify what Intertext client should do with the IUIDL code server responds with. There are 5 strategies that can be passed; \texttt{replace}, \texttt{append}, \texttt{prepend}, \texttt{execute} and \texttt{ignore}. The \texttt{replace} option is the default option, and it simply replaces the entire page contents with the IUIDL code that are received. \texttt{append} and \texttt{prepend} as the name suggests appends and prepends the IUIDL code respectively to the existing packages on the screen. This strategies could be useful for implementing functions such as \dquote{load more}. \texttt{execute} strategy does not tamper with the existing page contents, however parses the received IUIDL code and tries to execute it as if they are commands, and the packages that are not commands gets ignored. This strategy can be used with the \texttt{onload} command for when the response of an endpoint is expected to be of type command. The \texttt{ignore} strategy completely ignores the response. It should be used only when the server-side needs to be notified of an event.
+
+\subsection{Navigate}
+
+This command by nature is exactly the same as the \texttt{request} command. It accepts an \texttt{endpoint} argument, and makes an identical request as the \texttt{request} command makes to that endpoint. The reason why it is separated from \texttt{request} and made into its own command is to let the Intertext client know that the purpose of this request is to have user transition from one screen to another. This command does not accept the \texttt{strategy} attribute, and uses the \texttt{replace} strategy by default. Moreover, the Intertext client identifies this transition as a navigation and makes certain arrangements which is specific to the host platform. For instance, Intertext web client keeps Intertext address bars state, browser address bars state, and browsers history state in sync with the current page. This assures native browser features such as forward/back button to function with the Intertext app. When \texttt{navigation} command is used to transition from one screen to another, the client updates the two address bar states, and pushes the new state to the browsers history stack. Therefore, this command should only be used to transition between pages. An example usage 
+
+\begin{figure}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=xml]
+<button>
+  <text>Home</text>
+  <button.onClick>
+    <navigate endpoint="/home"></navigate>
+  </button.onClick>
+</button>
+<button>
+  <text>About</text>
+  <button.onClick>
+    <navigate endpoint="/about"></navigate>
+  </button.onClick>
+</button>
+\end{lstlisting}
+\end{minipage}
+\caption{Example of the \texttt{navigate} command}%
+\label{fig:navigate_usage}%
+\end{figure}
