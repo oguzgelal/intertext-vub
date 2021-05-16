@@ -22,7 +22,8 @@ const InxInput = ({
   type?: string
   onChange?: (str: string) => void
 }) => {
-  const [_value, _valueSet] = useState(value ?? "")
+
+  const [_value, _valueSet] = useState(value ?? children ?? "")
   const styles = useMultiStyleConfig("InxInput", {
     __intent: intent,
   })
@@ -46,9 +47,7 @@ const InxInput = ({
           justifyContent: "center",
         }),
       }}
-    >
-      {children}
-    </Input>
+    />
   )
 }
 

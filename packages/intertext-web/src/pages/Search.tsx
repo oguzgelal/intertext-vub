@@ -61,13 +61,7 @@ const shortcuts = [
 const Search: FC<SearchProps> = () => {
   const mode = useColorMode()
 
-  const {
-    url,
-    urlSet,
-    request,
-    loading,
-    packages,
-  } = useIntertext()
+  const { url, urlSet, request, loading, packages } = useIntertext()
 
   /**
    * Register input renderer, integrate it with
@@ -75,7 +69,8 @@ const Search: FC<SearchProps> = () => {
    */
   useEffect(() => {
     engine.renderer.registerInputRenderer(({ index, children, props }) => {
-      const currentInputState = storage.get<Record<string, string>>("inputState") ?? {}
+      const currentInputState =
+        storage.get<Record<string, string>>("inputState") ?? {}
       return (
         <Input
           {...props}
@@ -88,9 +83,7 @@ const Search: FC<SearchProps> = () => {
             }))
           }}
         >
-          {engine.renderer.render({
-            branch: children,
-          })}
+          {children}
         </Input>
       )
     })
