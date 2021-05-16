@@ -85,4 +85,5 @@ export interface Collapse extends LayoutProps {
 export interface Image extends LayoutProps {
   img: Renderable;
   src: string;
+  alt: string;
 }
