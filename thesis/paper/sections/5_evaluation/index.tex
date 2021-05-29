@@ -1,7 +1,114 @@
 % !TEX root = ../thesis.tex
 
-\chapter{Evaluation} \label{evaluation}
+\chapter{Use Cases and Evaluation} \label{evaluation}
 
-- User evaluation
-- Questionnaire
-- Video / Prototype & ask questions
+% - User evaluation
+% - Questionnaire
+% - Video / Prototype ask questions
+
+In this section, we will first walk through some example use cases for Intertext. It is worth noting that at the time of writing, only the Intertext web client is fully implemented. Therefore some of the examples mentioned in this section are given with our future plans in mind. Moreover, some of the use cases are of things that could theoretically and practically be built on top of the Intertext ecosystem, not by us but by the community. 
+
+Later on, we will explain the evaluation process. To execute the evaluation, we have built \dquote{RecipeApp}, a sample Intertext application where users can sign up, log in, add recipes, and browse recipes other users added. It was specifically built to showcase all the functionality that Intertext offers. While the use cases section is intended as example use cases for the users, this section could be thought of an example use case scenario for developers, giving ideas on how an Intertext application can be built. In this section, we will first talk about RecipeApp; how it's built and how it works under the hood. Then, we will discuss the user evaluation process and share the results.
+
+\section{Use Cases}
+
+\subsection{Back-end Developer}
+
+Harry is a software engineer. He recently graduated from college, and started his career as a backend engineer. While work is busy, he is still interested in working on an idea he had in college on the side. Without losing much time, he gets to work. His most important constraint is that he has little to no budget, so he designs a low-cost scaleable serverless architecture and starts coding. After a few months of hard work, he finishes the backend portion of his application. He spins up an instance on his favourite cloud provider, he is able to utilise the generous free-tier and the free credits offered by the provider to scale up to thousands if not millions of users at almost no cost. 
+
+Then he realises that he still needs a front-end for his application. Not only he needs a web presence, he also needs a mobile app to meet his users needs. He has no front-end experience, nor does he have the budget to outsource the task or time to learn. So he decides to make his product an Intertext application. He makes use of the existing backend to create an additional endpoint that serves the front-end in IUIDL, and in a matter of days, he finishes the fully functional front-end and is ready for the beta launch. With minimal effort, he was not only able to obtain web and mobile presence, his product supported all other Intertext clients as well.
+
+\subsection{John's Old Parents}
+
+John regularly visits his old parents. A few visits back, he brought with him a gift, a computer, as an effort to introduce them to technology. He helped set it up, and gave them a walk through on how to use it. He thought them how to perform tasks such as online banking, checking the news, checking the weather, using social media and so on. 
+
+On his last visit, his parents mentions that they were having some problems with the computer. He turns it on to assist them, only to find that the computer is filled with of harmful malware and games/apps that were clearly downloaded out of intention. He asks them how it happened, and they told him that it all started when they clicked "OK" on a popup that appeared on one of the websites. The default home page was replaced, new harmful browser extensions were installed, the computer became slow and was nearly unusable. So he formats the computer, and installs the Intertext desktop client. He teaches them about how to use the Intertext apps for their favourite news websites, bank, social media, and other services they use. He tells them that they can enjoy a clean, consistent and safe experience, with no intrusive ads, harmful software, trackers, background scripts and so on. 
+
+Another thing that he notices is that they struggle to see the screen and read text very well. Also since they aren't accustomed to using a computer mouse, their mouse movement is unstable and clicks are inaccurate. They often misclick on things they did not intent to click, causing them to navigate away to another page and miss context, which gets them confused and frustrated. To combat these issues, he creates a custom theme for them. He makes the text bigger and bolder, buttons and links larger and harder to miss. Thanks to Intertext, his parents are able to use web more comfortably and confidently.
+
+\subsection{New Device On The Market}
+
+X, Inc is a promising startup working on a new kind of wearable device. This device can perform all functions of a mobile phone; make calls, send messages, take pictures, browse the internet and so on. It has the potential to replace mobile devices for some people, however it has a downside that holds it back: it has no application support. There are no third party applications built that can run on their device natively. It do have a web browser; but due to the nature of this device, browsing web applications on its screen is very uncomfortable. They realise that their potential customers don't want to leave their phone behind when they can't use their day-to-day applications properly. As a solution, they decide to make use of the open-source Intertext ecosystem. They build an Intertext client that runs natively on their device and renders IUIDL optimised for its input/output (I/O) constraints. With their new Intertext client, they now have access to the entirety of the Intertext applications. They are now set to release their product with no compromises and full confidence.
+
+\subsection{Clients For Special Needs}
+
+Sally is a developer working on an initiative for creating software that makes it possible for people with disabilities that cannot use a mouse or a keyboard to be able to use a computer. They experiment with different input/output methods such as retina tracking, voice interfaces, neural-control interfaces and so on. With their software, users can chose the I/O method that best suits them to use their computer. However in most cases, it is very hard to use a software that was built with no accessibility features. So she decides to use Intertext to improve this process. Knowing that it is guaranteed that all Intertext applications are accessible by default, she builds the software to take advantage of the Intertext web client. Moreover, for other I/O methods they experiment with that needs support for a custom/specific GUI, she creates individual Intertext applications.
+
+\subsection{No-Code Universal Application Builder}
+
+With the increasing popularity of the no-code movement, more and more companies are looking for code-free solutions to problems that used to require programming skills. Y, Inc is one of these companies. They want to invest in a platform that allows everyone to create applications for different devices and environments. They are also aware of their constraints. They know that a one-size-fits-all solution is extremely hard to build, as every platform runs on different technologies, they have different layout systems, different runtime and so on. And then they discover Intertext. They realise how easy it is to create a tool to build Intertext applications, since all there is to do is to generate simple IUIDL code in XML syntax. Also, the logic that front-end applications needs to perform such as making requests and state management are also operated through the same syntax. Moreover, the applications generated by the tool would be universal, that is, it could run on every platform that Intertext has a client for and will have a client for in the future. They create a service that allows users to build and serve Intertext applications with ease, without writing a single line of code. This makes it possible for hobbyists to put together a simple interface without prior programming knowledge.
+
+ 
+\section{RecipeApp}
+
+While building RecipeApp, we wanted to keep things simple as its purpose is demonstration of Intertext, and we still tried our best to stay true to a real wold scenario of building applications. We created a real backend application that serves IUIDL through a restful endpoint. We used Node.js as the server-side technology, and express framework to create the endpoints. As for the database, we created a fake api that resembles a real Object-relation Mapping (ORM), which stores data in the memory.
+
+In a real-world front-end application, it is very common to create UI elements as reusable components. This is no different for Intertext application, in a real world scenario it is clear that the best practice would be to create components out of commonly repeating UI patterns, and use instances of those components rather than duplicating IUIDL code. While creating components and reusing them on the front-end is much simpler as there are many front-end frameworks/libraries like React that enables building UI declaratively and eliminates the need for imperative manipulations, in order to do this with ease on the backend side, we needed a templating engine. For this purposes, we used the Handlebars, a popular template engine for Node.js applications.
+
+For the time being, only the web client of Intertext is fully implemented. Therefore, the demonstration will be made on the web client and all respective screenshots are from there. However once the other clients are ready, they will be able consume the same application as it is.
+
+\subsection{Introduction}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=6.2cm]{thesis/paper/images/rec_signin.png}
+  \,
+  \includegraphics[width=6.2cm]{thesis/paper/images/res_signup.png}
+  \caption{RecipeApp Sign In/Sign Up screens}%
+  \label{fig:rec_signin_signup}%
+\end{figure}
+
+First, user visits the URL the RecipeApp is served from via the address bar above. In figure \ref{fig:rec_signin_signup} the example server runs on \texttt{http://localhost:3000} and the endpoint RecipeApp is served from is \texttt{/recipes}. If user is not already signed in, they will be redirected to \texttt{/recipes/signin}. After signing in from this screen, they will be redirected back to the application. If they were visiting a particular URL such as \texttt{/recipes/new} or \texttt{/recipes/3} before they got redirected to the sign in screen, they will be redirected back to that screen after signing in.
+
+\hl{TODO: add more details on the app after finishing it}
+
+\hl{TODO: add screenshots for the rest of the screens}
+
+\subsection{Authentication}
+
+Before the authentication, first thing to understand is how we implemented the redirection system. The redirect screen, which can be seen in figure \ref{fig:rec_redirect}, is essentially an handlebars template that can be rendered with some parameters and can be used for different purposes. There are two essential functions of this screen; it instructs Intertext client to store some data, and to redirect user to another endpoint. The parameters changes based on the user case.
+
+As we established before, Intertext clients passes on the application state along with every single request. When user visits the application URL, the server receives the persisted state, which is where the user token is expected to be if the user is logged in. When a user lands on any page of RecipeApp that is behind the authentication wall, the server checks the presence of \texttt{token} in request body, and if it is not present, it renders the redirect screen as shown in figure \nameref{fig:token_capture}. The redirect screen does two things: it instructs the client to store a variable called \texttt{auth-callback} which holds the URL that user is at, and it instructs the Intertext client to navigate to the \texttt{/signin} endpoint. Intertext clients does these two things, and redirects user to the \texttt{/signin} endpoint, triggering another request to the backend. The \texttt{/signin} endpoint on the backend renders the sign in form. After user submits the form with their credentials, another request to the \texttt{/signin} endpoint is made, but this time with the credentials. Backend then checks the credentials, and if it is a successful login, it once again renders the redirect screen. The redirect screen again performs two tasks: first it instructs the Intertext client to store the \texttt{token} to the persisted storage. Then, if the \texttt{auth-callback} variable is present in the request body of the request made to the \texttt{/signin} endpoint (which is where the URL user was redirected to the sign in endpoint from is stored at), it instructs the Intertext client to redirect back to that endpoint, otherwise it redirects to the home screen.
+
+\begin{figure}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=javascript]
+const token = get(req, "body.persist.token");
+if (!token) {
+  res.render(view("redirect"), { ... });
+} else {
+  res.render(view("home"), { ... });
+}
+\end{lstlisting}
+\end{minipage}
+\caption{How token is captured on the backend}%
+\label{fig:token_capture}%
+\end{figure}
+
+\begin{figure}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=xml]
+<onload>
+  <state key="{{ key }}">{{ value }}</state>
+  <navigate endpoint="{{ endpoint }}"></navigate>
+</onload>
+\end{lstlisting}
+\end{minipage}
+\caption{Redirect screen example}%
+\label{fig:redirect_screen_example}%
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=12.4cm]{thesis/paper/images/rec_redirect.png}
+  \caption{Redirect screen}%
+  \label{fig:rec_redirect}%
+\end{figure}
+
+
+\hl{TODO: explain how other parts of the application works}
+
+
+\section{Methodology}
+
+\section{Results}
