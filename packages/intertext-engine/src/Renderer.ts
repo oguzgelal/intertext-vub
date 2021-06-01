@@ -4,6 +4,7 @@ import {
   Block,
   Button,
   Input,
+  Select,
   Collapse,
   Image,
   TextGeneral,
@@ -25,6 +26,7 @@ class Renderer {
   private textRenderer: RendererFn<TextGeneral> = () => null;
   private buttonRenderer: RendererFn<Button> = () => null;
   private inputRenderer: RendererFn<Input> = () => null;
+  private selectRenderer: RendererFn<Select> = () => null;
   private collapseRenderer: RendererFn<Collapse> = () => null;
   private imageRenderer: RendererFn<Image> = () => null;
 
@@ -50,6 +52,9 @@ class Renderer {
   };
   public registerInputRenderer = (fn: RendererFn<Input>): void => {
     this.inputRenderer = fn;
+  };
+  public registerSelectRenderer = (fn: RendererFn<Select>): void => {
+    this.selectRenderer = fn;
   };
   public registerCollapseRenderer = (fn: RendererFn<Collapse>): void => {
     this.collapseRenderer = fn;
@@ -123,6 +128,15 @@ class Renderer {
       return this.inputRenderer({
         index: args.index,
         children: args.branch['input'],
+        props: { ...args.branch },
+      });
+    }
+
+    // Select
+    if (args.branch && 'select' in args.branch) {
+      return this.selectRenderer({
+        index: args.index,
+        children: args.branch['select'],
         props: { ...args.branch },
       });
     }

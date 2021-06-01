@@ -14,6 +14,7 @@ export type Component =
   | TextH3
   | Button
   | Input
+  | Select
   | Collapse
   | Image;
 
@@ -68,10 +69,15 @@ export interface Button extends LayoutProps {
 export interface Input extends LayoutProps {
   input: Renderable;
   name: string;
-  type?: 'text' | 'email' | 'password';
+  type?: 'long' | 'text' | 'number' | 'email' | 'password';
   placeholder?: string;
   intent?: Intent;
   disabled?: boolean;
+}
+
+export interface Select extends LayoutProps {
+  select: Renderable;
+  name: string;
 }
 
 export interface Collapse extends LayoutProps {

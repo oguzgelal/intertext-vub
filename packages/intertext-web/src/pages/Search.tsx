@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react"
 import { ArrowForwardIcon, SearchIcon, LinkIcon } from "@chakra-ui/icons"
 import Input from "../components/core/Input/Input"
+import Select from "../components/core/Select/Select"
 import useIntertext from "../common/useIntertext"
 import useColorMode from "../utils/colorMode"
 import engine from "../common/engine"
@@ -85,6 +86,26 @@ const Search: FC<SearchProps> = () => {
         >
           {children}
         </Input>
+      )
+    })
+
+    engine.renderer.registerSelectRenderer(({ index, children, props }) => {
+      const currentInputState =
+        storage.get<Record<string, string>>("inputState") ?? {}
+      return (
+        <Select
+          {...props}
+          key={index}
+          value={currentInputState[props.name]}
+          onChange={(str) => {
+            storage.set("inputState", (current = {}) => ({
+              ...current,
+              [props.name]: str,
+            }))
+          }}
+        >
+          {children}
+        </Select>
       )
     })
   }, [])

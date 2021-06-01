@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Intent, LayoutProps, getLayoutProps } from "@intertext/engine"
-import { Input, useMultiStyleConfig } from "@chakra-ui/react"
+import { Textarea, Input, useMultiStyleConfig } from "@chakra-ui/react"
 
 const InxInput = ({
   children,
@@ -22,19 +22,20 @@ const InxInput = ({
   type?: string
   onChange?: (str: string) => void
 }) => {
-
   const [_value, _valueSet] = useState(value ?? children ?? "")
   const styles = useMultiStyleConfig("InxInput", {
     __intent: intent,
   })
 
+  const UseComponent = type === "long" ? Textarea : Input
+
   return (
-    <Input
+    <UseComponent
       disabled={disabled}
       name={name}
       placeholder={placeholder}
       type={type ?? "text"}
-      onChange={(e) => {
+      onChange={(e: { target: { value: string } }) => {
         _valueSet(e.target.value)
         if (onChange) {
           onChange(e.target.value)
