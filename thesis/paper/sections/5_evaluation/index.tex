@@ -49,7 +49,7 @@ For the time being, only the web client of Intertext is fully implemented. There
 
 \subsection{Introduction}
 
-\begin{figure}
+\begin{figure}[htb]
   \centering
   \includegraphics[width=6.2cm]{thesis/paper/images/rec_signin.png}
   \,
@@ -58,11 +58,7 @@ For the time being, only the web client of Intertext is fully implemented. There
   \label{fig:rec_signin_signup}%
 \end{figure}
 
-First, user visits the URL the RecipeApp is served from via the address bar above. In figure \ref{fig:rec_signin_signup} the example server runs on \texttt{http://localhost:3000} and the endpoint RecipeApp is served from is \texttt{/recipes}. If user is not already signed in, they will be redirected to \texttt{/recipes/signin}. After signing in from this screen, they will be redirected back to the application. If they were visiting a particular URL such as \texttt{/recipes/new} or \texttt{/recipes/3} before they got redirected to the sign in screen, they will be redirected back to that screen after signing in.
-
-\hl{TODO: add more details on the app after finishing it}
-
-\hl{TODO: add screenshots for the rest of the screens}
+First, user visits the URL the RecipeApp is served from via the address bar above. In figure \ref{fig:rec_signin_signup} the example server runs on \texttt{http://localhost:3000} and the endpoint RecipeApp is served from is \texttt{/recipes}. If user is not already signed in, they will be redirected to \texttt{/recipes/signin}. After signing in from this screen, they will be redirected back to the application. If they were visiting a particular URL such as \texttt{/recipes/new} or \texttt{/recipes/3} before they got redirected to the sign in screen, they will be redirected back to that screen after signing in. Once they are signed in, they will be presented with the recipe list. Recipe list has two view options, grid view and list view, which user can chose between. The view selection will persist across sessions. Moreover, the list features a search bar, which can be used to search recipes by keywords. On each recipe item, there difficulty and time it takes to prepare the recipe is displayed along with an image. From the top navigation, user can click on the Add Recipe button to go to the insert page. From there, they can insert their own recipe.
 
 \subsection{Authentication}
 
@@ -70,7 +66,7 @@ Before the authentication, first thing to understand is how we implemented the r
 
 As we established before, Intertext clients passes on the application state along with every single request. When user visits the application URL, the server receives the persisted state, which is where the user token is expected to be if the user is logged in. When a user lands on any page of RecipeApp that is behind the authentication wall, the server checks the presence of \texttt{token} in request body, and if it is not present, it renders the redirect screen as shown in figure \nameref{fig:token_capture}. The redirect screen does two things: it instructs the client to store a variable called \texttt{auth-callback} which holds the URL that user is at, and it instructs the Intertext client to navigate to the \texttt{/signin} endpoint. Intertext clients does these two things, and redirects user to the \texttt{/signin} endpoint, triggering another request to the backend. The \texttt{/signin} endpoint on the backend renders the sign in form. After user submits the form with their credentials, another request to the \texttt{/signin} endpoint is made, but this time with the credentials. Backend then checks the credentials, and if it is a successful login, it once again renders the redirect screen. The redirect screen again performs two tasks: first it instructs the Intertext client to store the \texttt{token} to the persisted storage. Then, if the \texttt{auth-callback} variable is present in the request body of the request made to the \texttt{/signin} endpoint (which is where the URL user was redirected to the sign in endpoint from is stored at), it instructs the Intertext client to redirect back to that endpoint, otherwise it redirects to the home screen.
 
-\begin{figure}
+\begin{figure}[htb]
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[language=javascript]
 const token = get(req, "body.persist.token");
@@ -85,7 +81,7 @@ if (!token) {
 \label{fig:token_capture}%
 \end{figure}
 
-\begin{figure}
+\begin{figure}[htb]
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[language=xml]
 <onload>
@@ -98,7 +94,7 @@ if (!token) {
 \label{fig:redirect_screen_example}%
 \end{figure}
 
-\begin{figure}
+\begin{figure}[htb]
   \centering
   \includegraphics[width=12.4cm]{thesis/paper/images/rec_redirect.png}
   \caption{Redirect screen}%
@@ -106,7 +102,50 @@ if (!token) {
 \end{figure}
 
 
-\hl{TODO: explain how other parts of the application works}
+\subsection{Recipe List}
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=6.2cm]{thesis/paper/images/recipe_list.png}
+  \,
+  \includegraphics[width=6.2cm]{thesis/paper/images/recipe_grid.png}
+  \caption{RecipeApp Recipe List Grid/List Views}%
+  \label{fig:rec_recipe_list}%
+\end{figure}
+
+\begin{figure}[htb]
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=xml]
+{{#> button_small}}
+  <text intent="{{#if layout_grid}}primary{{else}}{{/if}}">Grid</text>
+  <button.onClick>
+    <state key="layout" persist="true">grid</state>
+    <request endpoint="/recipes"></request>
+  </button.onClick>
+{{/button_small}}
+{{#> button_small}}
+  <text intent="{{#if layout_list}}primary{{else}}{{/if}}">List</text>
+  <button.onClick>
+    <state key="layout" persist="true">list</state>
+    <request endpoint="/recipes"></request>
+  </button.onClick>
+{{/button_small}}
+\end{lstlisting}
+\end{minipage}
+\caption{Redirect screen example}%
+\label{fig:rec_display_options}%
+\end{figure}
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=12.4cm]{thesis/paper/images/rec_redirect.png}
+  \caption{Redirect screen}%
+  \label{fig:rec_redirect}%
+\end{figure}
+
+The recipes view features a list of the recipes. As seen in in figure \ref{fig:rec_recipe_list}, it has several components: recipe title, description, difficulty and time to cook details that are displayed in tags, and a read more button to navigate to the recipe page. The difficulty tags are made of the \texttt{block} component, and they use intents to hint the difficulty of the recipe. The view has two display options, a list view and a grid view. It also has a search input to search recipes.
+
+Both the input and display preference options work in the same way, by modifying the front-end state and triggering a request to the backend to pick up the modified state. As user types into the text input, Intertext client automatically saves its value into the state that gets passed on to the backend on every request. The "Search" button next to the search input only triggers a request to the \texttt{/recipes} endpoint. The recipes endpoint receives the query in the search input, and filters the results accordingly. It also pre-populates the input value by passing the query as a children to the \texttt{input} component. The display options on the other hand first sets the front-end state variable \texttt{layout} to either \texttt{grid} or \texttt{list}, and again triggers a request to the same \texttt{recipes} endpoint as seen in figure \ref{fig:rec_display_options}. The backend picks up the variable and renders the different version of the displays accordingly. The primary color of the button for the active display option is also controlled by the same \texttt{layout} variable, backend renders the buttons with the relevant intent based on that variable also as seen in figure \ref{fig:rec_display_options}.
 
 
 \section{Methodology}
