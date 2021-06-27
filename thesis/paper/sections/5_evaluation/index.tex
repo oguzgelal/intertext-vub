@@ -2,10 +2,6 @@
 
 \chapter{Use Cases and Evaluation} \label{evaluation}
 
-% - User evaluation
-% - Questionnaire
-% - Video / Prototype ask questions
-
 In this section, we will first walk through some example use cases for Intertext. It is worth noting that at the time of writing, only the Intertext web client is fully implemented. Therefore some of the examples mentioned in this section are given with our future plans in mind. Moreover, some of the use cases are of things that could theoretically and practically be built on top of the Intertext ecosystem, not by us but by the community. 
 
 Later on, we will explain the evaluation process. To execute the evaluation, we have built \dquote{RecipeApp}, a sample Intertext application where users can sign up, log in, add recipes, and browse recipes other users added. It was specifically built to showcase all the functionality that Intertext offers. While the use cases section is intended as example use cases for the users, this section could be thought of an example use case scenario for developers, giving ideas on how an Intertext application can be built. In this section, we will first talk about RecipeApp; how it's built and how it works under the hood. Then, we will discuss the user evaluation process and share the results.
@@ -64,7 +60,14 @@ First, user visits the URL the RecipeApp is served from via the address bar abov
 
 Before the authentication, first thing to understand is how we implemented the redirection system. The redirect screen, which can be seen in figure \ref{fig:rec_redirect}, is essentially an handlebars template that can be rendered with some parameters and can be used for different purposes. There are two essential functions of this screen; it instructs Intertext client to store some data, and to redirect user to another endpoint. The parameters changes based on the user case.
 
-As we established before, Intertext clients passes on the application state along with every single request. When user visits the application URL, the server receives the persisted state, which is where the user token is expected to be if the user is logged in. When a user lands on any page of RecipeApp that is behind the authentication wall, the server checks the presence of \texttt{token} in request body, and if it is not present, it renders the redirect screen as shown in figure \nameref{fig:token_capture}. The redirect screen does two things: it instructs the client to store a variable called \texttt{auth-callback} which holds the URL that user is at, and it instructs the Intertext client to navigate to the \texttt{/signin} endpoint. Intertext clients does these two things, and redirects user to the \texttt{/signin} endpoint, triggering another request to the backend. The \texttt{/signin} endpoint on the backend renders the sign in form. After user submits the form with their credentials, another request to the \texttt{/signin} endpoint is made, but this time with the credentials. Backend then checks the credentials, and if it is a successful login, it once again renders the redirect screen. The redirect screen again performs two tasks: first it instructs the Intertext client to store the \texttt{token} to the persisted storage. Then, if the \texttt{auth-callback} variable is present in the request body of the request made to the \texttt{/signin} endpoint (which is where the URL user was redirected to the sign in endpoint from is stored at), it instructs the Intertext client to redirect back to that endpoint, otherwise it redirects to the home screen.
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=12.4cm]{thesis/paper/images/rec_redirect.png}
+  \caption{Redirect screen}%
+  \label{fig:rec_redirect}%
+\end{figure}
+
+As we established before, Intertext clients passes on the application state along with every single request. When user visits the application URL, the server receives the persisted state, which is where the user token is expected to be if the user is logged in. When a user lands on any page of RecipeApp that is behind the authentication wall, the server checks the presence of \texttt{token} in request body, and if it is not present, it renders the redirect screen as shown in figure \nameref{fig:token_capture}. 
 
 \begin{figure}[htb]
 \begin{minipage}{\linewidth}
@@ -81,28 +84,11 @@ if (!token) {
 \label{fig:token_capture}%
 \end{figure}
 
-\begin{figure}[htb]
-\begin{minipage}{\linewidth}
-\begin{lstlisting}[language=xml]
-<onload>
-  <state key="{{ key }}">{{ value }}</state>
-  <navigate endpoint="{{ endpoint }}"></navigate>
-</onload>
-\end{lstlisting}
-\end{minipage}
-\caption{Redirect screen example}%
-\label{fig:redirect_screen_example}%
-\end{figure}
-
-\begin{figure}[htb]
-  \centering
-  \includegraphics[width=12.4cm]{thesis/paper/images/rec_redirect.png}
-  \caption{Redirect screen}%
-  \label{fig:rec_redirect}%
-\end{figure}
-
+The redirect screen does two things: it instructs the client to store a variable called \texttt{auth-callback} which holds the URL that user is at, and it instructs the Intertext client to navigate to the \texttt{/signin} endpoint. Intertext clients does these two things, and redirects user to the \texttt{/signin} endpoint, triggering another request to the backend. The \texttt{/signin} endpoint on the backend renders the sign in form. After user submits the form with their credentials, another request to the \texttt{/signin} endpoint is made, but this time with the credentials. Backend then checks the credentials, and if it is a successful login, it once again renders the redirect screen. The redirect screen again performs two tasks: first it instructs the Intertext client to store the \texttt{token} to the persisted storage. Then, if the \texttt{auth-callback} variable is present in the request body of the request made to the \texttt{/signin} endpoint (which is where the URL user was redirected to the sign in endpoint from is stored at), it instructs the Intertext client to redirect back to that endpoint, otherwise it redirects to the home screen.
 
 \subsection{Recipe List}
+
+The recipes view features a list of the recipes. As seen in in figure \ref{fig:rec_recipe_list}, it has several components: recipe title, description, difficulty and time to cook details that are displayed in tags, and a read more button to navigate to the recipe page. The difficulty tags are made of the \texttt{block} component, and they use intents to hint the difficulty of the recipe. The view has two display options, a list view and a grid view. It also has a search input to search recipes.
 
 \begin{figure}[htb]
   \centering
@@ -112,6 +98,8 @@ if (!token) {
   \caption{RecipeApp Recipe List Grid/List Views}%
   \label{fig:rec_recipe_list}%
 \end{figure}
+
+Both the input and display preference options work in the same way, by modifying the front-end state and triggering a request to the backend to pick up the modified state. As user types into the text input, Intertext client automatically saves its value into the state that gets passed on to the backend on every request. The "Search" button next to the search input only triggers a request to the \texttt{/recipes} endpoint. The recipes endpoint receives the query in the search input, and filters the results accordingly. It also pre-populates the input value by passing the query as a children to the \texttt{input} component. The display options on the other hand first sets the front-end state variable \texttt{layout} to either \texttt{grid} or \texttt{list}, and again triggers a request to the same \texttt{recipes} endpoint as seen in figure \ref{fig:rec_display_options}. The backend picks up the variable and renders the different version of the displays accordingly. The primary color of the button for the active display option is also controlled by the same \texttt{layout} variable, backend renders the buttons with the relevant intent based on that variable also as seen in figure \ref{fig:rec_display_options}.
 
 \begin{figure}[htb]
 \begin{minipage}{\linewidth}
@@ -135,17 +123,6 @@ if (!token) {
 \caption{Redirect screen example}%
 \label{fig:rec_display_options}%
 \end{figure}
-
-\begin{figure}[htb]
-  \centering
-  \includegraphics[width=12.4cm]{thesis/paper/images/rec_redirect.png}
-  \caption{Redirect screen}%
-  \label{fig:rec_redirect}%
-\end{figure}
-
-The recipes view features a list of the recipes. As seen in in figure \ref{fig:rec_recipe_list}, it has several components: recipe title, description, difficulty and time to cook details that are displayed in tags, and a read more button to navigate to the recipe page. The difficulty tags are made of the \texttt{block} component, and they use intents to hint the difficulty of the recipe. The view has two display options, a list view and a grid view. It also has a search input to search recipes.
-
-Both the input and display preference options work in the same way, by modifying the front-end state and triggering a request to the backend to pick up the modified state. As user types into the text input, Intertext client automatically saves its value into the state that gets passed on to the backend on every request. The "Search" button next to the search input only triggers a request to the \texttt{/recipes} endpoint. The recipes endpoint receives the query in the search input, and filters the results accordingly. It also pre-populates the input value by passing the query as a children to the \texttt{input} component. The display options on the other hand first sets the front-end state variable \texttt{layout} to either \texttt{grid} or \texttt{list}, and again triggers a request to the same \texttt{recipes} endpoint as seen in figure \ref{fig:rec_display_options}. The backend picks up the variable and renders the different version of the displays accordingly. The primary color of the button for the active display option is also controlled by the same \texttt{layout} variable, backend renders the buttons with the relevant intent based on that variable also as seen in figure \ref{fig:rec_display_options}.
 
 
 \section{Methodology}
