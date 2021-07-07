@@ -1,3 +1,21 @@
 % !TEX root = ../../thesis.tex
 
 \section{Tools and Services} \label{relatedTools}
+
+Over the past couple of years, there has been a significant shift towards no-code tools and services that aims to allow non-technical users with no development or engineering background to build products or automate tasks that would have normally required assistance from engineers with technical skills. This movement lead to the rise of a new category of products; products allows users to create front-end applications without front-end development. There are variety of different products that falls into this category, and there are different approaches taken by these products to achieve similar goals.
+
+\subsection{Website Builders}
+
+First of all, there are services such as Wix \cite{Wix} or SquareSpace \cite{SquareSpace} that allows you to design and publish a website via a drag and drop interface. They offer services on the web environment. While they mostly focus on the design aspects of website development, they offer pre-made customisable backends for specific use cases such as blogs and e-commerce websites.
+
+\subsection{Content Management Systems}
+
+Then there are Content Management Systems (CMS) like Wordpress \cite{Wordpress}, Drupal \cite{Drupal} and Joomla \cite{Joomla}. These services are not new and has been around for some time. They also offer services only for the web platform. It is also possible to create a front-end application using these services, but in order to go beyond a pre-made theme, they often required to have minimal front-end development knowledge. Moreover, they allow users to create their own data structures and provide the user interface to manipulate data. There are also Headless CMS services such as Contentful \cite{Contentful} and Strapi \cite{Strapi} that allows users to create and manage their data, but does not provide a front-end and allow the data to be consumed through an API from any front-end application.
+
+\subsection{Static Site Generators}
+
+Static site generation is a process of taking an input from the user and generating a static web content ready to be served by a web server. This input is typically Javascript code as many static site generators such as Gatsby \cite{Gatsby} and Next.js \cite{Nextjs} are based on Javascript frameworks and requires programming knowledge, but there are ones such as Jekyll \cite{Jekyll} that uses markdown syntax, and renders within a given theme.
+
+\subsection{Internal Tool Builders}
+
+These services are mostly intended for developers to use. They aim to help developers rapidly produce better and durable tools that are not user-facing and are to be used internally within a company. They provide GUI components, and integration options to number of services as well as direct databases. The intended use for these tools is to pull data from a number of data sources, process it and display it using the provided GUI components. Retool \cite{Retool} is a popular example that only targets the web platform, but there are also some similar tools in this category that also produces native-like experiences.
