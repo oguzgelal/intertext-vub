@@ -131,24 +131,274 @@ In this section, we explain how we conducted our user study for user evaluation.
 
 \subsection{Methodology}
 
-We conducted our user study in the form of surveys. We used Google Forms to create the survey and manage the responses. In the surveys, we first gave some information and/or material to investigate, then followed it with mostly likert scale questions.
+We conducted our user study in the form of surveys. We used Google Forms to create the survey and manage the responses. In the surveys, we first gave some information and/or material to investigate, then followed it with likert scale questions.
 
 We utilized Amazon's Mechanical Turk (MTurk) service in order to find participants. We stated the description and intentions of each survey on their respective survey page. Some of our surveys required special skills, for which we used features provided by MTurk that enables us to only target participants with special skills. We set the compensation price per answer to 10 cents for general participation surveys, and 50 cents for surveys that requires special skills. We required our participants to enter their \textit{worker id} both on the surveys and on the respective survey page on MTurk, so that we can match the responses of the participants with their MTurk profiles to verify only our intended audience has participated, and duplicate/third party responses are eliminated.
 
 Our user evaluation was conducted in two stages. First stage was to validate the problems in our problem statement that we are intending to solve, and the second stage was to validate Intertext, the solution we offer in order to address these problems. 
 
-\paragraph{Stage 1: Problem Validation}
+\paragraph{Phase 1: Problem Validation}
 
-Here we aimed to validate the problem we are intending to solve. We first asked some optional questions to ask about the background of the participants; including their age, gender, country of origin and occupation. Then, we separated questions into groups for every main category in our \nameref{problemStatement} section. We directed this section only towards the end-users.
+Here we aimed to validate the problem we are intending to solve. We first asked some optional identifying questions to ask about the background of the participants; including their age, gender, country of origin and occupation. Then, we separated questions into groups for every main category in our \nameref{problemStatement} section. We directed this section only towards the end-users.
 
-\paragraph{Stage 2: Solution Validation}
+\paragraph{Phase 2: Solution Validation}
 
-we  and the second stage is
+Our project targets two different user group; developers, and end-users. Developers will use Intertext technology to develop products and services, and their end-users will use applications made within the Intertext platform. Both developers and end-users have separate benefits. In this phase of the user evaluation, we targeted both developers and end-users. 
+
+We created two separate surveys, one for developers and one for end-users. On the survey we prepared for the end-users, we first gave a brief explanation of what Intertext is and what it does without going into technical details. We told about Intertext clients, how it works and how it can be used. We kept it as simple as possible, to make sure the general public can understand it. We also linked to a demo from the Intertext web client. Then, similarly to what we did in the first phase, we stated every problem from the \nameref{problemStatement} section. For every problem, we wrote a short paragraph explaining what the problem exactly is, and one explaining how Intertext addresses that problem. Then, we followed it with likert scale questions. 
+
+For the developer survey, we started it off by duplicating the one for end-users and removing the questions. We kept the information parts identical, as developers also needs to understand what Intertext does and why it is beneficial to the users. We then created an extra section to give a technical overview of how Intertext works, benefits, and how Intertext applications can be developed. We also included a link to the repository that hosts \texttt{RecipeApp}, our demo Intertext application. Next, we listed the developer-related problems from the \nameref{problemStatement} section, wrote a paragraph explaining it, and another paragraph explaining the solution. We followed it with likert scale questions just like in end-user survey format.
+
+In our likert scale questions, we focused on the trade-offs in order to get answers as objective as possible. To elaborate on this, if we were to explained that we solved a problem, and then followed it with a question asking about the thoughts on the solution, the responses would most certainly be positive. Solving a problem often comes with a trade-off, and this trade-off might not be immediately visible to the participant. We attempted to ask questions in a way that raises an awareness about the trade-offs, and validates if participant is on board with the solution regardless of it. For example, one of the solutions we offer is guaranteed security by eliminating third-party code execution, and the trade-off of this is that the platform will not support rich front-end functionalities and experiences. For general public, this trade-off would likely be overlooked. Thus, the likert scale question we asked about this solution was \textit{I would prefer guaranteed privacy and security over rich front-end functionality}, validating that users care more about privacy and security than rich front-end functionality.
+
+\subsection{Phase 1 Results}
+
+In the first phase, we received 119 responses (after filtering out duplicate answers and answers with invalid worker ids). Our results for the first phase are very positive, we were able to validate the problem and implement Intertext with more confidence. First three graphs shows age distribution, gender and country of origin of the respondents, and the ones that follows shows the responses given to each question alongside the question text underneath.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_age.pdf}
+  \textbf{Age distribution}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_gender.pdf}
+  \textbf{Gender distribution}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_country.pdf}
+  \textbf{Country of Origin}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_q1.pdf}
+  \textbf{Question:} I experience UI / UX inconsistencies in some applications
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_q2.pdf}
+  \textbf{Question:} I sometimes experience poor design in some applications
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_q3.pdf}
+  \textbf{Question:} Advertisement sector is out of control
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_q4.pdf}
+  \textbf{Question:} I use an AdBlocker
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_q5.pdf}
+  \textbf{Question:} I'm often frustrated with ads on the internet
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_q6.pdf}
+  \textbf{Question:} I'm often frustrated with ads on mobile / desktop apps
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_q7.pdf}
+  \textbf{Question:} I would rather pay a small fee than seeing ads
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_q8.pdf}
+  \textbf{Question:} I wish I was able to customise the appearances of websites / applications.
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_q9.pdf}
+  \textbf{Question:} I wish I could choose or create a universal theme that would apply to all websites / applications
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_q10.pdf}
+  \textbf{Question:} Applications I use on a daily basis are mostly available on all my devices / platforms
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_q11.pdf}
+  \textbf{Question:} Occasionally I have to use desktop applications that are not optimised for small screens / touch interfaces on my phone
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_q12.pdf}
+  \textbf{Question:} If I'm going to use a service just for once, I prefer using their website instead of downloading their application on my phone
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_q13.pdf}
+  \textbf{Question:} I feel safe on the internet
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_q14.pdf}
+  \textbf{Question:} I care about my privacy on the internet
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_q15.pdf}
+  \textbf{Question:} Me, or someone I know was targeted by malicious software before
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p1_q16.pdf}
+  \textbf{Question:} I would rather pay a small fee than paying with my data
+\end{figure}
 
 
+\newpage
+\subsection{Phase 2 Results}
 
-Our project targets two different user group; developers, and end-users. 
+As mentioned in the previous section, we conducted two separate questionnaire targeting end-users and developers for phase two of our user survey. After removing duplicate submissions and responses with invalid worker ids, we were left with 54 submissions for the end-uses survey, and 14 for the developer survey. Below, we present the response data for answers to each question, with the question text underneath with an indication for which survey the question is from. For both surveys, we include age, country and gender data. For the developer survey, we additionally include years of experience as well.
 
-Developers will use Intertext technology to develop products and services, and their 
 
-\subsection{Survey Results}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2u_age.pdf}
+  \textbf{Age distribution (End-user survey)}
+\end{figure}
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2d_age.pdf}
+  \textbf{Age distribution (Developer survey)}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2u_gender.pdf}
+  \textbf{Gender distribution (End-user survey)}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2d_gender.pdf}
+  \textbf{Gender distribution (Developer survey)}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2u_country.pdf}
+  \textbf{Country of Origin (End-user survey)}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2d_country.pdf}
+  \textbf{Country of Origin (Developer survey)}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2d_experience.pdf}
+  \textbf{Years of Experience (Developer survey)}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2u_q1.pdf}
+  \textbf{Question (End-user survey):} Standardised UI components will improve the consistency across front-end applications
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2u_q2.pdf}
+  \textbf{Question (End-user survey):} I prefer consistency over variability
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2u_q3.pdf}
+  \textbf{Question (End-user survey):} I prefer advertisements to blend in naturally to the look-and-feel of the website instead of sticking out
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2u_q4.pdf}
+  \textbf{Question (End-user survey):} I am okay with seeing non-intrusive and respectful advertisement (with no compromise of privacy), OR paying a small fee in order to support the creator
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2u_q5.pdf}
+  \textbf{Question (End-user survey):} I would benefit from the guaranteed accessibility aspect of Intertext
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2u_q6.pdf}
+  \textbf{Question (End-user survey):} I prefer customisability over variability
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2u_q7.pdf}
+  \textbf{Question (End-user survey):} I love that I can create my own theme OR chose a theme I like that applies for all applications
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2u_q8.pdf}
+  \textbf{Question (End-user survey):} I prefer choosing the look-and-feel I like for all apps, instead of each app having their own look-and-feel
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2u_q9.pdf}
+  \textbf{Question (End-user survey):} I would be interested in seeing applications running natively on alternative platforms/devices (i.e. other than desktop/mobile - such as wearables, command line interfaces etc.)
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2u_q10.pdf}
+  \textbf{Question (End-user survey):} If all devices/platforms/environments supported all applications that I use natively, it would increase the use of my other devices.
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2u_q11.pdf}
+  \textbf{Question (End-user survey):} I would prefer guaranteed privacy and security over rich front-end functionality
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2d_q1.pdf}
+  \textbf{Question (Developer survey):} I would prefer using IUIDL over building my own components from scratch with the cost of adding cross-platform support
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2d_q2.pdf}
+  \textbf{Question (Developer survey):} I would prefer using IUIDL over building my own components from scratch with the cost of making them accessible
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=13cm]{thesis/paper/images/p2d_q3.pdf}
+  \textbf{Question (Developer survey):} I would prefer using IUIDL over building my own components from scratch with the cost of maintenance
+\end{figure}
