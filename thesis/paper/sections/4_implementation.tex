@@ -22,7 +22,7 @@ The obvious solution to this problem was using web technologies, as responsive d
 
 \subsection{Layout System}
 
-IUIDL offers a powerful layout system based on the css flexbox specification. It allows developers to build responsive layouts and position UI elements with ease. Intertext web client makes use of the browser implementation of CSS flexbox, whereas for other non-browser based clients, we use Facebook's open source library Yoga \cite{FacebookYoga}. Yoga is a layout engine that implements css flexbox specifications in C++, therefor it can be used on any ecosystem that can execute C++ to calculate the positioning of the UI elements. We currently use Yoga layout engine indirectly on our command-line client, for it was built with a framework that internally uses the Yoga engine.
+IUIDL offers a powerful layout system based on the css flexbox specification. It allows developers to build responsive layouts and position UI elements with ease. Intertext web client makes use of the browser implementation of CSS flexbox specification, whereas for other non-browser based clients, Facebook's open source library Yoga \cite{FacebookYoga} will be used. Yoga is a layout engine that implements css flexbox specification in C++, therefore it can be used on any ecosystem that can execute C++ to calculate the positioning of the UI elements.
 
 \begin{figure}[H]
   \centering
@@ -40,7 +40,7 @@ Apart from flexbox-based positioning, Intertext layout system also supports abso
   \label{fig:absolute_positioning}%
 \end{figure}
 
-One advantage of this approach is that all our clients will render UI elements using the same layout, which will give users a sense of familiarity when switching between the clients. For instance, when a user accustomed to using the web version of Intertext switches to, say the command-line version, they will immediately recognise the layout and be able to navigate without having to adjust. This approach will also allow developers to build responsive layouts to some extent. Given that the same UIDL code will be used to render on multiple clients, including the ones with narrow and small screens, responsiveness goes a long way. At the time of writing, only flexbox features such as "flex-wrap" can be used for achieving a degree of responsiveness. However we plan to support screen size-aware variants of component properties, even conditional rendering of components based on the screen size. This can be thought of as "media queries" in css terminology. More on this will be on the \nameref{futureWork} section.
+One advantage of this approach is that all our clients will render UI elements using the same layout, which will give users a sense of familiarity when switching between the clients. For instance, when a user accustomed to using the web version of Intertext switches to, say the command-line version, they will immediately recognise the layout and be able to navigate without having to adjust. This approach will also allow developers to build responsive layouts to some extent. Given that the same UIDL code will be used to render on multiple clients, including the ones with narrow and small screens, responsiveness goes a long way. At the time of writing this paper, only flexbox features such as \texttt{flex-wrap} can be used for achieving a degree of responsiveness. However we plan to support screen size-aware variants of component properties, even conditional rendering of components based on the screen size. This can be thought of as \dquote{media queries} in css terminology. More on this will be on the \nameref{futureWork} section.
 
 \subsection{Unit System}
 
@@ -131,7 +131,7 @@ By default, the \texttt{text} component renders inline, meaning, the render outp
 
 \subsection{Literals}
 
-Literals are standalone string (or number) values provided to components (other than the \texttt{text} component) as children. Figure \ref{fig:text_vs_literal} shows the difference between a literal and a text value. While literals are not exactly a component themselves, they are nonetheless values that rendering needs to be handled by each client, thus they need their own renderer. The way literals are handled differs from platform to platform. For instance on the web client they can be rendered as is, while on the command-line client, they are required to be wrapped within a local Text node.
+Literals are standalone string (or number) values provided to components (other than the \texttt{text} component) as children. Figure \ref{fig:text_vs_literal} shows the difference between a literal and a text value. While literals are not exactly a component themselves, they are nonetheless values that rendering needs to be handled by each client, thus they need their own renderer. The way literals are handled differs from platform to platform. For instance on the web client they can be rendered as is, while on other platforms they might need to be wrapped within special renderers where the native platform cannot handle them.
 
 \begin{figure}
 \begin{minipage}{\linewidth}
