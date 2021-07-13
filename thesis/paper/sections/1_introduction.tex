@@ -4,16 +4,7 @@
 
 In recent decades, the rise of smart interconnected devices not only changed how we interact with information, but also introduced all-new ways of engaging with the world. The rise of smartphones enabled users to consume content and perform tasks on-the-go, tablets made people rethink the ways they work and travel and wearable devices made new sets of data available to the users. Ericsson Mobility Report of February 2021 reveals that the number of connected devices has been steadily increasing ~\cite{EricssonMobility2020}, and with new devices and form-factors underway, such as smart glasses, smart vehicles and folding displays, this trend is likely to continue in the foreseeable future. 
 
-The increasing demand in the diversity of devices and device families also increased the demand for front-end application development, as it became more challenging and costly to have a decent user-facing online presence. This lead to advancements in front-end development; emerging new tools, techniques, frameworks, libraries, and SDKs made it possible to build consumer-facing products in ways that were never possible before. Nevertheless, the ever-growing front-end ecosystem and high user demands forced developers to spread their focus to overwhelming levels; a recent survey reveals that around \hl{TODO: This is wrong ->} 60\% of developers use more than one Front-end framework, and for cross-platform frameworks, it is more than \hl{TODO: This is wrong ->} 80\% ~\cite{StateOfJs2020} as shown in Figure ~\ref{fig:num_of_frameworks_used}. This transformation did help create a large and dynamic market of consumer products, goods and services, though it did not come without some hurdles. In this thesis, we explore what these hurdles are and discuss how Intertext addresses them.
-subfigure env
-\begin{figure}
-  \centering
-  \includegraphics[width=6.2cm]{images/sojs1.pdf}
-  \,
-  \includegraphics[width=6.2cm]{images/sojs2.pdf}
-  \caption{Number of frameworks used to Percentage of respondents}%
-  \label{fig:num_of_frameworks_used}%
-\end{figure}
+The increasing demand in the diversity of devices and device families also increased the demand for front-end application development, as it became more challenging and costly to have a decent user-facing online presence. This lead to advancements in front-end development; emerging new tools, techniques, frameworks, libraries, and SDKs made it possible to build consumer-facing products in ways that were never possible before. Nevertheless, the ever-growing front-end ecosystem and high user demands forced developers to spread their focus to overwhelming levels. In a recent survey \cite{StateOfJs2020}, 99715 developers were asked about 47 popular front-end tools, frameworks and libraries. 96.2\% of the participants reported that they were aware of more than 5, while 93.05\% were aware of more than 10 and 50.71\% were aware of more than 20. Moreover, 91.74\% of the participants showed interest in more than 5, 63.93\% in more than 10, and 13.53\% in more than 20 of the tools, frameworks and libraries. \footnote{Link to the raw survey data, and source code used to process the data are provided in the \nameref{App:AppendixA} section} This transformation did help create a large and dynamic market of consumer products, goods and services, though it did not come without some hurdles. In this thesis, we explore what these hurdles are and discuss how Intertext addresses them.
 
 \section{Problem Statement} \label{problemStatement}
 
@@ -21,10 +12,10 @@ In this section, we focus on the hurdles due the increase in the diversity of de
 
 \subsection{User Problems}
 
-The simplicity of consuming data is lost within the complexity of modern-day applications; nowadays, something as simple as checking the weather, reading a news article, browsing an image gallery, buying a product or service and filling out a form can be frustrating and time-consuming. We have identified the fundamental problems that lead to user experience problems and compromise privacy/security.
+The simplicity of consuming data is lost within the complexity of modern-day applications; nowadays, something as simple as checking the weather, reading a news article, browsing an image gallery, buying a product or service and filling out a form can be frustrating and time-consuming. We have identified the fundamental problems that lead to user experience problems and violations of privacy/security.
 
 \subsubsection{UI/UX Inconsistencies}
-One reason for this is the inconsistencies in front-end implementations. The visual presentation of components with the same functionality can often differ across front-end implementations, often confusing the end users. Inconsistencies are often seen not only within a platform or cross-platform, but even a single front-end application can have inconsistencies within itself. This can arise from a variety of different reasons ranging from poor design to poor implementation.
+One reason for this is the inconsistencies in front-end implementations. The visual presentation of components with the same functionality can often differ across front-ends, often confusing the end users. Inconsistencies are often seen not only across multiple platforms or within a platform, but even a single front-end application can have inconsistencies within itself. This can arise from a variety of different reasons ranging from poor design to poor implementation.
 
 \subsubsection{Intrusive Advertisement}
 Another common source of frustration for the users is intrusive online advertisement and numerous other attention-grabbing call-to-action popups that diverts users attention from the content they are consuming. A recent study by Yahoo \cite{IntrusiveAds} states that as online advertisement became the primary source of income for most products, it has become increasingly intrusive and annoying even at the cost of hurting the user experience.
