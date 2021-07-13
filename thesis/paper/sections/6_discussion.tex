@@ -28,7 +28,7 @@ In the \nameref{researchQuestions} section we presented the questions that we ai
 
     Intertext offers a number of clients for multiple platforms that offers Native experiences; such as Intertext for web, iOS, Android, macOS, Windows etc. Once an Intertext application is built using the building blocks we provide, it can run on every Intertext client on every device.
     
-    \item \underline{allow users to customize the look and feel ?}
+    \item \underline{allow users to customise the look and feel ?}
     
     Thanks to the UI components being standardised, Intertext clients allows users to customise them and/or apply pre-defined themes. With this approach, user decides on how applications across the Intertext client looks and feels like.
     
@@ -38,7 +38,7 @@ In the \nameref{researchQuestions} section we presented the questions that we ai
 
     \item \underline{guarantees security and privacy ?}
 
-    Intertext's approach to combat security and privacy vulnerabilities is to take away the ability for applications to execute code on user devices all together. Intertext clients expects applications to implement their business logic on the server side, and only send instructions to them in a text-based and non-executable format. After receiving these instructions as text, Intertext clients only parses them, and no foreign code execution happens. Data providers have no influence on the workings of Intertext clients, other than providing simple text-based instructions. Intertext clients are in full control of what happens on users devices, providing a fully secure environment to the user.
+    Intertexts approach to combat security and privacy vulnerabilities is to take away the ability for applications to execute code on user devices all together. Intertext clients expects applications to implement their business logic on the server side, and only send instructions to them in a text-based and non-executable format. After receiving these instructions as text, Intertext clients only parses them, and no foreign code execution happens. Developers have no influence on the workings of Intertext clients, other than providing simple text-based instructions. Intertext clients are in full control of what happens on users devices, providing a fully secure environment to the user.
     
   \end{enumerate}
   \item from the \underline{developers perspective}, it:
@@ -47,7 +47,7 @@ In the \nameref{researchQuestions} section we presented the questions that we ai
 
     As we have already established, IUIDL is agnostic of the view layer. Using IUIDL, developers do not implement "actual UI elements", they implement descriptions of a UI. Intertext clients are responsible for interpreting and rendering these descriptions in an accessible manner. The accessibility implementations are already handled, without needing any further action from the developer.
     
-    \item \underline{eliminates the need to create front-end applications for every} \newline \underline{device / platform ?}
+    \item \underline{eliminates the need to create front-end applications for every} \newline \underline{device/platform ?}
 
     Once an Intertext application is being served from an endpoint, it works on any Intertext client on any platform. IUIDL is universal, device agnostic, thus applications built on IUIDL are also universal and device agnostic. It's components, commands, even the layout system runs predictably across all devices of all screen sizes and capabilities, lifting concerns arising from cross-platform development from developers plate.
     
@@ -91,7 +91,7 @@ In the \nameref{contributions} section, we have listed our projects main contrib
     
     \item \textbf{IUIDL}: We created an XML-based User Interface description language. We designed it to be device and style agnostic. We gave it the ability to not only describe UI elements, but also flow of actions and commands to make the applications interactive.
     
-    \item \textbf{Intertext Engine}: We have centralized the entire logic of parsing, handling and rendering IUIDL into one single engine. Intertext clients that are Javascript-based can use the engine directly; and for clients that are not Javascript-based, a wrapper Node.js application can be built to have it communicate based on the requirements. With Intertext engine being used, clients only have to implement the view layer, and the rest is handled by the engine. Given the open source nature of Intertext, the true power can be realised when community-driven Intertext clients are developed that solves specific problems from specific domains that our clients cannot solve. With this in mind, the engine is a crucial aspect that will enable more clients to be built, and that every client works consistently. 
+    \item \textbf{Intertext Engine}: We have centralised the entire logic of parsing, handling and rendering IUIDL into one single engine. Intertext clients that are Javascript-based can use the engine directly; and for clients that are not Javascript-based, a wrapper Node.js application can be built to have it communicate based on the requirements. With Intertext engine being used, clients only have to implement the view layer, and the rest is handled by the engine. Given the open source nature of Intertext, the true power can be realised when community-driven Intertext clients are developed that solves specific problems from specific domains that our clients cannot solve. With this in mind, the engine is a crucial aspect that will enable more clients to be built, and that every client works consistently. 
     
     \item \textbf{Intertext Clients}: We aim to create Intertext clients that covers all the mainstream consumer devices and certain use cases. More details on the future of Intertext is discussed thoroughly in the \nameref{futureWork} section, but as of writing of the thesis, we have implemented the Intertext web client. We created a responsive experience so that it can comfortably be used on mobile browsers until native clients are released.
     
@@ -110,7 +110,7 @@ Intertext project is a work in progress. At the time of the thesis, we only impl
     \item \textbf{Themes}: Currently Intertext web client comes with a light and a dark theme. But we plan to build a lot more themes that users can chose from. Moreover, we plan to allow users to create their own themes, and possibly share the themes they have created with other users.
     
     \item \textbf{Media queries}: We plan to add support for media queries to allow users to adjust the layout based on screen dimensions.
-    \item \textbf{Refined control on persisted storage}: Intertext client allows applications to store data on users device / browser. We plan to improve this ability, and support more options such as expiration dates.
+    \item \textbf{Refined control on persisted storage}: Intertext client allows applications to store data on users device/browser. We plan to improve this ability, and support more options such as expiration dates.
     
     \item \textbf{Cross-origin requests}: Intertext clients do not allow cross-origin requests. That is, an application served from an endpoint can only make requests to the same endpoint it is served from. However there are some cases that requires requests outside; for instance loading images, videos, resources from CDN servers, embedding content and so on. To enable this, we plan to allow outside requests once the permission is granted by the user. Also for transparency, we plan to create an interface that displays the request history logs to allow users to investigate the data flow.
     
