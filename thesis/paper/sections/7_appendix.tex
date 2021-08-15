@@ -21,42 +21,308 @@
 
 \subsection{Phase 1}
 
-Demographics
+\url{https://docs.google.com/spreadsheets/d/14O2GtfgTUWxK4xrQGRvkuS3sWyIzHzcyzTQwp9G71QU/edit?usp=sharing}
+
+\subsubsection{Demographics}
 
 \begin{figure}[H]
-  \centering
-  \includegraphics[width=13cm]{thesis/paper/images/p1_age.pdf}
-  \textbf{Age distribution}
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\small]
+
+\pie[radius=2,text=legend]{
+      12.6/Above 45,
+      42.0/31 - 45,
+      45.4/17 - 30}
+
+\end{tikzpicture}
+\vspace*{-1mm}
+\caption{Age distribution}
 \end{figure}
+
 
 \begin{figure}[H]
-  \centering
-  \includegraphics[width=13cm]{thesis/paper/images/p1_gender.pdf}
-  \textbf{Gender distribution}
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\small]
+
+\pie[radius=2,text=legend]{
+      60.5/Male,
+      38.7/Female,
+      0.8/Prefer not to say}
+
+\end{tikzpicture}
+\vspace*{-1mm}
+\caption{Gender distribution}
 \end{figure}
+
 
 \begin{figure}[H]
-  \centering
-  \includegraphics[width=13cm]{thesis/paper/images/p1_country.pdf}
-  \textbf{Country of Origin}
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\small]
+
+\pie[radius=2,text=legend]{
+      2.5/United Kingdom,
+      5.9/Italy,
+      2.5/Canada,
+      19.3/USA,
+      10.1/Brazil,
+      24.4/India,
+      4.2/Other,
+      31.1/Prefer not to say}
+
+\end{tikzpicture}
+\vspace*{-1mm}
+\caption{Country of Origin}
 \end{figure}
 
-Advertisement
+\subsubsection{Advertisement}
  
 \begin{figure}[H]
-  \centering
-  \includegraphics[width=13cm]{thesis/paper/images/p1_q4.pdf}
-  \textbf{Question:} I use an AdBlocker
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\small]
+
+\pie[radius=2,text=legend,color={green!70,red!70}]{
+      67.2/Yes,
+      32.8/No}
+
+\end{tikzpicture}
+\vspace*{-1mm}
+\caption{I use an AdBlocker}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\small]
+
+\pie[radius=2,text=legend,color={green!70,green!30,gray!30,red!40,red!70}]{
+      26.1/Strongly agree,
+      53.8/Agree,
+      14.3/Neutral,
+      5.0/Disagree,
+      0/Strongly disagree}
+
+\end{tikzpicture}
+\vspace*{-1mm}
+\caption{I'm often frustrated with ads on the internet}
 \end{figure}
 
 \begin{figure}[H]
-  \centering
-  \includegraphics[width=13cm]{thesis/paper/images/p1_q5.pdf}
-  \textbf{Question:} I'm often frustrated with ads on the internet
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\small]
+
+\pie[radius=2,text=legend,color={green!70,green!30,gray!30,red!40,red!70}]{
+      27.7/Strongly agree,
+      51.3/Agree,
+      15.1/Neutral,
+      5.0/Disagree,
+      0/Strongly disagree}
+
+\end{tikzpicture}
+\vspace*{-1mm}
+\caption{I'm often frustrated with ads on mobile/desktop apps}
+\end{figure}
+
+
+\subsubsection{Cross-platform Support}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\small]
+
+\pie[radius=2,text=legend,color={green!70,green!30,gray!30,red!40,red!70}]{
+      16.0/Strongly agree,
+      47.9/Agree,
+      22.7/Neutral,
+      11.8/Disagree,
+      1.7/Strongly disagree}
+
+\end{tikzpicture}
+\vspace*{-1mm}
+\caption{Occasionally I have to use desktop applications that are not optimised for small screens/touch interfaces on my phone}
+\end{figure}
+
+
+\subsubsection{Privacy/Security}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\small]
+
+\pie[radius=2,text=legend,color={green!70,green!30,gray!30,red!40,red!70}]{
+      10.9/Strongly agree,
+      34.5/Agree,
+      29.4/Neutral,
+      16.8/Disagree,
+      8.4/Strongly disagree}
+
+\end{tikzpicture}
+\vspace*{-1mm}
+\caption{I feel safe on the internet}
 \end{figure}
 
 \begin{figure}[H]
-  \centering
-  \includegraphics[width=13cm]{thesis/paper/images/p1_q6.pdf}
-  \textbf{Question:} I'm often frustrated with ads on mobile/desktop apps
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\small]
+
+\pie[radius=2,text=legend,color={green!70,red!70}]{
+      70.6/Yes,
+      29.4/No}
+
+\end{tikzpicture}
+\vspace*{-1mm}
+\caption{Me, or someone I know was targeted by malicious software before}
+\end{figure}
+
+
+\subsection{Phase 2}
+
+\begin{itemize}
+    \item End user: \url{https://docs.google.com/spreadsheets/d/16xdPzjF1POJ3jb3-BXu1W8QeyPSRyPRdPLCcD4aU-LQ/edit?usp=sharing}
+    \item Developers: \url{https://docs.google.com/spreadsheets/d/1CsGuZJcv2aqCRF2aNhtGfSCnCFrejdKZYUIqunJgyTA/edit?usp=sharing}
+\end{itemize}
+
+\subsubsection{Demographics}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\small]
+
+\pie[radius=2,text=legend]{
+      5.6/Above 45,
+      40.7/31 - 45,
+      53.7/17 - 30}
+
+\end{tikzpicture}
+\vspace*{-1mm}
+\caption{Age distribution (end user survey)}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\small]
+
+\pie[radius=2,text=legend]{
+      0/Above 45,
+      71.4/31 - 45,
+      28.6/17 - 30}
+
+\end{tikzpicture}
+\vspace*{-1mm}
+\caption{Age distribution (developer survey)}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\small]
+
+\pie[radius=2,text=legend]{
+      70.4/Male,
+      29.6/Female,
+      0/Prefer not to say}
+
+\end{tikzpicture}
+\vspace*{-1mm}
+\caption{Gender distribution (end user survey)}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\small]
+
+\pie[radius=2,text=legend]{
+      57.1/Male,
+      42.9/Female,
+      0/Prefer not to say}
+
+\end{tikzpicture}
+\vspace*{-1mm}
+\caption{Gender distribution (developer survey)}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\small]
+
+\pie[radius=2,text=legend]{
+      1.9/United Kingdom,
+      3.7/Brazil,
+      5.6/Italy,
+      35.2/USA,
+      38.9/India,
+      5.4/Other,
+      9.3/Prefer not to say}
+
+\end{tikzpicture}
+\vspace*{-1mm}
+\caption{Country of Origin (end user survey)}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\small]
+
+\pie[radius=2,text=legend]{
+      7.1/USA,
+      78.6/India,
+      0/Other,
+      14.3/Prefer not to say}
+
+\end{tikzpicture}
+\vspace*{-1mm}
+\caption{Country of Origin (developer survey)}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\small]
+
+\pie[radius=2,text=legend]{
+      21.4/1 to 3,
+      50.0/3 to 5,
+      0/5 to 10,
+      28.6/10 or more}
+
+\end{tikzpicture}
+\vspace*{-1mm}
+\caption{Years of Experience (developer survey)}
+\end{figure}
+
+
+\subsubsection{Customisability}
+
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\small]
+
+\pie[radius=2,text=legend,color={green!70,green!30,gray!30,red!40,red!70}]{
+      29.6/Strongly agree,
+      42.6/Agree,
+      18.5/Neutral,
+      7.4/Disagree,
+      1.9/Strongly disagree}
+
+\end{tikzpicture}
+\vspace*{-1mm}
+\caption{\textbf{end user survey} I prefer choosing the look-and-feel I like for all apps, instead of each app having their own look-and-feel}
 \end{figure}
