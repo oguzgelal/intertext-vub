@@ -300,7 +300,7 @@ Figure \ref{fig:ex_cmd_post_timeout} shows an example of how a network request a
 \label{fig:ex_cmd_form}%
 \end{figure}
 
-\begin{figure}
+\begin{figure}[htb]
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[language=javascript]
 router.get('/signup', async (req, res, next) => {
@@ -348,7 +348,7 @@ Another type of storage is the persisted storage. As the name suggests, values s
 
 In order to protect user privacy, Intertext clients block cross-origin storage reads/writes, preventing users to be tracked across Intertext applications. In another words, state management is bound to the origin. Lets assume \texttt{sub1.example.com} wrote data to the storage. This data can only be read or manipulated by the very same domain. \texttt{sub2.example.com} or \newline\texttt{sub.example2.com} or any other domain will not have access to this data. While this behaviour protects users from cross-origin tracking, it may also be inconvenient for some users, especially in scenarios such as services that share the same user login that is distributed across multiple domains/subdomains. As further mentioned in the \nameref{futureWork} section, we plan to add a feature where Intertext clients would ask for user permission to share data between domains/subdomains instead of directly blocking it.
 
-\begin{figure}
+\begin{figure}[htb]
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[language=xml]
 <!-- signup_form -->
