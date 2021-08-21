@@ -31,7 +31,7 @@ There is no foolproof way of entirely securing a piece of software; even the mos
 
 Privacy is a common concern among users; primarily due to the recent scandals and data leaks, people started getting more conscious about their data. There is an increasing demand for users to be more in control and be aware of what is exposed and what is not. In order to address this burning need, we adopted transparency as a design principle. 
 
-The most prominent way of achieving this is to have Intertext clients in control of all interactions with the device and with external sources and keep logs in order to make them transparent to the user. The above-mentioned principle that no foreign code will be executed goes hand-in-hand with achieving this, as it would be unrealistic to expect complete control as it would be a non-deterministic approach. A good analogy would be to think of Intertext clients as an API endpoint that runs on users devices and exposes fundamental interactions with the host device and external networks through an API in a fully controlled manner. An application could \dquote{instruct} the Intertext client via IUIDL to perform some actions, such as making a network request, storing data, and accessing the local storage. An Intertext client will then block this action until the user grant permission and keeps a log every time before performing an action as shown in Figure \ref{fig:permission_flow}
+The most prominent way of achieving this is to have Intertext clients in control of all interactions with the device and with external sources and keep logs in order to make them transparent to the user. The above-mentioned principle that no foreign code will be executed goes hand-in-hand with achieving this, as it would be unrealistic to expect complete control as it would be a non-deterministic approach. A good analogy would be to think of Intertext clients as an API endpoint that runs on users devices and exposes fundamental interactions with the host device and external networks through an API in a fully controlled manner. An application could \dquote{instruct} the Intertext client via IUIDL to perform some actions, such as making a network request, storing data, and accessing the local storage. An Intertext client will then block this action until the user grant permission and keeps a log every time before performing an action as shown in Figure~\ref{fig:permission_flow}
 
 \begin{figure}
   \centering
@@ -72,7 +72,7 @@ Intertext adopts a component-based approach with a set of components that develo
 \begin{figure}[htb]
   \centering
   \includegraphics[width=13cm]{thesis/paper/images/buttons.png}
-  \caption{Output of IUIDL in Figure \ref{fig:iuidl_buttons} on Intertext web client}%
+  \caption{Output of IUIDL in Figure~\ref{fig:iuidl_buttons} on Intertext web client}%
   \label{fig:iuidl_buttons_output}%
 \end{figure}
 
@@ -108,7 +108,7 @@ router.get('/todo', function(req, res, next) {
 });
 \end{lstlisting}
 \end{minipage}
-\caption{A simple Express endpoint that serves the render output of the Handlebars template shown in Figure \ref{fig:todos_template}}%
+\caption{A simple Express endpoint that serves the render output of the Handlebars template shown in Figure~\ref{fig:todos_template}}%
 \label{fig:todos_js}%
 \end{figure}
 
@@ -143,18 +143,18 @@ router.get('/todo', function(req, res, next) {
 \begin{figure}
   \centering
   \includegraphics[width=13cm]{thesis/paper/images/todos.png}
-  \caption{IUIDL served from the endpoint in Figure \ref{fig:todos_js} rendered by the Intertext web client}%
+  \caption{IUIDL served from the endpoint in Figure~\ref{fig:todos_js} rendered by the Intertext web client}%
   \label{fig:todos_output}%
 \end{figure}
 
 \subsection{Styling}
 
-IUIDL is agnostic of the styling. There are several \textit{intent}s that components can accept, which renders the component most appropriately based on its use case. For instance, the Remove buttons in Figure~\ref{fig:todos_output} as can be seen as red, and Done buttons green. That is because the \textit{error} intent was given to the Remove button and \textit{success} intent was given to the Done button. However, in this configuration, there is no way to specify how the components look like in particular. The main idea is customisability. Intertext provides themes that users can choose from, and for each theme UI components look and feel differently. Currently, only light and dark themes are available for the web version of Intertext (the dark version of the To-do list UI can be seen in Figure \ref{fig:todos_output_dark}), but as mentioned in the \nameref{futureWork} section, more themes will be made available. Moreover, users will also be able to create custom themes that exactly match their liking.
+IUIDL is agnostic of the styling. There are several \textit{intent}s that components can accept, which renders the component most appropriately based on its use case. For instance, the Remove buttons in Figure~\ref{fig:todos_output} as can be seen as red, and Done buttons green. That is because the \textit{error} intent was given to the Remove button and \textit{success} intent was given to the Done button. However, in this configuration, there is no way to specify how the components look like in particular. The main idea is customisability. Intertext provides themes that users can choose from, and for each theme UI components look and feel differently. Currently, only light and dark themes are available for the web version of Intertext (the dark version of the To-do list UI can be seen in Figure~\ref{fig:todos_output_dark}), but as mentioned in the \nameref{futureWork} section, more themes will be made available. Moreover, users will also be able to create custom themes that exactly match their liking.
 
 \begin{figure}
   \centering
   \includegraphics[width=13cm]{thesis/paper/images/todos_dark.png}
-  \caption{Dark version of the To-do list UI from Figure \ref{fig:todos_output} rendered by Intertext web client}%
+  \caption{Dark version of the To-do list UI from Figure~\ref{fig:todos_output} rendered by Intertext web client}%
   \label{fig:todos_output_dark}%
 \end{figure}
 
@@ -162,9 +162,7 @@ IUIDL is agnostic of the styling. There are several \textit{intent}s that compon
 
 As explained in detail in the \nameref{implementation} section, IUIDL gets converted from XML syntax to JSON syntax. However, the conversion to JSON is only an implementation detail that takes place during the rendering phase, and developers do not need to be aware of. XML was chosen at the cost of creating an additional transpilation layer, to achieve optimum developer friendliness. 
 
-When it comes to building UIs, XML and XML-like languages are very common. The main benefit of such languages is that they are easy to read and write, while at the same time they are easy to parse and process as data. IUIDL is meant to be served from a backend, but developers still need to write IUIDL code by hand on the server side. JSON is far from being practical to write in large by hand. The difference could be observed in Figure \ref{fig:syntax_json} and Figure \ref{fig:syntax_xml}, where the IUIDL code for a custom 404 page is shown in both XML and JSON syntax.
-
-\begin{figure}
+\begin{figure}[htb]
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[language=xml]
 <block intent="error">
@@ -184,7 +182,9 @@ When it comes to building UIs, XML and XML-like languages are very common. The m
 \label{fig:syntax_xml}%
 \end{figure}
 
-\begin{figure}
+When it comes to building UIs, XML and XML-like languages are very common. The main benefit of such languages is that they are easy to read and write, while at the same time they are easy to parse and process as data. IUIDL is meant to be served from a backend, but developers still need to write IUIDL code by hand on the server side. JSON is far from being practical to write in large by hand. The difference could be observed in Figure~\ref{fig:syntax_json} and Figure~\ref{fig:syntax_xml}, where the IUIDL code for a custom 404 page is shown in both XML and JSON syntax.
+
+\begin{figure}[htb]
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[language=json]
 [
@@ -212,9 +212,9 @@ When it comes to building UIs, XML and XML-like languages are very common. The m
 \end{figure}
 
 
-One issue that raised from the XML syntax was the inability to assign complex children to attributes of a specific tag. As it can be seem from the JSON representation of the 404 page in Figure \ref{fig:syntax_json}, the component \texttt{collapse} requires two sets of children: one for its direct children (specified as \texttt{collapse}), and one for the children to be rendered in its handle (specified as \texttt{handle}). Both \texttt{collapse} and \texttt{handle} properties take other UI components as their children. However, the XML syntax only allows attribute values of an element to be a string. In order to solve this problem, we introduced a special tag name convention: when an XML tree is placed as the children of a component with the tag name being the parent components name concatenated with an attribute name joined together with a dot (\dquote{.}), it gets interpreted as an attribute of the parent, with its value being the children of that XML tree as shown in Figure \ref{fig:complex_attributes}.
+One issue that raised from the XML syntax was the inability to assign complex children to attributes of a specific tag. As it can be seem from the JSON representation of the 404 page in Figure~\ref{fig:syntax_json}, the component \texttt{collapse} requires two sets of children: one for its direct children (specified as \texttt{collapse}), and one for the children to be rendered in its handle (specified as \texttt{handle}). Both \texttt{collapse} and \texttt{handle} properties take other UI components as their children. However, the XML syntax only allows attribute values of an element to be a string. In order to solve this problem, we introduced a special tag name convention: when an XML tree is placed as the children of a component with the tag name being the parent components name concatenated with an attribute name joined together with a dot (\dquote{.}), it gets interpreted as an attribute of the parent, with its value being the children of that XML tree as shown in Figure~\ref{fig:complex_attributes}.
 
-\begin{figure}
+\begin{figure}[htb]
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[language=xml]
 <a>
@@ -254,9 +254,9 @@ Intertext clients consist of two main parts, components and commands. Each Inter
 
 \subsection{Components}
 
-Components are anything that has a visual representation. All components stem from a generic IUIDL definition, and are interpreted based on the host platform requirements. They can be organisational or presentational. Organisational components are the layout components, they are used to position presentational components on the screen. Intertext implements a version of the CSS flexbox specification as a layout system, which could be used to implement responsive interfaces for all screen sizes. For non-browser-based platforms, we use the popular Yoga layout engine \footnote{\url{https://yogalayout.com}}, which is a standalone implementation of the css flexbox specification in C++, allowing us to target almost any platform. More details on the layout system is given in the \nameref{implementation} section.
+Components are anything that has a visual representation. All components stem from a generic IUIDL definition, and are interpreted based on the host platform requirements. They can be organisational or presentational. Organisational components are the layout components, they are used to position presentational components on the screen. Intertext implements a version of the CSS flexbox specification as a layout system, which could be used to implement responsive interfaces for all screen sizes. For non-browser-based platforms, we use the popular Yoga layout engine\footnote{\url{https://yogalayout.com}}, which is a standalone implementation of the css flexbox specification in C++, allowing us to target almost any platform. More details on the layout system is given in the \nameref{implementation} section.
 
-Most presentational Intertext components share a concept, \texttt{intent}, which is a way to communicate the intention of the UI element based on its use-case. Intertext clients render the UI elements differently based on its intent, allowing a way for the developer to convey an intention of an UI element to the user without being able to intercept with the styles. For instance, an error message could be shown in a block component that has the intent \texttt{error}, and it will be rendered with a red background, indicating to the user that it is an error message. Figure \ref{fig:intents} shows an example of intents on block component for Intertext web client.
+Most presentational Intertext components share a concept, \texttt{intent}, which is a way to communicate the intention of the UI element based on its use-case. Intertext clients render the UI elements differently based on its intent, allowing a way for the developer to convey an intention of an UI element to the user without being able to intercept with the styles. For instance, an error message could be shown in a block component that has the intent \texttt{error}, and it will be rendered with a red background, indicating to the user that it is an error message. Figure~\ref{fig:intents} shows an example of intents on block component for Intertext web client.
 
 \begin{figure}[htb]
   \centering
@@ -281,7 +281,7 @@ Commands are IUIDL statements that are used to instruct Intertext clients to tak
 \label{fig:ex_cmd_post_timeout}%
 \end{figure}
 
-Figure \ref{fig:ex_cmd_post_timeout} shows an example of how a network request action can be executed upon a delay, and Figure \ref{fig:ex_cmd_form} shows how a form can be submitted with reference to input fields. More on commands will be on \nameref{implementation} section.
+Figure~\ref{fig:ex_cmd_post_timeout} shows an example of how a network request action can be executed upon a delay, and Figure~\ref{fig:ex_cmd_form} shows how a form can be submitted with reference to input fields. More on commands will be on \nameref{implementation} section.
 
 \begin{figure}[htb]
 \begin{minipage}{\linewidth}
@@ -342,11 +342,7 @@ router.get('/signup', async (req, res, next) => {
 
 Intertext clients offer some basic state management, making it possible to serve stateful Intertext applications using serverless/stateless backends. front-end state can be fully driven from the backend via IUIDL. Intertext client offers two types of storage, persisted and volatile. 
 
-Volatile storage is kept in the memory and persisted across the session. The purpose of this storage is to keep temporary values, such as users' progress in a long form distributed across multiple pages. Intertext clients pass the entire application state of the volatile storage to the backend with every request, allowing the backend to build logic around the current state of the front-end application, and serve the UI accordingly. Figure~\ref{fig:state_signup_progress_js} and Figure~\ref{fig:state_signup_progress_xml} show this through a hypothetical sign up form with sign up steps distributed across multiple screens. Figure~\ref{fig:state_signup_progress_js}, we see the pseudo-code implementation of the stateless backend for this scenario. It can be seen that the current step user is at, and the input state data collected thus far is kept in the volatile state on the front-end. The state gets passed on to the backend on every request made to the \texttt{/signup} endpoint. We retrieve the current step, and serve different responses accordingly. If a user completed the last step, then we execute our application logic (which in this case is signing user up), and render the result page. Otherwise, we increment the current step, combine the form data collected thus far, and render the form template with these. On the form template in Figure \ref{fig:state_signup_progress_xml}, we use the \texttt{<state>} block to instruct the Intertext client to record these new set of data to the front-end, so it could be passed on to the backend on the next request. Moreover, we render the correct form UI based on the step user is currently at.
-
-Another type of storage is the persisted storage. As the name suggests, values stored this way are persisted across sessions. Unlike the volatile storage, in which the data is kept in the memory, persisted storage gets stored locally using the storage option available to the host platform. By default, data available in the persisted storage is not passed on to the backend in every request automatically, but can be configured to do so.
-
-In order to protect user privacy, Intertext clients block cross-origin storage reads/writes, preventing users to be tracked across Intertext applications. In another words, state management is bound to the origin. Lets assume \texttt{sub1.example.com} wrote data to the storage. This data can only be read or manipulated by the very same domain. \texttt{sub2.example.com} or \newline\texttt{sub.example2.com} or any other domain will not have access to this data. While this behaviour protects users from cross-origin tracking, it may also be inconvenient for some users, especially in scenarios such as services that share the same user login that is distributed across multiple domains/subdomains. As further mentioned in the \nameref{futureWork} section, we plan to add a feature where Intertext clients would ask for user permission to share data between domains/subdomains instead of directly blocking it.
+Volatile storage is kept in the memory and persisted across the session. The purpose of this storage is to keep temporary values, such as users' progress in a long form distributed across multiple pages. Intertext clients pass the entire application state of the volatile storage to the backend with every request, allowing the backend to build logic around the current state of the front-end application, and serve the UI accordingly. Figure~\ref{fig:state_signup_progress_js} and Figure~\ref{fig:state_signup_progress_xml} show this through a hypothetical sign up form with sign up steps distributed across multiple screens. Figure~\ref{fig:state_signup_progress_js}, we see the pseudo-code implementation of the stateless backend for this scenario. It can be seen that the current step user is at, and the input state data collected thus far is kept in the volatile state on the front-end. The state gets passed on to the backend on every request made to the \texttt{/signup} endpoint. We retrieve the current step, and serve different responses accordingly. If a user completed the last step, then we execute our application logic (which in this case is signing user up), and render the result page. Otherwise, we increment the current step, combine the form data collected thus far, and render the form template with these. On the form template in Figure~\ref{fig:state_signup_progress_xml}, we use the \texttt{<state>} block to instruct the Intertext client to record these new set of data to the front-end, so it could be passed on to the backend on the next request. Moreover, we render the correct form UI based on the step user is currently at.
 
 \begin{figure}[htb]
 \begin{minipage}{\linewidth}
@@ -383,7 +379,11 @@ In order to protect user privacy, Intertext clients block cross-origin storage r
 \end{lstlisting}
 
 \end{minipage}
-\caption{Template files for multi-step sign up flow in Figure \ref{fig:state_signup_progress_js}}%
+\caption{Template files for multi-step sign up flow in Figure~\ref{fig:state_signup_progress_js}}%
 \label{fig:state_signup_progress_xml}%
 \end{figure}
+
+Another type of storage is the persisted storage. As the name suggests, values stored this way are persisted across sessions. Unlike the volatile storage, in which the data is kept in the memory, persisted storage gets stored locally using the storage option available to the host platform. By default, data available in the persisted storage is not passed on to the backend in every request automatically, but can be configured to do so.
+
+In order to protect user privacy, Intertext clients block cross-origin storage reads/writes, preventing users to be tracked across Intertext applications. In another words, state management is bound to the origin. Lets assume \texttt{sub1.example.com} wrote data to the storage. This data can only be read or manipulated by the very same domain. \texttt{sub2.example.com} or \newline\texttt{sub.example2.com} or any other domain will not have access to this data. While this behaviour protects users from cross-origin tracking, it may also be inconvenient for some users, especially in scenarios such as services that share the same user login that is distributed across multiple domains/subdomains. As further mentioned in the \nameref{futureWork} section, we plan to add a feature where Intertext clients would ask for user permission to share data between domains/subdomains instead of directly blocking it.
 

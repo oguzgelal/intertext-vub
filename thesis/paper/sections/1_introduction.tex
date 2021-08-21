@@ -2,9 +2,9 @@
 
 \chapter{Introduction} \label{introduction}
 
-In recent decades, the rise of smart interconnected devices not only changed how we interact with information, but also introduced all-new ways of engaging with the world. The rise of smartphones enabled users to consume content and perform tasks on-the-go, tablets made people rethink the ways they work and travel and wearable devices made new sets of data available to users. The Ericsson Mobility Report of February 2021 reveals that the number of connected devices has been steadily increasing~\footnote{Ericsson Mobility Report 2020 Q4: \url{https://www.ericsson.com/49220c/assets/local/mobility-report/documents/2020/emr-q4-2020-update.pdf}}, and with new devices and form-factors underway, such as smart glasses, smart vehicles and folding displays, this trend is likely to continue in the foreseeable future. 
+In recent decades, the rise of smart interconnected devices not only changed how we interact with information, but also introduced all-new ways of engaging with the world. The rise of smartphones enabled users to consume content and perform tasks on-the-go, tablets made people rethink the ways they work and travel and wearable devices made new sets of data available to users. The Ericsson Mobility Report of February 2021 reveals that the number of connected devices has been steadily increasing\footnote{Ericsson Mobility Report 2020 Q4: \url{https://www.ericsson.com/49220c/assets/local/mobility-report/documents/2020/emr-q4-2020-update.pdf}}, and with new devices and form-factors underway, such as smart glasses, smart vehicles and folding displays, this trend is likely to continue in the foreseeable future. 
 
-The increasing demand in the diversity of devices and device families also increased the demand for front-end application development, as it became more challenging and costly to have a decent user-facing online presence. This lead to advancements in front-end development; emerging new tools, techniques, frameworks, libraries, and SDKs made it possible to build consumer-facing products in ways that were never possible before. Nevertheless, the ever-growing front-end ecosystem and high user demands forced developers to spread their focus to overwhelming levels. In a recent survey~\footnote{State of JS 2020: \url{https://2020.stateofjs.com}}, 99,715 developers were asked about 47 popular front-end tools, frameworks and libraries. 96.2\% of the participants reported that they were aware of more than 5, while 93.05\% were aware of more than 10 and 50.71\% were aware of more than 20. Moreover, 91.74\% of the participants showed interest in more than 5, 63.93\% in more than 10, and 13.53\% in more than 20 of the tools, frameworks and libraries \footnote{Link to the raw survey data, and source code used to process the data are provided in the \nameref{App:AppendixA}}. This transformation did help create a large and dynamic market of consumer products, goods and services, though it did not come without some hurdles. In this thesis, we explore what these hurdles are and discuss how Intertext addresses them.
+The increasing demand in the diversity of devices and device families also increased the demand for front-end application development, as it became more challenging and costly to have a decent user-facing online presence. This lead to advancements in front-end development; emerging new tools, techniques, frameworks, libraries, and SDKs made it possible to build consumer-facing products in ways that were never possible before. Nevertheless, the ever-growing front-end ecosystem and high user demands forced developers to spread their focus to overwhelming levels. In a recent survey\footnote{State of JS 2020: \url{https://2020.stateofjs.com}}, 99,715 developers were asked about 47 popular front-end tools, frameworks and libraries. 96.2\% of the participants reported that they were aware of more than 5, while 93.05\% were aware of more than 10 and 50.71\% were aware of more than 20. Moreover, 91.74\% of the participants showed interest in more than 5, 63.93\% in more than 10, and 13.53\% in more than 20 of the tools, frameworks and libraries\footnote{Link to the raw survey data, and source code used to process the data are provided in the \nameref{App:AppendixA}}. This transformation did help create a large and dynamic market of consumer products, goods and services, though it did not come without some hurdles. In this thesis, we explore what these hurdles are and discuss how Intertext addresses them.
 
 \section{Problem Statement} \label{problemStatement}
 
@@ -35,7 +35,7 @@ In the open market, where everyone can create user-facing applications, there ar
 
 \subsection{Developer Problems}
 
-The complexity of building a decent, well designed, accessible front-end experience, not even once but once per every client built for various platforms, forces developers to choose between supporting multiple devices, following best practices, and creating a good experience.
+The complexity of building a decent, well-designed, accessible front-end experience, not even once but once per every client built for various platforms, forces developers to choose between supporting multiple devices, following best practices, and creating a good experience.
 
 \subsubsection{Challenges in Development}
 \begin{enumerate}
@@ -59,7 +59,7 @@ We have listed the problems that we are interested to solve in the section above
   \begin{enumerate}
     \item presents a consistent User Experience (UX)?
     \item works consistently on all supported devices and platforms?
-    \item allow users to customise the look and feel?
+    \item allows users to customise the look and feel?
     \item guarantees accessibility?
     \item guarantees security and privacy?
   \end{enumerate}
@@ -86,7 +86,7 @@ As discussed in the Section~\ref{problemStatement} section, Intertext ambitiousl
     \item What the syntax should be like in order to maximise developer friendliness
     \item How to overcome some limitation of XML in the most effective, clear and extendable way
   \end{itemize}
-  \item We created an engine using JavaScript/Typescript to perform common tasks of Intertext clients, such as parsing IUIDL and managing the application state
+  \item We created an engine using JavaScript/TypeScript to perform common tasks of Intertext clients, such as parsing IUIDL and managing the application state
   \item We created multiple software clients that can render IUIDL into functional front-ends optimised for the host device and are user customisable where possible
 \end{itemize}
 
